@@ -13,15 +13,15 @@
             <div class="mt-8 w-full">
               <Form @submit="onSubmit" :validation-schema="schema" class="form-horizontal mx-auto w-3/4" method="POST" action="#">
                 <div class="mt-4 flex flex-col">
-                  <Field v-model="email" name="email" type="email" class="text-md w-full rounded-xl border-0 bg-gray-100 p-4 text-gray-500 outline-none focus:bg-gray-200 focus:outline-none" placeholder="Emailni kiriting..." />
-                  <ErrorMessage name="email" class="error-feedback font-medium text-rose-600" />
+                  <Field v-model="phone" v-mask="'+###(##) ###-##-##'" name="phone" type="phone" class="text-md w-full rounded-xl border-0 bg-gray-100 p-4 text-gray-500 outline-none focus:bg-gray-200 focus:outline-none" placeholder="+998(99) 876-54-32" />
+                  <ErrorMessage name="phone" class="error-feedback font-medium text-rose-600" />
                 </div>
                 <div class="mt-4 flex flex-col">
                   <Field v-model="password" name="password" type="password" class="text-md w-full rounded-xl border-0 bg-gray-100 p-4 text-gray-500 outline-none focus:bg-gray-200 focus:outline-none" placeholder="Parolni kiriting..." />
                   <ErrorMessage name="password" class="error-feedback font-medium text-rose-600" />
                 </div>
-                <div class="mt-8 flex flex-col">
-                  <button type="submit" class="text-md w-full rounded-xl bg-gray-900 py-5 text-white hover:bg-gray-800">Tizimga kirish</button>
+                <div class="mt-8 flex items-center">
+                  <button type="submit" class="text-md w-full rounded-xl flex justify-center bg-gray-900 py-5 text-white hover:bg-gray-800"><LoginIcon class="text-2xl mr-3"/>Tizimga kirish</button>
                 </div>
               </Form>
               <div class="mt-8 text-center">
@@ -52,17 +52,17 @@ import * as yup from 'yup'
 import { useStore } from 'vuex'
 import iziToast from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
-import authService from '../services/auth.service'
+import LoginIcon from '../assets/icons/LoginIcon.vue'
 
 const router = useRouter()
 
 const store = useStore()
 
-const email = ref('')
+const phone = ref('')
 const password = ref('')
 
 const schema = yup.object().shape({
-  email: yup.string().required('Iltimos. Emailni kitiring!'),
+  phone: yup.string().required('Iltimos. Telefon raqamni kitiring!'),
   password: yup.string().required('Iltimos. Parolni kitiring!'),
 })
 
@@ -70,28 +70,21 @@ function checkLogin(data) {
   store.commit('setLogin', data)
 }
 
-const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i //email regex
-
 const onSubmit = (user) => {
-  if (!regex.test(user.email)) {
-    iziToast.warning({
-      message: "Iltimos, to'g'ri email kiriting! Masalan namuna@misol.uz",
-      position: 'topRight',
-    })
-  } else {
-    store.dispatch('auth/login', user).then(
-      () => {
-        router.push('/')
-        checkLogin(true)
-      },
-      (error) => {
-        iziToast.error({
-          message: "Email toki parol noto'g'ri!",
-          position: 'topRight',
-        })
-      }
-    )
-  }
+  user.phone = user.phone.replace(')', '').replace('(', '').replace(' ', '').replace('-', '').replace('-', '')
+  console.log(user);
+  store.dispatch('auth/login', user).then(
+    () => {
+      router.push('/')
+      checkLogin(true)
+    },
+    (error) => {
+      iziToast.error({
+        message: "Telefon raqami yoki parol noto'g'ri!",
+        position: 'topRight',
+      })
+    }
+  )
 }
 </script>
 

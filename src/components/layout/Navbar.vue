@@ -81,7 +81,7 @@
               <path d="M5 5C5 2.79086 6.79086 1 9 1V1C11.2091 1 13 2.79086 13 5V5.57143C13 7.46498 11.465 9 9.57143 9V9H8.42857V9C6.53502 9 5 7.46498 5 5.57143V5Z" stroke="#222628" stroke-width="1.4" />
             </svg>
           </div>
-          <strong class="text-lg font-semibold ml-2 px-2 cursor-pointer text-zinc-900 hover:text-rose-500 capitalize">{{ name }}</strong>
+          <strong class="text-lg font-semibold ml-2 px-2 cursor-pointer text-zinc-900 hover:text-rose-500 capitalize">{{ fullname }}</strong>
           <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
         </button>
         <div id="dropdownInformation" class="z-10 hidden bg-white rounded shadow w-44">
@@ -124,8 +124,8 @@ const addUserInStore = () => {
   userService.getUser().then((data) => store.commit('setUser', data))
 }
 
-const name = computed(() => {
-  return store.state.user.name
+const fullname = computed(() => {
+  return store.state.user.fullname
 })
 
 function toggleDropDown() {
@@ -150,7 +150,7 @@ $(document).click(function (event) {
 
 function autoLogout() {
   setTimeout(() => {
-    if (!store.state.user.name) {
+    if (!store.state.user.fullname) {
       authService.logout()
       checkLogin(false)
       router.go('/login')
