@@ -1,5 +1,5 @@
 <template>
-  <div class="w-80 h-screen fixed" id="sidenavSecExample">
+  <div class="w-80 h-screen fixed bg-white" id="sidenavSecExample">
     <div class="p-2 pl-10 mt-3 ml-3">
       <router-link class="cursor-pointer" to="/">
         <div class="flex items-center">
@@ -8,8 +8,9 @@
         </div>
       </router-link>
     </div>
-    <ul class="relative mt-5 ml-3">
-      <li class="relative" v-for="menu of menus" :key="menu">
+    <ul class="relative mt-5">
+      <li class="relative flex items-center" v-for="menu of menus" :key="menu">
+        <div class="rounded-xl h-14 w-3 -ml-1.5" :class="{'bg-blue-500' : page === menu.name || $router.currentRoute.value.path === menu.url}"></div>
         <MenuItem :menu="menu" />
       </li>
     </ul>
@@ -20,27 +21,28 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import MenuItem from './MenuItem.vue'
+import { useStore } from 'vuex';
+import { computed } from '@vue/runtime-core';
 
-export default {
-  data() {
-    return {
-      menus: [
-        { id: 1, url: '/', icon: 'home-outline', name: 'Asosiy sahifa' },
-      ],
-    }
-  },
-  components: {
-    MenuItem,
-  },
-}
+const store = useStore()
+
+const page = computed(() => {
+  return store.state.currentPage
+})
+
+const menus = [
+  { id: 1, url: '/', icon: 'home-outline', name: 'Asosiy sahifa' },
+  { id: 2, url: '/members', icon: 'people-outline', name: "A'zolarimiz" },
+]
+
 </script>
 
 <style scoped>
 .active {
-  background-color: rgb(237 233 254);
-  color: rgb(139 92 246);
+  background-color: rgb(59 130 246);
+  color: #fff;
 }
 .custom-top {
   top: 49vh;
