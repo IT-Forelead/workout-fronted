@@ -7,6 +7,11 @@ const routes = [
     component: () => import('../components/pages/Main.vue'),
   },
   {
+    path: '/members',
+    name: 'A\'zolar',
+    component: () => import('../components/pages/Membership.vue'),
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import('../components/Login.vue'),

@@ -4,7 +4,7 @@
       <Sidebar />
       <div class="ml-80 flex-1 transition-all duration-500" :class="{'ml-20': sidebarStatus}">
         <Navbar />
-        <router-view />
+        <router-view class="bg-slate-100 rounded-tl-xl pt-5" />
       </div>
     </div>
   </div>

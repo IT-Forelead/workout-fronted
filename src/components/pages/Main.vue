@@ -1,6 +1,6 @@
 <template>
-  <div class="px-5">
-    <h1 class="my-3 text-2xl font-extrabold">Asosiy sahifa</h1>
+  <div class="px-5 h-full">
+    <h3 class="text-2xl font-extrabold ml-2 mb-5">Asosiy sahifa</h3>
     <div class="card-wrapper grid grid-cols-4 gap-10">
       <div class="card rounded-3xl bg-white p-7">
         <div class="items-top flex justify-between">
