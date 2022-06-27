@@ -8,8 +8,8 @@
             <div class="ml-2 grow text-lg font-semibold text-gray-900">IT-Forelead</div>
           </div>
           <div class="mb-5 flex flex-1 flex-col justify-center">
-            <h3 class="text-center text-4xl font-semibold">SMS-PLATFORM</h3>
-            <p class="my-5 px-10 text-center text-sm text-gray-500">Mijozlaringizni tug'ilgan kunlarida va bayramlarda hech qanday vaqt sarflamasdan avtamatik tarizda tabriklang!</p>
+            <h3 class="text-center text-4xl font-semibold">KIRISH</h3>
+            <p class="my-5 px-10 text-center text-sm text-gray-500">Tizimga kirish uchun telefon raqamingiz va parolingizni kiritishgingiz lozim!</p>
             <div class="mt-8 w-full">
               <Form @submit="onSubmit" :validation-schema="schema" class="form-horizontal mx-auto w-3/4" method="POST" action="#">
                 <div class="mt-4 flex flex-col">
@@ -34,8 +34,8 @@
         <div class="bg-image rounded-r-3xl md:block md:w-2/3">
           <div class="flex h-full items-center justify-center">
             <div class="mx-32 w-full rounded-xl px-10 py-16 text-white backdrop-blur-sm backdrop-contrast-50">
-              <h3 class="mb-5 text-3xl font-semibold">Lorem ipsum, dolor sit amet consectetur elit.</h3>
-              <p class="text-md">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit optio fuga, itaque deleniti facilis accusamus aliquam sint ad laborum nam?</p>
+              <h3 class="mb-5 text-3xl font-semibold">Workout platformasi</h3>
+              <p class="text-md">Tirnerovka klubingizni boshqarishni qulaylashtiruvchi, harajatlarni kamaytirgan holda ish samaradoligini oshiruvchi qulay va sodda tizim.</p>
             </div>
           </div>
         </div>
@@ -92,6 +92,6 @@ const onSubmit = (user) => {
 .bg-image {
   background: url('../assets/images/bg-login.jpg');
   background-size: cover;
-  background-position: 855px center;
+  background-position: -290px center;
 }
 </style>
