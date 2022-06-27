@@ -12,6 +12,7 @@ const store = createStore({
       isLogin: false,
       user: {},
       currentPage: '',
+      isSidebarOpen: false
     }
   },
   mutations: {
@@ -23,6 +24,9 @@ const store = createStore({
     },
     setSelectedPage(state, page) {
       state.currentPage = page
+    },
+    setSidebarStatus(state, status) {
+      state.isSidebarOpen = status
     }
   },
 })
