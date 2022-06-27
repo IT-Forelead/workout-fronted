@@ -40,6 +40,7 @@ const sidebarStatus = computed(() => {
 const menus = [
   { id: 1, url: '/', icon: 'home-outline', name: 'Asosiy sahifa' },
   { id: 2, url: '/members', icon: 'people-outline', name: "A'zolarimiz" },
+  { id: 2, url: '/payments', icon: 'wallet-outline', name: "To'lovlar" },
 ]
 </script>
 
