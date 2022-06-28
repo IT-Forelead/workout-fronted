@@ -1,7 +1,7 @@
 <template>
   <div class="px-5">
     <div class="flex items-center mb-5">
-      <h3 class="text-2xl font-extrabold ml-2 mb-3">To'lovlar</h3>
+      <h3 class="text-2xl font-extrabold ml-2 mb-3">Kelib-ketishlar</h3>
     </div>
     <div class="w-full mb-8 overflow-hidden border border-slate-200 rounded-lg shadow-lg">
       <div class="w-full overflow-x-auto">

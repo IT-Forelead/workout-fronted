@@ -22,6 +22,11 @@ const routes = [
     component: () => import('../components/pages/Arrival.vue'),
   },
   {
+    path: '/settings',
+    name: 'Sozlamalar',
+    component: () => import('../components/pages/Settings.vue'),
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import('../components/Login.vue'),

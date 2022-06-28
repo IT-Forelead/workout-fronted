@@ -134,13 +134,9 @@
           <label for="price" class="mb-2 block text-lg font-medium text-gray-900 dark:text-gray-300">To'lov turi</label>
           <div class="mb-6 flex items-center justify-around rounded-lg border border-gray-300 p-0">
             <input id="toggle-on" class="toggle toggle-left" name="toggle" value="false" type="radio" checked />
-            <label for="toggle-on" class="btn"
-              ><span class="mr-2 hidden"><CheckIcon /></span> Oylik to'lov</label
-            >
+            <label for="toggle-on" class="flex justify-center items-center relative py-2.5"><span class="mr-2 hidden"><CheckIcon /></span> Oylik to'lov</label>
             <input id="toggle-off" class="toggle toggle-right" name="toggle" value="true" type="radio" />
-            <label for="toggle-off" class="btn"
-              ><span class="mr-2 hidden"><CheckIcon /></span> Kunlik to'lov</label
-            >
+            <label for="toggle-off" class="flex justify-center items-center relative py-2.5"><span class="mr-2 hidden"><CheckIcon /></span> Kunlik to'lov</label>
           </div>
           <div class="mb-6">
             <label for="price" class="mb-2 block text-lg font-medium text-gray-900 dark:text-gray-300">Mablag'</label>
@@ -149,11 +145,6 @@
                 <span class="text-sm text-gray-500"> UZS </span>
               </div>
               <input type="text" name="price" id="price" class="block w-full rounded-lg border border-gray-300 pl-11 pr-12 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="0.00" />
-              <!-- <div class="absolute inset-y-0 right-0 flex items-center">
-                <select id="currency" name="currency" class="h-full rounded-md border-transparent bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                  <option>UZB</option>
-                </select>
-              </div> -->
             </div>
           </div>
           <hr class="bottom-1 mb-6 border-dotted border-gray-200" />
@@ -171,16 +162,8 @@
 import UserBoldIcon from '../../assets/icons/UserBoldIcon.vue'
 import CheckIcon from '../../assets/icons/CheckIcon.vue'
 </script>
+
 <style scoped>
-.btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px 10px;
-  position: relative;
-  text-align: center;
-  transition: background-color 600ms ease;
-}
 input[type='radio'].toggle {
   display: none;
 }
