@@ -63,7 +63,7 @@
             </div>
           </div>
         </button>
-        <div id="dropdownInformation" class="z-10 hidden w-44 rounded bg-white shadow">
+        <div id="dropdownInformation" class="z-10 hidden w-60 rounded bg-white shadow">
           <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformationButton">
             <li class="border-b">
               <router-link to="/profile" class="text-md flex items-center px-4 py-2 hover:bg-gray-100"><ProfileIcon class="mr-2 text-xl" /> Profil</router-link>
