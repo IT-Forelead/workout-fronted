@@ -17,6 +17,11 @@ const routes = [
     component: () => import('../components/pages/Payments.vue'),
   },
   {
+    path: '/arrival',
+    name: 'Kelishlar hisoboti',
+    component: () => import('../components/pages/Arrival.vue'),
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import('../components/Login.vue'),

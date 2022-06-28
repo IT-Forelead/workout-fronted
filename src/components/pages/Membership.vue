@@ -44,98 +44,94 @@
               <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
             </button>
           </div>
-          <div class="p-6">
-            <h2 class="font-bold text-xl">To'lovlar hisoboti</h2>
-            <hr class="mb-2">
-            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-              <table class="w-full text-left text-sm text-gray-500 dark:text-gray-400">
-                <thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
-                  <tr>
-                    <th scope="col" class="px-6 py-3">Product name</th>
-                    <th scope="col" class="px-6 py-3">Color</th>
-                    <th scope="col" class="px-6 py-3">Category</th>
-                    <th scope="col" class="px-6 py-3">Price</th>
-                    <th scope="col" class="px-6 py-3">
-                      <span class="sr-only">Edit</span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700">
-                    <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white">Apple MacBook Pro 17"</th>
-                    <td class="px-6 py-4">Sliver</td>
-                    <td class="px-6 py-4">Laptop</td>
-                    <td class="px-6 py-4">$2999</td>
-                    <td class="px-6 py-4 text-right">
-                      <a href="#" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Edit</a>
-                    </td>
-                  </tr>
-                  <tr class="border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700">
-                    <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white">Microsoft Surface Pro</th>
-                    <td class="px-6 py-4">White</td>
-                    <td class="px-6 py-4">Laptop PC</td>
-                    <td class="px-6 py-4">$1999</td>
-                    <td class="px-6 py-4 text-right">
-                      <a href="#" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Edit</a>
-                    </td>
-                  </tr>
-                  <tr class="border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700">
-                    <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white">Magic Mouse 2</th>
-                    <td class="px-6 py-4">Black</td>
-                    <td class="px-6 py-4">Accessories</td>
-                    <td class="px-6 py-4">$99</td>
-                    <td class="px-6 py-4 text-right">
-                      <a href="#" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Edit</a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+          <div class="grid grid-cols-3 gap-4 p-6">
+            <div class="col-span-2">
+              <h2 class="font-bold text-xl mb-3">To'lovlar hisoboti</h2>
+              <div class="w-full mb-8 overflow-hidden border border-slate-200 rounded-lg shadow-lg">
+                <div class="w-full overflow-x-auto">
+                  <table class="w-full divide-y divide-gray-300">
+                    <thead class="bg-slate-50">
+                      <tr class="text-md font-semibold tracking-wide text-left text-gray-900">
+                        <th scope="col" class="px-4 py-3">To'lov vaqti</th>
+                        <th scope="col" class="px-4 py-3">To'lov turi</th>
+                        <th scope="col" class="px-4 py-3">Qiymati</th>
+                      </tr>
+                    </thead>
+                    <tbody class="custom-height divide-y divide-gray-200 bg-white">
+                      <tr class="text-md text-gray-700">
+                        <td class="whitespace-nowrap px-4 py-3">
+                          <p><CalendarCheckIcon class="inline-block text-lg mr-1" /> 17.06.2022 12:30</p>
+                          <p><CalendarXIcon class="inline-block text-lg mr-1" /> 17.06.2022 12:30</p>
+                        </td>
+                        <td class="whitespace-nowrap px-4 py-3">
+                          Oylik
+                        </td>
+                        <td class="whitespace-nowrap px-4 py-3">
+                          85 000.00
+                          <span class="text-xs">UZS</span>
+                        </td>
+                      </tr>
+                      <tr class="text-md text-gray-700">
+                        <td class="whitespace-nowrap px-4 py-3">
+                          <p><CalendarCheckIcon class="inline-block text-lg mr-1" /> 17.06.2022 12:30</p>
+                          <p><CalendarXIcon class="inline-block text-lg mr-1" /> 17.06.2022 12:30</p>
+                        </td>
+                        <td class="whitespace-nowrap px-4 py-3">
+                          Oylik
+                        </td>
+                        <td class="whitespace-nowrap px-4 py-3">
+                          85 000.00
+                          <span class="text-xs">UZS</span>
+                        </td>
+                      </tr>
+                      <tr class="text-md text-gray-700">
+                        <td class="whitespace-nowrap px-4 py-3">
+                          <p><CalendarCheckIcon class="inline-block text-lg mr-1" /> 17.06.2022 12:30</p>
+                          <p><CalendarXIcon class="inline-block text-lg mr-1" /> 17.06.2022 12:30</p>
+                        </td>
+                        <td class="whitespace-nowrap px-4 py-3">
+                          Oylik
+                        </td>
+                        <td class="whitespace-nowrap px-4 py-3">
+                          85 000.00
+                          <span class="text-xs">UZS</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
-            <h2 class="font-bold text-xl mt-5">Kelib-ketishlar hisoboti</h2>
-            <hr class="mb-2">
-            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-              <table class="w-full text-left text-sm text-gray-500 dark:text-gray-400">
-                <thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
-                  <tr>
-                    <th scope="col" class="px-6 py-3">Product name</th>
-                    <th scope="col" class="px-6 py-3">Color</th>
-                    <th scope="col" class="px-6 py-3">Category</th>
-                    <th scope="col" class="px-6 py-3">Price</th>
-                    <th scope="col" class="px-6 py-3">
-                      <span class="sr-only">Edit</span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700">
-                    <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white">Apple MacBook Pro 17"</th>
-                    <td class="px-6 py-4">Sliver</td>
-                    <td class="px-6 py-4">Laptop</td>
-                    <td class="px-6 py-4">$2999</td>
-                    <td class="px-6 py-4 text-right">
-                      <a href="#" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Edit</a>
-                    </td>
-                  </tr>
-                  <tr class="border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700">
-                    <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white">Microsoft Surface Pro</th>
-                    <td class="px-6 py-4">White</td>
-                    <td class="px-6 py-4">Laptop PC</td>
-                    <td class="px-6 py-4">$1999</td>
-                    <td class="px-6 py-4 text-right">
-                      <a href="#" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Edit</a>
-                    </td>
-                  </tr>
-                  <tr class="border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 odd:dark:bg-gray-800 even:dark:bg-gray-700">
-                    <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white">Magic Mouse 2</th>
-                    <td class="px-6 py-4">Black</td>
-                    <td class="px-6 py-4">Accessories</td>
-                    <td class="px-6 py-4">$99</td>
-                    <td class="px-6 py-4 text-right">
-                      <a href="#" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Edit</a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+            <div>
+              <h2 class="font-bold text-xl mb-3">Kelib-ketishlar</h2>
+              <div class="w-full mb-8 overflow-hidden border border-slate-200 rounded-lg shadow-lg">
+                <div class="w-full overflow-x-auto">
+                  <table class="w-full divide-y divide-gray-300">
+                    <thead class="bg-slate-50">
+                      <tr class="text-md font-semibold tracking-wide text-left text-gray-900">
+                        <th scope="col" class="px-4 py-3">Kelishlar vaqti</th>
+                      </tr>
+                    </thead>
+                    <tbody class="custom-height divide-y divide-gray-200 bg-white">
+                      <tr class="text-md text-gray-700">
+                        <td class="whitespace-nowrap px-4 py-3">
+                          <CalendarBlankIcon class="inline-block text-lg mr-1" /> 17.06.2022 12:30
+                        </td>
+                      </tr>
+                      <tr class="text-md text-gray-700">
+                        <td class="whitespace-nowrap px-4 py-3">
+                          <CalendarBlankIcon class="inline-block text-lg mr-1" /> 17.06.2022 12:30
+                        </td>
+                      </tr>
+                      <tr class="text-md text-gray-700">
+                        <td class="whitespace-nowrap px-4 py-3">
+                          <CalendarBlankIcon class="inline-block text-lg mr-1" /> 17.06.2022 12:30
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
           <div class="flex items-center justify-end space-x-2 rounded-b border-t border-gray-200 p-6 dark:border-gray-600">
@@ -149,6 +145,9 @@
 
 <script setup>
 import ArrowRightIcon from '../../assets/icons/ArrowRightIcon.vue'
+import CalendarBlankIcon from '../../assets/icons/CalendarBlankIcon.vue'
+import CalendarCheckIcon from '../../assets/icons/CalendarCheckIcon.vue'
+import CalendarXIcon from '../../assets/icons/CalendarXIcon.vue'
 import { ref } from 'vue'
 
 const isModalOpen = ref(false)
