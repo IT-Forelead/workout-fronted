@@ -11,6 +11,7 @@
               <tr class="text-md text-left font-semibold tracking-wide text-gray-900">
                 <th scope="col" class="px-4 py-3">To'lovchi</th>
                 <th scope="col" class="px-4 py-3">To'lov vaqti</th>
+                <th scope="col" class="px-4 py-3">To'lov turi</th>
                 <th scope="col" class="px-4 py-3">Qiymati</th>
               </tr>
             </thead>
@@ -32,25 +33,7 @@
                   <p>17.06.2022 12:30</p>
                 </td>
                 <td class="whitespace-nowrap px-4 py-3">
-                  85 000.00
-                  <span class="text-xs">UZS</span>
-                </td>
-              </tr>
-              <tr class="text-md text-gray-700">
-                <td class="whitespace-nowrap px-4 py-3">
-                  <div class="flex items-center">
-                    <div class="mr-3 flex h-10 w-10 items-center justify-center rounded-full border border-gray-50">
-                      <img class="h-full w-full rounded-full object-cover" src="https://images.pexels.com/photos/5212324/pexels-photo-5212324.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" alt="#" />
-                    </div>
-                    <div>
-                      <p class="font-semibold text-gray-900">Jumaniyozov Surojiddin</p>
-                      <p class="text-sm text-gray-600">+998 (93) 747-59-95</p>
-                    </div>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap px-4 py-3">
-                  <p>17.06.2022 12:30</p>
-                  <p>17.06.2022 12:30</p>
+                  Oylik
                 </td>
                 <td class="whitespace-nowrap px-4 py-3">
                   85 000.00
@@ -72,6 +55,33 @@
                 <td class="whitespace-nowrap px-4 py-3">
                   <p>17.06.2022 12:30</p>
                   <p>17.06.2022 12:30</p>
+                </td>
+                <td class="whitespace-nowrap px-4 py-3">
+                  Oylik
+                </td>
+                <td class="whitespace-nowrap px-4 py-3">
+                  85 000.00
+                  <span class="text-xs">UZS</span>
+                </td>
+              </tr>
+              <tr class="text-md text-gray-700">
+                <td class="whitespace-nowrap px-4 py-3">
+                  <div class="flex items-center">
+                    <div class="mr-3 flex h-10 w-10 items-center justify-center rounded-full border border-gray-50">
+                      <img class="h-full w-full rounded-full object-cover" src="https://images.pexels.com/photos/5212324/pexels-photo-5212324.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" alt="#" />
+                    </div>
+                    <div>
+                      <p class="font-semibold text-gray-900">Jumaniyozov Surojiddin</p>
+                      <p class="text-sm text-gray-600">+998 (93) 747-59-95</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="whitespace-nowrap px-4 py-3">
+                  <p>17.06.2022 12:30</p>
+                  <p>17.06.2022 12:30</p>
+                </td>
+                <td class="whitespace-nowrap px-4 py-3">
+                  Oylik
                 </td>
                 <td class="whitespace-nowrap px-4 py-3">
                   85 000.00
