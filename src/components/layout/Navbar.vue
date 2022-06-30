@@ -124,7 +124,7 @@ const addUserInStore = () => {
 }
 
 const fullname = computed(() => {
-  return store.state.user.firstname + store.state.user.lastname
+  return store.state.user.firstname + " " + store.state.user.lastname
 })
 
 function toggleDropDown() {
