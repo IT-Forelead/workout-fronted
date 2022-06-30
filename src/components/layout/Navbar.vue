@@ -124,7 +124,7 @@ const addUserInStore = () => {
 }
 
 const fullname = computed(() => {
-  return store.state.user.fullname
+  return store.state.user.firstname + store.state.user.lastname
 })
 
 function toggleDropDown() {
@@ -149,7 +149,7 @@ $(document).click(function (event) {
 
 function autoLogout() {
   setTimeout(() => {
-    if (!store.state.user.fullname) {
+    if (!store.state.user.firstname) {
       authService.logout()
       checkLogin(false)
       router.go('/login')

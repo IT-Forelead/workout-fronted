@@ -1,6 +1,6 @@
 <template>
-  <div class="h-full px-5">
-    <h3 class="ml-2 -mt-5 mb-10 text-2xl font-extrabold">Asosiy sahifa</h3>
+  <div class="px-5">
+    <h3 class="ml-2 mb-10 text-2xl font-extrabold">Asosiy sahifa</h3>
     <div class="card-wrapper grid grid-cols-4 gap-10">
       <div class="card rounded-3xl bg-white p-7">
         <div class="items-top flex justify-between">
@@ -27,7 +27,7 @@
         <div class="flex items-center text-xl text-red-400">
           <StatisticDown class="text-3xl" />
           <p class="percent ml-2">6,5%</p>
-          <p class="ml-3 text-base text-gray-400">o'tgan hafatga nisbatan</p>
+          <p class="ml-3 text-base text-gray-400">o'tgan haftaga nisbatan</p>
         </div>
       </div>
       <div class="card rounded-3xl bg-white p-7">
@@ -46,7 +46,7 @@
       </div>
       <div class="card rounded-3xl bg-white p-7">
         <div class="items-top flex justify-between">
-          <h3 class="text-xl font-bold text-gray-600">Kutilayotga tushum</h3>
+          <h3 class="text-xl font-bold text-gray-600">Kutilayotgan tushum</h3>
           <div class="rounded-3xl bg-indigo-200 p-3">
             <ExpectedIcon class="text-5xl text-indigo-600" />
           </div>
@@ -55,7 +55,7 @@
         <div class="flex items-center text-xl text-green-400">
           <StatisticUp class="text-3xl" />
           <p class="percent ml-2">6,5%</p>
-          <p class="ml-3 text-base text-gray-400">o'tgan hafatga nisbatan</p>
+          <p class="ml-3 text-base text-gray-400">o'tgan haftaga nisbatan</p>
         </div>
       </div>
     </div>

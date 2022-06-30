@@ -62,7 +62,7 @@ const phone = ref('')
 const password = ref('')
 
 const schema = yup.object().shape({
-  phone: yup.string().required('Iltimos. Telefon raqamni kitiring!'),
+  phone: yup.string().required('Iltimos. Telefon raqamini kitiring!'),
   password: yup.string().required('Iltimos. Parolni kitiring!'),
 })
 
@@ -72,7 +72,6 @@ function checkLogin(data) {
 
 const onSubmit = (user) => {
   user.phone = user.phone.replace(')', '').replace('(', '').replace(' ', '').replace('-', '').replace('-', '')
-  console.log(user);
   store.dispatch('auth/login', user).then(
     () => {
       router.push('/')
