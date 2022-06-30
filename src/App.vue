@@ -4,7 +4,7 @@
       <Sidebar />
       <div class="ml-80 flex-1 transition-all duration-500" :class="{'ml-20': sidebarStatus}">
         <Navbar />
-        <router-view class="bg-slate-100 rounded-tl-xl pt-5" />
+        <router-view class="bg-slate-100 rounded-tl-xl pt-5 custom-height" />
       </div>
     </div>
   </div>
@@ -30,4 +30,8 @@ const sidebarStatus = computed(() => {
 })
 </script>
 
-<style></style>
+<style scoped>
+.custom-height {
+  height: calc(100vh - 5rem);
+}
+</style>

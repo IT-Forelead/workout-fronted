@@ -4,8 +4,8 @@
       <h3 class="ml-2 mb-3 text-2xl font-extrabold">To'lovlar</h3>
     </div>
     <div class="grid grid-cols-3 gap-4">
-      <div class="col-span-2 mb-8 w-full overflow-hidden rounded-lg border border-slate-200 shadow-lg">
-        <div class="w-full overflow-x-auto">
+      <div class="col-span-2">
+        <div class="w-full overflow-x-auto mb-8 rounded-lg border border-slate-200 shadow-lg">
           <table class="w-full divide-y divide-gray-300">
             <thead class="bg-slate-50">
               <tr class="text-md text-left font-semibold tracking-wide text-gray-900">
