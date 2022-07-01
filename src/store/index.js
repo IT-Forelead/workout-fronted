@@ -1,11 +1,11 @@
 import { createStore } from 'vuex'
 import { auth } from './auth.module'
-import { singleUser } from './user.module'
+import { memberModule } from './member.module'
 
 const store = createStore({
   modules: {
     auth,
-    singleUser,
+    memberModule,
   },
   state() {
     return {

@@ -204,12 +204,17 @@
           </div>
         </div>
         <div v-show="registerMemberProccess.registerMode" class="mb-5 flex flex-col p-5">
-          <label for="dropzone-file" class="relative mx-auto flex h-24 w-24 max-w-lg cursor-pointer items-center justify-center rounded-full border-2 border-dashed border-blue-400 bg-slate-100 p-6 text-center">
+          <label v-show="!member.image" for="dropzone-file" class="relative mx-auto flex h-24 w-24 max-w-lg cursor-pointer items-center justify-center rounded-full border-2 border-dashed border-blue-400 bg-slate-100 p-6 text-center">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph h-10 w-10 text-blue-500" width="32" height="32" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256">
               <path fill="currentColor" d="M236 184V56a20.1 20.1 0 0 0-20-20H40a20.1 20.1 0 0 0-20 20v144a20.1 20.1 0 0 0 20 20h176a20.1 20.1 0 0 0 20-20v-16ZM212 60v95l-21.9-21.8a19.8 19.8 0 0 0-28.2 0L144 151l-41.9-41.8a19.9 19.9 0 0 0-28.2 0L44 139V60ZM44 196v-23l44-44l41.9 41.8a19.8 19.8 0 0 0 28.2 0L176 153l36 36v7Zm100.7-84.7A15.9 15.9 0 0 1 140 100a16 16 0 0 1 32 0a16 16 0 0 1-16 16a15.9 15.9 0 0 1-11.3-4.7Z"></path>
             </svg>
-            <input id="dropzone-file" type="file" class="hidden" />
+            <input id="dropzone-file" type="file" class="hidden" @change="getImage" />
             <h3 class="absolute -bottom-10 mx-auto mt-3 whitespace-nowrap text-lg font-semibold tracking-wide text-blue-500">Fotosuratni yuklash</h3>
+          </label>
+          <label v-show="member.image" for="dropzone-file" class="relative mx-auto flex h-24 w-24 max-w-lg cursor-pointer items-center justify-center rounded-full border-2 text-center">
+            <img class="h-24 w-24 rounded-full object-cover" id="memberImage" />
+            <input id="dropzone-file" type="file" class="hidden" @change="getImage" />
+            <h3 class="absolute -bottom-10 mx-auto mt-3 whitespace-nowrap text-lg font-semibold tracking-wide text-blue-500">Boshqa rasm yuklash</h3>
           </label>
         </div>
         <!-- Step 1 -->
@@ -246,8 +251,8 @@
               <input type="text" class="code" maxlength="1" v-model="confirm.fifth" @input="onlyNumber('fifth')" required />
               <input type="text" class="code" maxlength="1" v-model="confirm.sixth" @input="onlyNumber('sixth')" required />
             </div>
-            <div v-show="timer === '00:00'" class="my-3 flex justify-center text-lg text-red-600 hover:underline"><a href="#">SMS xabarnoma kelmadimi?</a></div>
-            <div v-show="timer !== '00:00'" class="my-3 flex items-center justify-center text-xl text-red-600">
+            <div v-show="showResendSMS" class="my-3 flex justify-center text-lg text-red-600 hover:underline"><a href="#" @click="getMemberData()">SMS xabarnoma kelmadimi?</a></div>
+            <div v-show="!showResendSMS" class="my-3 flex items-center justify-center text-xl text-red-600">
               <TimerIcon class="mr-2" /> <span>{{ timer }}</span>
             </div>
           </div>
@@ -262,15 +267,14 @@
             </p>
           </div>
         </div>
-        <div class="flex items-center justify-between space-x-2 rounded-b border-t border-gray-200 p-5 dark:border-gray-600">
-          <button type="button" @click="closeAddMemberModal()" class="rounded border border-gray-300 bg-gray-200 px-4 py-2 font-medium text-gray-700 shadow-lg shadow-gray-200 outline-none transition-colors duration-200 hover:bg-gray-300 focus:bg-gray-300 focus:ring-gray-400 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">Yopish</button>
+        <div class="flex items-center justify-end space-x-2 rounded-b border-t border-gray-200 p-5 dark:border-gray-600">
           <div>
             <button v-show="registerMemberProccess.registerMode" @click="clearFields()" class="mr-2 rounded border border-teal-500 bg-teal-500 px-4 py-2 font-medium text-white outline-none transition-colors duration-200 hover:bg-teal-400 hover:text-white focus:ring-teal-600 focus:ring-offset-2 active:scale-95 disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">Tozalash</button>
             <button v-show="registerMemberProccess.registerMode" @click="getMemberData()" class="rounded bg-indigo-500 px-4 py-2 font-medium text-white shadow-lg shadow-indigo-200 outline-none transition-colors duration-200 hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">Jo'natish</button>
             <button v-show="registerMemberProccess.checkingMode && !showCheckBtn" class="rounded bg-indigo-500 px-4 py-2 font-medium text-white shadow-lg shadow-indigo-200 outline-none transition-colors duration-200 hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none" disabled>Tasdiqlash</button>
             <button v-show="showCheckBtn" @click="checkVerification()" class="rounded bg-indigo-500 px-4 py-2 font-medium text-white shadow-lg shadow-indigo-200 outline-none transition-colors duration-200 hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">Tasdiqlash</button>
-            <button v-show="isVeriticationSuccess && !lastProgressBtn" @click="createMember()" class="rounded bg-green-500 px-4 py-2 font-medium text-white shadow-lg shadow-indigo-200 outline-none transition-colors duration-200 hover:bg-green-600 focus:bg-green-500 focus:ring-green-500 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">Yakunlash</button>
-            <button v-show="lastProgressBtn" class="flex items-center rounded bg-green-400 px-4 py-2 font-medium text-white shadow-lg shadow-indigo-200 outline-none transition-colors duration-200 hover:bg-green-600 focus:bg-green-500 focus:ring-green-500 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">
+            <button v-show="isVerificationSuccess && !lastProgressBtn" @click="createMember()" class="rounded bg-green-500 px-4 py-2 font-medium text-white shadow-lg shadow-indigo-200 outline-none transition-colors duration-200 hover:bg-green-600 focus:bg-green-500 focus:ring-green-500 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">Yakunlash</button>
+            <button v-show="lastProgressBtn" class="flex items-center rounded bg-green-400 px-4 py-2 font-medium text-white shadow-lg shadow-indigo-200 outline-none transition-colors duration-200 hover:bg-green-600 focus:bg-green-500 focus:ring-green-500 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-green-400/80 disabled:shadow-none" disabled>
               <svg role="status" class="mr-2 h-5 w-5 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
                 <path
@@ -302,6 +306,7 @@ import TimerIcon from '../../assets/icons/TimerIcon.vue'
 import SuccessfulIcon from '../../assets/icons/SuccessfulIcon.vue'
 import axios from 'axios'
 import { useStore } from 'vuex'
+import $ from 'jquery'
 
 const store = useStore()
 
@@ -332,6 +337,7 @@ const congratStatus = reactive({
 })
 
 const member = reactive({
+  image: null,
   firstname: '',
   lastname: '',
   birthday: '',
@@ -348,12 +354,14 @@ const confirm = reactive({
 })
 
 function clearFields() {
+  member.image = null
   member.firstname = ''
   member.lastname = ''
   member.birthday = ''
   member.phone = ''
 }
 
+const confirmCode = ref('')
 const showCheckBtn = ref(false)
 const lastProgressBtn = ref(false)
 
@@ -374,8 +382,8 @@ function onlyNumber(order) {
     })
   })
   if (confirm.first !== '' && confirm.second !== '' && confirm.third !== '' && confirm.fourth !== '' && confirm.fifth !== '' && confirm.sixth !== '') {
-    let confirmCode = confirm.first + confirm.second + confirm.third + confirm.fourth + confirm.fifth + confirm.sixth
-    if (confirmCode.length === 6) {
+    confirmCode.value = confirm.first + confirm.second + confirm.third + confirm.fourth + confirm.fifth + confirm.sixth
+    if (confirmCode.value.length === 6) {
       showCheckBtn.value = true
     }
   } else {
@@ -410,20 +418,42 @@ const closeAddMemberModal = () => {
   registerMemberProccess.conratulationMode = false
   showCheckBtn.value = false
   lastProgressBtn.value = false
-  isVeriticationSuccess.value = false
+  isVerificationSuccess.value = false
   clearFields()
 }
 
 const timer = ref('02:00')
+const showResendSMS = ref(false)
+
+function getImage(e) {
+  if (e.target.files[0].type.includes('image')) {
+    member.image = e.target.files[0]
+    // $('#memberImage').css('background-image', 'url(' + member.image + ')');
+    $('#memberImage').attr('src', URL.createObjectURL(member.image))
+  } else {
+    notify.warning({
+      title: 'Diqqat!',
+      message: 'Siz faqat rasm fayl joylashtira olasiz!',
+      position: 'bottomLeft',
+    })
+  }
+}
 
 const getMemberData = () => {
   member.phone = member.phone.replace(')', '').replace('(', '').replace(' ', '').replace(' ', '').replace('-', '').replace('-', '')
   //!TODO Remove me
   const members = ref([])
+
   if (members.value.filter((i) => i.phone === member.phone)[0]) {
     notify.warning({
       title: 'Diqqat!',
       message: `Bu <strong style="color: #000;">${member.phone}</strong> kontakt allaqachon bazada mavjud!`,
+      position: 'bottomLeft',
+    })
+  } else if (!member.image) {
+    notify.warning({
+      title: 'Diqqat!',
+      message: "Iltimos, a'zoning rasmini kiriting!",
       position: 'bottomLeft',
     })
   } else if (member.firstname === '') {
@@ -451,14 +481,29 @@ const getMemberData = () => {
       position: 'bottomLeft',
     })
   } else {
+    store.dispatch('memberModule/sendSMS', member.phone).then(
+      () => {
+        notify.success({
+          message: `${member.phone} raqamiga tasdiqlash kodi muvaffaqiyatli yaratildi!`,
+          position: 'bottomLeft',
+        })
+      },
+      (error) => {
+        notify.error({
+          message: `${member.phone} raqamiga tasdiqlash kodi yuborishda xatolik yuz berdi!`,
+          position: 'bottomLeft',
+        })
+      }
+    )
     registerMemberProccess.registerMode = false
     registerMemberProccess.checkingMode = true
     registerStatus.inProgress = false
     registerStatus.done = true
     checkingStatus.default = false
     checkingStatus.inProgress = true
+    showResendSMS.value = false
 
-    localStorage.setItem('time', '02:00')
+    localStorage.setItem('time', timer.value)
     function startTimer() {
       var time = Number(localStorage.getItem('time').slice(0, 2)) * 60 + Number(localStorage.getItem('time').slice(3, 5)),
         minutes,
@@ -476,6 +521,8 @@ const getMemberData = () => {
           if (--time < 0) {
             time = duration
           }
+        } else {
+          showResendSMS.value = true
         }
       }, 1000)
     }
@@ -483,11 +530,11 @@ const getMemberData = () => {
   }
 }
 
-const isVeriticationSuccess = ref(false)
+const isVerificationSuccess = ref(false)
 
 const checkVerification = () => {
   // write checking request
-  isVeriticationSuccess.value = true // delete me!
+  isVerificationSuccess.value = true // delete me!
 
   registerMemberProccess.conratulationMode = true
   showCheckBtn.value = false
@@ -500,7 +547,16 @@ const checkVerification = () => {
 
 const createMember = () => {
   lastProgressBtn.value = true
-  store.dispatch('membersModule/create', member).then(
+  const memberData = {
+    userId: store.state.user.id,
+    firstname: member.firstname,
+    lastname: member.lastname,
+    phone: member.phone,
+    birthday: member.birthday,
+    image: member.image.name,
+    code: confirmCode.value,
+  }
+  store.dispatch('memberModule/create', memberData).then(
     () => {
       notify.success({
         message: "A'zo muvaffaqiyatli yaratildi!",
@@ -528,9 +584,9 @@ const createMember = () => {
 }
 .code {
   border-radius: 5px;
-  font-size: 75px;
-  height: 120px;
-  width: 100px;
+  font-size: 20px;
+  height: 50px;
+  width: 40px;
   border: 2px solid #eee;
   margin: 1%;
   text-align: center;
