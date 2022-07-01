@@ -27,7 +27,7 @@ let login = computed(() => {
 })
 
 const sidebarStatus = computed(() => {
-  let refreshConf = localStorage.getItem('sidebar') === '1' ? true : false
+  let refreshConf = localStorage.getItem('sidebar') === '1'
   return store.state.isSidebarOpen || refreshConf
 })
 </script>

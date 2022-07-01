@@ -428,7 +428,6 @@ const showResendSMS = ref(false)
 function getImage(e) {
   if (e.target.files[0].type.includes('image')) {
     member.image = e.target.files[0]
-    // $('#memberImage').css('background-image', 'url(' + member.image + ')');
     $('#memberImage').attr('src', URL.createObjectURL(member.image))
   } else {
     notify.warning({
@@ -505,7 +504,7 @@ const getMemberData = () => {
 
     localStorage.setItem('time', timer.value)
     function startTimer() {
-      var time = Number(localStorage.getItem('time').slice(0, 2)) * 60 + Number(localStorage.getItem('time').slice(3, 5)),
+      let time = Number(localStorage.getItem('time').slice(0, 2)) * 60 + Number(localStorage.getItem('time').slice(3, 5)),
         minutes,
         seconds
       setInterval(function () {

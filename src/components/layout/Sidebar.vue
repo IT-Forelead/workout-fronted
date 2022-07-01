@@ -40,9 +40,9 @@ const sidebarStatus = computed(() => {
 const menus = [
   { id: 1, url: '/', icon: 'home-outline', name: 'Asosiy sahifa' },
   { id: 2, url: '/members', icon: 'people-outline', name: "A'zolarimiz" },
-  { id: 2, url: '/payments', icon: 'wallet-outline', name: "To'lovlar" },
-  { id: 2, url: '/arrival', icon: 'repeat-outline', name: "Kelib-Ketishlar" },
-  { id: 2, url: '/settings', icon: 'settings-outline', name: "Sozlamalar" },
+  { id: 3, url: '/payments', icon: 'wallet-outline', name: "To'lovlar" },
+  { id: 4, url: '/arrival', icon: 'repeat-outline', name: "Kelib-Ketishlar" },
+  { id: 5, url: '/settings', icon: 'settings-outline', name: "Sozlamalar" },
 ]
 </script>
 
