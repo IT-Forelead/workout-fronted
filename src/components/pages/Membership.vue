@@ -144,7 +144,13 @@
         <div class="p-5">
           <div class="mb-3 grid grid-cols-3 rounded-lg border border-gray-300 p-3">
             <div class="flex items-center justify-between">
-              <div class="flex items-center justify-between">
+              <!-- in pgrogress -->
+              <div v-show="registerStatus.inProgress" class="flex items-center justify-between">
+                <div class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-blue-500 bg-white font-semibold text-blue-500">01</div>
+                <div class="text-md ml-3 font-semibold text-blue-500">A'zo qo'shish</div>
+              </div>
+              <!-- completed -->
+              <div v-show="registerStatus.done" class="flex items-center justify-between">
                 <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-2xl text-white">
                   <CheckIcon />
                 </div>
@@ -156,18 +162,44 @@
               </div>
             </div>
             <div class="flex items-center justify-between">
-              <div class="flex items-center justify-between">
+              <!-- default -->
+              <div v-show="checkingStatus.default" class="flex items-center">
+                <div class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-gray-300 bg-white font-semibold text-gray-500">02</div>
+                <div class="text-md ml-3 font-semibold text-gray-500">Tasdiqlash</div>
+              </div>
+              <!-- in progress -->
+              <div v-show="checkingStatus.inProgress" class="flex items-center justify-between">
                 <div class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-blue-500 bg-white font-semibold text-blue-500">02</div>
                 <div class="text-md ml-3 font-semibold text-blue-500">Tasdiqlash</div>
+              </div>
+              <!-- completed -->
+              <div v-show="checkingStatus.done" class="flex items-center justify-between">
+                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-2xl text-white">
+                  <CheckIcon />
+                </div>
+                <div class="text-md ml-3 font-semibold text-gray-700">Tasdiqlash</div>
               </div>
               <div class="relative -left-8 mt-1">
                 <div class="-rotate-25 absolute bottom-0 h-9 rounded-lg border-r border-gray-300"></div>
                 <div class="rotate-25 absolute -top-1 h-9 rounded-lg border-r border-gray-300"></div>
               </div>
             </div>
-            <div class="flex items-center">
+            <!-- default -->
+            <div v-show="congratStatus.default" class="flex items-center">
               <div class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-gray-300 bg-white font-semibold text-gray-500">03</div>
               <div class="text-md ml-3 font-semibold text-gray-500">Yakunlash</div>
+            </div>
+            <!-- in progress -->
+            <div v-show="congratStatus.inProgress" class="flex items-center">
+              <div class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-blue-500 bg-white font-semibold text-blue-500">03</div>
+              <div class="text-md ml-3 font-semibold text-blue-500">Yakunlash</div>
+            </div>
+            <!-- completed-->
+            <div v-show="congratStatus.done" class="flex items-center">
+              <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-2xl text-white">
+                <CheckIcon />
+              </div>
+              <div class="text-md ml-3 font-semibold text-gray-700">Yakunlash</div>
             </div>
           </div>
         </div>
@@ -224,8 +256,9 @@
         <div class="flex justify-center" v-show="registerMemberProccess.conratulationMode">
           <div class="flex flex-col">
             <SuccessfulIcon class="mx-auto text-9xl text-green-500" />
-            <p class="text-xl text-green-500 text-center my-5">
-              Tasdiqlash jarayoni muvaffaqiyatli yakunlandi. Jarayonni yakunlash uchun <br> "YAKUNLASH" tugmasini bosing!
+            <p class="my-5 text-center text-xl text-green-500">
+              Tasdiqlash jarayoni muvaffaqiyatli yakunlandi. Jarayonni yakunlash uchun <br />
+              "YAKUNLASH" tugmasini bosing!
             </p>
           </div>
         </div>
@@ -234,9 +267,18 @@
           <div>
             <button v-show="registerMemberProccess.registerMode" @click="clearFields()" class="mr-2 rounded border border-teal-500 bg-teal-500 px-4 py-2 font-medium text-white outline-none transition-colors duration-200 hover:bg-teal-400 hover:text-white focus:ring-teal-600 focus:ring-offset-2 active:scale-95 disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">Tozalash</button>
             <button v-show="registerMemberProccess.registerMode" @click="getMemberData()" class="rounded bg-indigo-500 px-4 py-2 font-medium text-white shadow-lg shadow-indigo-200 outline-none transition-colors duration-200 hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">Jo'natish</button>
-            <button v-show="registerMemberProccess.checkingMode && !showCheckBtn" class="rounded bg-indigo-500 px-4 py-2 font-medium text-white shadow-lg shadow-indigo-200 outline-none transition-colors duration-200 hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none" disabled>Tekshirish</button>
-            <button v-show="showCheckBtn" @click="checkVerification()" class="rounded bg-indigo-500 px-4 py-2 font-medium text-white shadow-lg shadow-indigo-200 outline-none transition-colors duration-200 hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">Tekshirish</button>
-            <button v-show="isVeriticationSuccess" @click="createMember()" class="rounded bg-green-500 px-4 py-2 font-medium text-white shadow-lg shadow-indigo-200 outline-none transition-colors duration-200 hover:bg-green-600 focus:bg-green-500 focus:ring-green-500 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">Yakunlash</button>
+            <button v-show="registerMemberProccess.checkingMode && !showCheckBtn" class="rounded bg-indigo-500 px-4 py-2 font-medium text-white shadow-lg shadow-indigo-200 outline-none transition-colors duration-200 hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none" disabled>Tasdiqlash</button>
+            <button v-show="showCheckBtn" @click="checkVerification()" class="rounded bg-indigo-500 px-4 py-2 font-medium text-white shadow-lg shadow-indigo-200 outline-none transition-colors duration-200 hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">Tasdiqlash</button>
+            <button v-show="isVeriticationSuccess && !lastProgressBtn" @click="createMember()" class="rounded bg-green-500 px-4 py-2 font-medium text-white shadow-lg shadow-indigo-200 outline-none transition-colors duration-200 hover:bg-green-600 focus:bg-green-500 focus:ring-green-500 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">Yakunlash</button>
+            <button v-show="lastProgressBtn" class="flex items-center rounded bg-green-400 px-4 py-2 font-medium text-white shadow-lg shadow-indigo-200 outline-none transition-colors duration-200 hover:bg-green-600 focus:bg-green-500 focus:ring-green-500 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">
+              <svg role="status" class="mr-2 h-5 w-5 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
+                <path
+                  d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                  fill="currentFill"
+                /></svg
+              >Yakunlash
+            </button>
           </div>
         </div>
       </div>
@@ -272,6 +314,23 @@ const registerMemberProccess = reactive({
   conratulationMode: false,
 })
 
+const registerStatus = reactive({
+  inProgress: true,
+  done: false,
+})
+
+const checkingStatus = reactive({
+  default: true,
+  inProgress: false,
+  done: false,
+})
+
+const congratStatus = reactive({
+  default: true,
+  inProgress: false,
+  done: false,
+})
+
 const member = reactive({
   firstname: '',
   lastname: '',
@@ -296,6 +355,7 @@ function clearFields() {
 }
 
 const showCheckBtn = ref(false)
+const lastProgressBtn = ref(false)
 
 function onlyNumber(order) {
   confirm[order] = confirm[order].replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')
@@ -338,6 +398,20 @@ const openAddMemberModal = () => {
 
 const closeAddMemberModal = () => {
   isAddMemberModalOpen.value = false
+  registerStatus.inProgress = true
+  registerStatus.done = false
+  checkingStatus.default = true
+  checkingStatus.inProgress = false
+  checkingStatus.done = false
+  congratStatus.default = true
+  congratStatus.inProgress = false
+  registerMemberProccess.registerMode = true
+  registerMemberProccess.checkingMode = false
+  registerMemberProccess.conratulationMode = false
+  showCheckBtn.value = false
+  lastProgressBtn.value = false
+  isVeriticationSuccess.value = false
+  clearFields()
 }
 
 const timer = ref('02:00')
@@ -379,6 +453,10 @@ const getMemberData = () => {
   } else {
     registerMemberProccess.registerMode = false
     registerMemberProccess.checkingMode = true
+    registerStatus.inProgress = false
+    registerStatus.done = true
+    checkingStatus.default = false
+    checkingStatus.inProgress = true
 
     localStorage.setItem('time', '02:00')
     function startTimer() {
@@ -414,20 +492,22 @@ const checkVerification = () => {
   registerMemberProccess.conratulationMode = true
   showCheckBtn.value = false
   registerMemberProccess.checkingMode = false
+  checkingStatus.inProgress = false
+  checkingStatus.done = true
+  congratStatus.default = false
+  congratStatus.inProgress = true
 }
 
 const createMember = () => {
+  lastProgressBtn.value = true
   store.dispatch('membersModule/create', member).then(
     () => {
       notify.success({
         message: "A'zo muvaffaqiyatli yaratildi!",
         position: 'bottomLeft',
       })
-      registerMemberProccess.conratulationMode = true
-      member.firstname = ''
-      member.lastname = ''
-      member.birthday = ''
-      member.phone = ''
+      congratStatus.done = true
+      closeAddMemberModal()
     },
     (error) => {
       notify.error({
