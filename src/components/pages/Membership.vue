@@ -47,82 +47,8 @@
           </button>
         </div>
         <div class="grid grid-cols-3 gap-4 p-6">
-          <div class="col-span-2">
-            <h2 class="mb-3 text-xl font-bold">To'lovlar hisoboti</h2>
-            <div class="mb-8 w-full overflow-hidden rounded-lg border border-slate-200 shadow-lg">
-              <div class="w-full overflow-x-auto">
-                <table class="w-full divide-y divide-gray-300">
-                  <thead class="bg-slate-50">
-                    <tr class="text-md text-left font-semibold tracking-wide text-gray-900">
-                      <th scope="col" class="px-4 py-3">To'lov vaqti</th>
-                      <th scope="col" class="px-4 py-3">To'lov turi</th>
-                      <th scope="col" class="px-4 py-3">Qiymati</th>
-                    </tr>
-                  </thead>
-                  <tbody class="custom-height divide-y divide-gray-200 bg-white">
-                    <tr class="text-md text-gray-700">
-                      <td class="whitespace-nowrap px-4 py-3">
-                        <p><CalendarCheckIcon class="mr-1 inline-block text-lg" /> 17.06.2022 12:30</p>
-                        <p><CalendarXIcon class="mr-1 inline-block text-lg" /> 17.06.2022 12:30</p>
-                      </td>
-                      <td class="whitespace-nowrap px-4 py-3">Oylik</td>
-                      <td class="whitespace-nowrap px-4 py-3">
-                        85 000.00
-                        <span class="text-xs">UZS</span>
-                      </td>
-                    </tr>
-                    <tr class="text-md text-gray-700">
-                      <td class="whitespace-nowrap px-4 py-3">
-                        <p><CalendarCheckIcon class="mr-1 inline-block text-lg" /> 17.06.2022 12:30</p>
-                        <p><CalendarXIcon class="mr-1 inline-block text-lg" /> 17.06.2022 12:30</p>
-                      </td>
-                      <td class="whitespace-nowrap px-4 py-3">Oylik</td>
-                      <td class="whitespace-nowrap px-4 py-3">
-                        85 000.00
-                        <span class="text-xs">UZS</span>
-                      </td>
-                    </tr>
-                    <tr class="text-md text-gray-700">
-                      <td class="whitespace-nowrap px-4 py-3">
-                        <p><CalendarCheckIcon class="mr-1 inline-block text-lg" /> 17.06.2022 12:30</p>
-                        <p><CalendarXIcon class="mr-1 inline-block text-lg" /> 17.06.2022 12:30</p>
-                      </td>
-                      <td class="whitespace-nowrap px-4 py-3">Oylik</td>
-                      <td class="whitespace-nowrap px-4 py-3">
-                        85 000.00
-                        <span class="text-xs">UZS</span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <div>
-            <h2 class="mb-3 text-xl font-bold">Kelib-ketishlar</h2>
-            <div class="mb-8 w-full overflow-hidden rounded-lg border border-slate-200 shadow-lg">
-              <div class="w-full overflow-x-auto">
-                <table class="w-full divide-y divide-gray-300">
-                  <thead class="bg-slate-50">
-                    <tr class="text-md text-left font-semibold tracking-wide text-gray-900">
-                      <th scope="col" class="px-4 py-3">Kelishlar vaqti</th>
-                    </tr>
-                  </thead>
-                  <tbody class="custom-height divide-y divide-gray-200 bg-white">
-                    <tr class="text-md text-gray-700">
-                      <td class="whitespace-nowrap px-4 py-3"><CalendarBlankIcon class="mr-1 inline-block text-lg" /> 17.06.2022 12:30</td>
-                    </tr>
-                    <tr class="text-md text-gray-700">
-                      <td class="whitespace-nowrap px-4 py-3"><CalendarBlankIcon class="mr-1 inline-block text-lg" /> 17.06.2022 12:30</td>
-                    </tr>
-                    <tr class="text-md text-gray-700">
-                      <td class="whitespace-nowrap px-4 py-3"><CalendarBlankIcon class="mr-1 inline-block text-lg" /> 17.06.2022 12:30</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+          <SinglePersonPayment />
+          <SinglePersonArrival />
         </div>
         <div class="flex items-center justify-end space-x-2 rounded-b border-t border-gray-200 p-6 dark:border-gray-600">
           <button type="button" @click="closeModal()" class="rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Yopish</button>
@@ -293,9 +219,6 @@
 <script setup>
 import FunnelIcon from '../../assets/icons/FunnelIcon.vue'
 import ArrowRightIcon from '../../assets/icons/ArrowRightIcon.vue'
-import CalendarBlankIcon from '../../assets/icons/CalendarBlankIcon.vue'
-import CalendarCheckIcon from '../../assets/icons/CalendarCheckIcon.vue'
-import CalendarXIcon from '../../assets/icons/CalendarXIcon.vue'
 import CheckIcon from '../../assets/icons/CheckIcon.vue'
 import { ref, reactive } from 'vue'
 import { Field, Form } from 'vee-validate'
@@ -307,6 +230,8 @@ import SuccessfulIcon from '../../assets/icons/SuccessfulIcon.vue'
 import axios from 'axios'
 import { useStore } from 'vuex'
 import $ from 'jquery'
+import SinglePersonArrival from './Membership/SinglePersonArrival.vue'
+import SinglePersonPayment from './Membership/SinglePersonPayment.vue'
 
 const store = useStore()
 
