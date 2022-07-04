@@ -129,39 +129,58 @@
             </div>
           </div>
         </div>
-        <div v-show="registerMemberProccess.registerMode" class="mb-5 flex flex-col p-5">
-          <label v-show="!member.image" for="dropzone-file" class="relative mx-auto flex h-24 w-24 max-w-lg cursor-pointer items-center justify-center rounded-full border-2 border-dashed border-blue-400 bg-slate-100 p-6 text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph h-10 w-10 text-blue-500" width="32" height="32" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256">
-              <path fill="currentColor" d="M236 184V56a20.1 20.1 0 0 0-20-20H40a20.1 20.1 0 0 0-20 20v144a20.1 20.1 0 0 0 20 20h176a20.1 20.1 0 0 0 20-20v-16ZM212 60v95l-21.9-21.8a19.8 19.8 0 0 0-28.2 0L144 151l-41.9-41.8a19.9 19.9 0 0 0-28.2 0L44 139V60ZM44 196v-23l44-44l41.9 41.8a19.8 19.8 0 0 0 28.2 0L176 153l36 36v7Zm100.7-84.7A15.9 15.9 0 0 1 140 100a16 16 0 0 1 32 0a16 16 0 0 1-16 16a15.9 15.9 0 0 1-11.3-4.7Z"></path>
-            </svg>
-            <input id="dropzone-file" type="file" class="hidden" @change="getImage" />
-            <h3 class="absolute -bottom-10 mx-auto mt-3 whitespace-nowrap text-lg font-semibold tracking-wide text-blue-500">Fotosuratni yuklash</h3>
-          </label>
-          <label v-show="member.image" for="dropzone-file" class="relative mx-auto flex h-24 w-24 max-w-lg cursor-pointer items-center justify-center rounded-full border-2 text-center">
-            <img class="h-24 w-24 rounded-full object-cover" id="memberImage" />
-            <input id="dropzone-file" type="file" class="hidden" @change="getImage" />
-            <h3 class="absolute -bottom-10 mx-auto mt-3 whitespace-nowrap text-lg font-semibold tracking-wide text-blue-500">Boshqa rasm yuklash</h3>
-          </label>
-        </div>
-        <!-- Step 1 -->
-        <Form v-show="registerMemberProccess.registerMode" class="mb-6 grid gap-6 p-5 lg:grid-cols-2">
-          <div class="p-3">
-            <label for="first_name" class="text-md mb-2 block font-medium text-gray-900 dark:text-gray-300">Ism</label>
-            <input type="text" v-model="member.firstname" id="first_name" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="John" required />
+        <form @submit.prevent="createMember()" method="post" enctype="multipart/form-data">
+          <div v-show="registerMemberProccess.registerMode" class="mb-5 flex flex-col p-5">
+            <label v-show="!member.image" for="dropzone-file" class="relative mx-auto flex h-24 w-24 max-w-lg cursor-pointer items-center justify-center rounded-full border-2 border-dashed border-blue-400 bg-slate-100 p-6 text-center">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ph h-10 w-10 text-blue-500" width="32" height="32" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256">
+                <path fill="currentColor" d="M236 184V56a20.1 20.1 0 0 0-20-20H40a20.1 20.1 0 0 0-20 20v144a20.1 20.1 0 0 0 20 20h176a20.1 20.1 0 0 0 20-20v-16ZM212 60v95l-21.9-21.8a19.8 19.8 0 0 0-28.2 0L144 151l-41.9-41.8a19.9 19.9 0 0 0-28.2 0L44 139V60ZM44 196v-23l44-44l41.9 41.8a19.8 19.8 0 0 0 28.2 0L176 153l36 36v7Zm100.7-84.7A15.9 15.9 0 0 1 140 100a16 16 0 0 1 32 0a16 16 0 0 1-16 16a15.9 15.9 0 0 1-11.3-4.7Z"></path>
+              </svg>
+              <input id="dropzone-file" type="file" class="hidden" name="image" @change="getImage" />
+              <h3 class="absolute -bottom-10 mx-auto mt-3 whitespace-nowrap text-lg font-semibold tracking-wide text-blue-500">Fotosuratni yuklash</h3>
+            </label>
+            <label v-show="member.image" for="dropzone-file" class="relative mx-auto flex h-24 w-24 max-w-lg cursor-pointer items-center justify-center rounded-full border-2 text-center">
+              <img class="h-24 w-24 rounded-full object-cover" id="memberImage" />
+              <input id="dropzone-file" type="file" class="hidden" name="image" @change="getImage" />
+              <h3 class="absolute -bottom-10 mx-auto mt-3 whitespace-nowrap text-lg font-semibold tracking-wide text-blue-500">Boshqa rasm yuklash</h3>
+            </label>
           </div>
-          <div class="p-3">
-            <label for="last_name" class="text-md mb-2 block font-medium text-gray-900 dark:text-gray-300">Familiya</label>
-            <input type="text" v-model="member.lastname" id="last_name" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="Doe" required />
+          <!-- Step 1 -->
+          <div v-show="registerMemberProccess.registerMode" class="mb-6 grid gap-6 p-5 lg:grid-cols-2">
+            <div class="p-3">
+              <label for="first_name" class="text-md mb-2 block font-medium text-gray-900 dark:text-gray-300">Ism</label>
+              <input type="text" v-model="member.firstname" id="first_name" name="firstname" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="John" required />
+            </div>
+            <div class="p-3">
+              <label for="last_name" class="text-md mb-2 block font-medium text-gray-900 dark:text-gray-300">Familiya</label>
+              <input type="text" v-model="member.lastname" id="last_name" name="lastname" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="Doe" required />
+            </div>
+            <div class="p-3">
+              <label for="birthday" class="text-md mb-2 block font-medium text-gray-900 dark:text-gray-300">Tug'ilgan kun</label>
+              <input type="date" v-model="member.birthday" id="birthday" name="birthday" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="Flowbite" required />
+            </div>
+            <div class="p-3">
+              <label for="phone" class="text-md mb-2 block font-medium text-gray-900 dark:text-gray-300">Telefon raqami</label>
+              <Field name="phone" v-model="member.phone" type="phone" v-mask="'+###(##) ###-##-##'" id="phone" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="+998(90) 123-45-67" required />
+            </div>
+            <Field name="code" v-model="confirmCode" type="hidden" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" required />
           </div>
-          <div class="p-3">
-            <label for="birthday" class="text-md mb-2 block font-medium text-gray-900 dark:text-gray-300">Tug'ilgan kun</label>
-            <input type="date" v-model="member.birthday" id="birthday" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="Flowbite" required />
+          <!-- Step 3 -->
+          <div class="flex justify-center" v-show="registerMemberProccess.conratulationMode">
+            <div class="flex flex-col">
+              <SuccessfulIcon class="mx-auto text-9xl text-green-500" />
+              <p class="my-5 text-center text-xl text-green-500">
+                Tasdiqlash jarayoni muvaffaqiyatli yakunlandi. Jarayonni yakunlash uchun <br />
+                "YAKUNLASH" tugmasini bosing!
+              </p>
+            </div>
           </div>
-          <div class="p-3">
-            <label for="phone" class="text-md mb-2 block font-medium text-gray-900 dark:text-gray-300">Telefon raqami</label>
-            <Field name="phone" v-model="member.phone" type="phone" v-mask="'+###(##) ###-##-##'" id="phone" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="+998(90) 123-45-67" required />
+          <div v-show="registerMemberProccess.conratulationMode" class="flex items-center justify-end space-x-2 rounded-b border-t border-gray-200 p-5 dark:border-gray-600">
+            <div>
+              <button v-show="isVerificationSuccess && !lastProgressBtn" type="submit" class="rounded bg-green-500 px-4 py-2 font-medium text-white shadow-lg shadow-indigo-200 outline-none transition-colors duration-200 hover:bg-green-600 focus:bg-green-500 focus:ring-green-500 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">Yakunlash</button>
+              <button v-show="lastProgressBtn" class="flex items-center rounded bg-green-400 px-4 py-2 font-medium text-white shadow-lg shadow-indigo-200 outline-none transition-colors duration-200 hover:bg-green-600 focus:bg-green-500 focus:ring-green-500 focus:ring-offset-2 active:shadow-none disabled:cursor-not-allowed disabled:bg-green-400/80 disabled:shadow-none" disabled><SpinIcon /> Yakunlash</button>
+            </div>
           </div>
-        </Form>
+        </form>
         <!-- Step 2 -->
         <div class="flex justify-center" v-show="registerMemberProccess.checkingMode">
           <div class="flex flex-col">
@@ -183,32 +202,12 @@
             </div>
           </div>
         </div>
-        <!-- Step 3 -->
-        <div class="flex justify-center" v-show="registerMemberProccess.conratulationMode">
-          <div class="flex flex-col">
-            <SuccessfulIcon class="mx-auto text-9xl text-green-500" />
-            <p class="my-5 text-center text-xl text-green-500">
-              Tasdiqlash jarayoni muvaffaqiyatli yakunlandi. Jarayonni yakunlash uchun <br />
-              "YAKUNLASH" tugmasini bosing!
-            </p>
-          </div>
-        </div>
-        <div class="flex items-center justify-end space-x-2 rounded-b border-t border-gray-200 p-5 dark:border-gray-600">
+        <div v-show="!registerMemberProccess.conratulationMode" class="flex items-center justify-end space-x-2 rounded-b border-t border-gray-200 p-5 dark:border-gray-600">
           <div>
             <button v-show="registerMemberProccess.registerMode" @click="clearFields()" class="mr-2 rounded border border-teal-500 bg-teal-500 px-4 py-2 font-medium text-white outline-none transition-colors duration-200 hover:bg-teal-400 hover:text-white focus:ring-teal-600 focus:ring-offset-2 active:scale-95 disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">Tozalash</button>
             <button v-show="registerMemberProccess.registerMode" @click="getMemberData()" class="rounded bg-indigo-500 px-4 py-2 font-medium text-white shadow-lg shadow-indigo-200 outline-none transition-colors duration-200 hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">Jo'natish</button>
             <button v-show="registerMemberProccess.checkingMode && !showCheckBtn" class="rounded bg-indigo-500 px-4 py-2 font-medium text-white shadow-lg shadow-indigo-200 outline-none transition-colors duration-200 hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none" disabled>Tasdiqlash</button>
             <button v-show="showCheckBtn" @click="checkVerification()" class="rounded bg-indigo-500 px-4 py-2 font-medium text-white shadow-lg shadow-indigo-200 outline-none transition-colors duration-200 hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">Tasdiqlash</button>
-            <button v-show="isVerificationSuccess && !lastProgressBtn" @click="createMember()" class="rounded bg-green-500 px-4 py-2 font-medium text-white shadow-lg shadow-indigo-200 outline-none transition-colors duration-200 hover:bg-green-600 focus:bg-green-500 focus:ring-green-500 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">Yakunlash</button>
-            <button v-show="lastProgressBtn" class="flex items-center rounded bg-green-400 px-4 py-2 font-medium text-white shadow-lg shadow-indigo-200 outline-none transition-colors duration-200 hover:bg-green-600 focus:bg-green-500 focus:ring-green-500 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-green-400/80 disabled:shadow-none" disabled>
-              <svg role="status" class="mr-2 h-5 w-5 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
-                <path
-                  d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                  fill="currentFill"
-                /></svg
-              >Yakunlash
-            </button>
           </div>
         </div>
       </div>
@@ -232,6 +231,7 @@ import { useStore } from 'vuex'
 import $ from 'jquery'
 import SinglePersonArrival from './Membership/SinglePersonArrival.vue'
 import SinglePersonPayment from './Membership/SinglePersonPayment.vue'
+import SpinIcon from '../../assets/icons/SpinIcon.vue'
 
 const store = useStore()
 
@@ -284,6 +284,13 @@ function clearFields() {
   member.lastname = ''
   member.birthday = ''
   member.phone = ''
+  confirm.first = ''
+  confirm.second = ''
+  confirm.third = ''
+  confirm.fourth = ''
+  confirm.fifth = ''
+  confirm.sixth = ''
+  confirmCode.value = ''
 }
 
 const confirmCode = ref('')
@@ -337,6 +344,7 @@ const closeAddMemberModal = () => {
   checkingStatus.inProgress = false
   checkingStatus.done = false
   congratStatus.default = true
+  congratStatus.done = false
   congratStatus.inProgress = false
   registerMemberProccess.registerMode = true
   registerMemberProccess.checkingMode = false
@@ -471,16 +479,10 @@ const checkVerification = () => {
 
 const createMember = () => {
   lastProgressBtn.value = true
-  const memberData = {
-    userId: store.state.user.id,
-    firstname: member.firstname,
-    lastname: member.lastname,
-    phone: member.phone,
-    birthday: member.birthday,
-    image: member.image.name,
-    code: confirmCode.value,
-  }
-  store.dispatch('memberModule/create', memberData).then(
+  const form = $('form')[0]
+  const formData = new FormData(form)
+  formData.append('userId', store.state.user.id)
+  store.dispatch('memberModule/create', formData).then(
     () => {
       notify.success({
         message: "A'zo muvaffaqiyatli yaratildi!",
