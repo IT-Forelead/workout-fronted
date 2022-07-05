@@ -14,95 +14,20 @@
             </tr>
           </thead>
           <tbody class="custom-height divide-y divide-gray-200 bg-white">
-            <tr class="text-md text-gray-700">
+            <tr v-for="(arrival, index) in arrivals" :key="index" class="text-md text-gray-700">
               <td class="whitespace-nowrap px-4 py-3">
                 <div class="flex items-center">
                   <div class="flex mr-3 items-center justify-center h-10 w-10 border border-gray-50 rounded-full">
                     <img class="object-cover w-full h-full rounded-full" src="https://images.pexels.com/photos/5212324/pexels-photo-5212324.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" alt="#" />
                   </div>
                   <div>
-                    <p class="font-semibold text-gray-900">Jumaniyozov Surojiddin</p>
-                    <p class="text-sm text-gray-600">+998 (93) 747-59-95</p>
+                    <p class="font-semibold text-gray-900">{{ arrival.member.firstname + " " + arrival.member.lastname }}</p>
+                    <p class="text-sm text-gray-600">{{ phoneStyle(arrival.member.phone) }}</p>
                   </div>
                 </div>
               </td>
-              <td class="whitespace-nowrap px-4 py-3"><CalendarBlankIcon class="inline-block text-lg mr-1" /> 17.06.2022 12:30</td>
-              <td class="whitespace-nowrap px-4 py-3">Keldi</td>
-            </tr>
-            <tr class="text-md text-gray-700">
-              <td class="whitespace-nowrap px-4 py-3">
-                <div class="flex items-center">
-                  <div class="flex mr-3 items-center justify-center h-10 w-10 border border-gray-50 rounded-full">
-                    <img class="object-cover w-full h-full rounded-full" src="https://images.pexels.com/photos/5212324/pexels-photo-5212324.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" alt="#" />
-                  </div>
-                  <div>
-                    <p class="font-semibold text-gray-900">Jumaniyozov Surojiddin</p>
-                    <p class="text-sm text-gray-600">+998 (93) 747-59-95</p>
-                  </div>
-                </div>
-              </td>
-              <td class="whitespace-nowrap px-4 py-3"><CalendarBlankIcon class="inline-block text-lg mr-1" /> 17.06.2022 12:30</td>
-              <td class="whitespace-nowrap px-4 py-3">Keldi</td>
-            </tr>
-            <tr class="text-md text-gray-700">
-              <td class="whitespace-nowrap px-4 py-3">
-                <div class="flex items-center">
-                  <div class="flex mr-3 items-center justify-center h-10 w-10 border border-gray-50 rounded-full">
-                    <img class="object-cover w-full h-full rounded-full" src="https://images.pexels.com/photos/5212324/pexels-photo-5212324.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" alt="#" />
-                  </div>
-                  <div>
-                    <p class="font-semibold text-gray-900">Jumaniyozov Surojiddin</p>
-                    <p class="text-sm text-gray-600">+998 (93) 747-59-95</p>
-                  </div>
-                </div>
-              </td>
-              <td class="whitespace-nowrap px-4 py-3"><CalendarBlankIcon class="inline-block text-lg mr-1" /> 17.06.2022 12:30</td>
-              <td class="whitespace-nowrap px-4 py-3">Ketti</td>
-            </tr>
-            <tr class="text-md text-gray-700">
-              <td class="whitespace-nowrap px-4 py-3">
-                <div class="flex items-center">
-                  <div class="flex mr-3 items-center justify-center h-10 w-10 border border-gray-50 rounded-full">
-                    <img class="object-cover w-full h-full rounded-full" src="https://images.pexels.com/photos/5212324/pexels-photo-5212324.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" alt="#" />
-                  </div>
-                  <div>
-                    <p class="font-semibold text-gray-900">Jumaniyozov Surojiddin</p>
-                    <p class="text-sm text-gray-600">+998 (93) 747-59-95</p>
-                  </div>
-                </div>
-              </td>
-              <td class="whitespace-nowrap px-4 py-3"><CalendarBlankIcon class="inline-block text-lg mr-1" /> 17.06.2022 12:30</td>
-              <td class="whitespace-nowrap px-4 py-3">Keldi</td>
-            </tr>
-            <tr class="text-md text-gray-700">
-              <td class="whitespace-nowrap px-4 py-3">
-                <div class="flex items-center">
-                  <div class="flex mr-3 items-center justify-center h-10 w-10 border border-gray-50 rounded-full">
-                    <img class="object-cover w-full h-full rounded-full" src="https://images.pexels.com/photos/5212324/pexels-photo-5212324.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" alt="#" />
-                  </div>
-                  <div>
-                    <p class="font-semibold text-gray-900">Jumaniyozov Surojiddin</p>
-                    <p class="text-sm text-gray-600">+998 (93) 747-59-95</p>
-                  </div>
-                </div>
-              </td>
-              <td class="whitespace-nowrap px-4 py-3"><CalendarBlankIcon class="inline-block text-lg mr-1" /> 17.06.2022 12:30</td>
-              <td class="whitespace-nowrap px-4 py-3">Ketti</td>
-            </tr>
-            <tr class="text-md text-gray-700">
-              <td class="whitespace-nowrap px-4 py-3">
-                <div class="flex items-center">
-                  <div class="flex mr-3 items-center justify-center h-10 w-10 border border-gray-50 rounded-full">
-                    <img class="object-cover w-full h-full rounded-full" src="https://images.pexels.com/photos/5212324/pexels-photo-5212324.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" alt="#" />
-                  </div>
-                  <div>
-                    <p class="font-semibold text-gray-900">Jumaniyozov Surojiddin</p>
-                    <p class="text-sm text-gray-600">+998 (93) 747-59-95</p>
-                  </div>
-                </div>
-              </td>
-              <td class="whitespace-nowrap px-4 py-3"><CalendarBlankIcon class="inline-block text-lg mr-1" /> 17.06.2022 12:30</td>
-              <td class="whitespace-nowrap px-4 py-3">Keldi</td>
+              <td class="whitespace-nowrap px-4 py-3"><CalendarBlankIcon class="inline-block text-lg mr-1" /> {{ arrival.arrival.createdAt }}</td>
+              <td class="whitespace-nowrap px-4 py-3">{{ arrivalTypeTranslate(arrival.arrival.arrivalType) }}</td>
             </tr>
           </tbody>
         </table>
@@ -112,5 +37,44 @@
 </template>
 
 <script setup>
+import { computed, onMounted } from 'vue'
+import { useStore } from 'vuex'
 import CalendarBlankIcon from '../../assets/icons/CalendarBlankIcon.vue'
+
+const store = useStore()
+
+const arrivals = computed(() => {
+  return store.state.arrivals
+})
+
+const arrivalTypeTranslate = (type) => {
+  switch (type) {
+    case 'come_in':
+      return 'Keldi'
+    case 'go_out':
+      return 'Ketti'
+    default:
+      return ''
+  }
+}
+
+const phoneStyle = (phone) => {
+  return `${phone.slice(0, 4)} (${phone.slice(4, 6)}) ${phone.slice(6, 9)}-${phone.slice(9, 11)}-${phone.slice(11, 13)}`
+}
+
+const getArrival = () => {
+  store.dispatch('arrivalModule/get').then(
+    (data) => {
+      store.commit('setArrival', data)
+    },
+    (error) => {
+      notify.warning({
+        message: "Ma\'lumotlarni bazadan olishda xatolik yuz berdi!",
+        position: 'bottomLeft',
+      })
+    }
+  )
+}
+
+onMounted(() => getArrival())
 </script>

@@ -56,7 +56,7 @@ const getMessages = () => {
     },
     (error) => {
       notify.warning({
-        message: "SMS xabarlarni olishda xatolik yuz berdi!",
+        message: "Ma'lumotlarni bazadan olishda xatolik yuz berdi!",
         position: 'bottomLeft',
       })
     }
