@@ -16,75 +16,25 @@
               </tr>
             </thead>
             <tbody class="custom-height divide-y divide-gray-200 bg-white">
-              <tr class="text-md text-gray-700">
+              <tr v-for="(payment, index) in payments" :key="index" class="text-md text-gray-700">
                 <td class="whitespace-nowrap px-4 py-3">
                   <div class="flex items-center">
                     <div class="mr-3 flex h-10 w-10 items-center justify-center rounded-full border border-gray-50">
                       <img class="h-full w-full rounded-full object-cover" src="https://images.pexels.com/photos/5212324/pexels-photo-5212324.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" alt="#" />
                     </div>
                     <div>
-                      <p class="font-semibold text-gray-900">Jumaniyozov Surojiddin</p>
-                      <p class="text-sm text-gray-600">+998 (93) 747-59-95</p>
+                      <p class="font-semibold text-gray-900">{{ payment.member.firstname + " " + payment.member.lastname }}</p>
+                      <p class="text-sm text-gray-600">{{ phoneStyle(payment.member.phone) }}</p>
                     </div>
                   </div>
                 </td>
                 <td class="whitespace-nowrap px-4 py-3">
-                  <p>17.06.2022 12:30</p>
-                  <p>17.06.2022 12:30</p>
+                  <p>{{ payment.payment.createdAt }}</p>
+                  <p>{{ payment.payment.expiredAt }}</p>
                 </td>
+                <td class="whitespace-nowrap px-4 py-3">{{ paymenttypeTranslate(payment.payment.paymentType) }}</td>
                 <td class="whitespace-nowrap px-4 py-3">
-                  Oylik
-                </td>
-                <td class="whitespace-nowrap px-4 py-3">
-                  85 000.00
-                  <span class="text-xs">UZS</span>
-                </td>
-              </tr>
-              <tr class="text-md text-gray-700">
-                <td class="whitespace-nowrap px-4 py-3">
-                  <div class="flex items-center">
-                    <div class="mr-3 flex h-10 w-10 items-center justify-center rounded-full border border-gray-50">
-                      <img class="h-full w-full rounded-full object-cover" src="https://images.pexels.com/photos/5212324/pexels-photo-5212324.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" alt="#" />
-                    </div>
-                    <div>
-                      <p class="font-semibold text-gray-900">Jumaniyozov Surojiddin</p>
-                      <p class="text-sm text-gray-600">+998 (93) 747-59-95</p>
-                    </div>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap px-4 py-3">
-                  <p>17.06.2022 12:30</p>
-                  <p>17.06.2022 12:30</p>
-                </td>
-                <td class="whitespace-nowrap px-4 py-3">
-                  Oylik
-                </td>
-                <td class="whitespace-nowrap px-4 py-3">
-                  85 000.00
-                  <span class="text-xs">UZS</span>
-                </td>
-              </tr>
-              <tr class="text-md text-gray-700">
-                <td class="whitespace-nowrap px-4 py-3">
-                  <div class="flex items-center">
-                    <div class="mr-3 flex h-10 w-10 items-center justify-center rounded-full border border-gray-50">
-                      <img class="h-full w-full rounded-full object-cover" src="https://images.pexels.com/photos/5212324/pexels-photo-5212324.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" alt="#" />
-                    </div>
-                    <div>
-                      <p class="font-semibold text-gray-900">Jumaniyozov Surojiddin</p>
-                      <p class="text-sm text-gray-600">+998 (93) 747-59-95</p>
-                    </div>
-                  </div>
-                </td>
-                <td class="whitespace-nowrap px-4 py-3">
-                  <p>17.06.2022 12:30</p>
-                  <p>17.06.2022 12:30</p>
-                </td>
-                <td class="whitespace-nowrap px-4 py-3">
-                  Oylik
-                </td>
-                <td class="whitespace-nowrap px-4 py-3">
-                  85 000.00
+                  {{ payment.payment.cost }}
                   <span class="text-xs">UZS</span>
                 </td>
               </tr>
@@ -179,6 +129,21 @@ const store = useStore()
 const payments = computed(() => {
   return store.state.payments
 })
+
+const paymenttypeTranslate = (type) => {
+  switch (type) {
+    case 'daily':
+      return 'Kunlik to\'lov'
+    case 'monthly':
+      return 'Oylik to\'lov'
+    default:
+      return ''
+  }
+}
+
+const phoneStyle = (phone) => {
+  return `${phone.slice(0, 4)} (${phone.slice(4, 6)}) ${phone.slice(6, 9)}-${phone.slice(9, 11)}-${phone.slice(11, 13)}`
+}
 
 const getPayments = () => {
   store.dispatch('paymentModule/get').then(
