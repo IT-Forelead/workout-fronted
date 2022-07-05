@@ -169,8 +169,33 @@
 </template>
 
 <script setup>
+import { computed, onMounted } from 'vue'
+import { useStore } from 'vuex'
 import UserBoldIcon from '../../assets/icons/UserBoldIcon.vue'
 import CheckIcon from '../../assets/icons/CheckIcon.vue'
+
+const store = useStore()
+
+const payments = computed(() => {
+  return store.state.payments
+})
+
+const getPayments = () => {
+  store.dispatch('paymentModule/get').then(
+    (data) => {
+      console.log(data);
+      store.commit('setPayment', data)
+    },
+    (error) => {
+      notify.warning({
+        message: "To\'lovlarni bazadan olishda xatolik yuz berdi!",
+        position: 'bottomLeft',
+      })
+    }
+  )
+}
+
+onMounted(() => getPayments())
 </script>
 
 <style scoped>
