@@ -15,16 +15,47 @@
         <button x-on:mouseenter="open = true" x-on:mouseleave="open = false" @click="openAddMemberModal()" class="mx-1 w-full rounded-lg bg-blue-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">A'zo qo'shish</button>
       </div>
     </div>
-    <div class="grid grid-cols-5 gap-4">
-      <div class="max-w-sm overflow-hidden rounded-xl bg-white shadow-md">
-        <img src="../../assets/images/bg-login.jpg" alt="#" class="h-auto w-full" />
+    <div class="grid grid-cols-6 gap-5">
+      <div v-for="(member, idx) in members" :key="idx" class="max-w-sm overflow-hidden rounded-xl bg-white shadow-md">
+        <img :src="'http://localhost:9000/member/image/' + member.image" alt="#" class="h-auto w-full" />
         <div class="flex flex-col justify-center p-5 text-center" x-data="{open: false}">
-          <h3 class="text-md mb-2 font-extrabold">Jumaniyozov Surojiddin</h3>
-          <p class="text-medium mb-3 text-gray-600">+998 (93) 747-59-95</p>
-          <button x-on:mouseenter="open = true" x-on:mouseleave="open = false" @click="openModal()" class="mx-14 flex items-center justify-center rounded-md border border-slate-300 bg-white py-2 px-5 text-gray-500 transition-all duration-200 ease-in hover:bg-slate-100">Batafsil <ArrowRightIcon x-show="open" class="ml-3 animate-pulse text-xl transition-all duration-500 ease-in" /></button>
+          <h3 class="text-md mb-2 font-extrabold">{{ member.firstname + ' ' + member.lastname }}</h3>
+          <p class="text-medium mb-3 text-gray-600">{{ member.phone }}</p>
+          <button x-on:mouseenter="open = true" x-on:mouseleave="open = false" @click="openModal()" class="flex items-center justify-center rounded-md border border-slate-300 bg-white py-2 px-5 text-gray-500 transition-all duration-200 ease-in hover:bg-slate-100">Batafsil <ArrowRightIcon x-show="open" class="ml-3 animate-pulse text-xl transition-all duration-500 ease-in" /></button>
         </div>
       </div>
     </div>
+    <nav class="absolute bottom-3 mt-5">
+      <ul class="inline-flex items-center -space-x-px">
+        <li>
+          <a href="#" class="ml-0 block rounded-l-lg border border-gray-300 bg-white py-2 px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+            <span class="sr-only">oldingi</span>
+            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="current border border-gray-300 bg-white py-2 px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
+        </li>
+        <li>
+          <a href="#" class="border border-gray-300 bg-white py-2 px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
+        </li>
+        <li>
+          <a href="#" class="border border-gray-300 bg-white py-2 px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">3</a>
+        </li>
+        <li>
+          <a href="#" class="border border-gray-300 bg-white py-2 px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">4</a>
+        </li>
+        <li>
+          <a href="#" class="border border-gray-300 bg-white py-2 px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">5</a>
+        </li>
+        <li>
+          <a href="#" class="block rounded-r-lg border border-gray-300 bg-white py-2 px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+            <span class="sr-only">keyingi</span>
+            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+          </a>
+        </li>
+      </ul>
+    </nav>
   </div>
 
   <!-- Member Info Modal -->
@@ -219,19 +250,19 @@
 import FunnelIcon from '../../assets/icons/FunnelIcon.vue'
 import ArrowRightIcon from '../../assets/icons/ArrowRightIcon.vue'
 import CheckIcon from '../../assets/icons/CheckIcon.vue'
-import { ref, reactive } from 'vue'
-import { Field, Form } from 'vee-validate'
-import notify from 'izitoast'
-import 'izitoast/dist/css/iziToast.min.css'
+import SinglePersonArrival from './Membership/SinglePersonArrival.vue'
 import ConfirmCode from '../../assets/icons/ConfirmCode.vue'
 import TimerIcon from '../../assets/icons/TimerIcon.vue'
 import SuccessfulIcon from '../../assets/icons/SuccessfulIcon.vue'
-import axios from 'axios'
-import { useStore } from 'vuex'
-import $ from 'jquery'
-import SinglePersonArrival from './Membership/SinglePersonArrival.vue'
 import SinglePersonPayment from './Membership/SinglePersonPayment.vue'
 import SpinIcon from '../../assets/icons/SpinIcon.vue'
+import { Field, Form } from 'vee-validate'
+import { ref, reactive, onMounted, computed } from 'vue'
+import notify from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
+import { useStore } from 'vuex'
+import $ from 'jquery'
+import memberService from '../../services/member.service'
 
 const store = useStore()
 
@@ -373,10 +404,8 @@ function getImage(e) {
 
 const getMemberData = () => {
   member.phone = member.phone.replace(')', '').replace('(', '').replace(' ', '').replace(' ', '').replace('-', '').replace('-', '')
-  //!TODO Remove me
-  const members = ref([])
 
-  if (members.value.filter((i) => i.phone === member.phone)[0]) {
+  if (store.state.membersWithTotal.member.filter((i) => i.phone === member.phone)[0]) {
     notify.warning({
       title: 'Diqqat!',
       message: `Bu <strong style="color: #000;">${member.phone}</strong> kontakt allaqachon bazada mavjud!`,
@@ -464,6 +493,18 @@ const getMemberData = () => {
 
 const isVerificationSuccess = ref(false)
 
+const addMembersInStore = (page) => {
+  memberService.getMembers(store.state.user.id || localStorage.getItem("_id"), page).then((data) => store.commit('setMembersWithTotal', data))
+}
+
+const members = computed(() => {
+  return store.state.membersWithTotal.member
+})
+
+const total = computed(() => {
+  return store.state.membersWithTotal.total
+})
+
 const checkVerification = () => {
   // write checking request
   isVerificationSuccess.value = true // delete me!
@@ -490,6 +531,7 @@ const createMember = () => {
       })
       congratStatus.done = true
       closeAddMemberModal()
+      addMembersInStore()
     },
     (error) => {
       notify.error({
@@ -499,6 +541,8 @@ const createMember = () => {
     }
   )
 }
+
+onMounted(() => addMembersInStore())
 </script>
 
 <style scoped>
@@ -520,5 +564,9 @@ const createMember = () => {
 }
 .code:valid {
   border-color: #3498db;
+}
+.current {
+  color: #fff;
+  background-color: rgb(26, 86, 219);
 }
 </style>

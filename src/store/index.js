@@ -3,13 +3,15 @@ import { auth } from './auth.module'
 import { memberModule } from './member.module'
 import { messageModule } from './message.module'
 import { paymentModule } from './payment.module'
+import { userModule } from './user.module'
 
 const store = createStore({
   modules: {
     auth,
     memberModule,
     messageModule,
-    paymentModule
+    paymentModule,
+    userModule
   },
   state() {
     return {
@@ -18,7 +20,8 @@ const store = createStore({
       messages: [],
       payments: [],
       currentPage: '',
-      isSidebarOpen: false
+      isSidebarOpen: false,
+      membersWithTotal: {},
     }
   },
   mutations: {
@@ -39,6 +42,9 @@ const store = createStore({
     },
     setSidebarStatus(state, status) {
       state.isSidebarOpen = status
+    },
+    setMembersWithTotal(state, data) {
+      state.membersWithTotal = data
     }
   },
 })
