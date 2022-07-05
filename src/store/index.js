@@ -3,6 +3,7 @@ import { auth } from './auth.module'
 import { memberModule } from './member.module'
 import { messageModule } from './message.module'
 import { paymentModule } from './payment.module'
+import { arrivalModule } from './arrival.module'
 import { userModule } from './user.module'
 
 const store = createStore({
@@ -11,6 +12,7 @@ const store = createStore({
     memberModule,
     messageModule,
     paymentModule,
+    arrivalModule,
     userModule
   },
   state() {
@@ -19,6 +21,7 @@ const store = createStore({
       user: {},
       messages: [],
       payments: [],
+      arrivals: [],
       currentPage: '',
       isSidebarOpen: false,
       membersWithTotal: {},
@@ -36,6 +39,9 @@ const store = createStore({
     },
     setPayment(state, data) {
       state.payments = data
+    },
+    setArrival(state, data) {
+      state.arrivals = data
     },
     setSelectedPage(state, page) {
       state.currentPage = page

@@ -32,7 +32,7 @@
                   <p>{{ payment.payment.createdAt }}</p>
                   <p>{{ payment.payment.expiredAt }}</p>
                 </td>
-                <td class="whitespace-nowrap px-4 py-3">{{ paymenttypeTranslate(payment.payment.paymentType) }}</td>
+                <td class="whitespace-nowrap px-4 py-3">{{ paymentTypeTranslate(payment.payment.paymentType) }}</td>
                 <td class="whitespace-nowrap px-4 py-3">
                   {{ payment.payment.cost }}
                   <span class="text-xs">UZS</span>
@@ -130,7 +130,7 @@ const payments = computed(() => {
   return store.state.payments
 })
 
-const paymenttypeTranslate = (type) => {
+const paymentTypeTranslate = (type) => {
   switch (type) {
     case 'daily':
       return 'Kunlik to\'lov'
@@ -148,12 +148,11 @@ const phoneStyle = (phone) => {
 const getPayments = () => {
   store.dispatch('paymentModule/get').then(
     (data) => {
-      console.log(data);
       store.commit('setPayment', data)
     },
     (error) => {
       notify.warning({
-        message: "To\'lovlarni bazadan olishda xatolik yuz berdi!",
+        message: "Ma\'lumotlarni bazadan olishda xatolik yuz berdi!",
         position: 'bottomLeft',
       })
     }
