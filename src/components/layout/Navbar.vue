@@ -105,7 +105,7 @@ function toggleSidebar() {
 }
 
 const sidebarStatus = computed(() => {
-  let refreshConf = localStorage.getItem('sidebar') === '1' ? true : false
+  let refreshConf = localStorage.getItem('sidebar') === '1'
   return store.state.isSidebarOpen || refreshConf
 })
 
@@ -116,10 +116,25 @@ function checkLogin(data) {
 function onLogout() {
   store.dispatch('auth/logout').then(() => {
     checkLogin(false)
+    localStorage.removeItem('_id')
+    localStorage.removeItem('time')
+    localStorage.removeItem('user')
   })
 }
 
 const addUserInStore = () => {
+  store.dispatch('userModule/get').then(
+    (data) => {
+      store.commit('setUser', data)
+      localStorage.setItem('_id', data.id)
+    },
+    (error) => {
+      notify.error({
+        message: "Foydalanuvchi ma'lumotlarini olish xatolik yuz berdi!",
+        position: 'bottomLeft',
+      })
+    }
+  )
   userService.getUser().then((data) => store.commit('setUser', data))
 }
 
@@ -149,9 +164,8 @@ $(document).click(function (event) {
 
 function autoLogout() {
   setTimeout(() => {
-    if (!store.state.user.firstname) {
-      authService.logout()
-      checkLogin(false)
+    if (!store.state.user) {
+      onLogout()
       router.go('/login')
     }
   }, 1000)

@@ -22,6 +22,16 @@ export const memberModule = {
           return Promise.reject(error);
         }
       );
+    },
+    get({ commit }, id, page) {
+      return MemberService.getMembers(id, page).then(
+        members => {
+          return Promise.resolve(members);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
     }
   },
 

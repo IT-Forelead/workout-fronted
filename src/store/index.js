@@ -1,18 +1,21 @@
 import { createStore } from 'vuex'
 import { auth } from './auth.module'
 import { memberModule } from './member.module'
+import { userModule } from './user.module'
 
 const store = createStore({
   modules: {
     auth,
     memberModule,
+    userModule
   },
   state() {
     return {
       isLogin: false,
       user: {},
       currentPage: '',
-      isSidebarOpen: false
+      isSidebarOpen: false,
+      membersWithTotal: {},
     }
   },
   mutations: {
@@ -27,6 +30,9 @@ const store = createStore({
     },
     setSidebarStatus(state, status) {
       state.isSidebarOpen = status
+    },
+    setMembersWithTotal(state, data) {
+      state.membersWithTotal = data
     }
   },
 })
