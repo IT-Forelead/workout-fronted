@@ -1,4 +1,4 @@
-# Automate Workout Registration and Payment
+# Automate Workout Registration and Payment System
 ## Powerful Technology
 - Vue 3
 - Vuex
