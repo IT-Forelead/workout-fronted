@@ -18,8 +18,13 @@ const routes = [
   },
   {
     path: '/arrival',
-    name: 'Kelishlar hisoboti',
+    name: 'Kelib-ketishlar',
     component: () => import('../components/pages/Arrival.vue'),
+  },
+  {
+    path: '/messages',
+    name: 'SMS xabarlar',
+    component: () => import('../components/pages/Messages.vue'),
   },
   {
     path: '/settings',

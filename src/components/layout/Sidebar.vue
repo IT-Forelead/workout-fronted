@@ -42,7 +42,8 @@ const menus = [
   { id: 2, url: '/members', icon: 'people-outline', name: "A'zolarimiz" },
   { id: 3, url: '/payments', icon: 'wallet-outline', name: "To'lovlar" },
   { id: 4, url: '/arrival', icon: 'repeat-outline', name: "Kelib-Ketishlar" },
-  { id: 5, url: '/settings', icon: 'settings-outline', name: "Sozlamalar" },
+  { id: 5, url: '/messages', icon: 'mail-outline', name: "SMS xaborlar" },
+  { id: 6, url: '/settings', icon: 'settings-outline', name: "Sozlamalar" },
 ]
 </script>
 
