@@ -89,6 +89,8 @@ import LogoutIcon from '../../assets/icons/LogoutIcon.vue'
 import ProfileIcon from '../../assets/icons/ProfileIcon.vue'
 import MenuIcon from '../../assets/icons/MenuIcon.vue'
 import ListIcon from '../../assets/icons/ListIcon.vue'
+import notify from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
 
 const store = useStore()
 const router = useRouter()
@@ -133,6 +135,7 @@ const addUserInStore = () => {
         message: "Foydalanuvchi ma'lumotlarini olish xatolik yuz berdi!",
         position: 'bottomLeft',
       })
+      autoLogout()
     }
   )
   userService.getUser().then((data) => store.commit('setUser', data))
@@ -164,12 +167,16 @@ $(document).click(function (event) {
 
 function autoLogout() {
   setTimeout(() => {
-    if (!store.state.user) {
+    if (!store.state.user.firstname) {
       onLogout()
       router.go('/login')
     }
   }, 1000)
 }
+
+$(window).click(() => {
+ autoLogout()
+})
 
 onMounted(() => addUserInStore(), autoLogout())
 </script>
