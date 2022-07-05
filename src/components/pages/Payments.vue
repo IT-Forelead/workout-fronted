@@ -123,6 +123,8 @@ import { computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import UserBoldIcon from '../../assets/icons/UserBoldIcon.vue'
 import CheckIcon from '../../assets/icons/CheckIcon.vue'
+import notify from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
 
 const store = useStore()
 

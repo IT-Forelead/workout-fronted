@@ -118,9 +118,6 @@ function checkLogin(data) {
 function onLogout() {
   store.dispatch('auth/logout').then(() => {
     checkLogin(false)
-    localStorage.removeItem('_id')
-    localStorage.removeItem('time')
-    localStorage.removeItem('user')
   })
 }
 
@@ -132,13 +129,12 @@ const addUserInStore = () => {
     },
     (error) => {
       notify.error({
-        message: "Foydalanuvchi ma'lumotlarini olish xatolik yuz berdi!",
+        message: "Foydalanuvchi ma'lumotlarini olishda xatolik yuz berdi!",
         position: 'bottomLeft',
       })
       autoLogout()
     }
   )
-  userService.getUser().then((data) => store.commit('setUser', data))
 }
 
 const fullname = computed(() => {

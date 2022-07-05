@@ -19,13 +19,13 @@ class MemberService {
       return response.data
     })
   }
-  getMembers(id, page) {
-    if (page) {
-      return axios.get(API_URL + '/member/' + `${id}` + `/${page}`, { headers: authHeader() }).then((response) => {
+  getMembers(pageWithId) {
+    if (pageWithId.page) {
+      return axios.get(API_URL + '/member/' + `${pageWithId.id}` + `/${pageWithId.page}`, { headers: authHeader() }).then((response) => {
         return response.data
       })  
     } else {
-      return axios.get(API_URL + '/member/' + `${id}` + '/1', { headers: authHeader() }).then((response) => {
+      return axios.get(API_URL + '/member/' + `${pageWithId.id}` + '/1', { headers: authHeader() }).then((response) => {
         return response.data
       })
     }

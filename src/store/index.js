@@ -21,7 +21,8 @@ const store = createStore({
       payments: [],
       currentPage: '',
       isSidebarOpen: false,
-      membersWithTotal: {},
+      members: [],
+      total: 0,
     }
   },
   mutations: {
@@ -43,8 +44,11 @@ const store = createStore({
     setSidebarStatus(state, status) {
       state.isSidebarOpen = status
     },
-    setMembersWithTotal(state, data) {
-      state.membersWithTotal = data
+    setMembers(state, data) {
+      state.members = data
+    },
+    setTotal(state, data) {
+      state.total = data
     }
   },
 })

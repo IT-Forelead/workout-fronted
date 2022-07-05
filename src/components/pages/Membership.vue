@@ -15,17 +15,20 @@
         <button x-on:mouseenter="open = true" x-on:mouseleave="open = false" @click="openAddMemberModal()" class="mx-1 w-full rounded-lg bg-blue-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">A'zo qo'shish</button>
       </div>
     </div>
-    <div class="grid grid-cols-6 gap-5">
+    <div v-show="!showContent" class="flex w-full justify-center pt-5">
+      <h1 class="text-xl font-bold text-red-500">Ma'lumotlar bazasida a'zolar mavjud emas!</h1>
+    </div>
+    <div v-show="showContent" class="grid grid-cols-5 gap-5 gap-x-14">
       <div v-for="(member, idx) in members" :key="idx" class="max-w-sm overflow-hidden rounded-xl bg-white shadow-md">
-        <img :src="'http://localhost:9000/member/image/' + member.image" alt="#" class="h-auto w-full" />
+        <img :src="'http://localhost:9000/member/image/' + member.image" alt="#" class="h-40 w-full cursor-zoom-out object-cover duration-500 hover:object-scale-down" />
         <div class="flex flex-col justify-center p-5 text-center" x-data="{open: false}">
-          <h3 class="text-md mb-2 font-extrabold">{{ member.firstname + ' ' + member.lastname }}</h3>
+          <h3 class="text-md mb-2 h-12 overflow-hidden font-extrabold">{{ member.firstname + ' ' + member.lastname }}</h3>
           <p class="text-medium mb-3 text-gray-600">{{ member.phone }}</p>
           <button x-on:mouseenter="open = true" x-on:mouseleave="open = false" @click="openModal()" class="flex items-center justify-center rounded-md border border-slate-300 bg-white py-2 px-5 text-gray-500 transition-all duration-200 ease-in hover:bg-slate-100">Batafsil <ArrowRightIcon x-show="open" class="ml-3 animate-pulse text-xl transition-all duration-500 ease-in" /></button>
         </div>
       </div>
     </div>
-    <nav class="absolute bottom-3 mt-5">
+    <nav v-show="pagination !== 0" class="absolute bottom-3 mt-5">
       <ul class="inline-flex items-center -space-x-px">
         <li>
           <a href="#" class="ml-0 block rounded-l-lg border border-gray-300 bg-white py-2 px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
@@ -33,20 +36,8 @@
             <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
           </a>
         </li>
-        <li>
-          <a href="#" class="current border border-gray-300 bg-white py-2 px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-        </li>
-        <li>
-          <a href="#" class="border border-gray-300 bg-white py-2 px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-        </li>
-        <li>
-          <a href="#" class="border border-gray-300 bg-white py-2 px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">3</a>
-        </li>
-        <li>
-          <a href="#" class="border border-gray-300 bg-white py-2 px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">4</a>
-        </li>
-        <li>
-          <a href="#" class="border border-gray-300 bg-white py-2 px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">5</a>
+        <li v-for="page in pagination" :key="page">
+          <a href="#" @click="addMembersInStore(page)" :class="{ current: page === activePaginationTab }" class="border border-gray-300 bg-white py-2 px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ page }}</a>
         </li>
         <li>
           <a href="#" class="block rounded-r-lg border border-gray-300 bg-white py-2 px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
@@ -263,11 +254,17 @@ import 'izitoast/dist/css/iziToast.min.css'
 import { useStore } from 'vuex'
 import $ from 'jquery'
 import memberService from '../../services/member.service'
+import authHeader from '../../services/auth-header'
+import authService from '../../services/auth.service'
+import router from '../../router'
 
 const store = useStore()
 
 const isModalOpen = ref(false)
 const isAddMemberModalOpen = ref(false)
+const showContent = ref(true)
+
+const activePaginationTab = ref(1)
 
 const registerMemberProccess = reactive({
   registerMode: false,
@@ -405,13 +402,13 @@ function getImage(e) {
 const getMemberData = () => {
   member.phone = member.phone.replace(')', '').replace('(', '').replace(' ', '').replace(' ', '').replace('-', '').replace('-', '')
 
-  // if (store.state.membersWithTotal.member.filter((i) => i.phone === member.phone)[0]) {
+  // if (store.state.members.filter((i) => i.phone === member.phone)[0]) {
   //   notify.warning({
   //     title: 'Diqqat!',
   //     message: `Bu <strong style="color: #000;">${member.phone}</strong> kontakt allaqachon bazada mavjud!`,
   //     position: 'bottomLeft',
   //   })
-  // } else 
+  // } else
   if (!member.image) {
     notify.warning({
       title: 'Diqqat!',
@@ -494,18 +491,6 @@ const getMemberData = () => {
 
 const isVerificationSuccess = ref(false)
 
-const addMembersInStore = (page) => {
-  memberService.getMembers(store.state.user.id || localStorage.getItem("_id"), page).then((data) => store.commit('setMembersWithTotal', data))
-}
-
-const members = computed(() => {
-  return store.state.membersWithTotal.member
-})
-
-const total = computed(() => {
-  return store.state.membersWithTotal.total
-})
-
 const checkVerification = () => {
   // write checking request
   isVerificationSuccess.value = true // delete me!
@@ -542,6 +527,51 @@ const createMember = () => {
     }
   )
 }
+
+const addMembersInStore = (page) => {
+  const pageWithUserId = {
+    id: store.state.user.id || localStorage.getItem('_id'),
+    page: page,
+  }
+
+  if (page === undefined || page === 1) {
+    activePaginationTab.value = 1
+  } else {
+    activePaginationTab.value = page
+  }
+
+  store.dispatch('memberModule/get', pageWithUserId).then(
+    (data) => {
+      store.commit('setMembers', data.member)
+      store.commit('setTotal', data.total)
+      showContent.value = data.total !== 0
+    },
+    (error) => {
+      notify.warning({
+        message: "A'zolar ma'lumotlarini olishda xatolik yuz berdi!",
+        position: 'bottomLeft',
+      })
+      if (error.message.slice(-3) === '403') {
+        router.go('/')
+        authService.logout()
+      }
+    }
+  )
+}
+
+const members = computed(() => {
+  return store.state.members
+})
+
+const pagination = computed(() => {
+  let total = store.state.total
+  let tab = parseInt(total / 10)
+  if (total - tab * 10 !== 0) {
+    return tab === 0 ? 0 : tab + 1
+  } else {
+    return tab === 0 ? 0 : tab
+  }
+})
 
 onMounted(() => addMembersInStore())
 </script>
