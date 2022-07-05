@@ -405,13 +405,14 @@ function getImage(e) {
 const getMemberData = () => {
   member.phone = member.phone.replace(')', '').replace('(', '').replace(' ', '').replace(' ', '').replace('-', '').replace('-', '')
 
-  if (store.state.membersWithTotal.member.filter((i) => i.phone === member.phone)[0]) {
-    notify.warning({
-      title: 'Diqqat!',
-      message: `Bu <strong style="color: #000;">${member.phone}</strong> kontakt allaqachon bazada mavjud!`,
-      position: 'bottomLeft',
-    })
-  } else if (!member.image) {
+  // if (store.state.membersWithTotal.member.filter((i) => i.phone === member.phone)[0]) {
+  //   notify.warning({
+  //     title: 'Diqqat!',
+  //     message: `Bu <strong style="color: #000;">${member.phone}</strong> kontakt allaqachon bazada mavjud!`,
+  //     position: 'bottomLeft',
+  //   })
+  // } else 
+  if (!member.image) {
     notify.warning({
       title: 'Diqqat!',
       message: "Iltimos, a'zoning rasmini kiriting!",

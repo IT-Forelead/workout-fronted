@@ -1,5 +1,5 @@
 import MemberService from '../services/member.service';
-
+ 
 export const memberModule = {
   namespaced: true,
   actions: {

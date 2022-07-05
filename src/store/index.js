@@ -1,18 +1,24 @@
 import { createStore } from 'vuex'
 import { auth } from './auth.module'
 import { memberModule } from './member.module'
+import { messageModule } from './message.module'
+import { paymentModule } from './payment.module'
 import { userModule } from './user.module'
 
 const store = createStore({
   modules: {
     auth,
     memberModule,
+    messageModule,
+    paymentModule,
     userModule
   },
   state() {
     return {
       isLogin: false,
       user: {},
+      messages: [],
+      payments: [],
       currentPage: '',
       isSidebarOpen: false,
       membersWithTotal: {},
@@ -24,6 +30,12 @@ const store = createStore({
     },
     setUser(state, data) {
       state.user = data
+    },
+    setMessage(state, data) {
+      state.messages = data
+    },
+    setPayment(state, data) {
+      state.payments = data
     },
     setSelectedPage(state, page) {
       state.currentPage = page
