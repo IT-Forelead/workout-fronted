@@ -432,32 +432,6 @@ const confirmCode = ref('')
 const showCheckBtn = ref(false)
 const lastProgressBtn = ref(false)
 
-function onlyNumber(order) {
-  confirm[order] = confirm[order].replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')
-  const codes = document.querySelectorAll('.code')
-  codes.forEach((code, idx) => {
-    code.addEventListener('keydown', (e) => {
-      if (idx >= 0 && idx < 3) {
-        if (e.key >= 0 && e.key <= 9) {
-          codes[idx].value = ''
-          setTimeout(() => codes[idx + 1].focus(), 10)
-        }
-      }
-      if (e.key === 'Backspace' && idx > 0 && idx <= 3) {
-        setTimeout(() => codes[idx - 1].focus(), 10)
-      }
-    })
-  })
-  if (confirm.first !== '' && confirm.second !== '' && confirm.third !== '' && confirm.fourth !== '') {
-    confirmCode.value = confirm.first + confirm.second + confirm.third + confirm.fourth
-    if (confirmCode.value.length === 4) {
-      showCheckBtn.value = true
-    }
-  } else {
-    showCheckBtn.value = false
-  }
-}
-
 const openModal = () => {
   isModalOpen.value = true
 }
@@ -486,9 +460,37 @@ const closeAddMemberModal = () => {
   registerMemberProcess.congratulationMode = false
   showCheckBtn.value = false
   lastProgressBtn.value = false
-  localStorage.removeItem('time')
+  localStorage.setItem('time', '02:00')
   timer.value = '02:00'
+  clearInterval(interval);
   clearFields()
+}
+
+function onlyNumber(order) {
+  confirm[order] = confirm[order].replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')
+  const codes = document.querySelectorAll('.code')
+  codes.forEach((code, idx) => {
+    code.addEventListener('keydown', (e) => {
+      if (idx >= 0 && idx < 3) {
+        if (e.key >= 0 && e.key <= 9) {
+          codes[idx].value = ''
+          setTimeout(() => codes[idx + 1].focus(), 10)
+        }
+      }
+      if (e.key === 'Backspace' && idx > 0 && idx <= 3) {
+        codes[idx - 1].value = ''
+        setTimeout(() => codes[idx - 1].focus(), 10)
+      }
+    })
+  })
+  if (confirm.first !== '' && confirm.second !== '' && confirm.third !== '' && confirm.fourth !== '') {
+    confirmCode.value = confirm.first + confirm.second + confirm.third + confirm.fourth
+    if (confirmCode.value.length === 4) {
+      showCheckBtn.value = true
+    }
+  } else {
+    showCheckBtn.value = false
+  }
 }
 
 const timer = ref('02:00')
@@ -513,7 +515,11 @@ function startTimer() {
     timer.value = minutes + ':' + seconds
     localStorage.setItem('time', timer.value)
 
-    if (minutes === 0 && seconds === 0) clearInterval(interval);
+    if (minutes === 0 && seconds === 0) clearInterval(interval)
+    if (localStorage.getItem('time') === '-1:59') {
+      clearInterval(interval)
+      showResendSMS.value = true
+    }
   }, 1000);
 }
 
@@ -679,9 +685,9 @@ onMounted(() => addMembersInStore())
 
 .code {
   border-radius: 5px;
-  font-size: 20px;
-  height: 50px;
-  width: 40px;
+  font-size: 25px;
+  height: 60px;
+  width: 50px;
   border: 2px solid #eee;
   margin: 1%;
   text-align: center;
