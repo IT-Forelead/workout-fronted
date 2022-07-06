@@ -35,7 +35,7 @@
           <div class="flex h-full items-center justify-center">
             <div class="mx-32 w-full rounded-xl px-10 py-16 text-white backdrop-blur-sm backdrop-contrast-50">
               <h3 class="mb-5 text-3xl font-semibold">Workout platformasi</h3>
-              <p class="text-md">Tirnerovka klubingizni boshqarishni qulaylashtiruvchi, harajatlarni kamaytirgan holda ish samaradoligini oshiruvchi qulay va sodda tizim.</p>
+              <p class="text-md">Trinirovka klubingiz boshqaruvini qulaylashtiruvchi, harajatlarni kamaytirgan holda ish samaradoligini oshiruvchi qulay hamda sodda tizim.</p>
             </div>
           </div>
         </div>
@@ -50,7 +50,7 @@ import { ErrorMessage, Field, Form } from 'vee-validate'
 import { useRouter } from 'vue-router'
 import * as yup from 'yup'
 import { useStore } from 'vuex'
-import iziToast from 'izitoast'
+import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 import LoginIcon from '../assets/icons/LoginIcon.vue'
 
@@ -78,7 +78,7 @@ const onSubmit = (user) => {
       checkLogin(true)
     },
     (error) => {
-      iziToast.error({
+      notify.error({
         message: "Telefon raqami yoki parol noto'g'ri!",
         position: 'topRight',
       })
@@ -89,8 +89,7 @@ const onSubmit = (user) => {
 
 <style scoped>
 .bg-image {
-  background: url('../assets/images/bg-login.jpg');
+  background: url('../assets/images/bg-login.jpg') -290px center;
   background-size: cover;
-  background-position: -290px center;
 }
 </style>
