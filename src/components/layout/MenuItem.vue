@@ -1,7 +1,7 @@
 <template>
   <router-link :to="menu.url" @click="changePage(menu.name)"
                :class="{'active': page === menu.name || $router.currentRoute.value.path === menu.url}"
-               class="flex items-center flex-1 font-bold mx-5 my-2 text-lg py-6 px-6 pl-10 h-14 rounded-lg overflow-hidden text-ellipsis whitespace-nowrap hover:text-white hover:bg-blue-400 transition duration-200 ease-in"
+               class="flex items-center flex-1 font-bold mx-5 my-2 text-lg py-6 px-6 pl-10 h-14 rounded-lg overflow-hidden text-ellipsis whitespace-nowrap hover:text-white hover:bg-blue-400 transition duration-200 ease-in dark:text-gray-300"
                data-mdb-ripple="true"
                data-mdb-ripple-color="primary"
   >

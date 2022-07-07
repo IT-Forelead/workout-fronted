@@ -7,6 +7,7 @@
 * {
     font-family: 'Mulish', sans-serif;;
 }
+
 /* Scrollbar Style */
 ::-webkit-scrollbar {
     width: 7px;
@@ -21,8 +22,9 @@
 ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    background: #8B5CF6; 
+    background: #8B5CF6;
 }
+
 .max-content-h {
     height: max-content;
 }

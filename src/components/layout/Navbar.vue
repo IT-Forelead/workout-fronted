@@ -1,75 +1,68 @@
 <template>
-  <div class="sticky-top z-10 flex h-20 items-center justify-between bg-white py-4">
+  <div class="sticky-top z-10 flex h-20 items-center justify-between bg-white py-4 dark:bg-gray-800 dark:text-gray-300">
     <div class="ml-5 flex items-center justify-between">
       <ListIcon v-show="!sidebarStatus" @click="toggleSidebar()" class="menu-btn mr-5 cursor-pointer rounded-full p-1 text-4xl hover:text-blue-600 hover:shadow" />
       <MenuIcon v-show="sidebarStatus" @click="toggleSidebar()" class="menu-btn mr-5 cursor-pointer rounded-full p-1 text-4xl hover:text-blue-600 hover:shadow" />
       <div class="relative">
         <span class="absolute inset-y-0 left-0 flex items-center pl-2">
           <button type="submit" class="focus:shadow-outline p-4 focus:outline-none">
-            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="h-6 w-6 text-gray-500"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <SearchIcon class="w-5 h-5"/>
           </button>
         </span>
-        <input type="search" name="search" class="w-96 rounded-full border border-slate-300 bg-slate-100 py-2 pl-16 text-lg text-slate-500 outline-none focus:bg-slate-200 focus:outline-none" placeholder="Izlash..." autocomplete="off" />
+        <input type="search" name="search" class="w-96 rounded-full border border-slate-300 bg-slate-100 py-2 pl-16 text-lg text-slate-500 outline-none focus:bg-slate-200 focus:outline-none dark:text-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300" placeholder="Izlash..." autocomplete="off" />
       </div>
     </div>
     <div class="mr-5 flex items-center">
-      <button @click="toggleDark()" class="relative mr-6 inline-block rounded-full bg-slate-100 p-2 text-slate-500 shadow hover:bg-slate-200">
-        <MoonIcon v-show="!isDark" class="text-black w-7 h-7"/>
-        <SunIcon v-show="isDark" class="text-black w-7 h-7"/>
+      <button @click="toggleDark()" class="relative mr-6 inline-block rounded-full bg-slate-100 p-2 text-slate-500 shadow hover:bg-slate-200 dark:bg-gray-700 dark:hover:bg-gray-600">
+        <MoonIcon v-show="!isDark" class="w-7 h-7 dark:text-gray-300"/>
+        <SunIcon v-show="isDark" class="w-7 h-7 dark:text-gray-300"/>
       </button>
-      <button id="dropdownNotificationBtn" @click="toggleDropDownNotification()" class="relative mr-3 inline-block rounded-full bg-slate-100 p-2 text-slate-500 shadow hover:bg-slate-200">
-        <BellIcon/>
+      <button id="dropdownNotificationBtn" @click="toggleDropDownNotification()" class="relative mr-3 inline-block rounded-full bg-slate-100 p-2 text-slate-500 shadow hover:bg-slate-200 dark:bg-gray-700 dark:hover:bg-gray-600">
+        <BellIcon class="w-7 h-7 dark:text-gray-300"/>
         <div class="absolute top-0.5 right-0 animate-ping rounded-full bg-rose-500 p-1.5"></div>
         <div class="absolute top-0.5 right-0 rounded-full bg-rose-500 p-1.5"></div>
       </button>
-      <div id="dropdownNotification" class="hidden w-96 rounded bg-white shadow">
-        <div class="text-md flex items-center justify-between border-b px-5 py-3">
+      <div id="dropdownNotification" class="hidden w-96 rounded border bg-white shadow dark:bg-gray-800 dark:border-gray-600">
+        <div class="text-md flex items-center justify-between px-5 py-3">
           <div class="mr-3 flex items-center px-1">
             <div class="relative bottom-1.5 mr-3">
               <div class="absolute top-0 right-0 animate-ping rounded-full bg-blue-500 p-1.5"></div>
               <div class="absolute top-0 right-0 rounded-full bg-blue-500 p-1.5"></div>
             </div>
-            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200">
-              <div class="pt-1 text-center text-lg font-bold text-gray-600">
-                <i class="fa-regular fa-bookmark"></i>
+            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700">
+              <div class="pt-1 text-center text-lg font-bold text-gray-600 dark:text-gray-300">
+                <BookmarkIcon class="w-7 h-7"/>
               </div>
             </div>
           </div>
           <div>
-            <p class="font-semibold text-gray-900">Bildirishnoma</p>
-            <p class="text-md text-gray-600">Tug'ilgan kun tabrigi uchun SMS shablon biriktiring!</p>
+            <p class="font-semibold text-gray-900 dark:text-gray-300">Bildirishnoma</p>
+            <p class="text-md text-gray-600 dark:text-gray-400">Tug'ilgan kun tabrigi uchun SMS shablon biriktiring!</p>
           </div>
         </div>
       </div>
       <div class="mx-3 flex items-center">
         <button id="dropdownBtn" @click="toggleDropDown()" class="flex items-center" type="button">
-          <div class="relative inline-block rounded-full bg-slate-100 p-2 text-slate-500 shadow hover:bg-slate-200">
-            <svg class="px-1" width="30" height="30" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M1.40334 15.3222C1.44 14.9879 1.45832 14.8208 1.48127 14.7015C1.75983 13.2543 2.93043 12.2799 4.40422 12.2686C4.52566 12.2677 4.71526 12.2816 5.09447 12.3095C6.27227 12.3959 7.599 12.4667 8.78541 12.4667C10.0237 12.4667 11.3969 12.3896 12.5907 12.298C12.9564 12.27 13.1392 12.256 13.2581 12.2563C14.6545 12.2601 15.7825 13.1264 16.1463 14.4745C16.1773 14.5893 16.2069 14.748 16.2661 15.0653V15.0653C16.3314 15.4153 16.364 15.5902 16.3767 15.7324C16.524 17.3759 15.3162 18.8298 13.6735 18.9865C13.5314 19 13.3534 19 12.9975 19L8.78541 19H4.69989C4.37599 19 4.21405 19 4.08163 18.9882C2.50997 18.8487 1.31503 17.5155 1.34763 15.938C1.35038 15.8051 1.36803 15.6441 1.40334 15.3222V15.3222Z"
-                stroke="#222628"
-                stroke-width="1.4"
-              />
-              <path d="M5 5C5 2.79086 6.79086 1 9 1V1C11.2091 1 13 2.79086 13 5V5.57143C13 7.46498 11.465 9 9.57143 9V9H8.42857V9C6.53502 9 5 7.46498 5 5.57143V5Z" stroke="#222628" stroke-width="1.4" />
-            </svg>
+          <div class="relative inline-block rounded-full bg-slate-100 p-2 text-slate-500 shadow hover:bg-slate-200 dark:bg-gray-700 dark:hover:bg-gray-600">
+            <UserIcon class="w-7 h-7 dark:text-gray-300"/>
           </div>
           <div class="flex items-center">
             <div class="text-left">
-              <div class="ml-2 cursor-pointer px-2 text-lg font-semibold capitalize text-gray-900">{{ fullname }}</div>
-              <div class="text-md ml-2 cursor-pointer px-2 capitalize text-gray-500">Admin</div>
+              <div class="ml-2 cursor-pointer px-2 text-lg font-semibold capitalize text-gray-900 dark:text-gray-300">{{ fullname }}</div>
+              <div class="text-md ml-2 cursor-pointer px-2 capitalize text-gray-400">Admin</div>
             </div>
-            <div class="border-slare-200 ml-2 rounded-full border bg-slate-50 p-1 text-slate-500 shadow hover:bg-slate-100">
+            <div class="border-slare-200 ml-2 rounded-full border bg-slate-50 p-1 text-slate-500 shadow hover:bg-slate-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 dark:text-gray-300">
               <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
             </div>
           </div>
         </button>
-        <div id="dropdownInformation" class="z-10 hidden w-60 rounded bg-white shadow">
+        <div id="dropdownInformation" class="z-10 hidden w-60 border rounded bg-white shadow dark:bg-gray-800 dark:border-gray-600">
           <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformationButton">
-            <li class="border-b">
-              <router-link to="/profile" class="text-md flex items-center px-4 py-2 hover:bg-gray-100"><ProfileIcon class="mr-2 text-xl" /> Profil</router-link>
+            <li class="border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
+              <router-link to="/profile" class="text-md flex items-center px-4 py-2 dark:text-gray-300"><ProfileIcon class="mr-2 text-xl dark:text-gray-300" /> Profil</router-link>
             </li>
-            <li>
-              <a href="/login" @click="onLogout()" class="text-md flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100"><LogoutIcon class="mr-2 text-xl" /> Chiqish</a>
+            <li class="hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
+              <a href="/login" @click="onLogout()" class="text-md flex items-center px-4 py-2 text-gray-700 dark:text-gray-300"><LogoutIcon class="mr-2 text-xl dark:text-gray-300" /> Chiqish</a>
             </li>
           </ul>
         </div>
@@ -93,6 +86,9 @@ import {useDark, useToggle} from '@vueuse/core'
 import BellIcon from "../../assets/icons/BellIcon.vue";
 import SunIcon from "../../assets/icons/SunIcon.vue";
 import MoonIcon from "../../assets/icons/MoonIcon.vue";
+import UserIcon from "../../assets/icons/UserIcon.vue";
+import SearchIcon from "../../assets/icons/SearchIcon.vue";
+import BookmarkIcon from "../../assets/icons/BookmarkIcon.vue";
 
 const isDark = useDark()
 const toggleDark = useToggle(isDark)

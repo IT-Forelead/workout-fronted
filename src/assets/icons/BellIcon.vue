@@ -1,12 +1,9 @@
 <template>
-  <svg class="cursor-pointer px-1" width="30" height="30" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M10 19C15.3739 19 19 17.9032 19 15.1613C19 12.4194 18 12.4194 17.2 11.871C17.2 8.59908 16 2 10 2C4 2 2.8 8.59908 2.8 11.871C2 12.4194 1 13.1419 1 15.1613C1 18.4516 4.6271 19 10 19Z" stroke="#222628" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
-    <path d="M13 19C13 19 12.5 21 10 21C7.5 21 7 19 7 19" stroke="#222628" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
-    <path d="M10 1V2" stroke="#222628" stroke-width="1.4" stroke-linecap="round" />
-  </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M18 8.4c0-1.697-.632-3.325-1.757-4.525C15.117 2.675 13.59 2 12 2c-1.591 0-3.117.674-4.243 1.875C6.632 5.075 6 6.703 6 8.4C6 15.867 3 18 3 18h18s-3-2.133-3-9.6ZM13.73 21a1.999 1.999 0 0 1-3.46 0"></path></svg>
 </template>
+
 <script>
 export default {
-  name: 'BellIcon'
+  name: 'IconoirBell'
 }
 </script>
