@@ -13,12 +13,12 @@
       </div>
     </div>
     <div class="mr-5 flex items-center">
+      <button @click="toggleDark()" class="relative mr-6 inline-block rounded-full bg-slate-100 p-2 text-slate-500 shadow hover:bg-slate-200">
+        <MoonIcon v-show="!isDark" class="text-black w-7 h-7"/>
+        <SunIcon v-show="isDark" class="text-black w-7 h-7"/>
+      </button>
       <button id="dropdownNotificationBtn" @click="toggleDropDownNotification()" class="relative mr-3 inline-block rounded-full bg-slate-100 p-2 text-slate-500 shadow hover:bg-slate-200">
-        <svg class="cursor-pointer px-1" width="30" height="30" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M10 19C15.3739 19 19 17.9032 19 15.1613C19 12.4194 18 12.4194 17.2 11.871C17.2 8.59908 16 2 10 2C4 2 2.8 8.59908 2.8 11.871C2 12.4194 1 13.1419 1 15.1613C1 18.4516 4.6271 19 10 19Z" stroke="#222628" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
-          <path d="M13 19C13 19 12.5 21 10 21C7.5 21 7 19 7 19" stroke="#222628" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
-          <path d="M10 1V2" stroke="#222628" stroke-width="1.4" stroke-linecap="round" />
-        </svg>
+        <BellIcon/>
         <div class="absolute top-0.5 right-0 animate-ping rounded-full bg-rose-500 p-1.5"></div>
         <div class="absolute top-0.5 right-0 rounded-full bg-rose-500 p-1.5"></div>
       </button>
@@ -82,8 +82,6 @@
 import { onMounted, computed } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
-import userService from '../../services/user.service'
-import authService from '../../services/auth.service'
 import $ from 'jquery'
 import LogoutIcon from '../../assets/icons/LogoutIcon.vue'
 import ProfileIcon from '../../assets/icons/ProfileIcon.vue'
@@ -91,6 +89,13 @@ import MenuIcon from '../../assets/icons/MenuIcon.vue'
 import ListIcon from '../../assets/icons/ListIcon.vue'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
+import {useDark, useToggle} from '@vueuse/core'
+import BellIcon from "../../assets/icons/BellIcon.vue";
+import SunIcon from "../../assets/icons/SunIcon.vue";
+import MoonIcon from "../../assets/icons/MoonIcon.vue";
+
+const isDark = useDark()
+const toggleDark = useToggle(isDark)
 
 const store = useStore()
 const router = useRouter()
