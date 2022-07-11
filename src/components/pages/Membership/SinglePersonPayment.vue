@@ -1,18 +1,18 @@
 <template>
   <div class="col-span-2">
     <h2 class="mb-3 text-xl font-bold">To'lovlar hisoboti</h2>
-    <div class="mb-8 w-full overflow-hidden rounded-lg border border-slate-200 shadow-lg">
+    <div class="mb-8 w-full overflow-hidden rounded-lg border border-slate-200 shadow-lg dark:border-gray-600">
       <div class="w-full overflow-x-auto">
-        <table class="w-full divide-y divide-gray-300">
+        <table class="w-full divide-y divide-gray-300 dark:divide-gray-600">
           <thead class="bg-slate-50">
-            <tr class="text-md text-left font-semibold tracking-wide text-gray-900">
+            <tr class="text-md text-left font-semibold tracking-wide text-gray-900 dark:bg-gray-600 dark:text-gray-300">
               <th scope="col" class="px-4 py-3">To'lov vaqti</th>
               <th scope="col" class="px-4 py-3">To'lov turi</th>
               <th scope="col" class="px-4 py-3">Qiymati</th>
             </tr>
           </thead>
-          <tbody class="custom-height divide-y divide-gray-200 bg-white">
-            <tr class="text-md text-gray-700">
+          <tbody class="custom-height divide-y divide-gray-200 bg-white dark:bg-gray-700 dark:text-gray-300 dark:divide-gray-600">
+            <tr>
               <td class="whitespace-nowrap px-4 py-3">
                 <p><CalendarCheckIcon class="mr-1 inline-block text-lg" /> 17.06.2022 12:30</p>
                 <p><CalendarXIcon class="mr-1 inline-block text-lg" /> 17.06.2022 12:30</p>
@@ -23,7 +23,7 @@
                 <span class="text-xs">UZS</span>
               </td>
             </tr>
-            <tr class="text-md text-gray-700">
+            <tr>
               <td class="whitespace-nowrap px-4 py-3">
                 <p><CalendarCheckIcon class="mr-1 inline-block text-lg" /> 17.06.2022 12:30</p>
                 <p><CalendarXIcon class="mr-1 inline-block text-lg" /> 17.06.2022 12:30</p>
@@ -34,7 +34,7 @@
                 <span class="text-xs">UZS</span>
               </td>
             </tr>
-            <tr class="text-md text-gray-700">
+            <tr>
               <td class="whitespace-nowrap px-4 py-3">
                 <p><CalendarCheckIcon class="mr-1 inline-block text-lg" /> 17.06.2022 12:30</p>
                 <p><CalendarXIcon class="mr-1 inline-block text-lg" /> 17.06.2022 12:30</p>

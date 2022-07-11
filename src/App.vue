@@ -1,10 +1,10 @@
 <template>
-  <div v-if="login" class="dark:bg-gray-800">
+  <div v-if="login">
     <div class="flex">
       <Sidebar />
       <div class="ml-80 flex-1 transition-all duration-500" :class="{'ml-20': sidebarStatus}">
         <Navbar />
-        <div class="bg-slate-100 dark:bg-gray-900 rounded-tl-xl pt-5 custom-height">
+        <div class="pt-5">
           <router-view />
         </div>
       </div>

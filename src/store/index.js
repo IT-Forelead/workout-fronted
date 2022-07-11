@@ -51,7 +51,7 @@ const store = createStore({
       state.isSidebarOpen = status
     },
     setMembers(state, data) {
-      state.members = data
+      state.members.push(...data)
     },
     setTotal(state, data) {
       state.total = data

@@ -1,22 +1,20 @@
 <template>
   <div class="px-5">
-    <div class="mb-5 flex items-center justify-between">
-      <h3 class="ml-2 mb-3 text-2xl font-extrabold">A'zolar</h3>
+    <div class="mb-5 flex items-center justify-between top-24 sticky-top z-10 backdrop-blur-2xl p-3 rounded-xl">
+      <h3 class="ml-2 mb-3 text-2xl font-extrabold dark:text-gray-300">A'zolar</h3>
       <div>
         <div class="relative mr-3 inline-block">
           <span class="absolute inset-y-0 left-0 flex items-center pl-2">
-            <button type="submit" class="focus:shadow-outline p-4 focus:outline-none">
-              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                   viewBox="0 0 24 24" class="h-5 w-5 text-gray-500"><path
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <button type="submit" class="focus:shadow-outline p-4 focus:outline-none dark:text-gray-300">
+              <SearchIcon/>
             </button>
           </span>
           <input type="search" name="search"
-                 class="w-96 rounded-lg border border-slate-300 bg-white py-1.5 pl-16 text-lg text-slate-500 outline-none focus:bg-slate-200 focus:outline-none"
+                 class="w-96 rounded-lg border border-slate-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300 bg-white py-1.5 pl-16 text-lg text-slate-500 outline-none focus:bg-slate-200 focus:outline-none"
                  placeholder="Izlash..." autocomplete="off"/>
         </div>
         <button
-            class="bordeer-slare-300 mr-3 w-full rounded-lg border bg-white px-5 py-2.5 text-center text-sm font-medium text-gray-900 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">
+            class="bordeer-slare-300 mr-3 w-full rounded-lg border bg-white px-5 py-2.5 text-center text-sm font-medium text-gray-900 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto dark:border-0 dark:text-gray-300">
           <FunnelIcon class="mr-1 inline-block text-lg"/>
           Saralash
         </button>
@@ -29,103 +27,18 @@
     <div v-show="!showContent" class="flex w-full justify-center pt-5">
       <h1 class="text-xl font-bold text-red-500">Ma'lumotlar bazasida a'zolar mavjud emas!</h1>
     </div>
-    <div v-show="showContent" class="grid grid-cols-5 gap-5 gap-x-14">
-      <div v-for="(member, idx) in members" :key="idx" class="max-w-sm overflow-hidden rounded-xl bg-white shadow-md">
-        <img :src="'http://localhost:9000/member/image/' + member.image" alt="#"
-             class="h-40 w-full cursor-zoom-out object-cover duration-500 hover:object-scale-down"/>
-        <div class="flex flex-col justify-center p-5 text-center" x-data="{open: false}">
-          <h3 class="text-md mb-2 h-12 overflow-hidden font-extrabold">{{
-              member.firstname + ' ' + member.lastname
-            }}</h3>
-          <p class="text-medium mb-3 text-gray-600">{{ member.phone }}</p>
-          <button x-on:mouseenter="open = true" x-on:mouseleave="open = false" @click="openModal()"
-                  class="flex items-center justify-center rounded-md border border-slate-300 bg-white py-2 px-5 text-gray-500 transition-all duration-200 ease-in hover:bg-slate-100">
-            Batafsil
-            <ArrowRightIcon x-show="open" class="ml-3 animate-pulse text-xl transition-all duration-500 ease-in"/>
-          </button>
-        </div>
-      </div>
-    </div>
-    <nav v-show="pagination !== 0" class="absolute bottom-3 mt-5">
-      <ul class="inline-flex items-center -space-x-px">
-        <li>
-          <a href="#"
-             class="ml-0 block rounded-l-lg border border-gray-300 bg-white py-2 px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-            <span class="sr-only">oldingi</span>
-            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd"
-                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                    clip-rule="evenodd"></path>
-            </svg>
-          </a>
-        </li>
-        <li v-for="page in pagination" :key="page">
-          <a href="#" @click="addMembersInStore(page)" :class="{ current: page === activePaginationTab }"
-             class="border border-gray-300 bg-white py-2 px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{
-              page
-            }}</a>
-        </li>
-        <li>
-          <a href="#"
-             class="block rounded-r-lg border border-gray-300 bg-white py-2 px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-            <span class="sr-only">keyingi</span>
-            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd"
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    clip-rule="evenodd"></path>
-            </svg>
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </div>
-
-  <!-- Member Info Modal -->
-  <div v-show="isModalOpen"
-       class="fixed top-0 right-0 left-0 z-50 h-modal w-full overflow-y-auto overflow-x-hidden backdrop-brightness-50 md:inset-0 md:h-full">
-    <div class="relative top-1/2 left-1/2 h-full w-full max-w-7xl -translate-x-1/2 -translate-y-1/2 p-4 md:h-auto">
-      <div class="relative rounded-lg bg-white shadow-lg dark:bg-gray-700">
-        <div class="flex items-start justify-between rounded-t border-b p-4 dark:border-gray-600">
-          <div class="text-xl font-semibold text-gray-900 dark:text-white">
-            <div class="flex items-center">
-              <img src="../../assets/images/bg-login.jpg" alt="Avatar" class="ml-2 h-20 w-20 rounded-full"/>
-              <div class="ml-4 pr-2">
-                <h3>Admin Adminjonov</h3>
-                <h5 class="text-sm">+998(99) 123-45-67</h5>
-                <h6 class="text-sm text-gray-500">12.02.2022</h6>
-              </div>
-            </div>
-          </div>
-          <button type="button" @click="closeModal()"
-                  class="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
-                  data-modal-toggle="defaultModal">
-            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd"
-                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    clip-rule="evenodd"></path>
-            </svg>
-          </button>
-        </div>
-        <div class="grid grid-cols-3 gap-4 p-6">
-          <SinglePersonPayment/>
-          <SinglePersonArrival/>
-        </div>
-        <div
-            class="flex items-center justify-end space-x-2 rounded-b border-t border-gray-200 p-6 dark:border-gray-600">
-          <button type="button" @click="closeModal()"
-                  class="rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            Yopish
-          </button>
-        </div>
-      </div>
-    </div>
+    <SingleMemberData
+        v-show="showContent"
+        :members="members"
+        @infinite="loadMember"
+    />
   </div>
 
   <!-- Member Info Modal -->
   <div v-show="isAddMemberModalOpen"
        class="fixed top-0 right-0 left-0 z-50 h-modal w-full overflow-y-auto overflow-x-hidden backdrop-brightness-50 md:inset-0 md:h-full">
     <div class="relative top-1/2 left-1/2 h-full w-full max-w-5xl -translate-x-1/2 -translate-y-1/2 p-4 md:h-auto">
-      <div class="relative rounded-lg bg-white shadow-lg dark:bg-gray-700">
+      <div class="relative rounded-lg bg-white shadow-lg dark:bg-gray-800">
         <div class="flex items-start justify-between rounded-t border-b p-4 dark:border-gray-600">
           <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Yangi a'zo qo'shish</h3>
           <button type="button" @click="closeAddMemberModal()"
@@ -139,12 +52,12 @@
           </button>
         </div>
         <div class="p-5">
-          <div class="mb-3 grid grid-cols-3 rounded-lg border border-gray-300 p-3">
+          <div class="mb-3 grid grid-cols-3 rounded-lg border border-gray-300 p-3 dark:border-gray-600">
             <div class="flex items-center justify-between">
               <!-- in pgrogress -->
               <div v-show="registerStatus.inProgress" class="flex items-center justify-between">
                 <div
-                    class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-blue-500 bg-white font-semibold text-blue-500">
+                    class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-blue-500 bg-white font-semibold text-blue-500 dark:bg-gray-700">
                   01
                 </div>
                 <div class="text-md ml-3 font-semibold text-blue-500">A'zo ma'lumotlari</div>
@@ -157,15 +70,17 @@
                 <div class="text-md ml-3 font-semibold text-gray-700">A'zo ma'lumotlari</div>
               </div>
               <div class="relative -left-8 mt-1">
-                <div class="-rotate-25 absolute bottom-0 h-9 rounded-lg border-r border-gray-300"></div>
-                <div class="rotate-25 absolute -top-1 h-9 rounded-lg border-r border-gray-300"></div>
+                <div
+                    class="-rotate-25 absolute bottom-0 h-9 rounded-lg border-r border-gray-300 dark:border-gray-600"></div>
+                <div
+                    class="rotate-25 absolute -top-1 h-9 rounded-lg border-r border-gray-300 dark:border-gray-600"></div>
               </div>
             </div>
             <div class="flex items-center justify-between">
               <!-- default -->
               <div v-show="checkingStatus.default" class="flex items-center">
                 <div
-                    class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-gray-300 bg-white font-semibold text-gray-500">
+                    class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-gray-300 dark:border-gray-600 dark:text-gray-300 bg-white font-semibold text-gray-500 dark:bg-gray-700">
                   02
                 </div>
                 <div class="text-md ml-3 font-semibold text-gray-500">Tasdiqlash</div>
@@ -173,7 +88,7 @@
               <!-- in progress -->
               <div v-show="checkingStatus.inProgress" class="flex items-center justify-between">
                 <div
-                    class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-blue-500 bg-white font-semibold text-blue-500">
+                    class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-blue-500 bg-white font-semibold text-blue-500 dark:bg-gray-700">
                   02
                 </div>
                 <div class="text-md ml-3 font-semibold text-blue-500">Tasdiqlash</div>
@@ -186,14 +101,16 @@
                 <div class="text-md ml-3 font-semibold text-gray-700">Tasdiqlash</div>
               </div>
               <div class="relative -left-8 mt-1">
-                <div class="-rotate-25 absolute bottom-0 h-9 rounded-lg border-r border-gray-300"></div>
-                <div class="rotate-25 absolute -top-1 h-9 rounded-lg border-r border-gray-300"></div>
+                <div
+                    class="-rotate-25 absolute bottom-0 h-9 rounded-lg border-r border-gray-300 dark:border-gray-600"></div>
+                <div
+                    class="rotate-25 absolute -top-1 h-9 rounded-lg border-r border-gray-300 dark:border-gray-600"></div>
               </div>
             </div>
             <!-- default -->
             <div v-show="congratStatus.default" class="flex items-center">
               <div
-                  class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-gray-300 bg-white font-semibold text-gray-500">
+                  class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-gray-300 dark:border-gray-600 dark:text-gray-300 bg-white font-semibold text-gray-500 dark:bg-gray-700">
                 03
               </div>
               <div class="text-md ml-3 font-semibold text-gray-500">Yakunlash</div>
@@ -201,7 +118,7 @@
             <!-- in progress -->
             <div v-show="congratStatus.inProgress" class="flex items-center">
               <div
-                  class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-blue-500 bg-white font-semibold text-blue-500">
+                  class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-blue-500 bg-white font-semibold text-blue-500 dark:bg-gray-700">
                 03
               </div>
               <div class="text-md ml-3 font-semibold text-blue-500">Yakunlash</div>
@@ -218,7 +135,7 @@
         <form @submit.prevent="createMember()" method="post" enctype="multipart/form-data">
           <div v-show="registerMemberProcess.registerMode" class="mb-5 flex flex-col p-5">
             <label v-show="!member.image" for="dropzone-file"
-                   class="relative mx-auto flex h-24 w-24 max-w-lg cursor-pointer items-center justify-center rounded-full border-2 border-dashed border-blue-400 bg-slate-100 p-6 text-center">
+                   class="relative mx-auto flex h-24 w-24 max-w-lg cursor-pointer items-center justify-center rounded-full border-2 border-dashed border-blue-400 bg-slate-100 p-6 text-center dark:bg-gray-700">
               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
                    role="img" class="iconify iconify--ph h-10 w-10 text-blue-500" width="32" height="32"
                    preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256">
@@ -275,21 +192,25 @@
           <div class="flex justify-center" v-show="registerMemberProcess.checkingMode">
             <div class="flex flex-col">
               <ConfirmCode class="mx-auto text-9xl text-blue-500"/>
-              <p class="text-xl text-gray-600">
-                <strong class="text-black">{{ member.phone }}</strong> telefon raqamiga tasdiqlash kodi SMS tarzida
-                jo'natildi!
+              <p class="text-xl text-gray-600 dark:text-gray-300">
+                <strong class="text-black dark:text-gray-300">{{ member.phone }}</strong> telefon raqamiga tasdiqlash
+                kodi SMS tarzida jo'natildi!
               </p>
               <div class="my-5 flex justify-center">
-                <input type="text" class="code" maxlength="1" v-model="confirm.first" @input="onlyNumber('first')"
+                <input type="text" class="code dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300" maxlength="1"
+                       v-model="confirm.first" @input="onlyNumber('first')"
                        required/>
-                <input type="text" class="code" maxlength="1" v-model="confirm.second" @input="onlyNumber('second')"
+                <input type="text" class="code dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300" maxlength="1"
+                       v-model="confirm.second" @input="onlyNumber('second')"
                        required/>
-                <input type="text" class="code" maxlength="1" v-model="confirm.third" @input="onlyNumber('third')"
+                <input type="text" class="code dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300" maxlength="1"
+                       v-model="confirm.third" @input="onlyNumber('third')"
                        required/>
-                <input type="text" class="code" maxlength="1" v-model="confirm.fourth" @input="onlyNumber('fourth')"
+                <input type="text" class="code dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300" maxlength="1"
+                       v-model="confirm.fourth" @input="onlyNumber('fourth')"
                        required/>
               </div>
-              <div v-show="showResendSMS" class="my-3 flex justify-center text-lg text-red-600 hover:underline"><a
+              <div v-show="showResendSMS" class="my-3 flex justify-center text-lg text-red-500 hover:underline"><a
                   href="#" @click="getMemberData()">SMS xabarnoma kelmadimi?</a></div>
               <div v-show="!showResendSMS" class="my-3 flex items-center justify-center text-xl text-red-600">
                 <TimerIcon class="mr-2"/>
@@ -301,15 +222,15 @@
                class="flex items-center justify-end space-x-2 rounded-b border-t border-gray-200 p-5 dark:border-gray-600">
             <div>
               <button v-show="registerMemberProcess.checkingMode && !showCheckBtn && !lastProgressBtn"
-                      class="rounded bg-green-500 px-4 py-2 font-medium text-white shadow-lg shadow-indigo-200 outline-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none"
+                      class="rounded bg-green-500 px-4 py-2 font-medium text-white shadow-lg outline-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none"
                       disabled>Tasdiqlash
               </button>
               <button v-show="showCheckBtn" type="submit"
-                      class="rounded bg-green-500 px-4 py-2 font-medium text-white shadow-lg shadow-indigo-200 outline-none transition-colors duration-200 hover:bg-green-600 focus:bg-green-500 focus:ring-green-500 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">
+                      class="rounded bg-green-500 px-4 py-2 font-medium text-white shadow-lg outline-none transition-colors duration-200 hover:bg-green-600 focus:bg-green-500 focus:ring-green-500 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">
                 Tasdiqlash
               </button>
               <button v-show="lastProgressBtn"
-                      class="flex items-center rounded bg-green-400 px-4 py-2 font-medium text-white shadow-lg shadow-indigo-200 outline-none transition-colors duration-200 hover:bg-green-600 focus:bg-green-500 focus:ring-green-500 focus:ring-offset-2 active:shadow-none disabled:cursor-not-allowed disabled:bg-green-400/80 disabled:shadow-none"
+                      class="flex items-center rounded bg-green-400 px-4 py-2 font-medium text-white shadow-lg outline-none transition-colors duration-200 hover:bg-green-600 focus:bg-green-500 focus:ring-green-500 focus:ring-offset-2 active:shadow-none disabled:cursor-not-allowed disabled:bg-green-400/80 disabled:shadow-none"
                       disabled>
                 <SpinIcon/>
                 Tasdiqlash
@@ -334,11 +255,11 @@
               Tozalash
             </button>
             <button v-show="registerMemberProcess.registerMode" @click="getMemberData()"
-                    class="rounded bg-indigo-500 px-4 py-2 font-medium text-white shadow-lg shadow-indigo-200 outline-none transition-colors duration-200 hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">
+                    class="rounded bg-indigo-500 px-4 py-2 font-medium text-white shadow-lg outline-none transition-colors duration-200 hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">
               Keyingi qadam
             </button>
             <button v-show="registerMemberProcess.congratulationMode" @click="closeAddMemberModal()"
-                    class="rounded bg-indigo-500 px-4 py-2 font-medium text-white shadow-lg shadow-indigo-200 outline-none transition-colors duration-200 hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">
+                    class="rounded bg-indigo-500 px-4 py-2 font-medium text-white shadow-lg outline-none transition-colors duration-200 hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">
               Yakunlash
             </button>
           </div>
@@ -350,30 +271,26 @@
 
 <script setup>
 import FunnelIcon from '../../assets/icons/FunnelIcon.vue'
-import ArrowRightIcon from '../../assets/icons/ArrowRightIcon.vue'
 import CheckIcon from '../../assets/icons/CheckIcon.vue'
-import SinglePersonArrival from './Membership/SinglePersonArrival.vue'
 import ConfirmCode from '../../assets/icons/ConfirmCode.vue'
 import TimerIcon from '../../assets/icons/TimerIcon.vue'
 import SuccessfulIcon from '../../assets/icons/SuccessfulIcon.vue'
-import SinglePersonPayment from './Membership/SinglePersonPayment.vue'
+import SearchIcon from '../../assets/icons/SearchIcon.vue'
 import SpinIcon from '../../assets/icons/SpinIcon.vue'
 import {Field, Form} from 'vee-validate'
-import {ref, reactive, onMounted, computed} from 'vue'
+import {ref, reactive, computed} from 'vue'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 import {useStore} from 'vuex'
 import $ from 'jquery'
-import authService from '../../services/auth.service'
-import router from '../../router'
+import "v3-infinite-loading/lib/style.css";
+import SingleMemberData from "./Membership/SingleMemberData.vue";
+import authHeader from '../../services/auth-header.js'
 
 const store = useStore()
 
-const isModalOpen = ref(false)
 const isAddMemberModalOpen = ref(false)
-const showContent = ref(true)
-
-const activePaginationTab = ref(1)
+const showContent = ref(false)
 
 const registerMemberProcess = reactive({
   registerMode: false,
@@ -431,14 +348,6 @@ function clearFields() {
 const confirmCode = ref('')
 const showCheckBtn = ref(false)
 const lastProgressBtn = ref(false)
-
-const openModal = () => {
-  isModalOpen.value = true
-}
-
-const closeModal = () => {
-  isModalOpen.value = false
-}
 
 const openAddMemberModal = () => {
   isAddMemberModalOpen.value = true
@@ -614,7 +523,6 @@ const createMember = () => {
         congratStatus.done = true
         localStorage.setItem('time', '02:00')
         clearInterval(interval);
-        addMembersInStore()
       },
       (error) => {
         if (error.message.slice(-3) === '400') {
@@ -629,39 +537,36 @@ const createMember = () => {
   )
 }
 
-const addMembersInStore = (page) => {
-  const pageWithUserId = {
-    id: store.state.user.id || localStorage.getItem('_id'),
-    page: page,
-  }
+const members = ref([])
 
-  if (page === undefined || page === 1) activePaginationTab.value = 1
-  else activePaginationTab.value = page
-
-  store.dispatch('memberModule/get', pageWithUserId).then(
-      (data) => {
-        store.commit('setMembers', data.member)
-        store.commit('setTotal', data.total)
-        showContent.value = data.total !== 0
-      },
-      (error) => {
-        notify.warning({
-          message: "A'zolar ma'lumotlarini olishda xatolik yuz berdi!",
-          position: 'bottomLeft',
-        })
-        if (error.message.slice(-3) === '403') {
-          router.go('/')
-          authService.logout()
+let page = 0
+const loadMember = async $state => {
+  page++;
+  try {
+    const response = await fetch(
+        "http://localhost:9000/member/" + page, {
+          headers: authHeader()
         }
-      }
-  )
+    )
+    const json = await response.json();
+    setTimeout(() => {
+      members.value.push(...json.member);
+      $state.loaded();
+    }, 1000);
+  } catch (error) {
+    $state.error();
+  }
 }
 
-const members = computed(() => {
-  return store.state.members
+// const members = computed(() => {
+//   return store.state.members
+// })
+
+showContent.value = computed(() => {
+  return store.state.total !== 0
 })
 
-const pagination = computed(() => {
+const pagination = () => {
   let total = store.state.total
   let tab = parseInt(total / 10)
   if (total - tab * 10 !== 0) {
@@ -669,9 +574,7 @@ const pagination = computed(() => {
   } else {
     return tab === 0 ? 0 : tab
   }
-})
-
-onMounted(() => addMembersInStore())
+}
 </script>
 
 <style scoped>
@@ -688,7 +591,6 @@ onMounted(() => addMembersInStore())
   font-size: 25px;
   height: 60px;
   width: 50px;
-  border: 2px solid #eee;
   margin: 1%;
   text-align: center;
   font-weight: 300;

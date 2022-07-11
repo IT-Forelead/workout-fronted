@@ -1,11 +1,13 @@
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store/index'
 import './index.css'
 import './script.js'
 import 'flowbite'
-import { VueMaskDirective } from 'v-mask';
+import InfiniteLoading from "v3-infinite-loading";
+import "v3-infinite-loading/lib/style.css";
+import {VueMaskDirective} from 'v-mask';
 
 const vMaskV2 = VueMaskDirective;
 const vMaskV3 = {
@@ -14,4 +16,9 @@ const vMaskV3 = {
     unmounted: vMaskV2.unbind
 };
 
-createApp(App).use(router).use(store).directive('mask', vMaskV3).mount('#app')
+const app = createApp(App)
+app.use(router)
+app.use(store)
+app.directive('mask', vMaskV3)
+app.component("infinite-loading", InfiniteLoading);
+app.mount('#app')
