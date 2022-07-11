@@ -523,6 +523,7 @@ const createMember = () => {
         congratStatus.done = true
         localStorage.setItem('time', '02:00')
         clearInterval(interval);
+        loadLastAddedMember()
       },
       (error) => {
         if (error.message.slice(-3) === '400') {
@@ -558,23 +559,25 @@ const loadMember = async $state => {
   }
 }
 
-// const members = computed(() => {
-//   return store.state.members
-// })
-
-showContent.value = computed(() => {
-  return store.state.total !== 0
-})
-
-const pagination = () => {
-  let total = store.state.total
-  let tab = parseInt(total / 10)
-  if (total - tab * 10 !== 0) {
-    return tab === 0 ? 0 : tab + 1
-  } else {
-    return tab === 0 ? 0 : tab
+const loadLastAddedMember = async () => {
+  try {
+    const response = await fetch(
+        "http://localhost:9000/member/" + page, {
+          headers: authHeader()
+        }
+    )
+    const json = await response.json();
+    setTimeout(() => {
+      members.value = []
+      members.value.push(...json.member);
+    }, 500);
+  } catch (error) {
+    console.log("Get members error!")
   }
 }
+
+showContent.value = members.value !== []
+
 </script>
 
 <style scoped>
