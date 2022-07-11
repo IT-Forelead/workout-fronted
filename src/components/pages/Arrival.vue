@@ -5,7 +5,7 @@
     </div>
     <div v-show="arrivals.length > 0" class="w-full mb-8 overflow-hidden border border-slate-200 rounded-lg shadow-lg dark:border-gray-600">
       <div class="w-full overflow-x-auto">
-        <table class="w-full divide-y divide-gray-300">
+        <table class="w-full divide-y divide-gray-300 dark:divide-gray-600">
           <thead class="bg-slate-50">
             <tr class="text-md font-semibold tracking-wide text-left text-gray-900 dark:text-gray-300 dark:bg-gray-800">
               <th scope="col" class="px-4 py-3">Foydalanuvchi</th>
@@ -13,12 +13,12 @@
               <th scope="col" class="px-4 py-3">Turi</th>
             </tr>
           </thead>
-          <tbody class="custom-height divide-y divide-gray-200 bg-white dark:text-gray-300 dark:bg-gray-800">
+          <tbody class="custom-height divide-y divide-gray-200 bg-white dark:text-gray-300 dark:bg-gray-800 dark:divide-gray-600">
             <tr v-for="(arrival, index) in arrivals" :key="index" class="text-md text-gray-700 dark:text-gray-300">
               <td class="whitespace-nowrap px-4 py-3">
                 <div class="flex items-center">
                   <div class="flex mr-3 items-center justify-center h-10 w-10 border border-gray-50 dark:border-gray-600 rounded-full">
-                    <img class="object-cover w-full h-full rounded-full" src="https://images.pexels.com/photos/5212324/pexels-photo-5212324.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" alt="#" />
+                    <img class="object-cover w-full h-full rounded-full" :src="'http://localhost:9000/member/image/' + arrival.member.image" alt="#" />
                   </div>
                   <div>
                     <p class="font-semibold text-gray-900 dark:text-gray-300">{{ arrival.member.firstname + " " + arrival.member.lastname }}</p>

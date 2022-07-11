@@ -6,7 +6,7 @@
     <div class="grid grid-cols-3 gap-4">
       <div class="col-span-2">
         <div v-show="payments.length > 0" class="w-full overflow-x-auto mb-8 rounded-lg border border-slate-200 shadow-lg dark:border-gray-600">
-          <table class="w-full divide-y divide-gray-300">
+          <table class="w-full divide-y divide-gray-300 dark:divide-gray-600">
             <thead class="bg-slate-50">
               <tr class="text-md text-left font-semibold tracking-wide text-gray-900 dark:text-gray-300 dark:bg-gray-800">
                 <th scope="col" class="px-4 py-3">To'lovchi</th>
@@ -15,12 +15,12 @@
                 <th scope="col" class="px-4 py-3">Qiymati</th>
               </tr>
             </thead>
-            <tbody class="custom-height divide-y divide-gray-200 bg-white dark:text-gray-300 dark:bg-gray-800">
-              <tr v-for="(payment, index) in payments" :key="index" class="text-md text-gray-700 text-gray-900 dark:text-gray-300 dark:bg-gray-800">
+            <tbody class="custom-height divide-y divide-gray-200 bg-white dark:text-gray-300 dark:bg-gray-800 dark:divide-gray-600">
+              <tr v-for="(payment, index) in payments" :key="index" class="text-m text-gray-900 dark:text-gray-300 dark:bg-gray-800">
                 <td class="whitespace-nowrap px-4 py-3">
                   <div class="flex items-center">
                     <div class="mr-3 flex h-10 w-10 items-center justify-center rounded-full border border-gray-50 dark:border-gray-600">
-                      <img class="h-full w-full rounded-full object-cover" src="https://images.pexels.com/photos/5212324/pexels-photo-5212324.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" alt="#" />
+                      <img class="h-full w-full rounded-full object-cover" :src="'http://localhost:9000/member/image/' + payment.member.image" alt="#" />
                     </div>
                     <div>
                       <p class="font-semibold text-gray-900 dark:text-gray-300">{{ payment.member.firstname + " " + payment.member.lastname }}</p>
@@ -52,7 +52,7 @@
             <div class="relative mt-1" x-data="{selectOption: false}" x-on:click.outside="selectOption = false">
               <button x-on:click="selectOption = true" type="button" class="relative w-full cursor-pointer rounded-md border border-gray-300 bg-white dark:bg-gray-700 dark:border-gray-600 py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm" aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
                 <span class="flex items-center">
-                  <div class="relative inline-block rounded-full bg-slate-300 dark:bg-gray-800 p-1 text-slate-500 dark:text-gray-400 shadow">
+                  <div class="relative inline-block rounded-full bg-slate-300 dark:bg-gray-800 p-1 text-slate-500 dark:text-gray-500 shadow">
                     <UserBoldIcon class="h-5 w-5" />
                   </div>
                   <span x-show="!selectOption" class="text-md ml-3 block truncate"> To'lovchini tanlang </span>

@@ -17,9 +17,9 @@
           </button>
         </div>
       </div>
-      <div class="p-2 flex justify-center items-center">
-        <InfiniteLoading v-bind="$attrs"/>
-      </div>
+    </div>
+    <div class="p-2 flex justify-center items-center w-full">
+      <InfiniteLoading v-bind="$attrs"/>
     </div>
     <!-- Member Info Modal -->
     <div v-show="isModalOpen"

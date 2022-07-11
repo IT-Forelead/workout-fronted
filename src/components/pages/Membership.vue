@@ -1,6 +1,6 @@
 <template>
   <div class="px-5">
-    <div class="mb-5 flex items-center justify-between top-24 sticky-top z-10 backdrop-blur-2xl p-3 rounded-xl">
+    <div class="mb-5 flex items-center justify-between top-24 sticky-top z-0 backdrop-blur-2xl p-3 rounded-xl">
       <h3 class="ml-2 mb-3 text-2xl font-extrabold dark:text-gray-300">A'zolar</h3>
       <div>
         <div class="relative mr-3 inline-block">
