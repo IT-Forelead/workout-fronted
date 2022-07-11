@@ -4,6 +4,7 @@ import { memberModule } from './member.module'
 import { messageModule } from './message.module'
 import { paymentModule } from './payment.module'
 import { arrivalModule } from './arrival.module'
+import { settingModule } from './setting.module'
 import { userModule } from './user.module'
 
 const store = createStore({
@@ -13,6 +14,7 @@ const store = createStore({
     messageModule,
     paymentModule,
     arrivalModule,
+    settingModule,
     userModule
   },
   state() {
@@ -22,6 +24,7 @@ const store = createStore({
       messages: [],
       payments: [],
       arrivals: [],
+      settings: [],
       currentPage: '',
       isSidebarOpen: false,
       members: [],
@@ -43,6 +46,9 @@ const store = createStore({
     },
     setArrival(state, data) {
       state.arrivals = data
+    },
+    setSetting(state, data) {
+      state.settings = data
     },
     setSelectedPage(state, page) {
       state.currentPage = page

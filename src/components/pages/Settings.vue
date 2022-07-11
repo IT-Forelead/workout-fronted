@@ -7,27 +7,27 @@
       <div class="max-content-h rounded-lg bg-white p-3 px-5 dark:bg-gray-800">
         <h3 class="mb-3 text-2xl font-extrabold dark:text-gray-300">Sozlamalarni boshqarish</h3>
         <hr class="bottom-1 mb-6 border border-gray-200 dark:border-gray-600" />
-        <form>
+        <form @submit.prevent="updateSettings()">
           <div class="mb-6">
             <label for="gym-name" class="mb-2 block text-lg font-medium text-gray-900 dark:text-gray-300">Klub nomi</label>
-            <input type="text" name="name" id="gym-name" class="block w-full rounded-lg border border-gray-300 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="Klub nomini kiriting..." />
+            <input v-model="gymName" type="text" name="name" id="gym-name" class="block w-full rounded-lg border border-gray-300 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="Klub nomini kiriting..." />
           </div>
           <div class="mb-6">
             <label for="daily-price" class="mb-2 block text-lg font-medium text-gray-900 dark:text-gray-300">Kunlik to'lov</label>
             <div class="relative rounded-md shadow-sm">
               <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                <span class="text-sm text-gray-500"> UZS </span>
+                <span class="text-sm text-gray-500 dark:text-gray-300"> UZS </span>
               </div>
-              <input type="text" name="daily-price" id="daily-price" class="block w-full rounded-lg border border-gray-300 pl-11 pr-12 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="0.00" />
+              <input v-model="dailyPrice" type="text" name="daily-price" id="daily-price" class="block w-full rounded-lg border border-gray-300 pl-11 pr-12 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="0.00" />
             </div>
           </div>
           <div class="mb-6">
             <label for="monthly-price" class="mb-2 block text-lg font-medium text-gray-900 dark:text-gray-300">Oylik to'lov</label>
             <div class="relative rounded-md shadow-sm">
               <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                <span class="text-sm text-gray-500"> UZS </span>
+                <span class="text-sm text-gray-500 dark:text-gray-300"> UZS </span>
               </div>
-              <input type="text" name="monthly-price" id="monthly-price" class="block w-full rounded-lg border border-gray-300 pl-11 pr-12 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="0.00" />
+              <input v-model="monthlyPrice" type="text" name="monthly-price" id="monthly-price" class="block w-full rounded-lg border border-gray-300 pl-11 pr-12 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="0.00" />
             </div>
           </div>
           <hr class="bottom-1 mb-6 border border-gray-200 dark:border-gray-600" />
@@ -42,4 +42,89 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from 'vue'
+import { useStore } from 'vuex'
+import notify from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
+
+const store = useStore()
+
+const gymName = ref('')
+const dailyPrice = ref(0)
+const monthlyPrice = ref(0)
+
+gymName.value = store.state.settings.gymName
+dailyPrice.value = store.state.settings.dailyPrice
+monthlyPrice.value = store.state.settings.monthlyPrice
+
+const getSettings = () => {
+  store.dispatch('settingModule/get').then(
+    (data) => {
+      store.commit('setSetting', data)
+    },
+    (error) => {
+      notify.warning({
+        message: "Ma'lumotlarni bazadan olishda xatolik yuz berdi!",
+        position: 'bottomLeft',
+      })
+    }
+  )
+}
+
+const updateSettings = () => {
+  if (gymName.value === '') {
+    notify.warning({
+      title: 'Diqqat!',
+      message: 'Iltimos, klub nomini kiriting!',
+      position: 'bottomLeft',
+    })
+  } else if (dailyPrice.value === '') {
+    notify.warning({
+      title: 'Diqqat!',
+      message: 'Iltimos, kunlik narxni kiriting!',
+      position: 'bottomLeft',
+    })
+  } else  if (dailyPrice.value < 1000) {
+    notify.warning({
+      title: 'Diqqat!',
+      message: 'Iltimos, kunlik narxni to\'g\'ri kiriting!',
+      position: 'bottomLeft',
+    })
+  } else if (monthlyPrice.value === '') {
+    notify.warning({
+      title: 'Diqqat!',
+      message: 'Iltimos, oylik narxni to\'g\'ri kiriting!',
+      position: 'bottomLeft',
+    })
+  } else if (monthlyPrice.value < 1000) {
+    notify.warning({
+      title: 'Diqqat!',
+      message: 'Iltimos, oylik narxni kiriting!',
+      position: 'bottomLeft',
+    })
+  } else {
+    const settingData = {
+      userId: localStorage.getItem('_id'),
+      gymName: gymName.value,
+      dailyPrice: dailyPrice.value,
+      monthlyPrice: monthlyPrice.value,
+    }
+    store.dispatch('settingModule/update', settingData).then(
+      () => {
+        notify.success({
+          message: 'Sozlamalar muvaffaqiyatli taxrirlandi!',
+          position: 'bottomLeft',
+        })
+      },
+      (error) => {
+        notify.error({
+          message: 'Sozlamalarni taxrirlashda xatolik yuz berdi!',
+          position: 'bottomLeft',
+        })
+      }
+    )
+  }
+}
+
+onMounted(() => getSettings())
 </script>

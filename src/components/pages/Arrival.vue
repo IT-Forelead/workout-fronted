@@ -40,6 +40,8 @@
 <script setup>
 import { computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
+import notify from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
 import CalendarBlankIcon from '../../assets/icons/CalendarBlankIcon.vue'
 
 const store = useStore()
