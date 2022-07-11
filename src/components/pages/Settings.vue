@@ -104,7 +104,6 @@ const updateSettings = () => {
     })
   } else {
     const settingData = {
-      userId: localStorage.getItem('_id'),
       gymName: gymName.value,
       dailyPrice: dailyPrice.value,
       monthlyPrice: monthlyPrice.value,

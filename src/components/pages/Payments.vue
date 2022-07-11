@@ -72,8 +72,7 @@
                          placeholder="Ism bo'yicha izlash"/>
                 </span>
                 <span class="flex items-center" v-show="selectedMember">
-                  <div
-                      class="relative inline-block rounded-full bg-slate-300 dark:bg-gray-800 p-1 text-slate-500 dark:text-gray-500 shadow">
+                  <div class="relative inline-block rounded-full bg-slate-300 dark:bg-gray-800 p-1 text-slate-500 dark:text-gray-500 shadow">
                     <img class="h-5 w-5" :src="'http://localhost:9000/member/image/' + selectedMember.image" alt="#">
                   </div>
                   <span x-show="!selectOption" class="text-md ml-3 block truncate"> {{ selectedMember.firstname + ' ' + selectedMember.lastname }}</span>
