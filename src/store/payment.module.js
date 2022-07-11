@@ -12,6 +12,16 @@ export const paymentModule = {
           return Promise.reject(error);
         }
       );
+    },
+    create({ commit }, data) {
+      return PaymentService.createPayment(data).then(
+        payment => {
+          return Promise.resolve(payment);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
     }
   }
 

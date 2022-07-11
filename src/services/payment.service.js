@@ -9,6 +9,12 @@ class PaymentService {
       return response.data
     })
   }
+  createPayment(data) {
+    console.log(data)
+    return axios.post(API_URL + 'payment', data, { headers: authHeader() }).then((response) => {
+      return response.data
+    })
+  }
 }
 
 export default new PaymentService()

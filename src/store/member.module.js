@@ -23,8 +23,8 @@ export const memberModule = {
         }
       );
     },
-    get({ commit }, page) {
-      return MemberService.getMembers(page).then(
+    get({ commit }) {
+      return MemberService.getMembers().then(
         members => {
           return Promise.resolve(members);
         },
