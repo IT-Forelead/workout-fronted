@@ -16,15 +16,15 @@
               </tr>
             </thead>
             <tbody class="custom-height divide-y divide-gray-200 bg-white dark:text-gray-300 dark:bg-gray-800">
-              <tr v-for="(payment, index) in payments" :key="index" class="text-md text-gray-700">
+              <tr v-for="(payment, index) in payments" :key="index" class="text-md text-gray-700 text-gray-900 dark:text-gray-300 dark:bg-gray-800">
                 <td class="whitespace-nowrap px-4 py-3">
                   <div class="flex items-center">
-                    <div class="mr-3 flex h-10 w-10 items-center justify-center rounded-full border border-gray-50">
+                    <div class="mr-3 flex h-10 w-10 items-center justify-center rounded-full border border-gray-50 dark:border-gray-600">
                       <img class="h-full w-full rounded-full object-cover" src="https://images.pexels.com/photos/5212324/pexels-photo-5212324.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" alt="#" />
                     </div>
                     <div>
-                      <p class="font-semibold text-gray-900">{{ payment.member.firstname + " " + payment.member.lastname }}</p>
-                      <p class="text-sm text-gray-600">{{ phoneStyle(payment.member.phone) }}</p>
+                      <p class="font-semibold text-gray-900 dark:text-gray-300">{{ payment.member.firstname + " " + payment.member.lastname }}</p>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">{{ phoneStyle(payment.member.phone) }}</p>
                     </div>
                   </div>
                 </td>
@@ -52,7 +52,7 @@
             <div class="relative mt-1" x-data="{selectOption: false}" x-on:click.outside="selectOption = false">
               <button x-on:click="selectOption = true" type="button" class="relative w-full cursor-pointer rounded-md border border-gray-300 bg-white dark:bg-gray-700 dark:border-gray-600 py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm" aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
                 <span class="flex items-center">
-                  <div class="relative inline-block rounded-full bg-slate-300 p-1 text-slate-500 shadow">
+                  <div class="relative inline-block rounded-full bg-slate-300 dark:bg-gray-800 p-1 text-slate-500 dark:text-gray-400 shadow">
                     <UserBoldIcon class="h-5 w-5" />
                   </div>
                   <span x-show="!selectOption" class="text-md ml-3 block truncate"> To'lovchini tanlang </span>

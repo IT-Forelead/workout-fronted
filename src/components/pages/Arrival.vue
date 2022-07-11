@@ -13,16 +13,16 @@
               <th scope="col" class="px-4 py-3">Turi</th>
             </tr>
           </thead>
-          <tbody class="custom-height divide-y divide-gray-200 bg-white">
-            <tr v-for="(arrival, index) in arrivals" :key="index" class="text-md text-gray-700">
+          <tbody class="custom-height divide-y divide-gray-200 bg-white dark:text-gray-300 dark:bg-gray-800">
+            <tr v-for="(arrival, index) in arrivals" :key="index" class="text-md text-gray-700 dark:text-gray-300">
               <td class="whitespace-nowrap px-4 py-3">
                 <div class="flex items-center">
-                  <div class="flex mr-3 items-center justify-center h-10 w-10 border border-gray-50 rounded-full">
+                  <div class="flex mr-3 items-center justify-center h-10 w-10 border border-gray-50 dark:border-gray-600 rounded-full">
                     <img class="object-cover w-full h-full rounded-full" src="https://images.pexels.com/photos/5212324/pexels-photo-5212324.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" alt="#" />
                   </div>
                   <div>
-                    <p class="font-semibold text-gray-900">{{ arrival.member.firstname + " " + arrival.member.lastname }}</p>
-                    <p class="text-sm text-gray-600">{{ phoneStyle(arrival.member.phone) }}</p>
+                    <p class="font-semibold text-gray-900 dark:text-gray-300">{{ arrival.member.firstname + " " + arrival.member.lastname }}</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">{{ phoneStyle(arrival.member.phone) }}</p>
                   </div>
                 </div>
               </td>
