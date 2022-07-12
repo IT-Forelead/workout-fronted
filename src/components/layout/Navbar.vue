@@ -44,7 +44,7 @@
           </div>
           <div>
             <p class="font-semibold text-gray-900 dark:text-gray-300">Bildirishnoma</p>
-            <p class="text-md text-gray-600 dark:text-gray-400">Tug'ilgan kun tabrigi uchun SMS shablon biriktiring!</p>
+            <p class="text-md text-gray-600 dark:text-gray-400">Klubingiz nomini va to'lov summalarini sozlamalar bo'limi orqali belgilang!</p>
           </div>
         </div>
       </div>
@@ -74,9 +74,9 @@
              class="hidden w-60 border rounded bg-white shadow dark:bg-gray-800 dark:border-gray-600">
           <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformationButton">
             <li class="border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
-              <router-link to="/profile" class="text-md flex items-center px-4 py-2 dark:text-gray-300">
-                <ProfileIcon class="mr-2 text-xl dark:text-gray-300"/>
-                Profil
+              <router-link to="/settings" class="text-md flex items-center px-4 py-2 dark:text-gray-300">
+                <GearIcon class="mr-2 text-xl dark:text-gray-300"/>
+                Sozlamalar
               </router-link>
             </li>
             <li class="hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
@@ -98,7 +98,7 @@ import {useStore} from 'vuex'
 import {useRouter} from 'vue-router'
 import $ from 'jquery'
 import LogoutIcon from '../../assets/icons/LogoutIcon.vue'
-import ProfileIcon from '../../assets/icons/ProfileIcon.vue'
+import GearIcon from '../../assets/icons/GearIcon.vue'
 import MenuIcon from '../../assets/icons/MenuIcon.vue'
 import ListIcon from '../../assets/icons/ListIcon.vue'
 import notify from 'izitoast'
@@ -110,7 +110,6 @@ import MoonIcon from "../../assets/icons/MoonIcon.vue";
 import UserIcon from "../../assets/icons/UserIcon.vue";
 import SearchIcon from "../../assets/icons/SearchIcon.vue";
 import BookmarkIcon from "../../assets/icons/BookmarkIcon.vue";
-import authService from "../../services/auth.service";
 
 const isDark = useDark()
 const toggleDark = useToggle(isDark)

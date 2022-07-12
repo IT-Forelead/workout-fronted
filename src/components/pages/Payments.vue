@@ -81,14 +81,10 @@
                          placeholder="Ism bo'yicha izlash"/>
                 </span>
                 <span class="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
-                  <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                       fill="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd"
-                          d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
-                          clip-rule="evenodd"/>
-                  </svg>
+                  <SelectIcon/>
                 </span>
               </button>
+              <TimesIcon v-show="selectedMember" @click="clearFields()" class="w-6 h-6 absolute top-3 right-8 cursor-pointer text-gray-500 dark:text-gray-300 dark:hover:text-gray-400 hover:text-gray-700"/>
               <ul x-show="selectOption"
                   class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white dark:bg-gray-700 border dark:border-gray-600 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
                   tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-option-3">
@@ -130,8 +126,6 @@
           </div>
           <hr class="bottom-1 mb-6 border border-gray-200 dark:border-gray-600"/>
           <div class="flex justify-end">
-            <input type="button" @click="clearFields()" class="mx-1 w-full rounded-lg bg-blue-200 px-5 py-2.5 text-center cursor-pointer text-sm font-medium hover:bg-blue-400 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-400 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto dark:text-white"
-                   value="Tozalash"/>
             <button type="submit"
                     class="mx-1 w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">
               Jo'natish
@@ -150,6 +144,8 @@ import UserBoldIcon from '../../assets/icons/UserBoldIcon.vue'
 import CheckIcon from '../../assets/icons/CheckIcon.vue'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
+import SelectIcon from "../../assets/icons/SelectIcon.vue";
+import TimesIcon from "../../assets/icons/TimesIcon.vue";
 
 const store = useStore()
 
@@ -162,7 +158,6 @@ const savePeymentType = (type) => paymentType.value = type
 
 const clearFields = () => {
   selectedMember.value = ''
-  paymentType.value = 'monthly'
 }
 
 const payments = computed(() => {
