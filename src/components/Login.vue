@@ -31,7 +31,7 @@
           </div>
           <div class="text-center text-xs text-gray-400 dark:text-gray-400">All rights reserved. &copy; <a href="https://it-forelead.uz" class="hover:underline">IT-Forelead</a> 2022</div>
         </div>
-        <div class="bg-image rounded-r-3xl md:block md:w-2/3">
+        <div class="hidden md:block bg-image rounded-r-3xl md:block md:w-2/3">
           <div class="flex h-full items-center justify-center">
             <div class="mx-32 w-full rounded-xl px-10 py-16 text-white backdrop-blur-sm backdrop-contrast-50">
               <h3 class="mb-5 text-3xl font-semibold">Workout platformasi</h3>
