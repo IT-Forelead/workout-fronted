@@ -3,8 +3,8 @@
     <div class="mb-5 flex items-center">
       <h3 class="ml-2 mb-3 text-2xl font-extrabold dark:text-gray-300">To'lovlar</h3>
     </div>
-    <div class="grid grid-cols-3 gap-4">
-      <div class="col-span-2">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div class="col-span-2 order-last lg:order-first">
         <div v-show="payments.length > 0"
              class="w-full overflow-x-auto mb-8 rounded-lg border border-slate-200 shadow-lg dark:border-gray-600">
           <table class="w-full divide-y divide-gray-300 dark:divide-gray-600">
@@ -50,7 +50,7 @@
         <h1 v-show="payments.length === 0" class="text-red-500 text-xl text-center">Ma'lumotlar bazasida to'lovlar
           hisoboti topilmadi!</h1>
       </div>
-      <div class="max-content-h rounded-lg bg-white p-3 px-5 dark:text-gray-300 dark:bg-gray-800">
+      <div class="max-content-h rounded-lg bg-white p-3 px-5 dark:text-gray-300 dark:bg-gray-800 order-first lg:order-last mb-3">
         <h3 class="mb-3 text-2xl font-extrabold">To'lov qo'shish</h3>
         <hr class="bottom-1 mb-6 border border-gray-200 dark:border-gray-600"/>
         <form @submit.prevent="createPayment()">

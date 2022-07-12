@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="grid grid-cols-5 gap-5 gap-x-14 h-1/2 overflow-y-auto">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5 2xl:gap-x-14 h-1/2 overflow-y-auto">
       <div v-for="(member, idx) in members" :key="idx"
-           class="max-w-sm overflow-hidden rounded-xl bg-white shadow-md dark:bg-gray-800">
+           class="overflow-hidden rounded-xl bg-white shadow-md dark:bg-gray-800">
         <img :src="'http://localhost:9000/member/image/' + member.image" alt="#"
              class="h-40 w-full cursor-zoom-out object-cover duration-500 hover:object-scale-down"/>
         <div class="flex flex-col justify-center p-5 text-center" x-data="{open: false}">
@@ -23,7 +23,7 @@
     </div>
     <!-- Member Info Modal -->
     <div v-show="isModalOpen"
-         class="fixed top-0 right-0 left-0 z-50 h-modal w-full overflow-y-auto overflow-x-hidden backdrop-brightness-50 md:inset-0 md:h-full">
+         class="fixed top-0 right-0 left-0 z-50 w-full overflow-y-auto overflow-x-hidden backdrop-brightness-50 inset-0 h-full">
       <div class="relative top-1/2 left-1/2 h-full w-full max-w-7xl -translate-x-1/2 -translate-y-1/2 p-4 md:h-auto">
         <div class="relative rounded-lg bg-white shadow-lg dark:bg-gray-800 dark:text-gray-300">
           <div class="flex items-start justify-between rounded-t border-b p-4 dark:border-gray-600">
@@ -47,7 +47,7 @@
               </svg>
             </button>
           </div>
-          <div class="grid grid-cols-3 gap-4 p-6">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-6">
             <SinglePersonPayment/>
             <SinglePersonArrival/>
           </div>

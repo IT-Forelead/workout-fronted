@@ -3,7 +3,7 @@
     <div class="mb-5 flex items-center">
       <h3 class="ml-2 mb-3 text-2xl font-extrabold dark:text-gray-300">Sozlamalar</h3>
     </div>
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
       <div class="max-content-h rounded-lg bg-white p-3 px-5 dark:bg-gray-800">
         <h3 class="mb-3 text-2xl font-extrabold dark:text-gray-300">Sozlamalarni boshqarish</h3>
         <hr class="bottom-1 mb-6 border border-gray-200 dark:border-gray-600" />
@@ -32,8 +32,8 @@
           </div>
           <hr class="bottom-1 mb-6 border border-gray-200 dark:border-gray-600" />
           <div class="flex justify-end">
-            <input type="reset" class="mx-1 w-full rounded-lg bg-blue-200 px-5 py-2.5 text-center cursor-pointer text-sm font-medium hover:bg-blue-400 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-400 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto dark:text-white" value="Tozalash" />
-            <button type="submit" class="mx-1 w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">Jo'natish</button>
+            <input type="reset" class="mx-1 rounded-lg bg-blue-200 px-5 py-2.5 text-center cursor-pointer text-sm font-medium hover:bg-blue-400 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-400 dark:hover:bg-blue-700 dark:focus:ring-blue-800 dark:text-white" value="Tozalash" />
+            <button type="submit" class="mx-1 rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Jo'natish</button>
           </div>
         </form>
       </div>

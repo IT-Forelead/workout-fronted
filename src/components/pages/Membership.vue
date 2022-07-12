@@ -1,23 +1,23 @@
 <template>
-  <div class="px-5">
-    <div class="mb-5 flex items-center justify-between top-24 sticky-top z-0 backdrop-blur-2xl p-3 rounded-xl">
-      <h3 class="ml-2 mb-3 text-2xl font-extrabold dark:text-gray-300">A'zolar</h3>
+  <div class="px-2 md:px-5">
+    <div class="mb-5 flex items-center justify-between top-16 md:top-20 sticky-top z-0 bg-slate-100 dark:bg-gray-900 p-3">
+      <h3 class="ml-2 text-2xl font-extrabold dark:text-gray-300">A'zolar</h3>
       <div>
-        <div class="relative mr-3 inline-block">
-          <span class="absolute inset-y-0 left-0 flex items-center pl-2">
-            <button type="submit" class="focus:shadow-outline p-4 focus:outline-none dark:text-gray-300">
-              <SearchIcon/>
-            </button>
-          </span>
-          <input type="search" name="search"
-                 class="w-96 rounded-lg border border-slate-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300 bg-white py-1.5 pl-16 text-lg text-slate-500 outline-none focus:bg-slate-200 focus:outline-none"
-                 placeholder="Izlash..." autocomplete="off"/>
-        </div>
-        <button
-            class="bordeer-slare-300 mr-3 w-full rounded-lg border bg-white px-5 py-2.5 text-center text-sm font-medium text-gray-900 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto dark:border-0 dark:text-gray-300">
-          <FunnelIcon class="mr-1 inline-block text-lg"/>
-          Saralash
-        </button>
+<!--        <div class="relative mr-3 inline-block">-->
+<!--          <span class="absolute inset-y-0 left-0 flex items-center pl-2">-->
+<!--            <button type="submit" class="focus:shadow-outline p-4 focus:outline-none dark:text-gray-300">-->
+<!--              <SearchIcon/>-->
+<!--            </button>-->
+<!--          </span>-->
+<!--          <input type="search" name="search"-->
+<!--                 class="w-96 rounded-lg border border-slate-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300 bg-white py-1.5 pl-16 text-lg text-slate-500 outline-none focus:bg-slate-200 focus:outline-none"-->
+<!--                 placeholder="Izlash..." autocomplete="off"/>-->
+<!--        </div>-->
+<!--        <button-->
+<!--            class="bordeer-slare-300 mr-3 w-full rounded-lg border bg-white px-5 py-2.5 text-center text-sm font-medium text-gray-900 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto dark:border-0 dark:text-gray-300">-->
+<!--          <FunnelIcon class="mr-1 inline-block text-lg"/>-->
+<!--          Saralash-->
+<!--        </button>-->
         <button x-on:mouseenter="open = true" x-on:mouseleave="open = false" @click="openAddMemberModal()"
                 class="mx-1 w-full rounded-lg bg-blue-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">
           A'zo qo'shish
@@ -36,8 +36,9 @@
 
   <!-- Member Info Modal -->
   <div v-show="isAddMemberModalOpen"
-       class="fixed top-0 right-0 left-0 z-50 h-modal w-full overflow-y-auto overflow-x-hidden backdrop-brightness-50 md:inset-0 md:h-full">
-    <div class="relative top-1/2 left-1/2 h-full w-full max-w-5xl -translate-x-1/2 -translate-y-1/2 p-4 md:h-auto">
+       class="fixed top-0 right-0 left-0 z-50 w-full overflow-y-auto overflow-x-hidden backdrop-brightness-50 inset-0 h-full">
+    <div class="relative top-1/2 left-1/2 w-full max-w-5xl -translate-x-1/2 -translate-y-1/2 mt-16 md:mt-0 p-1 md:p-4"
+    :class="{'mt-0': registerMemberProcess.checkingMode || registerMemberProcess.congratulationMode}">
       <div class="relative rounded-lg bg-white shadow-lg dark:bg-gray-800">
         <div class="flex items-start justify-between rounded-t border-b p-4 dark:border-gray-600">
           <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Yangi a'zo qo'shish</h3>
@@ -52,7 +53,7 @@
           </button>
         </div>
         <div class="p-5">
-          <div class="mb-3 grid grid-cols-3 rounded-lg border border-gray-300 p-3 dark:border-gray-600">
+          <div class="mb-3 flex justify-evenly md:grid md:grid-cols-3 rounded-lg border border-gray-300 p-3 dark:border-gray-600">
             <div class="flex items-center justify-between">
               <!-- in pgrogress -->
               <div v-show="registerStatus.inProgress" class="flex items-center justify-between">
@@ -60,16 +61,16 @@
                     class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-blue-500 bg-white font-semibold text-blue-500 dark:bg-gray-700">
                   01
                 </div>
-                <div class="text-md ml-3 font-semibold text-blue-500">A'zo ma'lumotlari</div>
+                <div class="hidden md:block text-md ml-3 font-semibold text-blue-500">A'zo ma'lumotlari</div>
               </div>
               <!-- completed -->
               <div v-show="registerStatus.done" class="flex items-center justify-between">
                 <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-2xl text-white">
                   <CheckIcon/>
                 </div>
-                <div class="text-md ml-3 font-semibold text-gray-700">A'zo ma'lumotlari</div>
+                <div class="hidden md:block text-md ml-3 font-semibold text-gray-700">A'zo ma'lumotlari</div>
               </div>
-              <div class="relative -left-8 mt-1">
+              <div class="relative ml-7 md:-left-8 mt-1 md:ml-0">
                 <div
                     class="-rotate-25 absolute bottom-0 h-9 rounded-lg border-r border-gray-300 dark:border-gray-600"></div>
                 <div
@@ -83,7 +84,7 @@
                     class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-gray-300 dark:border-gray-600 dark:text-gray-300 bg-white font-semibold text-gray-500 dark:bg-gray-700">
                   02
                 </div>
-                <div class="text-md ml-3 font-semibold text-gray-500">Tasdiqlash</div>
+                <div class="hidden md:block text-md ml-3 font-semibold text-gray-500">Tasdiqlash</div>
               </div>
               <!-- in progress -->
               <div v-show="checkingStatus.inProgress" class="flex items-center justify-between">
@@ -91,16 +92,16 @@
                     class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-blue-500 bg-white font-semibold text-blue-500 dark:bg-gray-700">
                   02
                 </div>
-                <div class="text-md ml-3 font-semibold text-blue-500">Tasdiqlash</div>
+                <div class="hidden md:block text-md ml-3 font-semibold text-blue-500">Tasdiqlash</div>
               </div>
               <!-- completed -->
               <div v-show="checkingStatus.done" class="flex items-center justify-between">
                 <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-2xl text-white">
                   <CheckIcon/>
                 </div>
-                <div class="text-md ml-3 font-semibold text-gray-700">Tasdiqlash</div>
+                <div class="hidden md:block text-md ml-3 font-semibold text-gray-700">Tasdiqlash</div>
               </div>
-              <div class="relative -left-8 mt-1">
+              <div class="relative ml-7 md:-left-8 mt-1 md:ml-0">
                 <div
                     class="-rotate-25 absolute bottom-0 h-9 rounded-lg border-r border-gray-300 dark:border-gray-600"></div>
                 <div
@@ -113,7 +114,7 @@
                   class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-gray-300 dark:border-gray-600 dark:text-gray-300 bg-white font-semibold text-gray-500 dark:bg-gray-700">
                 03
               </div>
-              <div class="text-md ml-3 font-semibold text-gray-500">Yakunlash</div>
+              <div class="hidden md:block text-md ml-3 font-semibold text-gray-500">Yakunlash</div>
             </div>
             <!-- in progress -->
             <div v-show="congratStatus.inProgress" class="flex items-center">
@@ -121,54 +122,49 @@
                   class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-blue-500 bg-white font-semibold text-blue-500 dark:bg-gray-700">
                 03
               </div>
-              <div class="text-md ml-3 font-semibold text-blue-500">Yakunlash</div>
+              <div class="hidden md:block text-md ml-3 font-semibold text-blue-500">Yakunlash</div>
             </div>
             <!-- completed-->
             <div v-show="congratStatus.done" class="flex items-center">
               <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-2xl text-white">
                 <CheckIcon/>
               </div>
-              <div class="text-md ml-3 font-semibold text-gray-700">Yakunlash</div>
+              <div class="hidden md:block text-md ml-3 font-semibold text-gray-700">Yakunlash</div>
             </div>
           </div>
         </div>
         <form @submit.prevent="createMember()" method="post" enctype="multipart/form-data">
-          <div v-show="registerMemberProcess.registerMode" class="mb-5 flex flex-col p-5">
+          <div v-show="registerMemberProcess.registerMode" class="md:mb-5 flex flex-col p-5">
             <label v-show="!member.image" for="dropzone-file"
                    class="relative mx-auto flex h-24 w-24 max-w-lg cursor-pointer items-center justify-center rounded-full border-2 border-dashed border-blue-400 bg-slate-100 p-6 text-center dark:bg-gray-700">
-              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
-                   role="img" class="iconify iconify--ph h-10 w-10 text-blue-500" width="32" height="32"
-                   preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256">
-                <path fill="currentColor"
-                      d="M236 184V56a20.1 20.1 0 0 0-20-20H40a20.1 20.1 0 0 0-20 20v144a20.1 20.1 0 0 0 20 20h176a20.1 20.1 0 0 0 20-20v-16ZM212 60v95l-21.9-21.8a19.8 19.8 0 0 0-28.2 0L144 151l-41.9-41.8a19.9 19.9 0 0 0-28.2 0L44 139V60ZM44 196v-23l44-44l41.9 41.8a19.8 19.8 0 0 0 28.2 0L176 153l36 36v7Zm100.7-84.7A15.9 15.9 0 0 1 140 100a16 16 0 0 1 32 0a16 16 0 0 1-16 16a15.9 15.9 0 0 1-11.3-4.7Z"></path>
-              </svg>
+              <PictureIcon/>
               <input id="dropzone-file" type="file" class="hidden" name="image" @change="getImage"/>
-              <h3 class="absolute -bottom-10 mx-auto mt-3 whitespace-nowrap text-lg font-semibold tracking-wide text-blue-500">
-                Fotosuratni yuklash</h3>
+              <span class="absolute -bottom-10 mx-auto mt-3 whitespace-nowrap text-lg font-semibold tracking-wide text-blue-500">
+                Fotosuratni yuklash</span>
             </label>
             <label v-show="member.image" for="dropzone-file"
                    class="relative mx-auto flex h-24 w-24 max-w-lg cursor-pointer items-center justify-center rounded-full border-2 text-center">
-              <img class="h-24 w-24 rounded-full object-cover" id="memberImage"/>
+              <img class="h-24 w-24 rounded-full object-cover" id="memberImage" alt="#"/>
               <input id="dropzone-file" type="file" class="hidden" name="image" @change="getImage"/>
-              <h3 class="absolute -bottom-10 mx-auto mt-3 whitespace-nowrap text-lg font-semibold tracking-wide text-blue-500">
-                Boshqa fotosuratni yuklash</h3>
+              <span class="absolute -bottom-10 mx-auto mt-3 whitespace-nowrap text-lg font-semibold tracking-wide text-blue-500">
+                Boshqa fotosuratni yuklash</span>
             </label>
           </div>
           <!-- Step 1 -->
-          <div v-show="registerMemberProcess.registerMode" class="mb-6 grid gap-6 p-5 lg:grid-cols-2">
+          <div v-show="registerMemberProcess.registerMode" class="md:mb-6 grid md:gap-6 p-5 lg:grid-cols-2">
             <div class="p-3">
               <label for="first_name"
                      class="text-md mb-2 block font-medium text-gray-900 dark:text-gray-300">Ism</label>
               <input type="text" v-model="member.firstname" id="first_name" name="firstname"
                      class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                     placeholder="John" required/>
+                     placeholder="Ism kiriting" required/>
             </div>
             <div class="p-3">
               <label for="last_name"
                      class="text-md mb-2 block font-medium text-gray-900 dark:text-gray-300">Familiya</label>
               <input type="text" v-model="member.lastname" id="last_name" name="lastname"
                      class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                     placeholder="Doe" required/>
+                     placeholder="Familiya kiriting" required/>
             </div>
             <div class="p-3">
               <label for="birthday" class="text-md mb-2 block font-medium text-gray-900 dark:text-gray-300">Tug'ilgan
@@ -192,7 +188,7 @@
           <div class="flex justify-center" v-show="registerMemberProcess.checkingMode">
             <div class="flex flex-col">
               <ConfirmCode class="mx-auto text-9xl text-blue-500"/>
-              <p class="text-xl text-gray-600 dark:text-gray-300">
+              <p class="text-xl text-gray-600 dark:text-gray-300 px-3 text-center">
                 <strong class="text-black dark:text-gray-300">{{ member.phone }}</strong> telefon raqamiga tasdiqlash
                 kodi SMS tarzida jo'natildi!
               </p>
@@ -286,6 +282,7 @@ import $ from 'jquery'
 import "v3-infinite-loading/lib/style.css";
 import SingleMemberData from "./Membership/SingleMemberData.vue";
 import authHeader from '../../services/auth-header.js'
+import PictureIcon from "../../assets/icons/PictureIcon.vue";
 
 const store = useStore()
 

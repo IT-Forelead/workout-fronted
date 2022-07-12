@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="fixed-bottom z-50 grid grid-cols-5 h-16 bg-white text-gray-900 dark:text-gray-300 dark:bg-gray-800 w-screen border-t dark:border-gray-600">
+    <div class="fixed-bottom z-40 grid grid-cols-5 h-16 bg-white text-gray-900 dark:text-gray-300 dark:bg-gray-800 w-screen border-t dark:border-gray-600">
       <router-link to="/" class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
                    @click="changePage('home')"
                    :class="{'bg-blue-500 text-white': page === 'home' || $router.currentRoute.value.path === '/' && !(page === 'reports') && !(page === 'profile')}">
@@ -29,7 +29,7 @@
     </div>
     <!--  DROP MENU Reports-->
     <div ref="reportDropdown"
-         class="fixed-bottom z-40 bg-white text-gray-900 dark:text-gray-300 dark:bg-gray-800 bottom-16 rounded-t-xl border-t dark:border-gray-600 px-4 py-2 transition-all duration-300 translate-y-52"
+         class="fixed-bottom z-30 bg-white text-gray-900 dark:text-gray-300 dark:bg-gray-800 bottom-16 rounded-t-xl border-t dark:border-gray-600 px-4 py-2 transition-all duration-300 translate-y-52"
          :class="{'translate-y-0': showReportDropMenu}">
       <div class="flex justify-center items-start">
         <div class="h-1.5 w-10 bg-slate-200 dark:bg-gray-700 rounded-full" @click="toggleReportDropMenu()"></div>
@@ -49,7 +49,7 @@
     </div>
     <!--  DROP MENU Profile-->
     <div ref="profileDropdown"
-         class="fixed-bottom z-40 bg-white text-gray-900 dark:text-gray-300 dark:bg-gray-800 bottom-16 rounded-t-xl border-t dark:border-gray-600 px-4 py-2 transition-all duration-300 translate-y-52 opacity-0"
+         class="fixed-bottom z-30 bg-white text-gray-900 dark:text-gray-300 dark:bg-gray-800 bottom-16 rounded-t-xl border-t dark:border-gray-600 px-4 py-2 transition-all duration-300 translate-y-52 opacity-0"
          :class="{'translate-y-0 opacity-100': showProfileDropMenu}">
       <div class="flex justify-center items-start">
         <div class="h-1.5 w-10 bg-slate-200 dark:bg-gray-700 rounded-full" @click="toggleProfileDropMenu()"></div>
