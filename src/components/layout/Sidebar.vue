@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed h-screen w-80 bg-white transition-all duration-500 dark:bg-gray-800" :class="{ 'w-20': sidebarStatus }" id="sidenavSecExample">
+  <div class="hidden lg:block fixed h-screen w-80 bg-white transition-all duration-500 dark:bg-gray-800" :class="{ 'w-20': sidebarStatus }" id="sidenavSecExample">
     <div class="mt-3 ml-3 p-2 pl-10" :class="{ 'ml-0 pl-5': sidebarStatus }">
       <router-link class="cursor-pointer" to="/">
         <div class="flex items-center">

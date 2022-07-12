@@ -2,16 +2,16 @@
   <div class="h-screen w-screen bg-emerald-100">
     <div class="flex h-full flex-1 flex-col items-center justify-center px-4 sm:px-0">
       <div class="flex h-3/4 w-full rounded-3xl bg-white shadow-lg sm:mx-0 sm:w-4/5 lg:w-2/3">
-        <div class="flex w-full flex-col p-4 md:w-1/2">
+        <div class="flex w-full flex-col p-4 xl:w-1/2">
           <div class="flex items-center">
             <img src="../assets/images/logo.png" class="ml-2 w-8 shrink-0" alt="#" />
             <div class="ml-2 grow text-lg font-semibold text-gray-900">IT-Forelead</div>
           </div>
-          <div class="mb-5 flex flex-1 flex-col justify-center">
+          <div class="mb-0 md:mb-5 flex flex-1 flex-col justify-center">
             <h3 class="text-center text-4xl font-semibold">KIRISH</h3>
             <p class="my-5 px-10 text-center text-sm text-gray-500">Tizimga kirish uchun telefon raqamingiz va parolingizni kiritishgingiz lozim!</p>
-            <div class="mt-8 w-full">
-              <Form @submit="onSubmit" :validation-schema="schema" class="form-horizontal mx-auto w-3/4" method="POST" action="#">
+            <div class="mt-3 md:mt-8 w-full">
+              <Form @submit="onSubmit" :validation-schema="schema" class="form-horizontal md:mx-auto md:w-3/4" method="POST" action="#">
                 <div class="mt-4 flex flex-col">
                   <Field v-model="phone" v-mask="'+###(##) ###-##-##'" name="phone" type="phone" class="text-md w-full rounded-xl border-0 bg-gray-100 p-4 text-gray-500 outline-none focus:bg-gray-200 focus:outline-none" placeholder="+998(99) 876-54-32" />
                   <ErrorMessage name="phone" class="error-feedback font-medium text-rose-600" />
@@ -31,9 +31,9 @@
           </div>
           <div class="text-center text-xs text-gray-400 dark:text-gray-400">All rights reserved. &copy; <a href="https://it-forelead.uz" class="hover:underline">IT-Forelead</a> 2022</div>
         </div>
-        <div class="hidden md:block bg-image rounded-r-3xl md:block md:w-2/3">
+        <div class="hidden xl:block bg-image rounded-r-3xl md:w-2/3">
           <div class="flex h-full items-center justify-center">
-            <div class="mx-32 w-full rounded-xl px-10 py-16 text-white backdrop-blur-sm backdrop-contrast-50">
+            <div class="xl:mx-16 2xl:mx-32 w-full rounded-xl px-10 py-16 text-white backdrop-blur-sm backdrop-contrast-50">
               <h3 class="mb-5 text-3xl font-semibold">Workout platformasi</h3>
               <p class="text-md">Trinirovka klubingiz boshqaruvini qulaylashtiruvchi, harajatlarni kamaytirgan holda ish samaradoligini oshiruvchi qulay hamda sodda tizim.</p>
             </div>

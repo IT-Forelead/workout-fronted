@@ -1,11 +1,16 @@
 <template>
-  <div class="sticky-top z-10 flex h-20 items-center justify-between bg-white py-4 dark:bg-gray-800 dark:text-gray-300">
-    <div class="ml-5 flex items-center justify-between">
-      <ListIcon v-show="!sidebarStatus" @click="toggleSidebar()"
-                class="menu-btn mr-5 cursor-pointer rounded-full p-1 text-4xl hover:text-blue-600 hover:shadow"/>
-      <MenuIcon v-show="sidebarStatus" @click="toggleSidebar()"
-                class="menu-btn mr-5 cursor-pointer rounded-full p-1 text-4xl hover:text-blue-600 hover:shadow"/>
-      <div class="relative">
+  <div class="sticky-top z-10 flex h-16 md:h-20 items-center justify-between bg-white py-4 dark:bg-gray-800 dark:text-gray-300">
+    <div class="ml-5 md:flex items-center justify-between">
+      <div v-show="showSearchAndBtn">
+        <ListIcon v-show="!sidebarStatus" @click="toggleSidebar()"
+                  class="menu-btn mr-5 cursor-pointer rounded-full p-1 text-4xl hover:text-blue-600 hover:shadow"/>
+        <MenuIcon v-show="sidebarStatus" @click="toggleSidebar()"
+                  class="menu-btn mr-5 cursor-pointer rounded-full p-1 text-4xl hover:text-blue-600 hover:shadow"/>
+      </div>
+      <div class="lg:hidden mr-5 p-1">
+        <img src="../../assets/images/logo.png" class="w-12 shrink-0" alt="#" />
+      </div>
+      <div class="relative" v-show="showSearchAndBtn">
         <span class="absolute inset-y-0 left-0 flex items-center pl-2">
           <button type="submit" class="focus:shadow-outline p-4 focus:outline-none">
             <SearchIcon class="w-5 h-5"/>
@@ -17,16 +22,11 @@
       </div>
     </div>
     <div class="mr-5 flex items-center">
-      <button @click="toggleDark()"
-              class="relative mr-6 inline-block rounded-full bg-slate-100 p-2 text-slate-500 shadow hover:bg-slate-200 dark:bg-gray-700 dark:hover:bg-gray-600">
-        <MoonIcon v-show="!isDark" class="w-7 h-7 dark:text-gray-300"/>
-        <SunIcon v-show="isDark" class="w-7 h-7 dark:text-gray-300"/>
-      </button>
       <button id="dropdownNotificationBtn" @click="toggleDropDownNotification()"
-              class="relative mr-3 inline-block rounded-full bg-slate-100 p-2 text-slate-500 shadow hover:bg-slate-200 dark:bg-gray-700 dark:hover:bg-gray-600">
-        <BellIcon class="w-7 h-7 dark:text-gray-300"/>
-        <div class="absolute top-0.5 right-0 animate-ping rounded-full bg-rose-500 p-1.5"></div>
-        <div class="absolute top-0.5 right-0 rounded-full bg-rose-500 p-1.5"></div>
+              class="relative mr-3 inline-block rounded-full bg-slate-100 p-1 md:p-2 text-slate-500 shadow hover:bg-slate-200 dark:bg-gray-700 dark:hover:bg-gray-600">
+        <BellIcon class="w-6 h-6 md:w-7 md:h-7 dark:text-gray-300"/>
+        <span class="absolute top-0.5 right-0 animate-ping rounded-full bg-rose-500 p-1 md:p-1.5"></span>
+        <span class="absolute top-0.5 right-0 rounded-full bg-rose-500 p-1 md:p-1.5"></span>
       </button>
       <div id="dropdownNotification"
            class="hidden w-96 rounded border bg-white shadow dark:bg-gray-800 dark:border-gray-600">
@@ -48,11 +48,11 @@
           </div>
         </div>
       </div>
-      <div class="mx-3 flex items-center">
+      <div class="md:mx-3 flex items-center" v-show="showSearchAndBtn">
         <button id="dropdownBtn" @click="toggleDropDown()" class="flex items-center" type="button">
           <div
-              class="relative inline-block rounded-full bg-slate-100 p-2 text-slate-500 shadow hover:bg-slate-200 dark:bg-gray-700 dark:hover:bg-gray-600">
-            <UserIcon class="w-7 h-7 dark:text-gray-300"/>
+              class="relative inline-block rounded-full bg-slate-100 p-1 md:p-2 text-slate-500 shadow hover:bg-slate-200 dark:bg-gray-700 dark:hover:bg-gray-600">
+            <UserIcon class="w-6 h-6 md:w-7 md:h-7 dark:text-gray-300"/>
           </div>
           <div class="flex items-center">
             <div class="text-left">
@@ -90,10 +90,11 @@
       </div>
     </div>
   </div>
+  <MobileBar v-show="!showSearchAndBtn"/>
 </template>
 
 <script setup>
-import {onMounted, computed} from 'vue'
+import {onMounted, computed, ref} from 'vue'
 import {useStore} from 'vuex'
 import {useRouter} from 'vue-router'
 import $ from 'jquery'
@@ -110,6 +111,7 @@ import MoonIcon from "../../assets/icons/MoonIcon.vue";
 import UserIcon from "../../assets/icons/UserIcon.vue";
 import SearchIcon from "../../assets/icons/SearchIcon.vue";
 import BookmarkIcon from "../../assets/icons/BookmarkIcon.vue";
+import MobileBar from "./MobileBar.vue";
 
 const isDark = useDark()
 const toggleDark = useToggle(isDark)
@@ -196,6 +198,16 @@ $(window).click(() => {
   autoLogout()
 })
 
+const showSearchAndBtn = ref(false)
+
+$(document).ready(() => {
+  showSearchAndBtn.value = $(window).width() > 1024;
+})
+
+$(window).resize(() => {
+  showSearchAndBtn.value = $(window).width() > 1024;
+})
+
 onMounted(() => {
   addUserInStore()
   autoLogout()
@@ -218,7 +230,18 @@ onMounted(() => {
 #dropdownNotification {
   position: absolute;
   top: 100%;
-  right: 180px;
+  right: 280px;
   z-index: 50;
+}
+@media all and (max-width: 1024px) {
+  #dropdownNotification {
+    right: 10px;
+  }
+}
+@media all and (max-width: 768px) {
+  #dropdownNotification {
+    width: 100%;
+    right: 0;
+  }
 }
 </style>
