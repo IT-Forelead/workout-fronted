@@ -3,27 +3,55 @@
 - Vue 3
 - Vuex
 - Vite
-- Jest
+- Vueuse
 
 ---
 ## Install dependencies
-```./update.sh```
+```
+./update.sh
+```
 
 ## Run project
-```./ui.sh```
+```
+./ui.sh
+```
 
 ## Show result
-```http://localhost:3000/```
+```
+http://localhost:3001/
+```
 
 ## Stop project
-```Ctrl + C```
+```
+Ctrl + C
+```
 
 ## Change node version
-```sudo npm i -g n```
+```
+sudo npm i -g n
+```
 
 ## Install neccesarary packages another projects
-```sudo n stable```
+```
+sudo n stable
+```
 
-```sudo n v12.22.9```
+```
+sudo n v12.22.9
+```
 
-```sudo n latest```
+```
+sudo n latest
+```
+
+---
+### RUN APP IN DOCKER CONTAINER ###
+---
+### Build docker image for app
+```
+docker build -t workout-frontend .
+```
+### Run the app
+```
+docker run -d --name workout-ui -p 80:80 workout-frontend
+```
