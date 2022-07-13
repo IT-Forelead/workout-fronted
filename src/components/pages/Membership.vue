@@ -1,26 +1,43 @@
 <template>
   <div class="px-2 md:px-5">
     <div class="mb-5 flex items-center justify-between top-16 md:top-20 sticky-top z-0 bg-slate-100 dark:bg-gray-900 p-3">
-      <h3 class="ml-2 text-2xl font-extrabold dark:text-gray-300">A'zolar</h3>
-      <div>
-<!--        <div class="relative mr-3 inline-block">-->
-<!--          <span class="absolute inset-y-0 left-0 flex items-center pl-2">-->
-<!--            <button type="submit" class="focus:shadow-outline p-4 focus:outline-none dark:text-gray-300">-->
-<!--              <SearchIcon/>-->
-<!--            </button>-->
-<!--          </span>-->
-<!--          <input type="search" name="search"-->
-<!--                 class="w-96 rounded-lg border border-slate-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300 bg-white py-1.5 pl-16 text-lg text-slate-500 outline-none focus:bg-slate-200 focus:outline-none"-->
-<!--                 placeholder="Izlash..." autocomplete="off"/>-->
-<!--        </div>-->
-<!--        <button-->
-<!--            class="bordeer-slare-300 mr-3 w-full rounded-lg border bg-white px-5 py-2.5 text-center text-sm font-medium text-gray-900 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto dark:border-0 dark:text-gray-300">-->
-<!--          <FunnelIcon class="mr-1 inline-block text-lg"/>-->
-<!--          Saralash-->
-<!--        </button>-->
+      <h3 class="block sm:hidden ml-2 text-2xl font-extrabold dark:text-gray-300"></h3>
+      <h3 class="hidden sm:block ml-2 text-2xl font-extrabold dark:text-gray-300">A'zolar</h3>
+      <div class="hidden md:block flex items-center">
+        <div class="relative mr-3 inline-block">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+            <button type="submit" class="focus:shadow-outline p-2 focus:outline-none dark:text-gray-300">
+              <SearchIcon/>
+            </button>
+          </span>
+          <input type="search" name="search" v-model="search" @keydown="searchMemberFunction()"
+                 class="w-full rounded-lg border border-slate-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300 bg-white py-1.5 pl-10 text-lg text-slate-500 outline-none focus:bg-slate-200 focus:outline-none"
+                 placeholder="Izlash..." autocomplete="off"/>
+        </div>
+        <button
+            class="hidden lg:inline-block border-slate-300 mr-3 w-full rounded-lg border bg-white px-5 py-2.5 text-center text-gray-900 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto dark:border-0 dark:text-gray-300">
+          <FunnelIcon class="mr-1 inline-block text-lg"/>
+          Saralash
+        </button>
         <button x-on:mouseenter="open = true" x-on:mouseleave="open = false" @click="openAddMemberModal()"
-                class="mx-1 w-full rounded-lg bg-blue-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">
+                class="mx-1 w-full rounded-lg bg-blue-500 px-5 py-2.5 text-center text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">
           A'zo qo'shish
+        </button>
+      </div>
+      <div class="block md:hidden flex items-center">
+        <div class="relative mr-3 inline-block">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+            <button type="submit" class="focus:shadow-outline p-2 focus:outline-none dark:text-gray-300">
+              <SearchIcon/>
+            </button>
+          </span>
+          <input type="search" name="search" v-model="search" @keydown="searchMemberFunction()"
+                 class="w-full rounded-lg border border-slate-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300 bg-white py-1.5 pl-10 text-lg text-slate-500 outline-none focus:bg-slate-200 focus:outline-none"
+                 placeholder="Izlash..." autocomplete="off"/>
+        </div>
+        <button x-on:mouseenter="open = true" x-on:mouseleave="open = false" @click="openAddMemberModal()"
+                class="mx-1 rounded-lg bg-blue-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">
+          <UserPlusBoldIcon class="w-5 h-5"/>
         </button>
       </div>
     </div>
@@ -109,7 +126,7 @@
               </div>
             </div>
             <!-- default -->
-            <div v-show="congratStatus.default" class="flex items-center">
+            <div v-show="congratulationStatus.default" class="flex items-center">
               <div
                   class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-gray-300 dark:border-gray-600 dark:text-gray-300 bg-white font-semibold text-gray-500 dark:bg-gray-700">
                 03
@@ -117,7 +134,7 @@
               <div class="hidden md:block text-md ml-3 font-semibold text-gray-500">Yakunlash</div>
             </div>
             <!-- in progress -->
-            <div v-show="congratStatus.inProgress" class="flex items-center">
+            <div v-show="congratulationStatus.inProgress" class="flex items-center">
               <div
                   class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-blue-500 bg-white font-semibold text-blue-500 dark:bg-gray-700">
                 03
@@ -125,7 +142,7 @@
               <div class="hidden md:block text-md ml-3 font-semibold text-blue-500">Yakunlash</div>
             </div>
             <!-- completed-->
-            <div v-show="congratStatus.done" class="flex items-center">
+            <div v-show="congratulationStatus.done" class="flex items-center">
               <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-2xl text-white">
                 <CheckIcon/>
               </div>
@@ -144,7 +161,7 @@
             </label>
             <label v-show="member.image" for="dropzone-file"
                    class="relative mx-auto flex h-24 w-24 max-w-lg cursor-pointer items-center justify-center rounded-full border-2 text-center">
-              <img class="h-24 w-24 rounded-full object-cover" id="memberImage" alt="#"/>
+              <img src="" class="h-24 w-24 rounded-full object-cover" id="memberImage" alt="#"/>
               <input id="dropzone-file" type="file" class="hidden" name="image" @change="getImage"/>
               <span class="absolute -bottom-10 mx-auto mt-3 whitespace-nowrap text-lg font-semibold tracking-wide text-blue-500">
                 Boshqa fotosuratni yuklash</span>
@@ -273,8 +290,10 @@ import TimerIcon from '../../assets/icons/TimerIcon.vue'
 import SuccessfulIcon from '../../assets/icons/SuccessfulIcon.vue'
 import SearchIcon from '../../assets/icons/SearchIcon.vue'
 import SpinIcon from '../../assets/icons/SpinIcon.vue'
+import PictureIcon from "../../assets/icons/PictureIcon.vue";
+import UserPlusBoldIcon from "../../assets/icons/UserPlusBoldIcon.vue";
 import {Field, Form} from 'vee-validate'
-import {ref, reactive, computed} from 'vue'
+import {ref, reactive, onMounted} from 'vue'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 import {useStore} from 'vuex'
@@ -282,7 +301,6 @@ import $ from 'jquery'
 import "v3-infinite-loading/lib/style.css";
 import SingleMemberData from "./Membership/SingleMemberData.vue";
 import authHeader from '../../services/auth-header.js'
-import PictureIcon from "../../assets/icons/PictureIcon.vue";
 
 const store = useStore()
 
@@ -308,7 +326,7 @@ const checkingStatus = reactive({
   done: false,
 })
 
-const congratStatus = reactive({
+const congratulationStatus = reactive({
   default: true,
   inProgress: false,
   done: false,
@@ -358,9 +376,9 @@ const closeAddMemberModal = () => {
   checkingStatus.default = true
   checkingStatus.inProgress = false
   checkingStatus.done = false
-  congratStatus.default = true
-  congratStatus.done = false
-  congratStatus.inProgress = false
+  congratulationStatus.default = true
+  congratulationStatus.done = false
+  congratulationStatus.inProgress = false
   registerMemberProcess.registerMode = true
   registerMemberProcess.checkingMode = false
   registerMemberProcess.congratulationMode = false
@@ -514,10 +532,10 @@ const createMember = () => {
         registerMemberProcess.congratulationMode = true
         checkingStatus.inProgress = false
         checkingStatus.done = true
-        congratStatus.default = false
-        congratStatus.done = true
+        congratulationStatus.default = false
+        congratulationStatus.done = true
         registerMemberProcess.checkingMode = false
-        congratStatus.done = true
+        congratulationStatus.done = true
         localStorage.setItem('time', '02:00')
         clearInterval(interval);
         loadLastAddedMember()
@@ -556,7 +574,7 @@ const loadMember = async $state => {
   }
 }
 
-const loadLastAddedMember = async () => {
+const loadLastAddedMember = async (page) => {
   try {
     const response = await fetch(
         "http://localhost:9000/member/" + page, {
@@ -575,6 +593,33 @@ const loadLastAddedMember = async () => {
 
 showContent.value = members.value !== []
 
+// Search Function
+const getMembers = () => {
+  store.dispatch('memberModule/get').then(
+      (data) => {
+        store.commit('setMembers', data)
+      },
+      (error) => {
+        notify.warning({
+          message: "Ma'lumotlarni bazadan olishda xatolik yuz berdi!",
+          position: 'bottomLeft',
+        })
+      }
+  )
+}
+
+const search = ref('')
+const searchMemberFunction = () => {
+  console.log("ss" + search.value)
+  if (search.value === '') {
+    page = 1
+    loadLastAddedMember(page)
+  } else {
+    members.value = store.state.members.filter((member) => member.firstname.toLowerCase().includes(search.value.toLowerCase()))
+  }
+}
+
+onMounted(() => getMembers())
 </script>
 
 <style scoped>
@@ -598,10 +643,5 @@ showContent.value = members.value !== []
 
 .code:valid {
   border-color: #3498db;
-}
-
-.current {
-  color: #fff;
-  background-color: rgb(26, 86, 219);
 }
 </style>

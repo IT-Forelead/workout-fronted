@@ -1,7 +1,7 @@
 <template>
   <div class="px-5">
     <h3 class="ml-2 mb-5 md:mb-10 text-2xl font-extrabold dark:text-gray-300">Asosiy sahifa</h3>
-    <div class="card-wrapper grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-5 md:gap-10">
+    <div class="card-wrapper grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-4 gap-5 md:gap-10">
       <div class="card rounded-3xl bg-white p-7 dark:bg-gray-800 dark:text-gray-300">
         <div class="items-top flex justify-between">
           <h3 class="text-xl font-bold text-gray-600 dark:text-gray-300">Jami a'zolar</h3>

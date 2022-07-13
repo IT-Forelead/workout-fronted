@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="fixed-bottom z-40 grid grid-cols-5 h-16 bg-white text-gray-900 dark:text-gray-300 dark:bg-gray-800 w-screen border-t dark:border-gray-600">
+    <div
+        class="fixed-bottom z-40 grid grid-cols-5 h-16 bg-white text-gray-900 dark:text-gray-300 dark:bg-gray-800 w-screen border-t dark:border-gray-600">
       <router-link to="/" class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
                    @click="changePage('home')"
                    :class="{'bg-blue-500 text-white': page === 'home' || $router.currentRoute.value.path === '/' && !(page === 'reports') && !(page === 'profile')}">
@@ -71,8 +72,14 @@
             <SunIcon v-show="!isDark" class="w-7 h-7 mr-2"/>
             Tungi rejim
           </div>
-          <label for="checked-toggle" class="inline-flex relative items-center cursor-pointer">
-            <input type="checkbox" value="" id="checked-toggle" class="sr-only peer" checked>
+          <label v-show="isLight" for="dark-mode-off" class="inline-flex relative items-center cursor-pointer">
+            <input type="checkbox" value="" id="dark-mode-off" class="sr-only peer">
+            <div @click="toggleDark()"
+                 class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+            </div>
+          </label>
+          <label v-show="!isLight" for="dark-mode-on" class="inline-flex relative items-center cursor-pointer">
+            <input type="checkbox" value="" id="dark-mode-on" class="sr-only peer" checked>
             <div @click="toggleDark()"
                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
             </div>
@@ -109,6 +116,10 @@ const store = useStore()
 // Dark & Light Mode
 const isDark = useDark()
 const toggleDark = useToggle(isDark)
+
+const isLight = computed(() => {
+  return localStorage.getItem('vueuse-color-scheme') === 'light'
+})
 
 // Active Class
 const changePage = (page) => {

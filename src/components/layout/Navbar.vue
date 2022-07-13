@@ -1,5 +1,6 @@
 <template>
-  <div class="sticky-top z-10 flex h-16 md:h-20 items-center justify-between bg-white py-4 dark:bg-gray-800 dark:text-gray-300">
+  <div
+      class="sticky-top z-10 flex h-16 md:h-20 items-center justify-between bg-white py-4 dark:bg-gray-800 dark:text-gray-300">
     <div class="ml-5 md:flex items-center justify-between">
       <div v-show="showSearchAndBtn">
         <ListIcon v-show="!sidebarStatus" @click="toggleSidebar()"
@@ -8,7 +9,7 @@
                   class="menu-btn mr-5 cursor-pointer rounded-full p-1 text-4xl hover:text-blue-600 hover:shadow"/>
       </div>
       <div class="lg:hidden mr-5 p-1">
-        <img src="../../assets/images/logo.png" class="w-12 shrink-0" alt="#" />
+        <img src="../../assets/images/logo.png" class="w-12 shrink-0" alt="#"/>
       </div>
       <div class="relative" v-show="showSearchAndBtn">
         <span class="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -44,40 +45,67 @@
           </div>
           <div>
             <p class="font-semibold text-gray-900 dark:text-gray-300">Bildirishnoma</p>
-            <p class="text-md text-gray-600 dark:text-gray-400">Klubingiz nomini va to'lov summalarini sozlamalar bo'limi orqali belgilang!</p>
+            <p class="text-md text-gray-600 dark:text-gray-400">Klubingiz nomini va to'lov summalarini sozlamalar
+              bo'limi orqali belgilang!</p>
           </div>
         </div>
       </div>
       <div class="md:mx-3 flex items-center" v-show="showSearchAndBtn">
         <button id="dropdownBtn" @click="toggleDropDown()" class="flex items-center" type="button">
-          <div
+          <span
               class="relative inline-block rounded-full bg-slate-100 p-1 md:p-2 text-slate-500 shadow hover:bg-slate-200 dark:bg-gray-700 dark:hover:bg-gray-600">
             <UserIcon class="w-6 h-6 md:w-7 md:h-7 dark:text-gray-300"/>
-          </div>
-          <div class="flex items-center">
-            <div class="text-left">
-              <div class="ml-2 cursor-pointer px-2 text-lg font-semibold capitalize text-gray-900 dark:text-gray-300">
+          </span>
+          <span class="flex items-center">
+            <span class="text-left">
+              <span
+                  class="block ml-2 cursor-pointer px-2 text-lg font-semibold capitalize text-gray-900 dark:text-gray-300">
                 {{ fullname }}
-              </div>
-              <div class="text-md ml-2 cursor-pointer px-2 capitalize text-gray-400">Admin</div>
-            </div>
-            <div
-                class="border-slare-200 ml-2 rounded-full border bg-slate-50 p-1 text-slate-500 shadow hover:bg-slate-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 dark:text-gray-300">
+              </span>
+              <span class="block text-md ml-2 cursor-pointer px-2 capitalize text-gray-400">Admin</span>
+            </span>
+            <span
+                class="border-slate-200 ml-2 rounded-full border bg-slate-50 p-1 text-slate-500 shadow hover:bg-slate-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 dark:text-gray-300">
               <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                    xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
               </svg>
-            </div>
-          </div>
+            </span>
+          </span>
         </button>
         <div id="dropdownInformation"
              class="hidden w-60 border rounded bg-white shadow dark:bg-gray-800 dark:border-gray-600">
           <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformationButton">
             <li class="border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
+              <router-link to="/profile" class="text-md flex items-center px-4 py-2 dark:text-gray-300">
+                <UserIcon class="mr-2 text-xl dark:text-gray-300"/>
+                Profil
+              </router-link>
+            </li>
+            <li class="border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
               <router-link to="/settings" class="text-md flex items-center px-4 py-2 dark:text-gray-300">
                 <GearIcon class="mr-2 text-xl dark:text-gray-300"/>
                 Sozlamalar
               </router-link>
+            </li>
+            <li class="flex items-center justify-between p-3">
+              <div class="flex items-center">
+                <MoonIcon v-show="isDark" class="w-6 h-6 mr-2"/>
+                <SunIcon v-show="!isDark" class="w-6 h-6 mr-2"/>
+                Tungi rejim
+              </div>
+              <label v-show="isLight" for="checked-toggle-off" class="inline-flex relative items-center cursor-pointer">
+                <input type="checkbox" value="" id="checked-toggle-off" class="sr-only peer">
+                <div @click="toggleDark()"
+                     class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                </div>
+              </label>
+              <label v-show="!isLight" for="checked-toggle-on" class="inline-flex relative items-center cursor-pointer">
+                <input type="checkbox" value="" id="checked-toggle-on" class="sr-only peer" checked>
+                <div @click="toggleDark()"
+                     class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                </div>
+              </label>
             </li>
             <li class="hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
               <a href="/login" @click="onLogout()"
@@ -113,12 +141,18 @@ import SearchIcon from "../../assets/icons/SearchIcon.vue";
 import BookmarkIcon from "../../assets/icons/BookmarkIcon.vue";
 import MobileBar from "./MobileBar.vue";
 
-const isDark = useDark()
-const toggleDark = useToggle(isDark)
-
 const store = useStore()
 const router = useRouter()
 
+// Dark & Light mode
+const isDark = useDark()
+const toggleDark = useToggle(isDark)
+
+const isLight = computed(() => {
+  return localStorage.getItem('vueuse-color-scheme') === 'light'
+})
+
+// Sidebar Function
 function toggleSidebar() {
   store.commit('setSidebarStatus', !store.state.isSidebarOpen)
   if (localStorage.getItem('sidebar') === '1') {
@@ -135,16 +169,34 @@ const sidebarStatus = computed(() => {
   return store.state.isSidebarOpen || refreshConf
 })
 
+// Login Function
 function checkLogin(data) {
   store.commit('setLogin', data)
 }
 
+// Logout Functions
 function onLogout() {
   store.dispatch('auth/logout').then(() => {
     checkLogin(false)
   })
 }
 
+function autoLogout() {
+  setTimeout(() => {
+    if (!store.state.user.firstname) {
+      onLogout()
+      router.go('/login')
+    }
+  }, 1000)
+}
+
+$(window).click(() => {
+  autoLogout()
+})
+
+onMounted(() => autoLogout())
+
+// User Data
 const addUserInStore = () => {
   store.dispatch('userModule/get').then(
       (data) => {
@@ -161,10 +213,13 @@ const addUserInStore = () => {
   )
 }
 
+onMounted(() => addUserInStore())
+
 const fullname = computed(() => {
   return store.state.user.firstname + " " + store.state.user.lastname
 })
 
+// User Info Dropdown
 function toggleDropDown() {
   $('#dropdownInformation').toggleClass('hidden')
 }
@@ -175,6 +230,7 @@ $(document).click(function (event) {
   }
 })
 
+// Notification
 function toggleDropDownNotification() {
   $('#dropdownNotification').toggleClass('hidden')
 }
@@ -185,19 +241,7 @@ $(document).click(function (event) {
   }
 })
 
-function autoLogout() {
-  setTimeout(() => {
-    if (!store.state.user.firstname) {
-      onLogout()
-      router.go('/login')
-    }
-  }, 1000)
-}
-
-$(window).click(() => {
-  autoLogout()
-})
-
+// Mobile Responsibility
 const showSearchAndBtn = ref(false)
 
 $(document).ready(() => {
@@ -208,10 +252,6 @@ $(window).resize(() => {
   showSearchAndBtn.value = $(window).width() > 1024;
 })
 
-onMounted(() => {
-  addUserInStore()
-  autoLogout()
-})
 </script>
 
 <style scoped>
@@ -233,11 +273,13 @@ onMounted(() => {
   right: 280px;
   z-index: 50;
 }
+
 @media all and (max-width: 1024px) {
   #dropdownNotification {
     right: 10px;
   }
 }
+
 @media all and (max-width: 768px) {
   #dropdownNotification {
     width: 100%;
