@@ -1,6 +1,7 @@
 <template>
   <div class="px-2 md:px-5">
-    <div class="mb-5 flex items-center justify-between top-16 md:top-20 sticky-top z-0 bg-slate-100 dark:bg-gray-900 p-3">
+    <div
+        class="mb-5 flex items-center justify-between top-16 md:top-20 sticky-top z-0 bg-slate-100 dark:bg-gray-900 p-3">
       <h3 class="block sm:hidden ml-2 text-2xl font-extrabold dark:text-gray-300"></h3>
       <h3 class="hidden sm:block ml-2 text-2xl font-extrabold dark:text-gray-300">A'zolar</h3>
       <div class="hidden md:block flex items-center">
@@ -55,7 +56,7 @@
   <div v-show="isAddMemberModalOpen"
        class="fixed top-0 right-0 left-0 z-50 w-full overflow-y-auto overflow-x-hidden backdrop-brightness-50 inset-0 h-full">
     <div class="relative top-1/2 left-1/2 w-full max-w-5xl -translate-x-1/2 -translate-y-1/2 mt-16 md:mt-0 p-1 md:p-4"
-    :class="{'mt-0': registerMemberProcess.checkingMode || registerMemberProcess.congratulationMode}">
+         :class="{'mt-0': registerMemberProcess.checkingMode || registerMemberProcess.congratulationMode}">
       <div class="relative rounded-lg bg-white shadow-lg dark:bg-gray-800">
         <div class="flex items-start justify-between rounded-t border-b p-4 dark:border-gray-600">
           <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Yangi a'zo qo'shish</h3>
@@ -70,9 +71,10 @@
           </button>
         </div>
         <div class="p-5">
-          <div class="mb-3 flex justify-evenly md:grid md:grid-cols-3 rounded-lg border border-gray-300 p-3 dark:border-gray-600">
+          <div
+              class="mb-3 flex justify-evenly md:grid md:grid-cols-3 rounded-lg border border-gray-300 p-3 dark:border-gray-600">
             <div class="flex items-center justify-between">
-              <!-- in pgrogress -->
+              <!-- in progress -->
               <div v-show="registerStatus.inProgress" class="flex items-center justify-between">
                 <div
                     class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-blue-500 bg-white font-semibold text-blue-500 dark:bg-gray-700">
@@ -156,14 +158,16 @@
                    class="relative mx-auto flex h-24 w-24 max-w-lg cursor-pointer items-center justify-center rounded-full border-2 border-dashed border-blue-400 bg-slate-100 p-6 text-center dark:bg-gray-700">
               <PictureIcon/>
               <input id="dropzone-file" type="file" class="hidden" name="image" @change="getImage"/>
-              <span class="absolute -bottom-10 mx-auto mt-3 whitespace-nowrap text-lg font-semibold tracking-wide text-blue-500">
+              <span
+                  class="absolute -bottom-10 mx-auto mt-3 whitespace-nowrap text-lg font-semibold tracking-wide text-blue-500">
                 Fotosuratni yuklash</span>
             </label>
             <label v-show="member.image" for="dropzone-file"
                    class="relative mx-auto flex h-24 w-24 max-w-lg cursor-pointer items-center justify-center rounded-full border-2 text-center">
               <img src="" class="h-24 w-24 rounded-full object-cover" id="memberImage" alt="#"/>
               <input id="dropzone-file" type="file" class="hidden" name="image" @change="getImage"/>
-              <span class="absolute -bottom-10 mx-auto mt-3 whitespace-nowrap text-lg font-semibold tracking-wide text-blue-500">
+              <span
+                  class="absolute -bottom-10 mx-auto mt-3 whitespace-nowrap text-lg font-semibold tracking-wide text-blue-500">
                 Boshqa fotosuratni yuklash</span>
             </label>
           </div>
@@ -554,27 +558,32 @@ const createMember = () => {
 }
 
 const members = ref([])
+const total = ref(0)
 
 let page = 0
 const loadMember = async $state => {
   page++;
-  try {
-    const response = await fetch(
-        "http://localhost:9000/member/" + page, {
-          headers: authHeader()
-        }
-    )
-    const json = await response.json();
-    setTimeout(() => {
-      members.value.push(...json.member);
-      $state.loaded();
-    }, 1000);
-  } catch (error) {
-    $state.error();
-  }
+  if (!(total.value / 10 + 1 < page && total.value !== 0)) {
+    try {
+      const response = await fetch(
+          "http://localhost:9000/member/" + page, {
+            headers: authHeader()
+          }
+      )
+      const json = await response.json();
+      total.value = json.total
+      showContent.value = total.value > 0
+      setTimeout(() => {
+        members.value.push(...json.member);
+        $state.loaded();
+      }, 500);
+    } catch (error) {
+      $state.error();
+    }
+  } else $state.loaded();
 }
 
-const loadLastAddedMember = async (page) => {
+const loadLastAddedMember = async () => {
   try {
     const response = await fetch(
         "http://localhost:9000/member/" + page, {
@@ -590,8 +599,6 @@ const loadLastAddedMember = async (page) => {
     console.log("Get members error!")
   }
 }
-
-showContent.value = members.value !== []
 
 // Search Function
 const getMembers = () => {
@@ -610,10 +617,9 @@ const getMembers = () => {
 
 const search = ref('')
 const searchMemberFunction = () => {
-  console.log("ss" + search.value)
   if (search.value === '') {
     page = 1
-    loadLastAddedMember(page)
+    loadLastAddedMember()
   } else {
     members.value = store.state.members.filter((member) => member.firstname.toLowerCase().includes(search.value.toLowerCase()))
   }

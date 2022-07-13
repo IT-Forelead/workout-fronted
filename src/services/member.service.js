@@ -12,7 +12,7 @@ class MemberService {
     }
 
     create(data) {
-        return axios.post(API_URL + '/member', data, {
+        return axios.put(API_URL + '/member', data, {
             headers: {
                 'Content-Type': 'multipart/form-data',
                 'Authorization': authHeaderForMultiPart()

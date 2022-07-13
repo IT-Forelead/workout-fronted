@@ -1,4 +1,4 @@
-# stage1 as builder
+# stage as builder
 FROM node:16 as builder
 
 WORKDIR /workout-frontend

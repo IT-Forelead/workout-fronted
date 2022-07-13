@@ -31,7 +31,7 @@ Ctrl + C
 sudo npm i -g n
 ```
 
-## Install neccesarary packages another projects
+## Install necessary packages another projects
 ```
 sudo n stable
 ```
