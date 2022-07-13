@@ -53,5 +53,5 @@ docker build -t workout-frontend .
 ```
 ### Run the app
 ```
-docker run -d --name workout-ui -p 80:80 workout-frontend
+docker run -d --name workout-ui -p 80:80 --restart always workout-frontend
 ```
