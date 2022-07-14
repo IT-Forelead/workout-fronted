@@ -19,7 +19,7 @@
       </router-link>
       <div class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
            @click="changePage('reports'); toggleReportDropMenu()"
-           :class="{'bg-blue-500 text-white': page === 'reports' || ($router.currentRoute.value.path === '/arrival' || $router.currentRoute.value.path === '/messages') && !(page === 'profile') && !(page === 'settings')}">
+           :class="{'bg-blue-500 text-white': page === 'reports' || ($router.currentRoute.value.path === '/arrival' || $router.currentRoute.value.path === '/Messages') && !(page === 'profile') && !(page === 'settings')}">
         <RepeatBoldIcon class="w-7 h-7"/>
       </div>
       <div class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
@@ -74,18 +74,18 @@
           </div>
           <label v-show="isLight" for="dark-mode-off" class="inline-flex relative items-center cursor-pointer">
             <input type="checkbox" value="" id="dark-mode-off" class="sr-only peer">
-            <div @click="toggleDark()"
+            <span @click="toggleDark()"
                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
-            </div>
+            </span>
           </label>
           <label v-show="!isLight" for="dark-mode-on" class="inline-flex relative items-center cursor-pointer">
             <input type="checkbox" value="" id="dark-mode-on" class="sr-only peer" checked>
-            <div @click="toggleDark()"
+            <span @click="toggleDark()"
                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
-            </div>
+            </span>
           </label>
         </div>
-        <a href="/login" @click="onLogout()"
+        <a href="/" @click="onLogout()"
            class="flex items-center py-3 dark:hover:bg-gray-700 border-y dark:border-gray-600">
           <LogoutIcon class="w-7 h-7 mr-2"/>
           Chiqish

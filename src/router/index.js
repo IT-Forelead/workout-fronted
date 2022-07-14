@@ -3,6 +3,12 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
+    name: 'Login',
+    component: () => import('../components/Login.vue'),
+    meta: { layout: "empty" },
+  },
+  {
+    path: '/dashboard',
     name: 'Asosiy sahifa',
     component: () => import('../components/pages/Main.vue'),
   },
@@ -22,7 +28,7 @@ const routes = [
     component: () => import('../components/pages/Arrival.vue'),
   },
   {
-    path: '/messages',
+    path: '/Messages',
     name: 'SMS xabarlar',
     component: () => import('../components/pages/Messages.vue'),
   },
@@ -37,11 +43,6 @@ const routes = [
     component: () => import('../components/pages/Profile.vue'),
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: () => import('../components/Login.vue'),
-  },
-  {
     path: '/:pathMach(.*)*',
     name: 'NotFound',
     component: () => import('../components/NotFound.vue'),
@@ -50,17 +51,17 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(),
-  routes,
+  routes: routes,
 })
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/login']
+  const publicPages = ['/']
   const authRequired = !publicPages.includes(to.path)
   const loggedIn = localStorage.getItem('user')
   if (authRequired && !loggedIn) {
-    next('/login')
-  } else if (to.path === '/login' && loggedIn) {
     next('/')
+  } else if (to.path === '/' && loggedIn) {
+    next('/dashboard')
   } else {
     next()
   }

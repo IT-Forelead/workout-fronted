@@ -1,5 +1,6 @@
 <template>
-  <div class="px-2 md:px-5">
+  <div>
+    <div class="px-2 md:px-5">
     <div class="mb-5 flex items-center justify-between top-16 md:top-20 sticky-top z-0 bg-slate-100 dark:bg-gray-900 p-3">
       <h3 class="block sm:hidden ml-2 text-2xl font-extrabold dark:text-gray-300"></h3>
       <h3 class="hidden sm:block ml-2 text-2xl font-extrabold dark:text-gray-300">A'zolar</h3>
@@ -10,274 +11,275 @@
               <SearchIcon/>
             </button>
           </span>
-          <input type="search" name="search" v-model="search" @keydown="searchMemberFunction()"
-                 class="w-full rounded-lg border border-slate-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300 bg-white py-1.5 pl-10 text-lg text-slate-500 outline-none focus:bg-slate-200 focus:outline-none"
-                 placeholder="Izlash..." autocomplete="off"/>
+            <input type="search" name="search" v-model="search" @keydown="searchMemberFunction()"
+                   class="w-full rounded-lg border border-slate-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300 bg-white py-1.5 pl-10 text-lg text-slate-500 outline-none focus:bg-slate-200 focus:outline-none"
+                   placeholder="Izlash..." autocomplete="off"/>
+          </div>
+          <button
+              class="hidden lg:inline-block border-slate-300 mr-3 w-full rounded-lg border bg-white px-5 py-2.5 text-center text-gray-900 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto dark:border-0 dark:text-gray-300">
+            <FunnelIcon class="mr-1 inline-block text-lg"/>
+            Saralash
+          </button>
+          <button x-on:mouseenter="open = true" x-on:mouseleave="open = false" @click="openAddMemberModal()"
+                  class="mx-1 w-full rounded-lg bg-blue-500 px-5 py-2.5 text-center text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">
+            A'zo qo'shish
+          </button>
         </div>
-        <button
-            class="hidden lg:inline-block border-slate-300 mr-3 w-full rounded-lg border bg-white px-5 py-2.5 text-center text-gray-900 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto dark:border-0 dark:text-gray-300">
-          <FunnelIcon class="mr-1 inline-block text-lg"/>
-          Saralash
-        </button>
-        <button x-on:mouseenter="open = true" x-on:mouseleave="open = false" @click="openAddMemberModal()"
-                class="mx-1 w-full rounded-lg bg-blue-500 px-5 py-2.5 text-center text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">
-          A'zo qo'shish
-        </button>
-      </div>
-      <div class="block md:hidden flex items-center">
-        <div class="relative mr-3 inline-block">
+        <div class="block md:hidden flex items-center">
+          <div class="relative mr-3 inline-block">
           <span class="absolute inset-y-0 left-0 flex items-center pl-2">
             <button type="submit" class="focus:shadow-outline p-2 focus:outline-none dark:text-gray-300">
               <SearchIcon/>
             </button>
           </span>
-          <input type="search" name="search" v-model="search" @keydown="searchMemberFunction()"
-                 class="w-full rounded-lg border border-slate-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300 bg-white py-1.5 pl-10 text-lg text-slate-500 outline-none focus:bg-slate-200 focus:outline-none"
-                 placeholder="Izlash..." autocomplete="off"/>
-        </div>
-        <button x-on:mouseenter="open = true" x-on:mouseleave="open = false" @click="openAddMemberModal()"
-                class="mx-1 rounded-lg bg-blue-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">
-          <UserPlusBoldIcon class="w-5 h-5"/>
-        </button>
-      </div>
-    </div>
-    <div v-show="!showContent" class="flex w-full justify-center pt-5">
-      <h1 class="text-xl font-bold text-red-500">Ma'lumotlar bazasida a'zolar mavjud emas!</h1>
-    </div>
-    <SingleMemberData
-        v-show="showContent"
-        :members="members"
-        @infinite="loadMember"
-    />
-  </div>
-
-  <!-- Member Info Modal -->
-  <div v-show="isAddMemberModalOpen"
-       class="fixed top-0 right-0 left-0 z-50 w-full overflow-y-auto overflow-x-hidden backdrop-brightness-50 inset-0 h-full">
-    <div class="relative top-1/2 left-1/2 w-full max-w-5xl -translate-x-1/2 -translate-y-1/2 mt-16 md:mt-0 p-1 md:p-4"
-         :class="{'mt-0': registerMemberProcess.checkingMode || registerMemberProcess.congratulationMode}">
-      <div class="relative rounded-lg bg-white shadow-lg dark:bg-gray-800">
-        <div class="flex items-start justify-between rounded-t border-b p-4 dark:border-gray-600">
-          <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Yangi a'zo qo'shish</h3>
-          <button type="button" @click="closeAddMemberModal()"
-                  class="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
-                  data-modal-toggle="defaultModal">
-            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd"
-                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    clip-rule="evenodd"></path>
-            </svg>
+            <input type="search" name="search" v-model="search" @keydown="searchMemberFunction()"
+                   class="w-full rounded-lg border border-slate-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300 bg-white py-1.5 pl-10 text-lg text-slate-500 outline-none focus:bg-slate-200 focus:outline-none"
+                   placeholder="Izlash..." autocomplete="off"/>
+          </div>
+          <button x-on:mouseenter="open = true" x-on:mouseleave="open = false" @click="openAddMemberModal()"
+                  class="mx-1 rounded-lg bg-blue-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">
+            <UserPlusBoldIcon class="w-5 h-5"/>
           </button>
         </div>
-        <div class="p-5">
-          <div
-              class="mb-3 flex justify-evenly md:grid md:grid-cols-3 rounded-lg border border-gray-300 p-3 dark:border-gray-600">
-            <div class="flex items-center justify-between">
-              <!-- in progress -->
-              <div v-show="registerStatus.inProgress" class="flex items-center justify-between">
-                <div
-                    class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-blue-500 bg-white font-semibold text-blue-500 dark:bg-gray-700">
-                  01
+      </div>
+      <div v-show="!showContent" class="flex w-full justify-center pt-5">
+        <h1 class="text-xl font-bold text-red-500 text-center">Ma'lumotlar bazasida a'zolar mavjud emas!</h1>
+      </div>
+      <SingleMemberData
+          v-show="showContent"
+          :members="members"
+          @infinite="loadMember"
+      />
+    </div>
+
+    <!-- Member Info Modal -->
+    <div v-show="isAddMemberModalOpen"
+         class="fixed top-0 right-0 left-0 z-50 w-full overflow-y-auto overflow-x-hidden backdrop-brightness-50 inset-0 h-full">
+      <div class="relative top-1/2 left-1/2 w-full max-w-5xl -translate-x-1/2 -translate-y-1/2 mt-16 md:mt-0 p-1 md:p-4"
+           :class="{'mt-0': registerMemberProcess.checkingMode || registerMemberProcess.congratulationMode}">
+        <div class="relative rounded-lg bg-white shadow-lg dark:bg-gray-800">
+          <div class="flex items-start justify-between rounded-t border-b p-4 dark:border-gray-600">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Yangi a'zo qo'shish</h3>
+            <button type="button" @click="closeAddMemberModal()"
+                    class="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-toggle="defaultModal">
+              <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      clip-rule="evenodd"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="p-5">
+            <div
+                class="mb-3 flex justify-evenly md:grid md:grid-cols-3 rounded-lg border border-gray-300 p-3 dark:border-gray-600">
+              <div class="flex items-center justify-between">
+                <!-- in progress -->
+                <div v-show="registerStatus.inProgress" class="flex items-center justify-between">
+                  <div
+                      class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-blue-500 bg-white font-semibold text-blue-500 dark:bg-gray-700">
+                    01
+                  </div>
+                  <div class="hidden md:block text-md ml-3 font-semibold text-blue-500">A'zo ma'lumotlari</div>
                 </div>
-                <div class="hidden md:block text-md ml-3 font-semibold text-blue-500">A'zo ma'lumotlari</div>
-              </div>
-              <!-- completed -->
-              <div v-show="registerStatus.done" class="flex items-center justify-between">
-                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-2xl text-white">
-                  <CheckIcon/>
+                <!-- completed -->
+                <div v-show="registerStatus.done" class="flex items-center justify-between">
+                  <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-2xl text-white">
+                    <CheckIcon/>
+                  </div>
+                  <div class="hidden md:block text-md ml-3 font-semibold text-gray-700">A'zo ma'lumotlari</div>
                 </div>
-                <div class="hidden md:block text-md ml-3 font-semibold text-gray-700">A'zo ma'lumotlari</div>
+                <div class="relative ml-7 md:-left-8 mt-1 md:ml-0">
+                  <div
+                      class="-rotate-25 absolute bottom-0 h-9 rounded-lg border-r border-gray-300 dark:border-gray-600"></div>
+                  <div
+                      class="rotate-25 absolute -top-1 h-9 rounded-lg border-r border-gray-300 dark:border-gray-600"></div>
+                </div>
               </div>
-              <div class="relative ml-7 md:-left-8 mt-1 md:ml-0">
-                <div
-                    class="-rotate-25 absolute bottom-0 h-9 rounded-lg border-r border-gray-300 dark:border-gray-600"></div>
-                <div
-                    class="rotate-25 absolute -top-1 h-9 rounded-lg border-r border-gray-300 dark:border-gray-600"></div>
+              <div class="flex items-center justify-between">
+                <!-- default -->
+                <div v-show="checkingStatus.default" class="flex items-center">
+                  <div
+                      class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-gray-300 dark:border-gray-600 dark:text-gray-300 bg-white font-semibold text-gray-500 dark:bg-gray-700">
+                    02
+                  </div>
+                  <div class="hidden md:block text-md ml-3 font-semibold text-gray-500">Tasdiqlash</div>
+                </div>
+                <!-- in progress -->
+                <div v-show="checkingStatus.inProgress" class="flex items-center justify-between">
+                  <div
+                      class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-blue-500 bg-white font-semibold text-blue-500 dark:bg-gray-700">
+                    02
+                  </div>
+                  <div class="hidden md:block text-md ml-3 font-semibold text-blue-500">Tasdiqlash</div>
+                </div>
+                <!-- completed -->
+                <div v-show="checkingStatus.done" class="flex items-center justify-between">
+                  <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-2xl text-white">
+                    <CheckIcon/>
+                  </div>
+                  <div class="hidden md:block text-md ml-3 font-semibold text-gray-700">Tasdiqlash</div>
+                </div>
+                <div class="relative ml-7 md:-left-8 mt-1 md:ml-0">
+                  <div
+                      class="-rotate-25 absolute bottom-0 h-9 rounded-lg border-r border-gray-300 dark:border-gray-600"></div>
+                  <div
+                      class="rotate-25 absolute -top-1 h-9 rounded-lg border-r border-gray-300 dark:border-gray-600"></div>
+                </div>
               </div>
-            </div>
-            <div class="flex items-center justify-between">
               <!-- default -->
-              <div v-show="checkingStatus.default" class="flex items-center">
+              <div v-show="congratulationStatus.default" class="flex items-center">
                 <div
                     class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-gray-300 dark:border-gray-600 dark:text-gray-300 bg-white font-semibold text-gray-500 dark:bg-gray-700">
-                  02
+                  03
                 </div>
-                <div class="hidden md:block text-md ml-3 font-semibold text-gray-500">Tasdiqlash</div>
+                <div class="hidden md:block text-md ml-3 font-semibold text-gray-500">Yakunlash</div>
               </div>
               <!-- in progress -->
-              <div v-show="checkingStatus.inProgress" class="flex items-center justify-between">
+              <div v-show="congratulationStatus.inProgress" class="flex items-center">
                 <div
                     class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-blue-500 bg-white font-semibold text-blue-500 dark:bg-gray-700">
-                  02
+                  03
                 </div>
-                <div class="hidden md:block text-md ml-3 font-semibold text-blue-500">Tasdiqlash</div>
+                <div class="hidden md:block text-md ml-3 font-semibold text-blue-500">Yakunlash</div>
               </div>
-              <!-- completed -->
-              <div v-show="checkingStatus.done" class="flex items-center justify-between">
+              <!-- completed-->
+              <div v-show="congratulationStatus.done" class="flex items-center">
                 <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-2xl text-white">
                   <CheckIcon/>
                 </div>
-                <div class="hidden md:block text-md ml-3 font-semibold text-gray-700">Tasdiqlash</div>
+                <div class="hidden md:block text-md ml-3 font-semibold text-gray-700">Yakunlash</div>
               </div>
-              <div class="relative ml-7 md:-left-8 mt-1 md:ml-0">
-                <div
-                    class="-rotate-25 absolute bottom-0 h-9 rounded-lg border-r border-gray-300 dark:border-gray-600"></div>
-                <div
-                    class="rotate-25 absolute -top-1 h-9 rounded-lg border-r border-gray-300 dark:border-gray-600"></div>
-              </div>
-            </div>
-            <!-- default -->
-            <div v-show="congratulationStatus.default" class="flex items-center">
-              <div
-                  class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-gray-300 dark:border-gray-600 dark:text-gray-300 bg-white font-semibold text-gray-500 dark:bg-gray-700">
-                03
-              </div>
-              <div class="hidden md:block text-md ml-3 font-semibold text-gray-500">Yakunlash</div>
-            </div>
-            <!-- in progress -->
-            <div v-show="congratulationStatus.inProgress" class="flex items-center">
-              <div
-                  class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-blue-500 bg-white font-semibold text-blue-500 dark:bg-gray-700">
-                03
-              </div>
-              <div class="hidden md:block text-md ml-3 font-semibold text-blue-500">Yakunlash</div>
-            </div>
-            <!-- completed-->
-            <div v-show="congratulationStatus.done" class="flex items-center">
-              <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-2xl text-white">
-                <CheckIcon/>
-              </div>
-              <div class="hidden md:block text-md ml-3 font-semibold text-gray-700">Yakunlash</div>
             </div>
           </div>
-        </div>
-        <form @submit.prevent="createMember()" method="post" enctype="multipart/form-data">
-          <div v-show="registerMemberProcess.registerMode" class="md:mb-5 flex flex-col p-5">
-            <label v-show="!member.image" for="dropzone-file"
-                   class="relative mx-auto flex h-24 w-24 max-w-lg cursor-pointer items-center justify-center rounded-full border-2 border-dashed border-blue-400 bg-slate-100 p-6 text-center dark:bg-gray-700">
-              <PictureIcon/>
-              <input id="dropzone-file" type="file" class="hidden" name="image" @change="getImage"/>
-              <span
-                  class="absolute -bottom-10 mx-auto mt-3 whitespace-nowrap text-lg font-semibold tracking-wide text-blue-500">
+          <form @submit.prevent="createMember()" method="post" enctype="multipart/form-data">
+            <div v-show="registerMemberProcess.registerMode" class="md:mb-5 flex flex-col p-5">
+              <label v-show="!member.image" for="dropzone-file"
+                     class="relative mx-auto flex h-24 w-24 max-w-lg cursor-pointer items-center justify-center rounded-full border-2 border-dashed border-blue-400 bg-slate-100 p-6 text-center dark:bg-gray-700">
+                <PictureIcon/>
+                <input id="dropzone-file" type="file" class="hidden" name="image" @change="getImage"/>
+                <span
+                    class="absolute -bottom-10 mx-auto mt-3 whitespace-nowrap text-lg font-semibold tracking-wide text-blue-500">
                 Fotosuratni yuklash</span>
-            </label>
-            <label v-show="member.image" for="dropzone-file"
-                   class="relative mx-auto flex h-24 w-24 max-w-lg cursor-pointer items-center justify-center rounded-full border-2 text-center">
-              <img src="" class="h-24 w-24 rounded-full object-cover" id="memberImage" alt="#"/>
-              <input id="dropzone-file" type="file" class="hidden" name="image" @change="getImage"/>
-              <span
-                  class="absolute -bottom-10 mx-auto mt-3 whitespace-nowrap text-lg font-semibold tracking-wide text-blue-500">
+              </label>
+              <label v-show="member.image" for="dropzone-file"
+                     class="relative mx-auto flex h-24 w-24 max-w-lg cursor-pointer items-center justify-center rounded-full border-2 text-center">
+                <img src="" class="h-24 w-24 rounded-full object-cover" id="memberImage" alt="#"/>
+                <input id="dropzone-file" type="file" class="hidden" name="image" @change="getImage"/>
+                <span
+                    class="absolute -bottom-10 mx-auto mt-3 whitespace-nowrap text-lg font-semibold tracking-wide text-blue-500">
                 Boshqa fotosuratni yuklash</span>
-            </label>
-          </div>
-          <!-- Step 1 -->
-          <div v-show="registerMemberProcess.registerMode" class="md:mb-6 grid md:gap-6 p-5 lg:grid-cols-2">
-            <div class="p-3">
-              <label for="first_name"
-                     class="text-md mb-2 block font-medium text-gray-900 dark:text-gray-300">Ism</label>
-              <input type="text" v-model="member.firstname" id="first_name" name="firstname"
-                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                     placeholder="Ism kiriting" required/>
+              </label>
             </div>
-            <div class="p-3">
-              <label for="last_name"
-                     class="text-md mb-2 block font-medium text-gray-900 dark:text-gray-300">Familiya</label>
-              <input type="text" v-model="member.lastname" id="last_name" name="lastname"
+            <!-- Step 1 -->
+            <div v-show="registerMemberProcess.registerMode" class="md:mb-6 grid md:gap-6 p-5 lg:grid-cols-2">
+              <div class="p-3">
+                <label for="first_name"
+                       class="text-md mb-2 block font-medium text-gray-900 dark:text-gray-300">Ism</label>
+                <input type="text" v-model="member.firstname" id="first_name" name="firstname"
+                       class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                       placeholder="Ism kiriting" required/>
+              </div>
+              <div class="p-3">
+                <label for="last_name"
+                       class="text-md mb-2 block font-medium text-gray-900 dark:text-gray-300">Familiya</label>
+                <input type="text" v-model="member.lastname" id="last_name" name="lastname"
+                       class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                       placeholder="Familiya kiriting" required/>
+              </div>
+              <div class="p-3">
+                <label for="birthday" class="text-md mb-2 block font-medium text-gray-900 dark:text-gray-300">Tug'ilgan
+                  kun</label>
+                <input type="date" v-model="member.birthday" id="birthday" name="birthday"
+                       class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                       placeholder="Flowbite" required/>
+              </div>
+              <div class="p-3">
+                <label for="phone" class="text-md mb-2 block font-medium text-gray-900 dark:text-gray-300">Telefon
+                  raqami</label>
+                <Field name="phone" v-model="member.phone" type="phone" v-mask="'+###(##) ###-##-##'" id="phone"
+                       class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                       placeholder="+998(90) 123-45-67" required/>
+              </div>
+              <Field name="code" v-model="confirmCode" type="hidden"
                      class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                     placeholder="Familiya kiriting" required/>
+                     required/>
             </div>
-            <div class="p-3">
-              <label for="birthday" class="text-md mb-2 block font-medium text-gray-900 dark:text-gray-300">Tug'ilgan
-                kun</label>
-              <input type="date" v-model="member.birthday" id="birthday" name="birthday"
-                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                     placeholder="Flowbite" required/>
+            <!-- Step 2 -->
+            <div class="flex justify-center" v-show="registerMemberProcess.checkingMode">
+              <div class="flex flex-col">
+                <ConfirmCode class="mx-auto text-9xl text-blue-500"/>
+                <p class="text-xl text-gray-600 dark:text-gray-300 px-3 text-center">
+                  <strong class="text-black dark:text-gray-300">{{ member.phone }}</strong> telefon raqamiga tasdiqlash
+                  kodi SMS tarzida jo'natildi!
+                </p>
+                <div class="my-5 flex justify-center">
+                  <input type="text" class="code dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300" maxlength="1"
+                         v-model="confirm.first" @input="onlyNumber('first')"
+                         required/>
+                  <input type="text" class="code dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300" maxlength="1"
+                         v-model="confirm.second" @input="onlyNumber('second')"
+                         required/>
+                  <input type="text" class="code dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300" maxlength="1"
+                         v-model="confirm.third" @input="onlyNumber('third')"
+                         required/>
+                  <input type="text" class="code dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300" maxlength="1"
+                         v-model="confirm.fourth" @input="onlyNumber('fourth')"
+                         required/>
+                </div>
+                <div v-show="showResendSMS" class="my-3 flex justify-center text-lg text-red-500 hover:underline"><a
+                    href="#" @click="getMemberData()">SMS xabarnoma kelmadimi?</a></div>
+                <div v-show="!showResendSMS" class="my-3 flex items-center justify-center text-xl text-red-600">
+                  <TimerIcon class="mr-2"/>
+                  <span>{{ timer }}</span>
+                </div>
+              </div>
             </div>
-            <div class="p-3">
-              <label for="phone" class="text-md mb-2 block font-medium text-gray-900 dark:text-gray-300">Telefon
-                raqami</label>
-              <Field name="phone" v-model="member.phone" type="phone" v-mask="'+###(##) ###-##-##'" id="phone"
-                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                     placeholder="+998(90) 123-45-67" required/>
+            <div v-show="registerMemberProcess.checkingMode"
+                 class="flex items-center justify-end space-x-2 rounded-b border-t border-gray-200 p-5 dark:border-gray-600">
+              <div>
+                <button v-show="registerMemberProcess.checkingMode && !showCheckBtn && !lastProgressBtn"
+                        class="rounded bg-green-500 px-4 py-2 font-medium text-white shadow-lg outline-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none"
+                        disabled>Tasdiqlash
+                </button>
+                <button v-show="showCheckBtn" type="submit"
+                        class="rounded bg-green-500 px-4 py-2 font-medium text-white shadow-lg outline-none transition-colors duration-200 hover:bg-green-600 focus:bg-green-500 focus:ring-green-500 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">
+                  Tasdiqlash
+                </button>
+                <button v-show="lastProgressBtn"
+                        class="flex items-center rounded bg-green-400 px-4 py-2 font-medium text-white shadow-lg outline-none transition-colors duration-200 hover:bg-green-600 focus:bg-green-500 focus:ring-green-500 focus:ring-offset-2 active:shadow-none disabled:cursor-not-allowed disabled:bg-green-400/80 disabled:shadow-none"
+                        disabled>
+                  <SpinIcon/>
+                  Tasdiqlash
+                </button>
+              </div>
             </div>
-            <Field name="code" v-model="confirmCode" type="hidden"
-                   class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                   required/>
-          </div>
-          <!-- Step 2 -->
-          <div class="flex justify-center" v-show="registerMemberProcess.checkingMode">
+          </form>
+          <!-- Step 3 -->
+          <div class="flex justify-center" v-show="registerMemberProcess.congratulationMode">
             <div class="flex flex-col">
-              <ConfirmCode class="mx-auto text-9xl text-blue-500"/>
-              <p class="text-xl text-gray-600 dark:text-gray-300 px-3 text-center">
-                <strong class="text-black dark:text-gray-300">{{ member.phone }}</strong> telefon raqamiga tasdiqlash
-                kodi SMS tarzida jo'natildi!
+              <SuccessfulIcon class="mx-auto text-9xl text-green-500"/>
+              <p class="my-5 text-center text-xl text-green-500">
+                {{ lastMessage }}
               </p>
-              <div class="my-5 flex justify-center">
-                <input type="text" class="code dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300" maxlength="1"
-                       v-model="confirm.first" @input="onlyNumber('first')"
-                       required/>
-                <input type="text" class="code dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300" maxlength="1"
-                       v-model="confirm.second" @input="onlyNumber('second')"
-                       required/>
-                <input type="text" class="code dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300" maxlength="1"
-                       v-model="confirm.third" @input="onlyNumber('third')"
-                       required/>
-                <input type="text" class="code dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300" maxlength="1"
-                       v-model="confirm.fourth" @input="onlyNumber('fourth')"
-                       required/>
-              </div>
-              <div v-show="showResendSMS" class="my-3 flex justify-center text-lg text-red-500 hover:underline"><a
-                  href="#" @click="getMemberData()">SMS xabarnoma kelmadimi?</a></div>
-              <div v-show="!showResendSMS" class="my-3 flex items-center justify-center text-xl text-red-600">
-                <TimerIcon class="mr-2"/>
-                <span>{{ timer }}</span>
-              </div>
             </div>
           </div>
-          <div v-show="registerMemberProcess.checkingMode"
+          <div v-show="!registerMemberProcess.checkingMode"
                class="flex items-center justify-end space-x-2 rounded-b border-t border-gray-200 p-5 dark:border-gray-600">
             <div>
-              <button v-show="registerMemberProcess.checkingMode && !showCheckBtn && !lastProgressBtn"
-                      class="rounded bg-green-500 px-4 py-2 font-medium text-white shadow-lg outline-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none"
-                      disabled>Tasdiqlash
+              <button v-show="registerMemberProcess.registerMode" @click="clearFields()"
+                      class="mr-2 rounded border border-teal-500 bg-teal-500 px-4 py-2 font-medium text-white outline-none transition-colors duration-200 hover:bg-teal-400 hover:text-white focus:ring-teal-600 focus:ring-offset-2 active:scale-95 disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">
+                Tozalash
               </button>
-              <button v-show="showCheckBtn" type="submit"
-                      class="rounded bg-green-500 px-4 py-2 font-medium text-white shadow-lg outline-none transition-colors duration-200 hover:bg-green-600 focus:bg-green-500 focus:ring-green-500 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">
-                Tasdiqlash
+              <button v-show="registerMemberProcess.registerMode" @click="getMemberData()"
+                      class="rounded bg-indigo-500 px-4 py-2 font-medium text-white shadow-lg outline-none transition-colors duration-200 hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">
+                Keyingi qadam
               </button>
-              <button v-show="lastProgressBtn"
-                      class="flex items-center rounded bg-green-400 px-4 py-2 font-medium text-white shadow-lg outline-none transition-colors duration-200 hover:bg-green-600 focus:bg-green-500 focus:ring-green-500 focus:ring-offset-2 active:shadow-none disabled:cursor-not-allowed disabled:bg-green-400/80 disabled:shadow-none"
-                      disabled>
-                <SpinIcon/>
-                Tasdiqlash
+              <button v-show="registerMemberProcess.congratulationMode" @click="closeAddMemberModal()"
+                      class="rounded bg-indigo-500 px-4 py-2 font-medium text-white shadow-lg outline-none transition-colors duration-200 hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">
+                Yakunlash
               </button>
             </div>
-          </div>
-        </form>
-        <!-- Step 3 -->
-        <div class="flex justify-center" v-show="registerMemberProcess.congratulationMode">
-          <div class="flex flex-col">
-            <SuccessfulIcon class="mx-auto text-9xl text-green-500"/>
-            <p class="my-5 text-center text-xl text-green-500">
-              {{ lastMessage }}
-            </p>
-          </div>
-        </div>
-        <div v-show="!registerMemberProcess.checkingMode"
-             class="flex items-center justify-end space-x-2 rounded-b border-t border-gray-200 p-5 dark:border-gray-600">
-          <div>
-            <button v-show="registerMemberProcess.registerMode" @click="clearFields()"
-                    class="mr-2 rounded border border-teal-500 bg-teal-500 px-4 py-2 font-medium text-white outline-none transition-colors duration-200 hover:bg-teal-400 hover:text-white focus:ring-teal-600 focus:ring-offset-2 active:scale-95 disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">
-              Tozalash
-            </button>
-            <button v-show="registerMemberProcess.registerMode" @click="getMemberData()"
-                    class="rounded bg-indigo-500 px-4 py-2 font-medium text-white shadow-lg outline-none transition-colors duration-200 hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">
-              Keyingi qadam
-            </button>
-            <button v-show="registerMemberProcess.congratulationMode" @click="closeAddMemberModal()"
-                    class="rounded bg-indigo-500 px-4 py-2 font-medium text-white shadow-lg outline-none transition-colors duration-200 hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">
-              Yakunlash
-            </button>
           </div>
         </div>
       </div>

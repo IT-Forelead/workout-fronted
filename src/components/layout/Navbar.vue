@@ -108,10 +108,11 @@
               </label>
             </li>
             <li class="hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
-              <a href="/login" @click="onLogout()"
-                 class="text-md flex items-center px-4 py-2 text-gray-700 dark:text-gray-300">
+              <router-link to="/" @click="onLogout()"
+                           class="text-md flex items-center px-4 py-2 text-gray-700 dark:text-gray-300">
                 <LogoutIcon class="mr-2 text-xl dark:text-gray-300"/>
-                Chiqish</a>
+                Chiqish
+              </router-link>
             </li>
           </ul>
         </div>
@@ -181,21 +182,6 @@ function onLogout() {
   })
 }
 
-function autoLogout() {
-  setTimeout(() => {
-    if (!store.state.user.firstname) {
-      onLogout()
-      router.go('/login')
-    }
-  }, 1000)
-}
-
-$(window).click(() => {
-  autoLogout()
-})
-
-onMounted(() => autoLogout())
-
 // User Data
 const addUserInStore = () => {
   store.dispatch('userModule/get').then(
@@ -208,7 +194,6 @@ const addUserInStore = () => {
           message: "Foydalanuvchi ma'lumotlarini olishda xatolik yuz berdi!",
           position: 'bottomLeft',
         })
-        autoLogout()
       }
   )
 }
