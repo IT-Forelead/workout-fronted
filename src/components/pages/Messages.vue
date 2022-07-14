@@ -23,7 +23,10 @@
         </table>
       </div>
     </div>
-    <h1 v-show="messages.length === 0" class="text-red-500 text-xl text-center">Ma'lumotlar bazasidan smslar hisoboti
+    <div class="flex justify-center items-start h-10 w-full">
+      <SpinIcon v-show="messages.length === 0" class="w-7 h-7"/>
+    </div>
+    <h1 v-show="isMessagesEmpty" class="text-red-500 text-xl text-center">Ma'lumotlar bazasidan smslar hisoboti
       topilmadi!</h1>
   </div>
 </template>
@@ -32,6 +35,7 @@
 import MessagesInfo from "./Messages/MessagesInfo.vue";
 import {ref} from 'vue'
 import authHeader from "../../services/auth-header.js";
+import SpinIcon from "../../assets/icons/SpinIcon.vue";
 
 const messages = ref([])
 const total = ref(0)
@@ -57,4 +61,12 @@ const loadMessages = async $state => {
     }
   } else $state.loaded();
 }
+
+const isMessagesEmpty = ref(false)
+
+setTimeout(() => {
+  isMessagesEmpty.value = messages.value.length === 0
+}, 700)
+
+// messages.length === 0
 </script>
