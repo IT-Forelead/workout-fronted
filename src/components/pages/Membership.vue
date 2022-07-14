@@ -44,7 +44,7 @@
         </div>
       </div>
       <div v-show="!showContent" class="flex w-full justify-center pt-5">
-        <h1 class="text-xl font-bold text-red-500">Ma'lumotlar bazasida a'zolar mavjud emas!</h1>
+        <h1 class="text-xl font-bold text-red-500 text-center">Ma'lumotlar bazasida a'zolar mavjud emas!</h1>
       </div>
       <SingleMemberData
           v-show="showContent"
