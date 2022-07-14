@@ -22,10 +22,6 @@ import {computed} from 'vue'
 
 const store = useStore()
 
-let login = computed(() => {
-  return store.state.isLogin || localStorage.getItem('user') !== null
-})
-
 const sidebarStatus = computed(() => {
   let refreshConf = localStorage.getItem('sidebar') === '1'
   return store.state.isSidebarOpen || refreshConf

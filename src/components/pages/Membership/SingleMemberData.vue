@@ -10,7 +10,7 @@
               member.firstname + ' ' + member.lastname
             }}</h3>
           <p class="text-medium my-2 mb-4 text-gray-600 dark:text-gray-300 text-xl">{{ member.phone }}</p>
-          <button x-on:mouseenter="open = true" x-on:mouseleave="open = false" @click="openModal(); getPaymentsByMemberId(member.id); getArrivalByMemberId(member.id)"
+          <button x-on:mouseenter="open = true" x-on:mouseleave="open = false" @click="openModal(member); getPaymentsByMemberId(member.id); getArrivalByMemberId(member.id)"
                   class="flex items-center justify-center rounded-md border border-slate-300 bg-white py-2 px-5 text-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 transition-all duration-200 ease-in hover:bg-slate-100">
             Batafsil
             <ArrowRightIcon x-show="open" class="ml-3 animate-pulse text-xl transition-all duration-500 ease-in"/>
@@ -28,22 +28,18 @@
           <div class="flex items-start justify-between rounded-t border-b p-4 dark:border-gray-600">
             <div class="text-xl font-semibold text-gray-900 dark:text-white">
               <div class="flex items-center">
-                <img src="../../../assets/images/bg-login.jpg" alt="Avatar" class="ml-2 h-20 w-20 rounded-full"/>
+                <img :src="'http://localhost:9000/member/image/' + selectedMember.image" alt="Avatar" class="ml-2 h-20 w-20 rounded-full"/>
                 <div class="ml-4 pr-2">
-                  <h3>Admin Adminjonov</h3>
-                  <h5 class="text-sm">+998(99) 123-45-67</h5>
-                  <h6 class="text-sm text-gray-500">12.02.2022</h6>
+                  <h3>{{ selectedMember.firstname + ' ' + selectedMember.lastname }}</h3>
+                  <h5 class="text-sm">{{ selectedMember.phone }}</h5>
+                  <h6 class="text-sm text-gray-500">{{ selectedMember.birthday }}</h6>
                 </div>
               </div>
             </div>
             <button type="button" @click="closeModal()"
                     class="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
                     data-modal-toggle="defaultModal">
-              <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                      clip-rule="evenodd"></path>
-              </svg>
+              <ModalCloseIcon/>
             </button>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-6">
@@ -71,6 +67,7 @@ import InfiniteLoading from "v3-infinite-loading";
 import {useStore} from 'vuex'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
+import ModalCloseIcon from "../../../assets/icons/ModalCloseIcon.vue";
 
 const store = useStore()
 
@@ -80,9 +77,11 @@ const props = defineProps({
 
 const {members} = toRefs(props);
 const isModalOpen = ref(false)
+const selectedMember = ref({})
 
-const openModal = () => {
+const openModal = (member) => {
   isModalOpen.value = true
+  selectedMember.value = member
 }
 
 const closeModal = () => {
@@ -97,6 +96,20 @@ const payments = computed(() => {
   return store.state.paymentsByMemberId
 })
 
+// Token expire checker function
+function forbiddenChecker(error, msg) {
+  if (error.message.split(' ').includes('403')) {
+    store.dispatch('auth/logout').then(() => {
+      store.commit('setSelectedPage', '')
+    }, (error) => {})
+  } else {
+    notify.warning({
+      message: msg,
+      position: 'bottomLeft',
+    })
+  }
+}
+
 // Get member info by id Function
 const getPaymentsByMemberId = (id) => {
   store.dispatch('memberModule/getPaymentsByMemberId', id).then(
@@ -104,10 +117,7 @@ const getPaymentsByMemberId = (id) => {
         store.commit('setPaymentsByMemberId', data)
       },
       (error) => {
-        notify.warning({
-          message: "Ma'lumotlarni bazadan olishda xatolik yuz berdi!",
-          position: 'bottomLeft',
-        })
+        forbiddenChecker(error, "Ma'lumotlarni bazadan olishda xatolik yuz berdi!")
       }
   )
 }
@@ -118,10 +128,7 @@ const getArrivalByMemberId = (id) => {
         store.commit('setArrivalByMemberId', data)
       },
       (error) => {
-        notify.warning({
-          message: "Ma'lumotlarni bazadan olishda xatolik yuz berdi!",
-          position: 'bottomLeft',
-        })
+        forbiddenChecker(error, "Ma'lumotlarni bazadan olishda xatolik yuz berdi!")
       }
   )
 }

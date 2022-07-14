@@ -23,8 +23,8 @@
         </table>
       </div>
     </div>
-    <div class="flex justify-center items-start h-10 w-full">
-      <SpinIcon v-show="messages.length === 0" class="w-7 h-7"/>
+    <div v-show="!isMessagesEmpty && messages.length === 0" class="flex justify-center items-start h-10 w-full">
+      <SpinIcon class="w-7 h-7"/>
     </div>
     <h1 v-show="isMessagesEmpty" class="text-red-500 text-xl text-center">Ma'lumotlar bazasidan smslar hisoboti
       topilmadi!</h1>
@@ -67,6 +67,4 @@ const isMessagesEmpty = ref(false)
 setTimeout(() => {
   isMessagesEmpty.value = messages.value.length === 0
 }, 700)
-
-// messages.length === 0
 </script>

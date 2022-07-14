@@ -44,6 +44,7 @@ import UserBoldIcon from '../../../assets/icons/UserBoldIcon.vue'
 import CalendarBlankIcon from '../../../assets/icons/CalendarBlankIcon.vue'
 import {toRefs} from "vue";
 import InfiniteLoading from "v3-infinite-loading";
+import {phoneStyle} from "../../../utils/phoneFormat.js";
 
 const props = defineProps({
   messages: {type: Array, required: true},
@@ -64,9 +65,5 @@ const deliveryStatusTranslate = (status) => {
     default:
       return ''
   }
-}
-
-const phoneStyle = (phone) => {
-  return `${phone.slice(0, 4)} (${phone.slice(4, 6)}) ${phone.slice(6, 9)}-${phone.slice(9, 11)}-${phone.slice(11, 13)}`
 }
 </script>

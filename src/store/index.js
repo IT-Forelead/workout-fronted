@@ -19,7 +19,6 @@ const store = createStore({
   },
   state() {
     return {
-      isLogin: false,
       user: {},
       messages: [],
       payments: [],
@@ -34,9 +33,6 @@ const store = createStore({
     }
   },
   mutations: {
-    setLogin(state, payload) {
-      state.isLogin = payload
-    },
     setUser(state, data) {
       state.user = data
     },

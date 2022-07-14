@@ -9,15 +9,15 @@ class AuthService {
       })
       .then((response) => {
         if (response.data) {
-          localStorage.setItem('user', JSON.stringify(response.data))
+          localStorage.setItem('token', JSON.stringify(response.data))
         }
         return response.data
       })
   }
   logout() {
-    localStorage.removeItem('_id')
     localStorage.removeItem('time')
-    localStorage.removeItem('user')
+    localStorage.removeItem('token')
+
   }
 }
 

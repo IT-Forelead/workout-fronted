@@ -50,7 +50,8 @@
         <h1 v-show="payments.length === 0" class="text-red-500 text-xl text-center">Ma'lumotlar bazasida to'lovlar
           hisoboti topilmadi!</h1>
       </div>
-      <div class="max-content-h rounded-lg bg-white p-3 px-5 dark:text-gray-300 dark:bg-gray-800 order-first lg:order-last mb-3">
+      <div
+          class="max-content-h rounded-lg bg-white p-3 px-5 dark:text-gray-300 dark:bg-gray-800 order-first lg:order-last mb-3">
         <h3 class="mb-3 text-2xl font-extrabold">To'lov qo'shish</h3>
         <hr class="bottom-1 mb-6 border border-gray-200 dark:border-gray-600"/>
         <form @submit.prevent="createPayment()">
@@ -72,10 +73,13 @@
                          placeholder="Ism bo'yicha izlash"/>
                 </span>
                 <span class="flex items-center" v-show="selectedMember">
-                  <div class="relative inline-block rounded-full bg-slate-300 dark:bg-gray-800 p-1 text-slate-500 dark:text-gray-500 shadow">
+                  <div
+                      class="relative inline-block rounded-full bg-slate-300 dark:bg-gray-800 p-1 text-slate-500 dark:text-gray-500 shadow">
                     <img class="h-5 w-5" :src="'http://localhost:9000/member/image/' + selectedMember.image" alt="#">
                   </div>
-                  <span x-show="!selectOption" class="text-md ml-3 block truncate"> {{ selectedMember.firstname + ' ' + selectedMember.lastname }}</span>
+                  <span x-show="!selectOption" class="text-md ml-3 block truncate"> {{
+                      selectedMember.firstname + ' ' + selectedMember.lastname
+                    }}</span>
                   <input x-show="selectOption" type="text" v-model="search"
                          class="ml-3 border-transparent p-0 focus:border-transparent focus:ring-0 dark:bg-gray-700 dark:placeholder-gray-400"
                          placeholder="Ism bo'yicha izlash"/>
@@ -84,7 +88,8 @@
                   <SelectIcon/>
                 </span>
               </button>
-              <TimesIcon v-show="selectedMember" @click="clearFields()" class="w-6 h-6 absolute top-3 right-8 cursor-pointer text-gray-500 dark:text-gray-300 dark:hover:text-gray-400 hover:text-gray-700"/>
+              <TimesIcon v-show="selectedMember" @click="clearFields()"
+                         class="w-6 h-6 absolute top-3 right-8 cursor-pointer text-gray-500 dark:text-gray-300 dark:hover:text-gray-400 hover:text-gray-700"/>
               <ul x-show="selectOption"
                   class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white dark:bg-gray-700 border dark:border-gray-600 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
                   tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-option-3">
@@ -105,11 +110,11 @@
           <label for="price" class="mb-2 block text-lg font-medium text-gray-900 dark:text-gray-300">To'lov turi</label>
           <div class="mb-6 flex items-center justify-around rounded-lg border border-gray-300 p-0 dark:border-gray-600">
             <input id="toggle-on" class="toggle toggle-left" name="toggle" value="false" type="radio" checked/>
-            <label for="toggle-on" @click="savePeymentType('monthly')"
+            <label for="toggle-on" @click="savePaymentType('monthly')"
                    class="flex justify-center items-center relative py-2.5"><span class="mr-2 hidden"><CheckIcon/></span>
               Oylik to'lov</label>
             <input id="toggle-off" class="toggle toggle-right" name="toggle" value="true" type="radio"/>
-            <label for="toggle-off" @click="savePeymentType('daily')"
+            <label for="toggle-off" @click="savePaymentType('daily')"
                    class="flex justify-center items-center relative py-2.5"><span class="mr-2 hidden"><CheckIcon/></span>
               Kunlik to'lov</label>
           </div>
@@ -146,6 +151,8 @@ import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 import SelectIcon from "../../assets/icons/SelectIcon.vue";
 import TimesIcon from "../../assets/icons/TimesIcon.vue";
+import {phoneStyle} from "../../utils/phoneFormat.js";
+import {paymentTypeTranslate} from "../../utils/paymentTypeTranslate.js";
 
 const store = useStore()
 
@@ -154,7 +161,7 @@ const paymentType = ref('monthly')
 const search = ref('')
 
 const saveMemberId = (member) => selectedMember.value = member
-const savePeymentType = (type) => paymentType.value = type
+const savePaymentType = (type) => paymentType.value = type
 
 const clearFields = () => {
   selectedMember.value = ''
@@ -165,23 +172,22 @@ const payments = computed(() => {
 })
 
 const members = computed(() => {
-    return store.state.members.filter((member) => member.firstname.toLowerCase().includes(search.value.toLowerCase()))
+  return store.state.members.filter((member) => member.firstname.toLowerCase().includes(search.value.toLowerCase()))
 })
 
-
-const paymentTypeTranslate = (type) => {
-  switch (type) {
-    case 'daily':
-      return 'Kunlik to\'lov'
-    case 'monthly':
-      return 'Oylik to\'lov'
-    default:
-      return ''
+// Token expire checker function
+function forbiddenChecker(error, msg) {
+  if (error.message.split(' ').includes('403')) {
+    store.dispatch('auth/logout').then(() => {
+      store.commit('setSelectedPage', '')
+    }, (error) => {
+    })
+  } else {
+    notify.warning({
+      message: msg,
+      position: 'bottomLeft',
+    })
   }
-}
-
-const phoneStyle = (phone) => {
-  return `${phone.slice(0, 4)} (${phone.slice(4, 6)}) ${phone.slice(6, 9)}-${phone.slice(9, 11)}-${phone.slice(11, 13)}`
 }
 
 const getPayments = () => {
@@ -190,10 +196,7 @@ const getPayments = () => {
         store.commit('setPayment', data)
       },
       (error) => {
-        notify.warning({
-          message: "Ma\'lumotlarni bazadan olishda xatolik yuz berdi!",
-          position: 'bottomLeft',
-        })
+        forbiddenChecker(error, "Ma\'lumotlarni bazadan olishda xatolik yuz berdi!")
       }
   )
 }
@@ -204,10 +207,7 @@ const getMembers = () => {
         store.commit('setMembers', data)
       },
       (error) => {
-        notify.warning({
-          message: "Ma\'lumotlarni bazadan olishda xatolik yuz berdi!",
-          position: 'bottomLeft',
-        })
+        forbiddenChecker(error, "Ma\'lumotlarni bazadan olishda xatolik yuz berdi!")
       }
   )
 }
@@ -226,7 +226,7 @@ const createPayment = () => {
         getPayments()
       },
       (error) => {
-        notify.error({
+        notify.warning({
           message: "To'lovni qayd etishda xatolik yuz berdi!",
           position: 'bottomLeft',
         })

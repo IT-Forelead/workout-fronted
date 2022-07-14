@@ -57,16 +57,27 @@ gymName.value = store.state.settings.gymName
 dailyPrice.value = store.state.settings.dailyPrice
 monthlyPrice.value = store.state.settings.monthlyPrice
 
+// Token expire checker function
+function forbiddenChecker(error, msg) {
+  if (error.message.split(' ').includes('403')) {
+    store.dispatch('auth/logout').then(() => {
+      store.commit('setSelectedPage', '')
+    }, (error) => {})
+  } else {
+    notify.warning({
+      message: msg,
+      position: 'bottomLeft',
+    })
+  }
+}
+
 const getSettings = () => {
   store.dispatch('settingModule/get').then(
     (data) => {
       store.commit('setSetting', data)
     },
     (error) => {
-      notify.warning({
-        message: "Ma'lumotlarni bazadan olishda xatolik yuz berdi!",
-        position: 'bottomLeft',
-      })
+      forbiddenChecker(error, "Ma'lumotlarni bazadan olishda xatolik yuz berdi!")
     }
   )
 }
@@ -116,7 +127,7 @@ const updateSettings = () => {
         })
       },
       (error) => {
-        notify.error({
+        notify.warning({
           message: 'Sozlamalarni taxrirlashda xatolik yuz berdi!',
           position: 'bottomLeft',
         })

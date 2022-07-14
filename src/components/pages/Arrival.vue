@@ -19,8 +19,8 @@
         </table>
       </div>
     </div>
-    <div class="flex justify-center items-start h-10 w-full">
-      <SpinIcon v-show="arrivals.length === 0" class="w-7 h-7" />
+    <div v-show="!isArrivalEmpty && arrivals.length === 0" class="flex justify-center items-start h-10 w-full">
+      <SpinIcon class="w-7 h-7" />
     </div>
     <h1 v-show="isArrivalEmpty" class="text-red-500 text-xl text-center">Ma'lumotlar bazasidan kelib-ketishlar hisoboti topilmadi!</h1>
   </div>

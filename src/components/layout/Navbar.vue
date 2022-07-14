@@ -170,16 +170,27 @@ const sidebarStatus = computed(() => {
   return store.state.isSidebarOpen || refreshConf
 })
 
-// Login Function
-function checkLogin(data) {
-  store.commit('setLogin', data)
-}
-
 // Logout Functions
 function onLogout() {
   store.dispatch('auth/logout').then(() => {
-    checkLogin(false)
+    store.commit('setSelectedPage', '')
+  }, (error) => {
   })
+}
+
+// Token expire checker function
+function forbiddenChecker(error, msg) {
+  if (error.message.split(' ').includes('403')) {
+    store.dispatch('auth/logout').then(() => {
+      store.commit('setSelectedPage', '')
+    }, (error) => {
+    })
+  } else {
+    notify.warning({
+      message: msg,
+      position: 'bottomLeft',
+    })
+  }
 }
 
 // User Data
@@ -187,13 +198,9 @@ const addUserInStore = () => {
   store.dispatch('userModule/get').then(
       (data) => {
         store.commit('setUser', data)
-        localStorage.setItem('_id', data.id)
       },
       (error) => {
-        notify.error({
-          message: "Foydalanuvchi ma'lumotlarini olishda xatolik yuz berdi!",
-          position: 'bottomLeft',
-        })
+        forbiddenChecker(error, "Foydalanuvchi ma'lumotlarini olishda xatolik yuz berdi!")
       }
   )
 }
