@@ -27,6 +27,18 @@ class MemberService {
             return response.data
         })
     }
+
+    getPaymentsByMemberId(data) {
+        return axios.post(API_URL + '/payment/member', {memberId: data}, {headers: authHeader()}).then((response) => {
+            return response.data
+        })
+    } 
+
+    getArrivalByMemberId(data) {
+        return axios.post(API_URL + '/arrival/member', {memberId: data}, {headers: authHeader()}).then((response) => {
+            return response.data
+        })
+    }
 }
 
 export default new MemberService()

@@ -25,6 +25,8 @@ const store = createStore({
       payments: [],
       arrivals: [],
       settings: [],
+      paymentsByMemberId: [],
+      arrivalByMemberId: [],
       currentPage: '',
       isSidebarOpen: false,
       members: [],
@@ -49,6 +51,12 @@ const store = createStore({
     },
     setSetting(state, data) {
       state.settings = data
+    },
+    setPaymentsByMemberId(state, data) {
+      state.paymentsByMemberId = data
+    },
+    setArrivalByMemberId(state, data) {
+      state.arrivalByMemberId = data
     },
     setSelectedPage(state, page) {
       state.currentPage = page

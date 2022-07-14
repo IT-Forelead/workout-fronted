@@ -1,7 +1,6 @@
 <template>
   <div class="px-2 md:px-5">
-    <div
-        class="mb-5 flex items-center justify-between top-16 md:top-20 sticky-top z-0 bg-slate-100 dark:bg-gray-900 p-3">
+    <div class="mb-5 flex items-center justify-between top-16 md:top-20 sticky-top z-0 bg-slate-100 dark:bg-gray-900 p-3">
       <h3 class="block sm:hidden ml-2 text-2xl font-extrabold dark:text-gray-300"></h3>
       <h3 class="hidden sm:block ml-2 text-2xl font-extrabold dark:text-gray-300">A'zolar</h3>
       <div class="hidden md:block flex items-center">

@@ -1,5 +1,5 @@
 <template>
-  <div class="col-span-2">
+  <div v-show="payments.length > 0" class="col-span-2">
     <h2 class="mb-3 text-xl font-bold">To'lovlar hisoboti</h2>
     <div class="mb-8 w-full overflow-hidden rounded-lg border border-slate-200 shadow-lg dark:border-gray-600">
       <div class="w-full overflow-x-auto">
@@ -12,36 +12,13 @@
             </tr>
           </thead>
           <tbody class="custom-height divide-y divide-gray-200 bg-white dark:bg-gray-700 dark:text-gray-300 dark:divide-gray-600">
-            <tr>
+            <tr v-for="(payment, index) in payments" :key="index">
               <td class="whitespace-nowrap px-4 py-3">
-                <p><CalendarCheckIcon class="mr-1 inline-block text-lg" /> 17.06.2022 12:30</p>
-                <p><CalendarXIcon class="mr-1 inline-block text-lg" /> 17.06.2022 12:30</p>
+                <CalendarBlankIcon class="mr-1 inline-block text-lg" /> {{ payment.createdAt }}
               </td>
-              <td class="whitespace-nowrap px-4 py-3">Oylik</td>
+              <td class="whitespace-nowrap px-4 py-3">{{ paymentTypeTranslate(payment.paymentType) }}</td>
               <td class="whitespace-nowrap px-4 py-3">
-                85 000.00
-                <span class="text-xs">UZS</span>
-              </td>
-            </tr>
-            <tr>
-              <td class="whitespace-nowrap px-4 py-3">
-                <p><CalendarCheckIcon class="mr-1 inline-block text-lg" /> 17.06.2022 12:30</p>
-                <p><CalendarXIcon class="mr-1 inline-block text-lg" /> 17.06.2022 12:30</p>
-              </td>
-              <td class="whitespace-nowrap px-4 py-3">Oylik</td>
-              <td class="whitespace-nowrap px-4 py-3">
-                85 000.00
-                <span class="text-xs">UZS</span>
-              </td>
-            </tr>
-            <tr>
-              <td class="whitespace-nowrap px-4 py-3">
-                <p><CalendarCheckIcon class="mr-1 inline-block text-lg" /> 17.06.2022 12:30</p>
-                <p><CalendarXIcon class="mr-1 inline-block text-lg" /> 17.06.2022 12:30</p>
-              </td>
-              <td class="whitespace-nowrap px-4 py-3">Oylik</td>
-              <td class="whitespace-nowrap px-4 py-3">
-                85 000.00
+                {{ payment.cost }}
                 <span class="text-xs">UZS</span>
               </td>
             </tr>
@@ -52,6 +29,13 @@
   </div>
 </template>
 <script setup>
-import CalendarCheckIcon from '../../../assets/icons/CalendarCheckIcon.vue'
-import CalendarXIcon from '../../../assets/icons/CalendarXIcon.vue'
+import CalendarBlankIcon from '../../../assets/icons/CalendarBlankIcon.vue'
+import {paymentTypeTranslate} from '../../../utils/paymentTypeTranslate.js'
+import {toRefs} from "vue";
+
+const props = defineProps({
+  payments: {type: Array, required: true},
+});
+
+const {payments} = toRefs(props);
 </script>

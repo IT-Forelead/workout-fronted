@@ -32,7 +32,27 @@ export const memberModule = {
           return Promise.reject(error);
         }
       );
+    },
+    getPaymentsByMemberId({ commit }, memberId) {
+      return MemberService.getPaymentsByMemberId(memberId).then(
+        member => {
+          return Promise.resolve(member);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
+    getArrivalByMemberId({ commit }, memberId) {
+      return MemberService.getArrivalByMemberId(memberId).then(
+        member => {
+          return Promise.resolve(member);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
     }
-  },
+  }
 
 };

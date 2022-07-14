@@ -10,7 +10,7 @@
               member.firstname + ' ' + member.lastname
             }}</h3>
           <p class="text-medium my-2 mb-4 text-gray-600 dark:text-gray-300 text-xl">{{ member.phone }}</p>
-          <button x-on:mouseenter="open = true" x-on:mouseleave="open = false" @click="openModal()"
+          <button x-on:mouseenter="open = true" x-on:mouseleave="open = false" @click="openModal(); getPaymentsByMemberId(member.id); getArrivalByMemberId(member.id)"
                   class="flex items-center justify-center rounded-md border border-slate-300 bg-white py-2 px-5 text-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 transition-all duration-200 ease-in hover:bg-slate-100">
             Batafsil
             <ArrowRightIcon x-show="open" class="ml-3 animate-pulse text-xl transition-all duration-500 ease-in"/>
@@ -22,8 +22,7 @@
       <InfiniteLoading v-bind="$attrs"/>
     </div>
     <!-- Member Info Modal -->
-    <div v-show="isModalOpen"
-         class="fixed top-0 right-0 left-0 z-50 w-full overflow-y-auto overflow-x-hidden backdrop-brightness-50 inset-0 h-full">
+    <div v-show="isModalOpen" class="fixed top-0 right-0 left-0 z-50 w-full overflow-y-auto overflow-x-hidden backdrop-brightness-50 inset-0 h-full">
       <div class="relative top-1/2 left-1/2 h-full w-full max-w-7xl -translate-x-1/2 -translate-y-1/2 p-4 md:h-auto">
         <div class="relative rounded-lg bg-white shadow-lg dark:bg-gray-800 dark:text-gray-300">
           <div class="flex items-start justify-between rounded-t border-b p-4 dark:border-gray-600">
@@ -48,8 +47,8 @@
             </button>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-6">
-            <SinglePersonPayment/>
-            <SinglePersonArrival/>
+            <SinglePersonPayment :payments="payments"/>
+            <SinglePersonArrival :arrivals="arrivals"/>
           </div>
           <div
               class="flex items-center justify-end space-x-2 rounded-b border-t border-gray-200 p-6 dark:border-gray-600">
@@ -64,11 +63,16 @@
   </div>
 </template>
 <script setup>
-import {toRefs, ref} from "vue";
+import {toRefs, ref, computed} from "vue";
 import ArrowRightIcon from '../../../assets/icons/ArrowRightIcon.vue'
 import SinglePersonArrival from '../Membership/SinglePersonArrival.vue'
 import SinglePersonPayment from '../Membership/SinglePersonPayment.vue'
 import InfiniteLoading from "v3-infinite-loading";
+import {useStore} from 'vuex'
+import notify from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
+
+const store = useStore()
 
 const props = defineProps({
   members: {type: Array, required: true},
@@ -83,5 +87,42 @@ const openModal = () => {
 
 const closeModal = () => {
   isModalOpen.value = false
+}
+
+const arrivals = computed(() => {
+  return store.state.arrivalByMemberId
+})
+
+const payments = computed(() => {
+  return store.state.paymentsByMemberId
+})
+
+// Get member info by id Function
+const getPaymentsByMemberId = (id) => {
+  store.dispatch('memberModule/getPaymentsByMemberId', id).then(
+      (data) => {
+        store.commit('setPaymentsByMemberId', data)
+      },
+      (error) => {
+        notify.warning({
+          message: "Ma'lumotlarni bazadan olishda xatolik yuz berdi!",
+          position: 'bottomLeft',
+        })
+      }
+  )
+}
+
+const getArrivalByMemberId = (id) => {
+  store.dispatch('memberModule/getArrivalByMemberId', id).then(
+      (data) => {
+        store.commit('setArrivalByMemberId', data)
+      },
+      (error) => {
+        notify.warning({
+          message: "Ma'lumotlarni bazadan olishda xatolik yuz berdi!",
+          position: 'bottomLeft',
+        })
+      }
+  )
 }
 </script>
