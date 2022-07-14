@@ -28,7 +28,7 @@ const routes = [
     component: () => import('../components/pages/Arrival.vue'),
   },
   {
-    path: '/messages',
+    path: '/Messages',
     name: 'SMS xabarlar',
     component: () => import('../components/pages/Messages.vue'),
   },

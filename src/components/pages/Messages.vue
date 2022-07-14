@@ -29,12 +29,9 @@
 </template>
 
 <script setup>
-import MessagesInfo from "./messages/MessagesInfo.vue";
+import MessagesInfo from "./Messages/MessagesInfo.vue";
 import {ref} from 'vue'
-import {useStore} from 'vuex'
 import authHeader from "../../services/auth-header.js";
-
-const store = useStore()
 
 const messages = ref([])
 const total = ref(0)

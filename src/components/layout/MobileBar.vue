@@ -19,7 +19,7 @@
       </router-link>
       <div class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
            @click="changePage('reports'); toggleReportDropMenu()"
-           :class="{'bg-blue-500 text-white': page === 'reports' || ($router.currentRoute.value.path === '/arrival' || $router.currentRoute.value.path === '/messages') && !(page === 'profile') && !(page === 'settings')}">
+           :class="{'bg-blue-500 text-white': page === 'reports' || ($router.currentRoute.value.path === '/arrival' || $router.currentRoute.value.path === '/Messages') && !(page === 'profile') && !(page === 'settings')}">
         <RepeatBoldIcon class="w-7 h-7"/>
       </div>
       <div class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
