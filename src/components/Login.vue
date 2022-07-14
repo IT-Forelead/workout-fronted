@@ -74,7 +74,7 @@ const onSubmit = (user) => {
   user.phone = user.phone.replace(')', '').replace('(', '').replace(' ', '').replace('-', '').replace('-', '')
   store.dispatch('auth/login', user).then(
     () => {
-      router.push('/')
+      router.push('/dashboard')
       checkLogin(true)
     },
     (error) => {

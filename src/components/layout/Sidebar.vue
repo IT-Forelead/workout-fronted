@@ -33,12 +33,12 @@ const page = computed(() => {
 })
 
 const sidebarStatus = computed(() => {
-  let refreshConf = localStorage.getItem('sidebar') === '1' ? true : false
+  let refreshConf = localStorage.getItem('sidebar') === '1'
   return store.state.isSidebarOpen || refreshConf
 })
 
 const menus = [
-  { id: 1, url: '/', icon: 'home-outline', name: 'Asosiy sahifa' },
+  { id: 1, url: '/dashboard', icon: 'home-outline', name: 'Asosiy sahifa' },
   { id: 2, url: '/members', icon: 'people-outline', name: "A'zolarimiz" },
   { id: 3, url: '/payments', icon: 'wallet-outline', name: "To'lovlar" },
   { id: 4, url: '/arrival', icon: 'repeat-outline', name: "Kelib-Ketishlar" },

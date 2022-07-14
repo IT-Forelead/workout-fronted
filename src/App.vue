@@ -1,39 +1,21 @@
 <template>
-  <div v-if="login">
-    <div class="flex">
-      <Sidebar />
-      <div class="ml-0 lg:ml-80 flex-1 transition-all duration-500" :class="{'lg:ml-20': sidebarStatus}">
-        <Navbar />
-        <div class="pt-5 mb-24 md:mb-0">
-          <router-view />
-        </div>
-      </div>
-    </div>
-  </div>
-  <div v-else>
-    <router-view />
-  </div>
+  <component :is="layout">
+    <router-view/>
+  </component>
 </template>
 <script setup>
-import Navbar from './components/layout/Navbar.vue'
-import Sidebar from './components/layout/Sidebar.vue'
-import { useStore } from 'vuex'
-import { computed } from 'vue'
+import {computed} from "vue";
+import {useRouter} from "vue-router";
 
-const store = useStore()
+const defaultLayout = "default";
 
-let login = computed(() => {
-  return store.state.isLogin || localStorage.getItem('user') !== null
-})
+const {currentRoute} = useRouter();
 
-const sidebarStatus = computed(() => {
-  let refreshConf = localStorage.getItem('sidebar') === '1'
-  return store.state.isSidebarOpen || refreshConf
-})
+const layout = computed(
+    () => `${currentRoute.value.meta.layout || defaultLayout}-layout`
+);
 </script>
 
-<style scoped>
-.custom-height {
-  height: calc(100vh - 5rem);
-}
+<style>
+
 </style>
