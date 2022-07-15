@@ -9,7 +9,7 @@
           <h3 class="text-md mb-2 h-14 overflow-hidden font-extrabold dark:text-gray-300 text-xl">{{
               member.firstname + ' ' + member.lastname
             }}</h3>
-          <p class="text-medium my-2 mb-4 text-gray-600 dark:text-gray-300 text-xl">{{ member.phone }}</p>
+          <p class="text-medium my-2 mb-4 text-gray-600 dark:text-gray-300 text-xl">{{ phoneStyle(member.phone) }}</p>
           <button x-on:mouseenter="open = true" x-on:mouseleave="open = false" @click="openModal(member); getPaymentsByMemberId(member.id); getArrivalByMemberId(member.id)"
                   class="flex items-center justify-center rounded-md border border-slate-300 bg-white py-2 px-5 text-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 transition-all duration-200 ease-in hover:bg-slate-100">
             Batafsil
@@ -31,7 +31,7 @@
                 <img :src="'http://localhost:9000/member/image/' + selectedMember.image" alt="Avatar" class="ml-2 h-20 w-20 rounded-full"/>
                 <div class="ml-4 pr-2">
                   <h3>{{ selectedMember.firstname + ' ' + selectedMember.lastname }}</h3>
-                  <h5 class="text-sm">{{ selectedMember.phone }}</h5>
+                  <h5 class="text-sm">{{ phoneStyle(selectedMember.phone) }}</h5>
                   <h6 class="text-sm text-gray-500">{{ selectedMember.birthday }}</h6>
                 </div>
               </div>
@@ -71,6 +71,7 @@ import InfiniteLoading from "v3-infinite-loading";
 import {useStore} from 'vuex'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
+import {phoneStyle} from "../../../utils/utils.js";
 
 const store = useStore()
 
@@ -104,7 +105,7 @@ function forbiddenChecker(error, msg) {
   if (error.message.split(' ').includes('403')) {
     store.dispatch('auth/logout').then(() => {
       store.commit('setSelectedPage', '')
-    }, (error) => {})
+    }, () => {})
   } else {
     notify.warning({
       message: msg,

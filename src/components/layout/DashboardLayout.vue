@@ -28,7 +28,7 @@ const sidebarStatus = computed(() => {
 })
 
 </script>
-<style>
+<style scoped>
 .fade-enter-from {
   opacity: 0;
   transform: translateY(100px);
@@ -45,15 +45,5 @@ const sidebarStatus = computed(() => {
 
 .fade-leave-active {
   transition: all 0.3s ease-in;
-}
-
-@media all and (max-width: 1024px) {
-  .fade-enter-from {
-    transform: translateX(100px);
-  }
-
-  .fade-leave-to {
-    transform: translateX(-100px);
-  }
 }
 </style>

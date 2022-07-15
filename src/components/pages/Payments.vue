@@ -6,49 +6,27 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 md:gap-4">
       <div class="col-span-2 order-last lg:order-first w-full overflow-x-auto">
         <div v-show="payments.length > 0"
-             class="rounded-lg border border-slate-200 shadow-lg dark:border-gray-600">
+             class="payments-wrapper overflow-x-auto grid grid-cols-1 border border-slate-200 rounded-lg shadow-lg dark:border-gray-600 payment-table-h">
           <table class="w-full divide-y divide-gray-300 dark:divide-gray-600">
-            <thead class="bg-slate-50">
+            <thead class="bg-slate-50 sticky-top z-10">
             <tr class="text-md text-left font-semibold tracking-wide text-gray-900 dark:text-gray-300 dark:bg-gray-800">
               <th scope="col" class="px-4 py-3">To'lovchi</th>
-              <th scope="col" class="px-4 py-3">To'lov vaqti</th>
-              <th scope="col" class="px-4 py-3">To'lov turi</th>
-              <th scope="col" class="px-4 py-3">Qiymati</th>
+              <th scope="col" class="px-4 py-3 hidden md:table-cell">To'lov vaqti</th>
+              <th scope="col" class="px-4 py-3 hidden md:table-cell">To'lov turi</th>
+              <th scope="col" class="px-4 py-3 hidden md:table-cell">Qiymati</th>
             </tr>
             </thead>
             <tbody
                 class="custom-height divide-y divide-gray-200 bg-white dark:text-gray-300 dark:bg-gray-800 dark:divide-gray-600">
-            <tr v-for="(payment, index) in payments" :key="index"
-                class="text-m text-gray-900 dark:text-gray-300 dark:bg-gray-800">
-              <td class="whitespace-nowrap px-4 py-3">
-                <div class="flex items-center">
-                  <div
-                      class="mr-3 flex h-10 w-10 items-center justify-center rounded-full border border-gray-50 dark:border-gray-600">
-                    <img class="h-full w-full rounded-full object-cover"
-                         :src="'http://localhost:9000/member/image/' + payment.member.image" alt="#"/>
-                  </div>
-                  <div>
-                    <p class="font-semibold text-gray-900 dark:text-gray-300">
-                      {{ payment.member.firstname + " " + payment.member.lastname }}</p>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">{{ phoneStyle(payment.member.phone) }}</p>
-                  </div>
-                </div>
-              </td>
-              <td class="whitespace-nowrap px-4 py-3">
-                <p>{{ payment.payment.createdAt }}</p>
-                <p>{{ payment.payment.expiredAt }}</p>
-              </td>
-              <td class="whitespace-nowrap px-4 py-3">{{ paymentTypeTranslate(payment.payment.paymentType) }}</td>
-              <td class="whitespace-nowrap px-4 py-3">
-                {{ payment.payment.cost }}
-                <span class="text-xs">UZS</span>
-              </td>
-            </tr>
+            <PaymentItem :payments="payments" :distance="distance" :target="target" @infinite="loadPayments"/>
             </tbody>
           </table>
         </div>
-        <h1 v-show="payments.length === 0" class="text-red-500 text-xl text-center">Ma'lumotlar bazasida to'lovlar
-          hisoboti topilmadi!</h1>
+        <div v-show="!isPaymentEmpty && payments.length === 0" class="flex justify-center items-start h-10 w-full">
+          <SpinIcon class="w-7 h-7"/>
+        </div>
+        <h1 v-show="isPaymentEmpty" class="text-red-500 text-xl text-center">Ma'lumotlar bazasidan to'lovlar hisoboti
+          topilmadi!</h1>
       </div>
       <div
           class="max-content-h rounded-lg bg-white p-3 px-5 dark:text-gray-300 dark:bg-gray-800 order-first lg:order-last mb-3">
@@ -91,7 +69,8 @@
               <TimesIcon v-if="selectedMember" @click="clearFields()" class="w-6 h-6 absolute top-3 right-8 cursor-pointer text-gray-500 dark:text-gray-300 dark:hover:text-gray-400 hover:text-gray-700"/>
               <ul x-show="selectOption"
                   class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white dark:bg-gray-700 border dark:border-gray-600 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
-                  tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-option-3">
+                  tabindex="-1" role="listbox" aria-labelledby="listbox-label"
+                  aria-activedescendant="listbox-option-3">
                 <li x-on:click="selectOption = false" v-for="(member, idx) in members" :key="idx"
                     @click="saveMemberId(member)"
                     class="relative cursor-pointer select-none py-2 pl-3 pr-9 text-gray-900 hover:bg-blue-500 hover:text-white"
@@ -100,14 +79,18 @@
                     <img :src="'http://localhost:9000/member/image/' + member.image"
                          alt="#" class="h-6 w-6 flex-shrink-0 rounded-full"/>
                     <span
-                        class="ml-3 block truncate font-normal"> {{ member.firstname + ' ' + member.lastname }} </span>
+                        class="ml-3 block truncate font-normal"> {{
+                        member.firstname + ' ' + member.lastname
+                      }} </span>
                   </div>
                 </li>
               </ul>
             </div>
           </div>
-          <label for="price" class="mb-2 block text-lg font-medium text-gray-900 dark:text-gray-300">To'lov turi</label>
-          <div class="mb-6 flex items-center justify-around rounded-lg border border-gray-300 p-0 dark:border-gray-600">
+          <label for="price" class="mb-2 block text-lg font-medium text-gray-900 dark:text-gray-300">To'lov
+            turi</label>
+          <div
+              class="mb-6 flex items-center justify-around rounded-lg border border-gray-300 p-0 dark:border-gray-600">
             <input id="toggle-on" class="toggle toggle-left" name="toggle" value="false" type="radio" checked/>
             <label for="toggle-on" @click="savePaymentType('monthly')"
                    class="flex justify-center items-center relative py-2.5"><span class="mr-2 hidden"><CheckIcon/></span>
@@ -138,6 +121,70 @@
         </form>
       </div>
     </div>
+    <!-- Member Info Modal -->
+    <div v-if="Object.keys(selectedPayment).length !== 0"
+         class="fixed top-0 right-0 left-0 z-50 w-full overflow-y-auto overflow-x-hidden backdrop-brightness-50 inset-0 h-full">
+      <div class="relative top-1/2 left-1/2 h-full w-full max-w-7xl -translate-x-1/2 -translate-y-1/2 p-4 h-auto">
+        <div class="relative rounded-lg bg-white shadow-lg dark:bg-gray-800 dark:text-gray-300">
+          <div class="flex items-start justify-between rounded-t border-b p-4 dark:border-gray-600">
+            <div class="text-xl font-semibold text-gray-900 dark:text-white">
+              To'lov ma'lumoti
+            </div>
+            <button type="button" @click="closePaymentInfoModal()"
+                    class="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-toggle="defaultModal">
+              <ModalCloseIcon/>
+            </button>
+          </div>
+          <div class="p-3">
+            <img :src="'http://localhost:9000/member/image/' + selectedPayment.member.image" class="w-36 h-36 mx-auto"
+                 alt="#">
+            <p class="text-center font-bold my-3 capitalize">{{ selectedPayment.member.firstname + ' ' + selectedPayment.member.lastname }}</p>
+            <table class="w-full mt-2 dark:border-gray-600">
+              <tr>
+                <td class="text-left">
+                  <strong>To'lovchi raqami: </strong>
+                </td>
+                <td class="text-right">
+                  {{ phoneStyle(selectedPayment.member.phone) }}
+                </td>
+              </tr>
+              <tr>
+                <td class="text-left">
+                  <strong>To'lov qilingan sana: </strong>
+                </td>
+                <td class="text-right">
+                  {{ selectedPayment.payment.createdAt.split('T')[0] }}
+                </td>
+              </tr>
+              <tr>
+                <td class="text-left">
+                  <strong>To'lov turi: </strong>
+                </td>
+                <td class="text-right">
+                  {{ paymentTypeTranslate(selectedPayment.payment.paymentType) }}
+                </td>
+              </tr>
+              <tr>
+                <td class="text-left">
+                  <strong>Qiymati: </strong>
+                </td>
+                <td class="text-right">
+                  {{ selectedPayment.payment.cost + ' UZS' }}
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div
+              class="flex items-center justify-end space-x-2 rounded-b border-t border-gray-200 p-6 dark:border-gray-600">
+            <button type="button" @click="closePaymentInfoModal()"
+                    class="rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              Yopish
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -146,13 +193,20 @@ import SelectIcon from "../../assets/icons/SelectIcon.vue";
 import TimesIcon from "../../assets/icons/TimesIcon.vue";
 import UserBoldIcon from '../../assets/icons/UserBoldIcon.vue'
 import CheckIcon from '../../assets/icons/CheckIcon.vue'
+import SpinIcon from "../../assets/icons/SpinIcon.vue";
+import ModalCloseIcon from "../../assets/icons/ModalCloseIcon.vue";
+import PaymentItem from './Payments/PaymentItem.vue'
 import {computed, onMounted, ref} from 'vue'
 import {useStore} from 'vuex'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 import {paymentTypeTranslate, phoneStyle} from "../../utils/utils.js";
+import authHeader from "../../services/auth-header.js";
 
 const store = useStore()
+
+const target = ref('.payments-wrapper')
+const distance = ref(200);
 
 const selectedMember = ref('')
 const paymentType = ref('monthly')
@@ -161,13 +215,17 @@ const search = ref('')
 const saveMemberId = (member) => selectedMember.value = member
 const savePaymentType = (type) => paymentType.value = type
 
+const selectedPayment = computed(() => {
+  return store.state.selectedPayment
+})
+
+const closePaymentInfoModal = () => {
+  store.commit('setSelectedPayment', {})
+}
+
 const clearFields = () => {
   selectedMember.value = ''
 }
-
-const payments = computed(() => {
-  return store.state.payments
-})
 
 const members = computed(() => {
   return store.state.members.filter((member) => member.firstname.toLowerCase().includes(search.value.toLowerCase()))
@@ -188,16 +246,50 @@ function forbiddenChecker(error, msg) {
   }
 }
 
-const getPayments = () => {
-  store.dispatch('paymentModule/get').then(
-      (data) => {
-        store.commit('setPayment', data)
-      },
-      (error) => {
-        forbiddenChecker(error, "Ma\'lumotlarni bazadan olishda xatolik yuz berdi!")
-      }
-  )
+const payments = ref([])
+const total = ref(0)
+
+let page = 0
+const loadPayments = async ($state) => {
+  page++
+  if (!(total.value / 10 + 1 < page && total.value !== 0)) {
+    try {
+      const response = await fetch('http://localhost:9000/payment/' + page, {
+        headers: authHeader(),
+      })
+      const json = await response.json()
+      total.value = json.total
+      setTimeout(() => {
+        payments.value.push(...json.payment)
+        $state.loaded()
+      }, 500)
+    } catch (error) {
+      $state.error()
+    }
+  } else $state.loaded()
 }
+
+const loadLastAddedPayment = async () => {
+  try {
+    const response = await fetch('http://localhost:9000/payment/' + page, {
+      headers: authHeader(),
+    })
+    const json = await response.json()
+    total.value = json.total
+    setTimeout(() => {
+      payments.value = []
+      payments.value.push(...json.payment)
+    }, 500)
+  } catch (error) {
+    console.log("Get Payment Error!")
+  }
+}
+
+const isPaymentEmpty = ref(false)
+
+setTimeout(() => {
+  isPaymentEmpty.value = payments.value.length === 0
+}, 700)
 
 const getMembers = () => {
   store.dispatch('memberModule/get').then(
@@ -221,9 +313,10 @@ const createPayment = () => {
           position: 'bottomLeft'
         })
         clearFields()
-        getPayments()
+        page = 1
+        loadLastAddedPayment()
       },
-      (error) => {
+      () => {
         notify.warning({
           message: "To'lovni qayd etishda xatolik yuz berdi!",
           position: 'bottomLeft',
@@ -232,11 +325,7 @@ const createPayment = () => {
   )
 }
 
-onMounted(() => {
-      getPayments()
-      getMembers()
-    }
-)
+onMounted(() => getMembers())
 </script>
 
 <style scoped>
@@ -279,5 +368,9 @@ input[type='radio'].toggle:checked + label > span {
 
 input[type='radio'].toggle:checked + label:after {
   left: 0;
+}
+
+.payment-table-h {
+  max-height: 75vh;
 }
 </style>

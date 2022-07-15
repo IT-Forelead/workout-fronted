@@ -2,9 +2,9 @@
   <div>
     <div
         class="fixed-bottom z-40 grid grid-cols-5 h-16 bg-white text-gray-900 dark:text-gray-300 dark:bg-gray-800 w-screen border-t dark:border-gray-600">
-      <router-link to="/" class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
+      <router-link to="/dashboard" class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
                    @click="changePage('home')"
-                   :class="{'bg-blue-500 text-white': page === 'home' || $router.currentRoute.value.path === '/' && !(page === 'reports') && !(page === 'profile')}">
+                   :class="{'bg-blue-500 text-white': page === 'home' || $router.currentRoute.value.path === '/dashboard' && !(page === 'reports') && !(page === 'profile')}">
         <HouseBoldIcon class="w-7 h-7"/>
       </router-link>
       <router-link to="/members" class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
