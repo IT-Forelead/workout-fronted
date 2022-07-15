@@ -63,20 +63,20 @@
                       class="relative w-full cursor-pointer rounded-md border border-gray-300 bg-white dark:bg-gray-700 dark:border-gray-600 py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
                       aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
                 <span class="flex items-center" v-show="!selectedMember">
-                  <div
+                  <span
                       class="relative inline-block rounded-full bg-slate-300 dark:bg-gray-800 p-1 text-slate-500 dark:text-gray-500 shadow">
                     <UserBoldIcon class="h-5 w-5"/>
-                  </div>
+                  </span>
                   <span x-show="!selectOption" class="text-md ml-3 block truncate"> To'lovchini tanlang</span>
                   <input x-show="selectOption" type="text" v-model="search"
                          class="ml-3 border-transparent p-0 focus:border-transparent focus:ring-0 dark:bg-gray-700 dark:placeholder-gray-400"
                          placeholder="Ism bo'yicha izlash"/>
                 </span>
-                <span class="flex items-center" v-show="selectedMember">
-                  <div
+                <span class="flex items-center" v-if="Object.keys(selectedMember).length !== 0">
+                  <span
                       class="relative inline-block rounded-full bg-slate-300 dark:bg-gray-800 p-1 text-slate-500 dark:text-gray-500 shadow">
                     <img class="h-5 w-5" :src="'http://localhost:9000/member/image/' + selectedMember.image" alt="#">
-                  </div>
+                  </span>
                   <span x-show="!selectOption" class="text-md ml-3 block truncate"> {{
                       selectedMember.firstname + ' ' + selectedMember.lastname
                     }}</span>
@@ -180,7 +180,7 @@ function forbiddenChecker(error, msg) {
   if (error.message.split(' ').includes('403')) {
     store.dispatch('auth/logout').then(() => {
       store.commit('setSelectedPage', '')
-    }, (error) => {
+    }, () => {
     })
   } else {
     notify.warning({

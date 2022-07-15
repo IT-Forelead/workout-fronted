@@ -27,13 +27,16 @@
         <div class="relative rounded-lg bg-white shadow-lg dark:bg-gray-800 dark:text-gray-300">
           <div class="flex items-start justify-between rounded-t border-b p-4 dark:border-gray-600">
             <div class="text-xl font-semibold text-gray-900 dark:text-white">
-              <div class="flex items-center">
+              <div v-if="Object.keys(selectedMember).length !== 0" class="flex items-center">
                 <img :src="'http://localhost:9000/member/image/' + selectedMember.image" alt="Avatar" class="ml-2 h-20 w-20 rounded-full"/>
                 <div class="ml-4 pr-2">
                   <h3>{{ selectedMember.firstname + ' ' + selectedMember.lastname }}</h3>
                   <h5 class="text-sm">{{ selectedMember.phone }}</h5>
                   <h6 class="text-sm text-gray-500">{{ selectedMember.birthday }}</h6>
                 </div>
+              </div>
+              <div v-else>
+                <p>Member Not Selected!</p>
               </div>
             </div>
             <button type="button" @click="closeModal()"

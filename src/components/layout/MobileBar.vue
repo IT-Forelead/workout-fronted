@@ -154,15 +154,8 @@ onClickOutside(profileDropdown, () => {
   }
 })
 
-//Logout functions
-function checkLogin(data) {
-  store.commit('setLogin', data)
-}
-
 function onLogout() {
-  store.dispatch('auth/logout').then(() => {
-    checkLogin(false)
-  })
+  store.dispatch('auth/logout').then(() => {})
 }
 
 </script>

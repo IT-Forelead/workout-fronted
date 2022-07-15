@@ -66,16 +66,12 @@ const schema = yup.object().shape({
   password: yup.string().required('Iltimos. Parolni kitiring!'),
 })
 
-function checkLogin(data) {
-  store.commit('setLogin', data)
-}
 
 const onSubmit = (user) => {
   user.phone = user.phone.replace(')', '').replace('(', '').replace(' ', '').replace('-', '').replace('-', '')
   store.dispatch('auth/login', user).then(
     () => {
       router.push('/dashboard')
-      checkLogin(true)
     },
     (error) => {
       notify.error({
