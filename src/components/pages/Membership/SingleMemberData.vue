@@ -22,7 +22,7 @@
       <InfiniteLoading v-bind="$attrs"/>
     </div>
     <!-- Member Info Modal -->
-    <div v-show="isModalOpen" class="fixed top-0 right-0 left-0 z-50 w-full overflow-y-auto overflow-x-hidden backdrop-brightness-50 inset-0 h-full">
+    <div v-if="isModalOpen" class="fixed top-0 right-0 left-0 z-50 w-full overflow-y-auto overflow-x-hidden backdrop-brightness-50 inset-0 h-full">
       <div class="relative top-1/2 left-1/2 h-full w-full max-w-7xl -translate-x-1/2 -translate-y-1/2 p-4 md:h-auto">
         <div class="relative rounded-lg bg-white shadow-lg dark:bg-gray-800 dark:text-gray-300">
           <div class="flex items-start justify-between rounded-t border-b p-4 dark:border-gray-600">
@@ -64,13 +64,13 @@
 <script setup>
 import {toRefs, ref, computed} from "vue";
 import ArrowRightIcon from '../../../assets/icons/ArrowRightIcon.vue'
+import ModalCloseIcon from "../../../assets/icons/ModalCloseIcon.vue";
 import SinglePersonArrival from '../Membership/SinglePersonArrival.vue'
 import SinglePersonPayment from '../Membership/SinglePersonPayment.vue'
 import InfiniteLoading from "v3-infinite-loading";
 import {useStore} from 'vuex'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
-import ModalCloseIcon from "../../../assets/icons/ModalCloseIcon.vue";
 
 const store = useStore()
 

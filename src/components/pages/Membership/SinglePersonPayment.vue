@@ -1,5 +1,5 @@
 <template>
-  <div v-show="payments.length > 0" class="col-span-2">
+  <div v-if="payments.length > 0" class="col-span-2">
     <h2 class="mb-3 text-xl font-bold">To'lovlar hisoboti</h2>
     <div class="mb-8 w-full overflow-hidden rounded-lg border border-slate-200 shadow-lg dark:border-gray-600">
       <div class="w-full overflow-x-auto overflow-y-auto max-h-96">
@@ -30,7 +30,7 @@
 </template>
 <script setup>
 import CalendarBlankIcon from '../../../assets/icons/CalendarBlankIcon.vue'
-import {paymentTypeTranslate} from '../../../utils/paymentTypeTranslate.js'
+import {paymentTypeTranslate} from '../../../utils/utils.js'
 import {toRefs} from "vue";
 
 const props = defineProps({

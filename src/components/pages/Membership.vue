@@ -45,16 +45,11 @@
       <div v-show="!showContent" class="flex w-full justify-center pt-5">
         <h1 class="text-xl font-bold text-red-500 text-center">Ma'lumotlar bazasida a'zolar mavjud emas!</h1>
       </div>
-      <SingleMemberData
-          v-show="showContent"
-          :members="members"
-          @infinite="loadMember"
-      />
+      <SingleMemberData v-show="showContent" :members="members" @infinite="loadMember" />
     </div>
 
     <!-- Member Info Modal -->
-    <div v-show="isAddMemberModalOpen"
-         class="fixed top-0 right-0 left-0 z-50 w-full overflow-y-auto overflow-x-hidden backdrop-brightness-50 inset-0 h-full">
+    <div v-if="isAddMemberModalOpen" class="fixed top-0 right-0 left-0 z-50 w-full overflow-y-auto overflow-x-hidden backdrop-brightness-50 inset-0 h-full">
       <div class="relative top-1/2 left-1/2 w-full max-w-5xl -translate-x-1/2 -translate-y-1/2 mt-16 md:mt-0 p-1 md:p-4"
            :class="{'mt-0': registerMemberProcess.checkingMode || registerMemberProcess.congratulationMode}">
         <div class="relative rounded-lg bg-white shadow-lg dark:bg-gray-800">
@@ -71,7 +66,7 @@
                 class="mb-3 flex justify-evenly md:grid md:grid-cols-3 rounded-lg border border-gray-300 p-3 dark:border-gray-600">
               <div class="flex items-center justify-between">
                 <!-- in progress -->
-                <div v-show="registerStatus.inProgress" class="flex items-center justify-between">
+                <div v-if="registerStatus.inProgress" class="flex items-center justify-between">
                   <div
                       class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-blue-500 bg-white font-semibold text-blue-500 dark:bg-gray-700">
                     01
@@ -79,7 +74,7 @@
                   <div class="hidden md:block text-md ml-3 font-semibold text-blue-500">A'zo ma'lumotlari</div>
                 </div>
                 <!-- completed -->
-                <div v-show="registerStatus.done" class="flex items-center justify-between">
+                <div v-if="registerStatus.done" class="flex items-center justify-between">
                   <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-2xl text-white">
                     <CheckIcon/>
                   </div>
@@ -94,7 +89,7 @@
               </div>
               <div class="flex items-center justify-between">
                 <!-- default -->
-                <div v-show="checkingStatus.default" class="flex items-center">
+                <div v-if="checkingStatus.default" class="flex items-center">
                   <div
                       class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-gray-300 dark:border-gray-600 dark:text-gray-300 bg-white font-semibold text-gray-500 dark:bg-gray-700">
                     02
@@ -102,7 +97,7 @@
                   <div class="hidden md:block text-md ml-3 font-semibold text-gray-500">Tasdiqlash</div>
                 </div>
                 <!-- in progress -->
-                <div v-show="checkingStatus.inProgress" class="flex items-center justify-between">
+                <div v-if="checkingStatus.inProgress" class="flex items-center justify-between">
                   <div
                       class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-blue-500 bg-white font-semibold text-blue-500 dark:bg-gray-700">
                     02
@@ -110,7 +105,7 @@
                   <div class="hidden md:block text-md ml-3 font-semibold text-blue-500">Tasdiqlash</div>
                 </div>
                 <!-- completed -->
-                <div v-show="checkingStatus.done" class="flex items-center justify-between">
+                <div v-if="checkingStatus.done" class="flex items-center justify-between">
                   <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-2xl text-white">
                     <CheckIcon/>
                   </div>
@@ -124,7 +119,7 @@
                 </div>
               </div>
               <!-- default -->
-              <div v-show="congratulationStatus.default" class="flex items-center">
+              <div v-if="congratulationStatus.default" class="flex items-center">
                 <div
                     class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-gray-300 dark:border-gray-600 dark:text-gray-300 bg-white font-semibold text-gray-500 dark:bg-gray-700">
                   03
@@ -132,7 +127,7 @@
                 <div class="hidden md:block text-md ml-3 font-semibold text-gray-500">Yakunlash</div>
               </div>
               <!-- in progress -->
-              <div v-show="congratulationStatus.inProgress" class="flex items-center">
+              <div v-if="congratulationStatus.inProgress" class="flex items-center">
                 <div
                     class="text-md flex h-10 w-10 items-center justify-center rounded-full border-2 border-blue-500 bg-white font-semibold text-blue-500 dark:bg-gray-700">
                   03
@@ -140,7 +135,7 @@
                 <div class="hidden md:block text-md ml-3 font-semibold text-blue-500">Yakunlash</div>
               </div>
               <!-- completed-->
-              <div v-show="congratulationStatus.done" class="flex items-center">
+              <div v-if="congratulationStatus.done" class="flex items-center">
                 <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-2xl text-white">
                   <CheckIcon/>
                 </div>
@@ -149,8 +144,8 @@
             </div>
           </div>
           <form @submit.prevent="createMember()" method="post" enctype="multipart/form-data">
-            <div v-show="registerMemberProcess.registerMode" class="md:mb-5 flex flex-col p-5">
-              <label v-show="!member.image" for="dropzone-file"
+            <div v-if="registerMemberProcess.registerMode" class="md:mb-5 flex flex-col p-5">
+              <label v-if="!member.image" for="dropzone-file"
                      class="relative mx-auto flex h-24 w-24 max-w-lg cursor-pointer items-center justify-center rounded-full border-2 border-dashed border-blue-400 bg-slate-100 p-6 text-center dark:bg-gray-700">
                 <PictureIcon/>
                 <input id="dropzone-file" type="file" class="hidden" name="image" @change="getImage"/>
@@ -158,7 +153,7 @@
                     class="absolute -bottom-10 mx-auto mt-3 whitespace-nowrap text-lg font-semibold tracking-wide text-blue-500">
                 Fotosuratni yuklash</span>
               </label>
-              <label v-show="member.image" for="dropzone-file"
+              <label v-else for="dropzone-file"
                      class="relative mx-auto flex h-24 w-24 max-w-lg cursor-pointer items-center justify-center rounded-full border-2 text-center">
                 <img src="" class="h-24 w-24 rounded-full object-cover" id="memberImage" alt="#"/>
                 <input id="dropzone-file" type="file" class="hidden" name="image" @change="getImage"/>
@@ -168,7 +163,7 @@
               </label>
             </div>
             <!-- Step 1 -->
-            <div v-show="registerMemberProcess.registerMode" class="md:mb-6 grid md:gap-6 p-5 lg:grid-cols-2">
+            <div v-if="registerMemberProcess.registerMode" class="md:mb-6 grid md:gap-6 p-5 lg:grid-cols-2">
               <div class="p-3">
                 <label for="first_name"
                        class="text-md mb-2 block font-medium text-gray-900 dark:text-gray-300">Ism</label>
@@ -202,7 +197,7 @@
                      required/>
             </div>
             <!-- Step 2 -->
-            <div class="flex justify-center" v-show="registerMemberProcess.checkingMode">
+            <div class="flex justify-center" v-if="registerMemberProcess.checkingMode">
               <div class="flex flex-col">
                 <ConfirmCode class="mx-auto text-9xl text-blue-500"/>
                 <p class="text-xl text-gray-600 dark:text-gray-300 px-3 text-center">
@@ -223,26 +218,25 @@
                          v-model="confirm.fourth" @input="onlyNumber('fourth')"
                          required/>
                 </div>
-                <div v-show="showResendSMS" class="my-3 flex justify-center text-lg text-red-500 hover:underline"><a
+                <div v-if="showResendSMS" class="my-3 flex justify-center text-lg text-red-500 hover:underline"><a
                     href="#" @click="getMemberData()">SMS xabarnoma kelmadimi?</a></div>
-                <div v-show="!showResendSMS" class="my-3 flex items-center justify-center text-xl text-red-600">
+                <div v-else class="my-3 flex items-center justify-center text-xl text-red-600">
                   <TimerIcon class="mr-2"/>
                   <span>{{ timer }}</span>
                 </div>
               </div>
             </div>
-            <div v-show="registerMemberProcess.checkingMode"
-                 class="flex items-center justify-end space-x-2 rounded-b border-t border-gray-200 p-5 dark:border-gray-600">
+            <div v-if="registerMemberProcess.checkingMode" class="flex items-center justify-end space-x-2 rounded-b border-t border-gray-200 p-5 dark:border-gray-600">
               <div>
-                <button v-show="registerMemberProcess.checkingMode && !showCheckBtn && !lastProgressBtn"
+                <button v-if="registerMemberProcess.checkingMode && !showCheckBtn && !lastProgressBtn"
                         class="rounded bg-green-500 px-4 py-2 font-medium text-white shadow-lg outline-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none"
                         disabled>Tasdiqlash
                 </button>
-                <button v-show="showCheckBtn" type="submit"
+                <button v-if="showCheckBtn" type="submit"
                         class="rounded bg-green-500 px-4 py-2 font-medium text-white shadow-lg outline-none transition-colors duration-200 hover:bg-green-600 focus:bg-green-500 focus:ring-green-500 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">
                   Tasdiqlash
                 </button>
-                <button v-show="lastProgressBtn"
+                <button v-if="lastProgressBtn"
                         class="flex items-center rounded bg-green-400 px-4 py-2 font-medium text-white shadow-lg outline-none transition-colors duration-200 hover:bg-green-600 focus:bg-green-500 focus:ring-green-500 focus:ring-offset-2 active:shadow-none disabled:cursor-not-allowed disabled:bg-green-400/80 disabled:shadow-none"
                         disabled>
                   <SpinIcon/>
@@ -252,7 +246,7 @@
             </div>
           </form>
           <!-- Step 3 -->
-          <div class="flex justify-center" v-show="registerMemberProcess.congratulationMode">
+          <div class="flex justify-center" v-if="registerMemberProcess.congratulationMode">
             <div class="flex flex-col">
               <SuccessfulIcon class="mx-auto text-9xl text-green-500"/>
               <p class="my-5 text-center text-xl text-green-500">
@@ -260,18 +254,18 @@
               </p>
             </div>
           </div>
-          <div v-show="!registerMemberProcess.checkingMode"
+          <div v-if="!registerMemberProcess.checkingMode"
                class="flex items-center justify-end space-x-2 rounded-b border-t border-gray-200 p-5 dark:border-gray-600">
             <div>
-              <button v-show="registerMemberProcess.registerMode" @click="clearFields()"
+              <button v-if="registerMemberProcess.registerMode" @click="clearFields()"
                       class="mr-2 rounded border border-teal-500 bg-teal-500 px-4 py-2 font-medium text-white outline-none transition-colors duration-200 hover:bg-teal-400 hover:text-white focus:ring-teal-600 focus:ring-offset-2 active:scale-95 disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">
                 Tozalash
               </button>
-              <button v-show="registerMemberProcess.registerMode" @click="getMemberData()"
+              <button v-if="registerMemberProcess.registerMode" @click="getMemberData()"
                       class="rounded bg-indigo-500 px-4 py-2 font-medium text-white shadow-lg outline-none transition-colors duration-200 hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">
                 Keyingi qadam
               </button>
-              <button v-show="registerMemberProcess.congratulationMode" @click="closeAddMemberModal()"
+              <button v-if="registerMemberProcess.congratulationMode" @click="closeAddMemberModal()"
                       class="rounded bg-indigo-500 px-4 py-2 font-medium text-white shadow-lg outline-none transition-colors duration-200 hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">
                 Yakunlash
               </button>
@@ -293,6 +287,7 @@ import SearchIcon from '../../assets/icons/SearchIcon.vue'
 import SpinIcon from '../../assets/icons/SpinIcon.vue'
 import PictureIcon from "../../assets/icons/PictureIcon.vue";
 import UserPlusBoldIcon from "../../assets/icons/UserPlusBoldIcon.vue";
+import ModalCloseIcon from "../../assets/icons/ModalCloseIcon.vue";
 import {Field, Form} from 'vee-validate'
 import {ref, reactive, onMounted} from 'vue'
 import notify from 'izitoast'
@@ -302,7 +297,6 @@ import $ from 'jquery'
 import "v3-infinite-loading/lib/style.css";
 import SingleMemberData from "./Membership/SingleMemberData.vue";
 import authHeader from '../../services/auth-header.js'
-import ModalCloseIcon from "../../assets/icons/ModalCloseIcon.vue";
 
 const store = useStore()
 

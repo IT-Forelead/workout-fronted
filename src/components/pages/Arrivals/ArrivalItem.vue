@@ -26,7 +26,8 @@
 import {toRefs} from "vue";
 import CalendarBlankIcon from '../../../assets/icons/CalendarBlankIcon.vue'
 import InfiniteLoading from "v3-infinite-loading";
-import {arrivalTypeTranslate} from '../../../utils/arrivalTypeTranslate.js'
+import {phoneStyle, arrivalTypeTranslate} from '../../../utils/utils.js'
+
 const props = defineProps({
   arrivals: {type: Array, required: true},
 });

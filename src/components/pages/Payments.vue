@@ -62,7 +62,7 @@
               <button x-on:click="selectOption = true" type="button"
                       class="relative w-full cursor-pointer rounded-md border border-gray-300 bg-white dark:bg-gray-700 dark:border-gray-600 py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
                       aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
-                <span class="flex items-center" v-show="!selectedMember">
+                <span class="flex items-center" v-if="!selectedMember">
                   <span
                       class="relative inline-block rounded-full bg-slate-300 dark:bg-gray-800 p-1 text-slate-500 dark:text-gray-500 shadow">
                     <UserBoldIcon class="h-5 w-5"/>
@@ -88,8 +88,7 @@
                   <SelectIcon/>
                 </span>
               </button>
-              <TimesIcon v-show="selectedMember" @click="clearFields()"
-                         class="w-6 h-6 absolute top-3 right-8 cursor-pointer text-gray-500 dark:text-gray-300 dark:hover:text-gray-400 hover:text-gray-700"/>
+              <TimesIcon v-if="selectedMember" @click="clearFields()" class="w-6 h-6 absolute top-3 right-8 cursor-pointer text-gray-500 dark:text-gray-300 dark:hover:text-gray-400 hover:text-gray-700"/>
               <ul x-show="selectOption"
                   class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white dark:bg-gray-700 border dark:border-gray-600 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
                   tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-option-3">
@@ -143,16 +142,15 @@
 </template>
 
 <script setup>
-import {computed, onMounted, ref} from 'vue'
-import {useStore} from 'vuex'
-import UserBoldIcon from '../../assets/icons/UserBoldIcon.vue'
-import CheckIcon from '../../assets/icons/CheckIcon.vue'
-import notify from 'izitoast'
-import 'izitoast/dist/css/iziToast.min.css'
 import SelectIcon from "../../assets/icons/SelectIcon.vue";
 import TimesIcon from "../../assets/icons/TimesIcon.vue";
-import {phoneStyle} from "../../utils/phoneFormat.js";
-import {paymentTypeTranslate} from "../../utils/paymentTypeTranslate.js";
+import UserBoldIcon from '../../assets/icons/UserBoldIcon.vue'
+import CheckIcon from '../../assets/icons/CheckIcon.vue'
+import {computed, onMounted, ref} from 'vue'
+import {useStore} from 'vuex'
+import notify from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
+import {paymentTypeTranslate, phoneStyle} from "../../utils/utils.js";
 
 const store = useStore()
 

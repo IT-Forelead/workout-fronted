@@ -1,5 +1,5 @@
 <template>
-  <div v-show="arrivals.length > 0">
+  <div v-if="arrivals.length > 0">
     <h2 class="mb-3 text-xl font-bold">Kelib-ketishlar</h2>
     <div class="mb-8 w-full overflow-hidden rounded-lg border border-slate-200 shadow-lg dark:border-gray-600">
       <div class="w-full overflow-x-auto overflow-y-auto max-h-96">
@@ -23,7 +23,7 @@
 </template>
 <script setup>
 import CalendarBlankIcon from '../../../assets/icons/CalendarBlankIcon.vue'
-import {arrivalTypeTranslate} from '../../../utils/arrivalTypeTranslate.js'
+import {arrivalTypeTranslate} from '../../../utils/utils.js'
 import {toRefs} from "vue";
 
 const props = defineProps({

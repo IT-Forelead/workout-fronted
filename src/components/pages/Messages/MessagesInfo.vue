@@ -44,7 +44,7 @@ import UserBoldIcon from '../../../assets/icons/UserBoldIcon.vue'
 import CalendarBlankIcon from '../../../assets/icons/CalendarBlankIcon.vue'
 import {toRefs} from "vue";
 import InfiniteLoading from "v3-infinite-loading";
-import {phoneStyle} from "../../../utils/phoneFormat.js";
+import {phoneStyle} from "../../../utils/utils.js";
 
 const props = defineProps({
   messages: {type: Array, required: true},

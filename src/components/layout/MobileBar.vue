@@ -68,17 +68,17 @@
         </router-link>
         <div class="flex items-center justify-between py-3">
           <div class="flex items-center">
-            <MoonIcon v-show="isDark" class="w-7 h-7 mr-2"/>
-            <SunIcon v-show="!isDark" class="w-7 h-7 mr-2"/>
+            <MoonIcon v-if="isDark" class="w-7 h-7 mr-2"/>
+            <SunIcon v-else class="w-7 h-7 mr-2"/>
             Tungi rejim
           </div>
-          <label v-show="isLight" for="dark-mode-off" class="inline-flex relative items-center cursor-pointer">
+          <label v-if="isLight" for="dark-mode-off" class="inline-flex relative items-center cursor-pointer">
             <input type="checkbox" value="" id="dark-mode-off" class="sr-only peer">
             <span @click="toggleDark()"
                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
             </span>
           </label>
-          <label v-show="!isLight" for="dark-mode-on" class="inline-flex relative items-center cursor-pointer">
+          <label v-else for="dark-mode-on" class="inline-flex relative items-center cursor-pointer">
             <input type="checkbox" value="" id="dark-mode-on" class="sr-only peer" checked>
             <span @click="toggleDark()"
                  class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">

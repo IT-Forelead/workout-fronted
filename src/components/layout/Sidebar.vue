@@ -4,7 +4,7 @@
       <router-link class="cursor-pointer" to="/">
         <div class="flex items-center">
           <img src="../../assets/images/logo.png" class="w-14 shrink-0" alt="#" />
-          <h2 v-show="!sidebarStatus" class="ml-3 grow text-2xl font-semibold whitespace-nowrap text-zinc-900 transition-all duration-500 dark:text-gray-300">IT-Forelead</h2>
+          <h2 v-if="!sidebarStatus" class="ml-3 grow text-2xl font-semibold whitespace-nowrap text-zinc-900 transition-all duration-500 dark:text-gray-300">IT-Forelead</h2>
         </div>
       </router-link>
     </div>
@@ -14,7 +14,7 @@
         <MenuItem :menu="menu" :class="{ 'mx-3 pl-3.5': sidebarStatus }" />
       </li>
     </ul>
-    <div v-show="!sidebarStatus" class="custom-top relative text-center text-sm text-gray-400 dark:text-gray-400">
+    <div v-if="!sidebarStatus" class="custom-top relative text-center text-sm text-gray-400 dark:text-gray-400">
       Copyright &copy; 2022 <a href="https://it-forelead.uz" class="hover:underline">IT-Forelead</a>. <br />
       All Rights Reserved.
     </div>
