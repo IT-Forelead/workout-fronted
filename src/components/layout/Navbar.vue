@@ -42,8 +42,8 @@
           </div>
           <div>
             <p class="font-semibold text-gray-900 dark:text-gray-300">Bildirishnoma</p>
-            <p class="text-md text-gray-600 dark:text-gray-400">Klubingiz nomini va to'lov summalarini sozlamalar
-              bo'limi orqali belgilang!</p>
+            <p class="text-md text-gray-600 dark:text-gray-400">Fitnes klubingizning nomini va to'lov summalarini sozlamalar
+              bo'limi orqali kiriting!</p>
           </div>
         </div>
       </div>
@@ -55,11 +55,12 @@
           </span>
           <span class="flex items-center">
             <span class="text-left">
-              <span
-                  class="block ml-2 cursor-pointer px-2 text-lg font-semibold capitalize text-gray-900 dark:text-gray-300">
+              <span class="block ml-2 cursor-pointer px-2 text-lg font-semibold capitalize text-gray-900 dark:text-gray-300">
                 {{ fullname }}
               </span>
-              <span class="block text-md ml-2 cursor-pointer px-2 capitalize text-gray-400">Admin</span>
+              <span class="block text-md ml-2 cursor-pointer px-2 capitalize text-gray-400">
+                {{ gymName }}
+              </span>
             </span>
             <span
                 class="border-slate-200 ml-2 rounded-full border bg-slate-50 p-1 text-slate-500 shadow hover:bg-slate-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 dark:text-gray-300">
@@ -201,10 +202,26 @@ const addUserInStore = () => {
   )
 }
 
-onMounted(() => addUserInStore())
+// Setting Data
+const addSettingInStore = () => {
+  store.dispatch('settingModule/get').then(
+      (data) => {
+        store.commit('setSetting', data)
+      },
+      (error) => {
+        forbiddenChecker(error, "Sozlamalarni olishda xatolik yuz berdi!")
+      }
+  )
+}
+
+onMounted(() => addUserInStore(), addSettingInStore())
 
 const fullname = computed(() => {
   return store.state.user.firstname + " " + store.state.user.lastname
+})
+
+const gymName = computed(() => {
+  return store.state.settings.gymName
 })
 
 // User Info Dropdown
