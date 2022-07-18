@@ -11,16 +11,22 @@
               <SearchIcon/>
             </button>
           </span>
-            <input type="search" name="search" v-model="search" @keydown="searchMemberFunction()"
+            <input type="search" name="search" v-model="search"
                    class="w-full rounded-lg border border-slate-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300 bg-white py-1.5 pl-10 text-lg text-slate-500 outline-none focus:bg-slate-200 focus:outline-none"
                    placeholder="Izlash..." autocomplete="off"/>
           </div>
-          <button
-              class="hidden lg:inline-block border-slate-300 mr-3 w-full rounded-lg border bg-white px-5 py-2.5 text-center text-gray-900 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto dark:border-0 dark:text-gray-300">
+          <button @click="openFilter = !openFilter"
+                  class="hidden lg:inline-block border-slate-300 mr-3 w-full rounded-lg border bg-white px-5 py-2.5 text-center text-gray-900 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto dark:border-0 dark:text-gray-300">
             <FunnelIcon class="mr-1 inline-block text-lg"/>
             Saralash
           </button>
-          <button x-on:mouseenter="open = true" x-on:mouseleave="open = false" @click="openAddMemberModal()"
+          <div v-show="openFilter" ref="filterDropdown"
+               class="bg-white dark:bg-gray-800 border dark:border-gray-600 absolute right-40 dark:text-gray-300 p-2 divide-y dark:divide-gray-600 mt-2 rounded-lg">
+            <div @click="openFilter = false" class="dark:hover:bg-gray-700 cursor-pointer">Ism bo'yicha (A-Z)</div>
+            <div @click="openFilter = false" class="dark:hover:bg-gray-700 cursor-pointer">Ism bo'yicha (Z-A)</div>
+            <div @click="openFilter = false" class="dark:hover:bg-gray-700 cursor-pointer">To'lov sanasi yaqinlashganlar</div>
+          </div>
+          <button @click="openAddMemberModal()"
                   class="mx-1 w-full rounded-lg bg-blue-500 px-5 py-2.5 text-center text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">
             A'zo qo'shish
           </button>
@@ -32,11 +38,11 @@
               <SearchIcon/>
             </button>
           </span>
-            <input type="search" name="search" v-model="search" @keydown="searchMemberFunction()"
+            <input type="search" name="search" v-model="search"
                    class="w-full rounded-lg border border-slate-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-300 bg-white py-1.5 pl-10 text-lg text-slate-500 outline-none focus:bg-slate-200 focus:outline-none"
                    placeholder="Izlash..." autocomplete="off"/>
           </div>
-          <button x-on:mouseenter="open = true" x-on:mouseleave="open = false" @click="openAddMemberModal()"
+          <button @click="openAddMemberModal()"
                   class="mx-1 rounded-lg bg-blue-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">
             <UserPlusBoldIcon class="w-5 h-5"/>
           </button>
@@ -45,11 +51,12 @@
       <div v-show="!showContent" class="flex w-full justify-center pt-5">
         <h1 class="text-xl font-bold text-red-500 text-center">Ma'lumotlar bazasida a'zolar mavjud emas!</h1>
       </div>
-      <SingleMemberData v-show="showContent" :members="members" @infinite="loadMember" />
+      <SingleMemberData v-show="showContent" :members="members" @infinite="loadMember"/>
     </div>
 
     <!-- Member Info Modal -->
-    <div v-if="isAddMemberModalOpen" class="fixed top-0 right-0 left-0 z-50 w-full overflow-y-auto overflow-x-hidden backdrop-brightness-50 inset-0 h-full">
+    <div v-if="isAddMemberModalOpen"
+         class="fixed top-0 right-0 left-0 z-50 w-full overflow-y-auto overflow-x-hidden backdrop-brightness-50 inset-0 h-full">
       <div class="relative top-1/2 left-1/2 w-full max-w-5xl -translate-x-1/2 -translate-y-1/2 mt-16 md:mt-0 p-1 md:p-4"
            :class="{'mt-0': registerMemberProcess.checkingMode || registerMemberProcess.congratulationMode}">
         <div class="relative rounded-lg bg-white shadow-lg dark:bg-gray-800">
@@ -58,7 +65,7 @@
             <button type="button" @click="closeAddMemberModal()"
                     class="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
                     data-modal-toggle="defaultModal">
-              <ModalCloseIcon />
+              <ModalCloseIcon/>
             </button>
           </div>
           <div class="p-5">
@@ -155,7 +162,7 @@
               </label>
               <label v-else for="dropzone-file"
                      class="relative mx-auto flex h-24 w-24 max-w-lg cursor-pointer items-center justify-center rounded-full border-2 text-center">
-                <img src="" class="h-24 w-24 rounded-full object-cover" id="memberImage" alt="#"/>
+                <img :src="selectedImage" class="h-24 w-24 rounded-full object-cover" alt="#"/>
                 <input id="dropzone-file" type="file" class="hidden" name="image" @change="getImage"/>
                 <span
                     class="absolute -bottom-10 mx-auto mt-3 whitespace-nowrap text-lg font-semibold tracking-wide text-blue-500">
@@ -165,9 +172,9 @@
             <!-- Step 1 -->
             <div v-if="registerMemberProcess.registerMode" class="md:mb-6 grid md:gap-6 p-5 lg:grid-cols-2">
               <div class="p-3">
-                <label for="first_name"
+                <label for="firstname"
                        class="text-md mb-2 block font-medium text-gray-900 dark:text-gray-300">Ism</label>
-                <input type="text" v-model="member.firstname" id="first_name" name="firstname"
+                <input type="text" v-model="member.firstname" id="firstname" name="firstname"
                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                        placeholder="Ism kiriting" required/>
               </div>
@@ -188,11 +195,11 @@
               <div class="p-3">
                 <label for="phone" class="text-md mb-2 block font-medium text-gray-900 dark:text-gray-300">Telefon
                   raqami</label>
-                <Field name="phone" v-model="member.phone" type="phone" v-mask="'+###(##) ###-##-##'" id="phone"
+                <input name="phone" v-model="member.phone" v-mask="'+###(##) ###-##-##'" id="phone"
                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                        placeholder="+998(90) 123-45-67" required/>
               </div>
-              <Field name="code" v-model="confirmCode" type="hidden"
+              <input name="code" v-model="confirmCode" type="hidden"
                      class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                      required/>
             </div>
@@ -226,7 +233,8 @@
                 </div>
               </div>
             </div>
-            <div v-if="registerMemberProcess.checkingMode" class="flex items-center justify-end space-x-2 rounded-b border-t border-gray-200 p-5 dark:border-gray-600">
+            <div v-if="registerMemberProcess.checkingMode"
+                 class="flex items-center justify-end space-x-2 rounded-b border-t border-gray-200 p-5 dark:border-gray-600">
               <div>
                 <button v-if="registerMemberProcess.checkingMode && !showCheckBtn && !lastProgressBtn"
                         class="rounded bg-green-500 px-4 py-2 font-medium text-white shadow-lg outline-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none"
@@ -288,12 +296,11 @@ import SpinIcon from '../../assets/icons/SpinIcon.vue'
 import PictureIcon from "../../assets/icons/PictureIcon.vue";
 import UserPlusBoldIcon from "../../assets/icons/UserPlusBoldIcon.vue";
 import ModalCloseIcon from "../../assets/icons/ModalCloseIcon.vue";
-import {Field, Form} from 'vee-validate'
-import {ref, reactive, onMounted} from 'vue'
+import {ref, reactive, onMounted, watch} from 'vue'
+import { onClickOutside } from '@vueuse/core'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 import {useStore} from 'vuex'
-import $ from 'jquery'
 import "v3-infinite-loading/lib/style.css";
 import SingleMemberData from "./Membership/SingleMemberData.vue";
 import authHeader from '../../services/auth-header.js'
@@ -443,10 +450,12 @@ function startTimer() {
   }, 1000);
 }
 
+const selectedImage = ref('')
+
 function getImage(e) {
   if (e.target.files[0].type.includes('image')) {
     member.image = e.target.files[0]
-    $('#memberImage').attr('src', URL.createObjectURL(member.image))
+    selectedImage.value = URL.createObjectURL(member.image)
   } else {
     notify.warning({
       title: 'Diqqat!',
@@ -519,9 +528,15 @@ const getMemberData = () => {
 const createMember = () => {
   showCheckBtn.value = false
   lastProgressBtn.value = true
-  const form = $('form')[0]
-  const formData = new FormData(form)
+  const formData = new FormData()
   formData.append('userId', store.state.user.id)
+  formData.append('firstname', member.firstname)
+  formData.append('lastname', member.lastname)
+  formData.append('birthday', member.birthday)
+  formData.append('image', member.image)
+  formData.append('phone', member.phone)
+  formData.append('code', confirmCode.value)
+
   store.dispatch('memberModule/create', formData).then(
       () => {
         lastMessage.value = "A'zo muvaffaqiyatli yaratildi!"
@@ -598,7 +613,8 @@ function forbiddenChecker(error, msg) {
   if (error.message.split(' ').includes('403')) {
     store.dispatch('auth/logout').then(() => {
       store.commit('setSelectedPage', '')
-    }, (error) => {})
+    }, () => {
+    })
   } else {
     notify.warning({
       message: msg,
@@ -620,14 +636,22 @@ const getMembers = () => {
 }
 
 const search = ref('')
-const searchMemberFunction = () => {
+watch(search, () => {
   if (search.value === '') {
     page = 1
     loadLastAddedMember()
   } else {
     members.value = store.state.members.filter((member) => member.firstname.toLowerCase().includes(search.value.toLowerCase()))
   }
-}
+})
+
+// Filter By
+const openFilter = ref(false)
+const filterDropdown = ref(null)
+
+onClickOutside(filterDropdown, () => {
+  if (openFilter.value) openFilter.value = false
+})
 
 onMounted(() => getMembers())
 </script>
