@@ -1,10 +1,28 @@
 <template>
   <div class="h-full px-5">
-    <div class="mb-5 flex items-center">
-      <h3 class="ml-2 mb-3 text-2xl font-extrabold dark:text-gray-300">To'lovlar</h3>
-    </div>
     <div class="grid grid-cols-1 lg:grid-cols-3 md:gap-4">
       <div class="col-span-2 order-last lg:order-first w-full overflow-x-auto">
+        <div class="mb-5 flex justify-between items-center">
+          <h3 class="ml-2 mb-3 text-2xl font-extrabold dark:text-gray-300">To'lovlar</h3>
+          <div class="hidden lg:flex lg:justify-between lg:items-center">
+            <div date-rangepicker class="flex items-center mr-3">
+              <div class="relative">
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                  <span class="text-sm text-gray-600 dark:text-gray-300"> dan </span>
+                </div>
+                <input name="start" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pr-11 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start" />
+              </div>
+              <ArrowRightIcon class="mx-2 text-gray-500"/>
+              <div class="relative">
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                  <span class="text-sm text-gray-600 dark:text-gray-300"> gacha </span>
+                </div>
+                <input name="end" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pr-14 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start" />
+              </div>
+            </div>
+            <button class="border-slate-300 w-full rounded-lg border bg-white px-5 py-2 text-center text-gray-900 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto dark:border-0 dark:text-gray-300"><FunnelIcon class="mr-1 inline-block text-lg" /> Saralash</button>
+          </div>
+        </div>
         <div v-show="payments.length > 0" class="payments-wrapper overflow-x-auto grid grid-cols-1 border border-slate-200 rounded-lg shadow-lg dark:border-gray-600 payment-table-h">
           <table class="w-full divide-y divide-gray-300 dark:divide-gray-600">
             <thead class="bg-slate-50 sticky-top z-10">
@@ -102,36 +120,20 @@
             <p class="text-center font-bold my-3 capitalize">{{ selectedPayment.member.firstname + ' ' + selectedPayment.member.lastname }}</p>
             <table class="w-full mt-2 dark:border-gray-600">
               <tr>
-                <td class="text-left">
-                  <strong>To'lovchi raqami: </strong>
-                </td>
-                <td class="text-right">
-                  {{ phoneStyle(selectedPayment.member.phone) }}
-                </td>
+                <td class="text-left"><strong>To'lovchi raqami: </strong></td>
+                <td class="text-right">{{ phoneStyle(selectedPayment.member.phone) }}</td>
               </tr>
               <tr>
-                <td class="text-left">
-                  <strong>To'lov qilingan sana: </strong>
-                </td>
-                <td class="text-right">
-                  {{ selectedPayment.payment.createdAt.split('T')[0] }}
-                </td>
+                <td class="text-left"><strong>To'lov qilingan sana: </strong></td>
+                <td class="text-right">{{ selectedPayment.payment.createdAt.split('T')[0] }}</td>
               </tr>
               <tr>
-                <td class="text-left">
-                  <strong>To'lov turi: </strong>
-                </td>
-                <td class="text-right">
-                  {{ paymentTypeTranslate(selectedPayment.payment.paymentType) }}
-                </td>
+                <td class="text-left"><strong>To'lov turi: </strong></td>
+                <td class="text-right">{{ paymentTypeTranslate(selectedPayment.payment.paymentType) }}</td>
               </tr>
               <tr>
-                <td class="text-left">
-                  <strong>Qiymati: </strong>
-                </td>
-                <td class="text-right">
-                  {{ selectedPayment.payment.cost + ' UZS' }}
-                </td>
+                <td class="text-left"><strong>Qiymati: </strong></td>
+                <td class="text-right">{{ selectedPayment.payment.cost + ' UZS' }}</td>
               </tr>
             </table>
           </div>
@@ -151,6 +153,8 @@ import UserBoldIcon from '../../assets/icons/UserBoldIcon.vue'
 import CheckIcon from '../../assets/icons/CheckIcon.vue'
 import SpinIcon from '../../assets/icons/SpinIcon.vue'
 import ModalCloseIcon from '../../assets/icons/ModalCloseIcon.vue'
+import ArrowRightIcon from '../../assets/icons/ArrowRightIcon.vue'
+import FunnelIcon from '../../assets/icons/FunnelIcon.vue'
 import PaymentItem from './Payments/PaymentItem.vue'
 import { computed, onMounted, ref } from 'vue'
 import { useStore } from 'vuex'

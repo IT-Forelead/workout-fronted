@@ -13,7 +13,7 @@
           <button x-on:mouseenter="open = true" x-on:mouseleave="open = false" @click="openModal(member); getPaymentsByMemberId(member.id); getArrivalByMemberId(member.id)"
                   class="flex items-center justify-center rounded-md border border-slate-300 bg-white py-2 px-5 text-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 transition-all duration-200 ease-in hover:bg-slate-100">
             Batafsil
-            <ArrowRightIcon x-show="open" class="ml-3 animate-pulse text-xl transition-all duration-500 ease-in"/>
+            <ArrowCircleRightIcon x-show="open" class="ml-3 animate-pulse text-xl transition-all duration-500 ease-in"/>
           </button>
         </div>
       </div>
@@ -63,7 +63,7 @@
 </template>
 <script setup>
 import {toRefs, ref, computed} from "vue";
-import ArrowRightIcon from '../../../assets/icons/ArrowRightIcon.vue'
+import ArrowCircleRightIcon from '../../../assets/icons/ArrowCircleRightIcon.vue'
 import ModalCloseIcon from "../../../assets/icons/ModalCloseIcon.vue";
 import SinglePersonArrival from '../Membership/SinglePersonArrival.vue'
 import SinglePersonPayment from '../Membership/SinglePersonPayment.vue'

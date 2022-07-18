@@ -71,19 +71,16 @@
             </span>
           </span>
         </button>
-        <div id="dropdownInformation"
-             class="hidden w-60 border rounded bg-white shadow dark:bg-gray-800 dark:border-gray-600">
+        <div id="dropdownInformation" class="hidden w-60 border rounded bg-white shadow dark:bg-gray-800 dark:border-gray-600">
           <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformationButton">
             <li class="border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
               <router-link to="/profile" class="text-md flex items-center px-4 py-2 dark:text-gray-300">
-                <UserIcon class="mr-2 text-xl dark:text-gray-300"/>
-                Profil
+                <UserIcon class="mr-2 text-xl dark:text-gray-300"/> Profil
               </router-link>
             </li>
             <li class="border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
               <router-link to="/settings" class="text-md flex items-center px-4 py-2 dark:text-gray-300">
-                <GearIcon class="mr-2 text-xl dark:text-gray-300"/>
-                Sozlamalar
+                <GearIcon class="mr-2 text-xl dark:text-gray-300"/> Sozlamalar
               </router-link>
             </li>
             <li class="flex items-center justify-between px-3 py-2 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
