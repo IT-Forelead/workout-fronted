@@ -31,7 +31,7 @@
             </button>
           </div>
         </div>
-        <div v-show="payments.length > 0"
+        <div v-show="payments.length > 0" :class="{'overflow-hidden': total / 10 <= 1}"
              class="payments-wrapper overflow-x-auto grid grid-cols-1 border border-slate-200 rounded-lg shadow-lg dark:border-gray-600 payment-table-h">
           <table class="w-full divide-y divide-gray-300 dark:divide-gray-600">
             <thead class="bg-slate-50 sticky-top z-10">

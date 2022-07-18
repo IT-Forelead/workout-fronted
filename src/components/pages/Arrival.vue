@@ -4,7 +4,7 @@
       <div class="flex justify-between items-center mb-5">
         <h3 class="text-2xl font-extrabold ml-2 mb-3 dark:text-gray-300">Kelib-ketishlar</h3>
         <div class="hidden lg:flex lg:justify-between lg:items-center">
-          <div date-rangepicker class="flex items-center mr-3">
+          <div class="flex items-center mr-3">
             <div class="relative">
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                 <span class="text-sm text-gray-600 dark:text-gray-300"> dan </span>
@@ -22,7 +22,7 @@
           <button class="border-slate-300 w-full rounded-lg border bg-white px-5 py-2 text-center text-gray-900 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto dark:border-0 dark:text-gray-300"><FunnelIcon class="mr-1 inline-block text-lg" /> Saralash</button>
         </div>
       </div>
-      <div v-show="arrivals.length > 0" class="arrival-wrapper overflow-x-auto grid grid-cols-1 border border-slate-200 rounded-lg shadow-lg dark:border-gray-600 arrival-table-h">
+      <div v-show="arrivals.length > 0" :class="{'overflow-hidden': total / 10 <= 1}" class="arrival-wrapper overflow-x-auto grid grid-cols-1 border border-slate-200 rounded-lg shadow-lg dark:border-gray-600 arrival-table-h">
         <table class="w-full divide-y divide-gray-300 dark:divide-gray-600">
           <thead class="bg-slate-50 sticky-top z-0">
               <tr class="text-md font-semibold tracking-wide text-left text-gray-900 dark:text-gray-300 dark:bg-gray-800">
