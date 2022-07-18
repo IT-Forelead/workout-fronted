@@ -4,9 +4,9 @@
       <div class="flex items-center mb-5">
         <h3 class="text-2xl font-extrabold ml-2 mb-3 dark:text-gray-300">Kelib-ketishlar</h3>
       </div>
-      <div v-show="arrivals.length > 0" class="mb-32 overflow-x-auto grid grid-cols-1 border border-slate-200 rounded-lg shadow-lg dark:border-gray-600">
+      <div v-show="arrivals.length > 0" class="arrival-wrapper overflow-x-auto grid grid-cols-1 border border-slate-200 rounded-lg shadow-lg dark:border-gray-600 arrival-table-h">
         <table class="w-full divide-y divide-gray-300 dark:divide-gray-600">
-          <thead class="bg-slate-50">
+          <thead class="bg-slate-50 sticky-top">
               <tr class="text-md font-semibold tracking-wide text-left text-gray-900 dark:text-gray-300 dark:bg-gray-800">
                 <th class="px-4 py-3">Foydalanuvchi</th>
                 <th class="px-4 py-3">Vaqti</th>
@@ -14,7 +14,7 @@
               </tr>
             </thead>
           <tbody class="h-full divide-y divide-gray-200 bg-white dark:text-gray-300 dark:bg-gray-800 dark:divide-gray-600">
-            <ArrivalItem :arrivals="arrivals" @infinite="loadArrivals"/>
+            <ArrivalItem :arrivals="arrivals" :distance="distance" :target="target" @infinite="loadArrivals"/>
           </tbody>
         </table>
       </div>
@@ -33,6 +33,9 @@ import { ref } from 'vue'
 import authHeader from '../../services/auth-header'
 import SpinIcon from "../../assets/icons/SpinIcon.vue";
 
+
+const target = ref('.arrival-wrapper')
+const distance = ref(200)
 const arrivals = ref([])
 const total = ref(0)
 
@@ -62,3 +65,9 @@ setTimeout(() => {
   isArrivalEmpty.value = arrivals.value.length === 0
 }, 700)
 </script>
+
+<style scoped>
+.arrival-table-h {
+  max-height: 75vh;
+}
+</style>
