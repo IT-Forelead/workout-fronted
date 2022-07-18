@@ -12,7 +12,7 @@
                 </div>
                 <input name="start" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pr-11 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start" />
               </div>
-              <ArrowRightIcon class="mx-2 text-gray-500"/>
+              <ArrowRightIcon class="mx-2 text-gray-500" />
               <div class="relative">
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                   <span class="text-sm text-gray-600 dark:text-gray-300"> gacha </span>
@@ -84,10 +84,12 @@
           <div class="mb-6 flex items-center justify-around rounded-lg border border-gray-300 p-0 dark:border-gray-600">
             <input id="toggle-on" class="toggle toggle-left" name="toggle" value="false" type="radio" checked />
             <label for="toggle-on" @click="savePaymentType('monthly')" class="flex justify-center items-center relative py-2.5">
-              <span class="mr-2 hidden"><CheckIcon /></span> Oylik to'lov</label>
+              <span class="mr-2 hidden"><CheckIcon /></span> Oylik to'lov</label
+            >
             <input id="toggle-off" class="toggle toggle-right" name="toggle" value="true" type="radio" />
             <label for="toggle-off" @click="savePaymentType('daily')" class="flex justify-center items-center relative py-2.5">
-              <span class="mr-2 hidden"><CheckIcon /></span> Kunlik to'lov</label>
+              <span class="mr-2 hidden"><CheckIcon /></span> Kunlik to'lov</label
+            >
           </div>
           <div class="mb-6">
             <label for="price" class="mb-2 block text-lg font-medium text-gray-900 dark:text-gray-300">Mablag'</label>
@@ -95,7 +97,7 @@
               <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                 <span class="text-sm text-gray-500"> UZS </span>
               </div>
-              <input type="text" name="price" id="price" class="block w-full rounded-lg border border-gray-300 pl-11 pr-12 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="0.00" />
+              <input type="text" v-model="sum" name="price" id="price" class="block w-full rounded-lg border border-gray-300 pl-11 pr-12 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="0.00" disabled />
             </div>
           </div>
           <hr class="bottom-1 mb-6 border border-gray-200 dark:border-gray-600" />
@@ -107,7 +109,7 @@
     </div>
     <!-- Member Info Modal -->
     <div v-if="Object.keys(selectedPayment).length !== 0" class="fixed top-0 right-0 left-0 z-50 w-full overflow-y-auto overflow-x-hidden backdrop-brightness-50 inset-0 h-full">
-      <div class="relative top-1/2 left-1/2 h-full w-full max-w-7xl -translate-x-1/2 -translate-y-1/2 p-4 h-auto">
+      <div class="relative top-1/2 left-1/2 h-full w-full max-w-7xl -translate-x-1/2 -translate-y-1/2 p-4">
         <div class="relative rounded-lg bg-white shadow-lg dark:bg-gray-800 dark:text-gray-300">
           <div class="flex items-start justify-between rounded-t border-b p-4 dark:border-gray-600">
             <div class="text-xl font-semibold text-gray-900 dark:text-white">To'lov ma'lumoti</div>
@@ -156,7 +158,7 @@ import ModalCloseIcon from '../../assets/icons/ModalCloseIcon.vue'
 import ArrowRightIcon from '../../assets/icons/ArrowRightIcon.vue'
 import FunnelIcon from '../../assets/icons/FunnelIcon.vue'
 import PaymentItem from './Payments/PaymentItem.vue'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watchEffect } from 'vue'
 import { useStore } from 'vuex'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
@@ -170,10 +172,22 @@ const distance = ref(200)
 
 const selectedMember = ref('')
 const paymentType = ref('monthly')
+const sum = ref(0)
 const search = ref('')
 
+const getSum = () => {
+  if (paymentType.value === 'monthly') {
+    sum.value = store.state.settings.monthlyPrice
+  } else {
+    sum.value = store.state.settings.dailyPrice
+  }
+}
+
 const saveMemberId = (member) => (selectedMember.value = member)
-const savePaymentType = (type) => (paymentType.value = type)
+const savePaymentType = (type) => {
+  paymentType.value = type
+  getSum()
+}
 
 const selectedPayment = computed(() => {
   return store.state.selectedPayment
@@ -270,6 +284,7 @@ const addSettingInStore = () => {
   store.dispatch('settingModule/get').then(
     (data) => {
       store.commit('setSetting', data)
+      getSum()
     },
     (error) => {
       forbiddenChecker(error, 'Sozlamalarni olishda xatolik yuz berdi!')
