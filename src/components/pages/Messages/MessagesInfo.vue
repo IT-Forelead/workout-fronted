@@ -15,7 +15,7 @@
       </div>
       <div v-else class="flex items-center">
         <div
-            class="relative inline-block rounded-full mr-3 h-10 w-10 border border-gray-50 dark:border-gray-600 bg-slate-300 dark:bg-gray-800 p-1 text-slate-500 dark:text-gray-500 shadow">
+            class="inline-block rounded-full mr-3 h-10 w-10 border border-gray-50 dark:border-gray-600 bg-slate-300 dark:bg-gray-800 p-1 text-slate-500 dark:text-gray-500 shadow">
           <UserBoldIcon class="h-full w-full"/>
         </div>
         <div class="font-semibold text-gray-900 dark:text-gray-300">Noma'lum foydalanuvchi</div>
