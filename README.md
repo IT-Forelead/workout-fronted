@@ -47,11 +47,6 @@ sudo n latest
 ---
 ### RUN APP IN DOCKER CONTAINER ###
 ---
-### Build docker image for app
 ```
-docker build -t workout-frontend .
-```
-### Run the app
-```
-docker run -d --name workout-ui -p 80:80 --restart always workout-frontend
+./run.sh
 ```
