@@ -1,50 +1,50 @@
 <template>
   <div>
     <div class="h-full px-5">
-      <div class="flex justify-between items-center mb-5">
-        <h3 class="text-2xl font-extrabold ml-2 mb-3 dark:text-gray-300">Kelib-ketishlar</h3>
+      <div class="flex items-center justify-between mb-5">
+        <h3 class="mb-3 ml-2 text-2xl font-extrabold dark:text-gray-300">Kelib-ketishlar</h3>
         <div class="relative hidden lg:flex lg:justify-between lg:items-center">
           <div class="flex items-center mr-3">
             <div class="relative">
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+              <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                 <span class="text-sm text-gray-600 dark:text-gray-300"> dan </span>
               </div>
               <input v-model.lazy="filterData.filterDateFrom" name="start" type="datetime-local" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pr-11 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
             </div>
             <ArrowRightIcon class="mx-2 text-gray-500" />
             <div class="relative">
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+              <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                 <span class="text-sm text-gray-600 dark:text-gray-300"> gacha </span>
               </div>
               <input v-model.lazy="filterData.filterDateTo" name="end" type="datetime-local" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pr-14 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
             </div>
           </div>
-          <button @click="openFilter = !openFilter" class="border-slate-300 w-full rounded-lg border bg-white px-5 py-2 text-center text-gray-900 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto dark:border-0 dark:text-gray-300"><FunnelIcon class="mr-1 inline-block text-lg" /> Saralash</button>
-          <div v-if="openFilter" ref="filterDropdown" class="bg-white dark:bg-gray-800 border dark:border-gray-600 absolute top-11 right-0 z-30 dark:text-gray-300 w-1/4 mt-2 rounded-lg">
-            <div @click="openFilter = false; filterData.typeBy = 'come_in'" class="px-3 py-2 border-b dark:border-gray-600 dark:hover:bg-gray-700 cursor-pointer">Kelishlar</div>
-            <div @click="openFilter = false; filterData.typeBy = 'go_out'" class="px-3 py-2 dark:hover:bg-gray-700 cursor-pointer">Ketishlar</div>
+          <button @click="openFilter = !openFilter" class="w-full px-5 py-2 text-center text-gray-900 bg-white border rounded-lg border-slate-300 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto dark:border-0 dark:text-gray-300"><FunnelIcon class="inline-block mr-1 text-lg" /> Saralash</button>
+          <div v-if="openFilter" ref="filterDropdown" class="absolute right-0 z-30 w-1/4 mt-2 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 top-11 dark:text-gray-300">
+            <div @click="openFilter = false; filterData.typeBy = 'come_in'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Kelishlar</div>
+            <div @click="openFilter = false; filterData.typeBy = 'go_out'" class="px-3 py-2 cursor-pointer dark:hover:bg-gray-700">Ketishlar</div>
           </div>
         </div>
       </div>
-      <div v-show="arrivals.length > 0" :class="{ 'overflow-hidden': total / 10 <= 1 }" class="arrival-wrapper overflow-x-auto grid grid-cols-1 border border-slate-200 rounded-lg shadow-lg dark:border-gray-600 arrival-table-h">
+      <div v-show="arrivals.length > 0" :class="{ 'overflow-hidden': total / 10 <= 1 }" class="grid grid-cols-1 overflow-x-auto border rounded-lg shadow-lg arrival-wrapper border-slate-200 dark:border-gray-600 arrival-table-h">
         <table class="w-full divide-y divide-gray-300 dark:divide-gray-600">
-          <thead class="bg-slate-50 sticky-top z-0">
-            <tr class="text-md font-semibold tracking-wide text-left text-gray-900 dark:text-gray-300 dark:bg-gray-800">
+          <thead class="z-0 bg-slate-50 sticky-top">
+            <tr class="font-semibold tracking-wide text-left text-gray-900 text-md dark:text-gray-300 dark:bg-gray-800">
               <th class="px-4 py-3">Foydalanuvchi</th>
               <th class="px-4 py-3">Vaqti</th>
               <th class="px-4 py-3">Turi</th>
             </tr>
           </thead>
-          <tbody class="h-full divide-y divide-gray-200 bg-white dark:text-gray-300 dark:bg-gray-800 dark:divide-gray-600">
+          <tbody class="h-full bg-white divide-y divide-gray-200 dark:text-gray-300 dark:bg-gray-800 dark:divide-gray-600">
             <ArrivalItem :arrivals="arrivals" :distance="distance" :target="target" @infinite="loadArrivals" />
           </tbody>
         </table>
       </div>
     </div>
-    <div v-show="!isArrivalEmpty && arrivals.length === 0" class="flex justify-center items-start h-10 w-full">
+    <div v-show="!isArrivalEmpty && arrivals.length === 0" class="flex items-start justify-center w-full h-10">
       <SpinIcon class="w-7 h-7" />
     </div>
-    <h1 v-show="isArrivalEmpty" class="text-red-500 text-xl text-center">Ma'lumotlar bazasidan kelib-ketishlar hisoboti topilmadi!</h1>
+    <h1 v-show="isArrivalEmpty" class="text-xl text-center text-red-500">Ma'lumotlar bazasidan kelib-ketishlar hisoboti topilmadi!</h1>
   </div>
 </template>
 
