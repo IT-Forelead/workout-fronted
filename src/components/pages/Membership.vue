@@ -4,7 +4,7 @@
     <div class="mb-5 flex items-center justify-between top-16 md:top-20 sticky-top z-0 bg-slate-100 dark:bg-gray-900 p-3">
       <h3 class="block sm:hidden ml-2 text-2xl font-extrabold dark:text-gray-300"></h3>
       <h3 class="hidden sm:block ml-2 text-2xl font-extrabold dark:text-gray-300">A'zolar</h3>
-      <div class="hidden md:block flex items-center">
+      <div class="hidden md:flex items-center">
         <div class="relative mr-3 inline-block">
           <span class="absolute inset-y-0 left-0 flex items-center pl-2">
             <button type="submit" class="focus:shadow-outline p-2 focus:outline-none dark:text-gray-300">
@@ -20,18 +20,18 @@
             <FunnelIcon class="mr-1 inline-block text-lg"/>
             Saralash
           </button>
-          <div v-show="openFilter" ref="filterDropdown"
-               class="bg-white dark:bg-gray-800 border dark:border-gray-600 absolute right-40 dark:text-gray-300 p-2 divide-y dark:divide-gray-600 mt-2 rounded-lg">
-            <div @click="openFilter = false" class="dark:hover:bg-gray-700 cursor-pointer">Ism bo'yicha (A-Z)</div>
-            <div @click="openFilter = false" class="dark:hover:bg-gray-700 cursor-pointer">Ism bo'yicha (Z-A)</div>
-            <div @click="openFilter = false" class="dark:hover:bg-gray-700 cursor-pointer">To'lov sanasi yaqinlashganlar</div>
+          <div v-if="openFilter" ref="filterDropdown"
+               class="bg-white dark:bg-gray-800 border dark:border-gray-600 absolute top-16 right-40 dark:text-gray-300 mt-2 rounded-lg">
+            <div @click="openFilter = false" class="px-3 py-2 border-b dark:border-gray-600 dark:hover:bg-gray-700 cursor-pointer">Ism bo'yicha (A-Z)</div>
+            <div @click="openFilter = false" class="px-3 py-2 border-b dark:border-gray-600 dark:hover:bg-gray-700 cursor-pointer">Ism bo'yicha (Z-A)</div>
+            <div @click="openFilter = false" class="px-3 py-2 dark:hover:bg-gray-700 cursor-pointer">To'lov sanasi yaqinlashganlar</div>
           </div>
           <button @click="openAddMemberModal()"
                   class="mx-1 w-full rounded-lg bg-blue-500 px-5 py-2.5 text-center text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">
             A'zo qo'shish
           </button>
         </div>
-        <div class="block md:hidden flex items-center">
+        <div class="md:hidden flex items-center">
           <div class="relative mr-3 inline-block">
           <span class="absolute inset-y-0 left-0 flex items-center pl-2">
             <button type="submit" class="focus:shadow-outline p-2 focus:outline-none dark:text-gray-300">
