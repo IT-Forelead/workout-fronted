@@ -1,12 +1,10 @@
 <template>
   <div class="hidden lg:block fixed h-screen w-80 bg-white transition-all duration-500 dark:bg-gray-800" :class="{ 'w-20': sidebarStatus }" id="sidenavSecExample">
     <div class="mt-3 ml-3 p-2 pl-10" :class="{ 'ml-0 pl-5': sidebarStatus }">
-      <router-link class="cursor-pointer" to="/">
-        <div class="flex items-center">
-          <img src="../../assets/images/logo.png" class="w-14 shrink-0" alt="#" />
-          <h2 v-if="!sidebarStatus" class="ml-3 grow text-2xl font-semibold whitespace-nowrap text-zinc-900 transition-all duration-500 dark:text-gray-300">IT-Forelead</h2>
-        </div>
-      </router-link>
+      <div class="flex items-center">
+        <img src="../../assets/images/logo.png" class="w-14 shrink-0" alt="#" />
+        <h2 v-if="!sidebarStatus" class="ml-3 grow text-2xl font-semibold whitespace-nowrap text-zinc-900 transition-all duration-500 dark:text-gray-300">IT-Forelead</h2>
+      </div>
     </div>
     <ul class="relative mt-5" :class="{ 'mt-2': sidebarStatus }">
       <li class="relative flex items-center" v-for="menu of menus" :key="menu">
