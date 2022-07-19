@@ -4,10 +4,9 @@ import authHeader from './auth-header.js'
 const API_URL = 'http://localhost:9000/'
 
 class MessageService {
-  getMessages() {
-    return axios.get(API_URL + 'message', { headers: authHeader() }).then((response) => {
-      return response.data
-    })
+  async getMessages() {
+    const response = await axios.get(API_URL + 'message', { headers: authHeader() })
+    return response.data
   }
 }
 

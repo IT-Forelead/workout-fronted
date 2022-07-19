@@ -5,16 +5,14 @@ const API_URL = 'http://localhost:9000'
 
 class SettingService {
 
-  updateSettings(data) {
-    return axios.put(API_URL + '/user/settings', { ...data }, { headers: authHeader() }).then((response) => {
-      return response.data
-    })
+  async updateSettings(data) {
+    const response = await axios.put(API_URL + '/user/settings', { ...data }, { headers: authHeader() })
+    return response.data
   }
 
-  getSettings() {
-    return axios.get(API_URL + '/user/settings', { headers: authHeader() }).then((response) => {
-      return response.data
-    })
+  async getSettings() {
+    const response = await axios.get(API_URL + '/user/settings', { headers: authHeader() })
+    return response.data
   }
 }
 

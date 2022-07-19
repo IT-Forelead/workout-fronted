@@ -1,11 +1,11 @@
 import { createStore } from 'vuex'
-import { auth } from './auth.module'
-import { memberModule } from './member.module'
-import { messageModule } from './message.module'
-import { paymentModule } from './payment.module'
-import { arrivalModule } from './arrival.module'
-import { settingModule } from './setting.module'
-import { userModule } from './user.module'
+import { auth } from '../modules/auth.module'
+import { memberModule } from '../modules/member.module'
+import { messageModule } from '../modules/message.module'
+import { paymentModule } from '../modules/payment.module'
+import { arrivalModule } from '../modules/arrival.module'
+import { settingModule } from '../modules/setting.module'
+import { userModule } from '../modules/user.module'
 
 const store = createStore({
   modules: {

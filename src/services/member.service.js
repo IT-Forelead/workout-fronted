@@ -5,39 +5,34 @@ import authHeaderForMultiPart from './auth-header-for-multipart.js'
 const API_URL = 'http://localhost:9000'
 
 class MemberService {
-    getCode(data) {
-        return axios.post(API_URL + '/member/sent-code', {phone: data}, {headers: authHeader()}).then((response) => {
-            return response.data
-        })
+    async getCode(data) {
+        const response = await axios.post(API_URL + '/member/sent-code', { phone: data }, { headers: authHeader() })
+        return response.data
     }
 
-    create(data) {
-        return axios.put(API_URL + '/member', data, {
+    async create(data) {
+        const response = await axios.put(API_URL + '/member', data, {
             headers: {
                 'Content-Type': 'multipart/form-data',
                 'Authorization': authHeaderForMultiPart()
             }
-        }).then((response) => {
-            return response.data
         })
+        return response.data
     }
 
-    getMembers() {
-        return axios.get(API_URL + '/member', {headers: authHeader()}).then((response) => {
-            return response.data
-        })
+    async getMembers() {
+        const response = await axios.get(API_URL + '/member', { headers: authHeader() })
+        return response.data
     }
 
-    getPaymentsByMemberId(data) {
-        return axios.post(API_URL + '/payment/member', {memberId: data}, {headers: authHeader()}).then((response) => {
-            return response.data
-        })
+    async getPaymentsByMemberId(data) {
+        const response = await axios.post(API_URL + '/payment/member', { memberId: data }, { headers: authHeader() })
+        return response.data
     } 
 
-    getArrivalByMemberId(data) {
-        return axios.post(API_URL + '/arrival/member', {memberId: data}, {headers: authHeader()}).then((response) => {
-            return response.data
-        })
+    async getArrivalByMemberId(data) {
+        const response = await axios.post(API_URL + '/arrival/member', { memberId: data }, { headers: authHeader() })
+        return response.data
     }
 }
 
