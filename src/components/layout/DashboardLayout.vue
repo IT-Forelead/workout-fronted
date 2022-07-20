@@ -1,7 +1,7 @@
 <template>
   <div class="flex">
     <Sidebar/>
-    <div class="ml-0 lg:ml-80 flex-1 transition-all duration-500" :class="{'lg:ml-20': sidebarStatus}">
+    <div class="flex-1 ml-0 transition-all duration-500 lg:ml-80" :class="{'lg:ml-20': sidebarStatus}">
       <Navbar/>
       <div class="pt-5 mb-24 md:mb-0">
         <router-view v-slot="{ Component }">

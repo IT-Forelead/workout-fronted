@@ -1,6 +1,6 @@
 <template>
   <div class="h-full px-5">
-    <div class="grid grid-cols-1 md:gap-4 lg:grid-cols-3">
+    <div class="relative z-0 grid grid-cols-1 md:gap-4 lg:grid-cols-3">
       <div class="order-last w-full col-span-2 overflow-x-auto lg:order-first">
         <div class="flex items-center justify-between p-1 mb-5">
           <h3 class="mb-3 ml-2 text-2xl font-extrabold dark:text-gray-300">To'lovlar</h3>
@@ -27,7 +27,7 @@
             </div>
           </div>
         </div>
-        <div v-show="payments.length > 0" :class="{ 'overflow-hidden': total / 10 <= 1 }" class="grid grid-cols-1 overflow-x-auto border rounded-lg shadow-lg payments-wrapper payment-table-h border-slate-200 dark:border-gray-600">
+        <div v-show="payments.length > 0" :class="{ 'overflow-hidden': total / 10 <= 1 || Object.keys(selectedPayment).length !== 0 }" class="grid grid-cols-1 overflow-x-auto border rounded-lg shadow-lg payments-wrapper payment-table-h border-slate-200 dark:border-gray-600">
           <table class="w-full divide-y divide-gray-300 dark:divide-gray-600">
             <thead class="z-10 sticky-top bg-slate-50">
               <tr class="font-semibold tracking-wide text-left text-gray-900 text-md dark:bg-gray-800 dark:text-gray-300">
