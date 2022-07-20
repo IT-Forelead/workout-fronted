@@ -44,7 +44,7 @@
       <div v-show="messages.length > 0" :class="{ 'overflow-hidden': total / 10 <= 1 }"
         class="grid grid-cols-1 overflow-x-auto border rounded-lg shadow-lg messages-wrapper messages-table-h border-slate-200 dark:border-gray-600">
         <table class="w-full divide-y divide-gray-300 dark:divide-gray-600">
-          <thead class="z-0 sticky-top bg-slate-50">
+          <thead class="z-0 shadow sticky-top bg-slate-50 shadow-gray-600">
             <tr class="font-semibold tracking-wide text-left text-gray-900 text-md dark:bg-gray-800 dark:text-gray-300">
               <th scope="col" class="px-4 py-3">Foydalanuvchi</th>
               <th scope="col" class="px-4 py-3">Yuborilgan vaqti</th>
