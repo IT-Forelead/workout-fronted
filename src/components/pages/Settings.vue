@@ -1,38 +1,37 @@
 <template>
   <div class="h-full px-5">
-    <div class="mb-5 flex items-center">
-      <h3 class="ml-2 mb-3 text-2xl font-extrabold dark:text-gray-300">Sozlamalar</h3>
+    <div class="flex items-center mb-5">
+      <h3 class="mb-3 ml-2 text-2xl font-extrabold dark:text-gray-300">Sozlamalar</h3>
     </div>
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-      <div class="max-content-h rounded-lg bg-white p-3 px-5 dark:bg-gray-800">
+    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div class="p-3 px-5 bg-white rounded-lg max-content-h dark:bg-gray-800">
         <h3 class="mb-3 text-2xl font-extrabold dark:text-gray-300">Sozlamalarni boshqarish</h3>
-        <hr class="bottom-1 mb-6 border border-gray-200 dark:border-gray-600" />
+        <hr class="mb-6 border border-gray-200 bottom-1 dark:border-gray-600" />
         <form @submit.prevent="updateSettings()">
           <div class="mb-6">
-            <label for="gym-name" class="mb-2 block text-lg font-medium text-gray-900 dark:text-gray-300">Klub nomi</label>
-            <input v-model="gymName" type="text" name="name" id="gym-name" class="block w-full rounded-lg border border-gray-300 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="Klub nomini kiriting..." />
+            <label for="gym-name" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Klub nomi</label>
+            <input v-model="gymName" type="text" name="name" id="gym-name" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="Klub nomini kiriting..." />
           </div>
           <div class="mb-6">
-            <label for="daily-price" class="mb-2 block text-lg font-medium text-gray-900 dark:text-gray-300">Kunlik to'lov</label>
+            <label for="daily-price" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Kunlik to'lov</label>
             <div class="relative rounded-md shadow-sm">
-              <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <span class="text-sm text-gray-500 dark:text-gray-300"> UZS </span>
               </div>
-              <input v-model="dailyPrice" type="text" name="daily-price" id="daily-price" class="block w-full rounded-lg border border-gray-300 pl-11 pr-12 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="0.00" />
+              <input v-model="dailyPrice" type="text" name="daily-price" id="daily-price" class="block w-full pr-12 text-sm text-gray-900 border border-gray-300 rounded-lg pl-11 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="0.00" />
             </div>
           </div>
           <div class="mb-6">
-            <label for="monthly-price" class="mb-2 block text-lg font-medium text-gray-900 dark:text-gray-300">Oylik to'lov</label>
+            <label for="monthly-price" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Oylik to'lov</label>
             <div class="relative rounded-md shadow-sm">
-              <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <span class="text-sm text-gray-500 dark:text-gray-300"> UZS </span>
               </div>
-              <input v-model="monthlyPrice" type="text" name="monthly-price" id="monthly-price" class="block w-full rounded-lg border border-gray-300 pl-11 pr-12 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="0.00" />
+              <input v-model="monthlyPrice" type="text" name="monthly-price" id="monthly-price" class="block w-full pr-12 text-sm text-gray-900 border border-gray-300 rounded-lg pl-11 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="0.00" />
             </div>
           </div>
-          <hr class="bottom-1 mb-6 border border-gray-200 dark:border-gray-600" />
+          <hr class="mb-6 border border-gray-200 bottom-1 dark:border-gray-600" />
           <div class="flex justify-end">
-            <input type="reset" class="mx-1 rounded-lg bg-blue-200 px-5 py-2.5 text-center cursor-pointer text-sm font-medium hover:bg-blue-400 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-400 dark:hover:bg-blue-700 dark:focus:ring-blue-800 dark:text-white" value="Tozalash" />
             <button type="submit" class="mx-1 rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Jo'natish</button>
           </div>
         </form>
