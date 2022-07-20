@@ -18,11 +18,11 @@
             Saralash
           </button>
           <div v-if="openFilter" ref="filterDropdown" class="absolute mt-2 bg-white border rounded-lg top-16 right-40 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
-            <div @click="openFilter = false; filterData.filterBy = 'firstname-az'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Ism bo'yicha (A-Z)</div>
-            <div @click="openFilter = false; filterData.filterBy = 'firstname-za'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Ism bo'yicha (Z-A)</div>
-            <div @click="openFilter = false; filterData.filterBy = 'lastname-az'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Familiya bo'yicha (A-Z)</div>
-            <div @click="openFilter = false; filterData.filterBy = 'lastname-za'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Familiya bo'yicha (Z-A)</div>
-            <div @click="openFilter = false; filterData.filterBy = 'active-time'" class="px-3 py-2 cursor-pointer dark:hover:bg-gray-700">To'lov sanasi yaqinlashganlar</div>
+            <div @click="openFilter = false; filterData.typeBy = 'firstname-az'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Ism bo'yicha (A-Z)</div>
+            <div @click="openFilter = false; filterData.typeBy = 'firstname-za'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Ism bo'yicha (Z-A)</div>
+            <div @click="openFilter = false; filterData.typeBy = 'lastname-az'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Familiya bo'yicha (A-Z)</div>
+            <div @click="openFilter = false; filterData.typeBy = 'lastname-za'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Familiya bo'yicha (Z-A)</div>
+            <div @click="openFilter = false; filterData.typeBy = 'active-time'" class="px-3 py-2 cursor-pointer dark:hover:bg-gray-700">To'lov sanasi yaqinlashganlar</div>
           </div>
           <button @click="openAddMemberModal()" class="mx-1 w-full rounded-lg bg-blue-500 px-5 py-2.5 text-center text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">A'zo qo'shish</button>
         </div>
@@ -496,7 +496,7 @@ const members = ref([])
 const total = ref(0)
 
 const filterData = reactive({
-  filterBy: null
+  typeBy: null
 })
 
 let page = 0
@@ -576,7 +576,7 @@ const refresher = () => {
 }
 
 watch(
-  () => filterData.filterBy,
+  () => filterData.typeBy,
   () => refresher(),
   { deep: true }
 )
