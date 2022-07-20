@@ -19,10 +19,15 @@
               <input v-model.lazy="filterData.filterDateTo" name="end" type="datetime-local" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pr-14 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
             </div>
           </div>
-          <button @click="openFilter = !openFilter" class="w-full px-5 py-2 text-center text-gray-900 bg-white border rounded-lg border-slate-300 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto dark:border-0 dark:text-gray-300"><FunnelIcon class="inline-block mr-1 text-lg" /> Saralash</button>
+          <button @click="openFilter = !openFilter" class="w-full px-5 py-2 text-center text-gray-900 bg-white border rounded-lg border-slate-300 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto dark:border-0 dark:text-gray-300">
+            <div class="flex items-center">
+              <FunnelIcon class="inline-block mr-1 text-lg" />
+              <span class="flex items-center">{{ currentFilter === '' ? 'Saralash' : currentFilter }} <TimesIcon v-if="currentFilter !== ''" @click="defaultView()" class="w-5 h-5 ml-2 text-gray-700 cursor-pointer hover:text-gray-500 dark:text-gray-300 dark:hover:text-gray-400"/></span>
+            </div>
+          </button>
           <div v-if="openFilter" ref="filterDropdown" class="absolute right-0 z-30 w-1/4 mt-2 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 top-11 dark:text-gray-300">
-            <div @click="openFilter = false; filterData.typeBy = 'come_in'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Kelishlar</div>
-            <div @click="openFilter = false; filterData.typeBy = 'go_out'" class="px-3 py-2 cursor-pointer dark:hover:bg-gray-700">Ketishlar</div>
+            <div @click="openFilter = false; filterData.typeBy = 'come_in'; currentFilter = 'Kelishlar'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Kelishlar</div>
+            <div @click="openFilter = false; filterData.typeBy = 'go_out'; currentFilter = 'Ketishlar'" class="px-3 py-2 cursor-pointer dark:hover:bg-gray-700">Ketishlar</div>
           </div>
         </div>
       </div>
@@ -59,6 +64,7 @@ import { onClickOutside } from '@vueuse/core'
 import SpinIcon from '../../assets/icons/SpinIcon.vue'
 import FunnelIcon from '../../assets/icons/FunnelIcon.vue'
 import ArrowRightIcon from '../../assets/icons/ArrowRightIcon.vue'
+import TimesIcon from '../../assets/icons/TimesIcon.vue'
 
 const target = ref('.arrival-wrapper')
 const distance = ref(200)
@@ -69,10 +75,18 @@ const isArrivalEmpty = ref(false)
 // Filter By
 const openFilter = ref(false)
 const filterDropdown = ref(null)
+const currentFilter = ref('')
 
 onClickOutside(filterDropdown, () => {
   if (openFilter.value) openFilter.value = false
 })
+
+const defaultView = () => {
+  currentFilter.value = ''
+  filterData.typeBy = null
+  page = 1
+  loadLastAddedPayment()
+}
 
 // load default
 const filterData = reactive({
@@ -103,9 +117,29 @@ const loadArrivals = async ($state) => {
   } else $state.loaded()
 }
 
+const loadDefaultArrivals = async () => {
+  if (!(total.value / 10 + 1 < page && total.value !== 0)) {
+    try {
+      const response = await fetch('http://localhost:9000/arrival/' + page, {
+        method: 'POST',
+        body: JSON.stringify(filterData),
+        headers: authHeader(),
+      })
+      const json = await response.json()
+      total.value = json.total
+      setTimeout(() => {
+        arrivals.value.push(...json.arrival)
+      }, 500)
+    } catch (error) {
+      console.log("Get Arrivals Error!");
+    }
+  } else $state.loaded()
+}
+
 setTimeout(() => {
   isArrivalEmpty.value = arrivals.value.length === 0
-}, 700)
+}, 1000)
+
 
 // load filtered
 const loadFiltered = async () => {

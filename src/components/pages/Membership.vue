@@ -13,16 +13,18 @@
             </span>
             <input type="search" name="search" v-model="search" class="w-full rounded-lg border border-slate-300 bg-white py-1.5 pl-10 text-lg text-slate-500 outline-none focus:bg-slate-200 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:placeholder-gray-300" placeholder="Izlash..." autocomplete="off" />
           </div>
-          <button @click="openFilter = !openFilter" class="mr-3 hidden w-full rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-center text-gray-900 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:border-0 dark:bg-blue-600 dark:text-gray-300 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto lg:inline-block">
-            <FunnelIcon class="inline-block mr-1 text-lg" />
-            Saralash
+          <button @click="openFilter = !openFilter" class="mr-3 flex flex-nowrap justify-center rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-center text-gray-900 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:border-0 dark:bg-blue-600 dark:text-gray-300 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto lg:inline-block">
+            <div class="flex items-center">
+              <FunnelIcon class="inline-block mr-1 text-lg" />
+              <span class="flex items-center">{{ currentFilter === '' ? 'Saralash' : currentFilter }} <TimesIcon v-if="currentFilter !== ''" @click="defaultView()" class="w-5 h-5 ml-2 text-gray-700 cursor-pointer hover:text-gray-500 dark:text-gray-300 dark:hover:text-gray-400"/></span>
+            </div>
           </button>
           <div v-if="openFilter" ref="filterDropdown" class="absolute mt-2 bg-white border rounded-lg top-16 right-40 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
-            <div @click="openFilter = false; filterData.typeBy = 'firstname-az'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Ism bo'yicha (A-Z)</div>
-            <div @click="openFilter = false; filterData.typeBy = 'firstname-za'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Ism bo'yicha (Z-A)</div>
-            <div @click="openFilter = false; filterData.typeBy = 'lastname-az'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Familiya bo'yicha (A-Z)</div>
-            <div @click="openFilter = false; filterData.typeBy = 'lastname-za'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Familiya bo'yicha (Z-A)</div>
-            <div @click="openFilter = false; filterData.typeBy = 'active-time'" class="px-3 py-2 cursor-pointer dark:hover:bg-gray-700">To'lov sanasi yaqinlashganlar</div>
+            <div @click="openFilter = false; filterData.typeBy = 'firstname-az'; currentFilter = 'Ism bo\'yicha (A-Z)'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Ism bo'yicha (A-Z)</div>
+            <div @click="openFilter = false; filterData.typeBy = 'firstname-za'; currentFilter = 'Ism bo\'yicha (Z-A)'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Ism bo'yicha (Z-A)</div>
+            <div @click="openFilter = false; filterData.typeBy = 'lastname-az'; currentFilter = 'Familiya bo\'yicha (A-Z)'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Familiya bo'yicha (A-Z)</div>
+            <div @click="openFilter = false; filterData.typeBy = 'lastname-za'; currentFilter = 'Familiya bo\'yicha (Z-A)'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Familiya bo'yicha (Z-A)</div>
+            <div @click="openFilter = false; filterData.typeBy = 'active-time'; currentFilter = 'To\'lov sanasi yaqinlashganlar'" class="px-3 py-2 cursor-pointer dark:hover:bg-gray-700">To'lov sanasi yaqinlashganlar</div>
           </div>
           <button @click="openAddMemberModal()" class="mx-1 w-full rounded-lg bg-blue-500 px-5 py-2.5 text-center text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">A'zo qo'shish</button>
         </div>
@@ -201,6 +203,10 @@
         </div>
       </div>
     </div>
+    <div v-show="isLoading" class="flex items-start justify-center w-full h-10">
+      <SpinIcon class="w-7 h-7" />
+    </div>
+    <h1 v-show="isMemberEmpty" class="text-xl text-center text-red-500">Ma'lumotlar bazasidan a'zolar topilmadi!</h1>
   </div>
 </template>
 
@@ -223,6 +229,7 @@ import { useStore } from 'vuex'
 import 'v3-infinite-loading/lib/style.css'
 import SingleMemberData from './Membership/SingleMemberData.vue'
 import authHeader from '../../services/auth-header.js'
+import TimesIcon from '../../assets/icons/TimesIcon.vue'
 
 const store = useStore()
 
@@ -486,11 +493,19 @@ const createMember = () => {
 // Filter By
 const openFilter = ref(false)
 const filterDropdown = ref(null)
+const currentFilter = ref('')
+const isLoading = ref(false)
 
 onClickOutside(filterDropdown, () => {
   if (openFilter.value) openFilter.value = false
 })
 
+const defaultView = () => {
+  currentFilter.value = ''
+  filterData.typeBy = null
+  page = 1
+  loadLastAddedMember()
+}
 // Load members when scrolling
 const members = ref([])
 const total = ref(0)
@@ -542,6 +557,7 @@ const loadLastAddedMember = async () => {
 // load filtered
 const loadFiltered = async () => {
   page++
+  isLoading.value = true
   if (!(total.value / 10 + 1 < page && total.value !== 0)) {
     try {
       const response = await fetch('http://localhost:9000/member/' + page, {
@@ -553,6 +569,7 @@ const loadFiltered = async () => {
       setTimeout(() => {
         members.value = []
         members.value.push(...json.member)
+        isLoading.value = false
       }, 500)
     } catch (error) {
       notify.warning({
@@ -572,7 +589,7 @@ const refresher = () => {
   loadFiltered()
   setTimeout(() => {
     isMemberEmpty.value = members.value.length === 0
-  }, 700)
+  }, 2000)
 }
 
 watch(

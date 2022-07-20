@@ -20,10 +20,15 @@
                 <input v-model.lazy="filterData.filterDateTo" name="end" type="datetime-local" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pr-14 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm" placeholder="Select date start" />
               </div>
             </div>
-            <button @click="openFilter = !openFilter" class="w-full px-5 py-2 text-center text-gray-900 bg-white border rounded-lg border-slate-300 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:border-0 dark:bg-blue-600 dark:text-gray-300 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto"><FunnelIcon class="inline-block mr-1 text-lg" /> Saralash</button>
+            <button @click="openFilter = !openFilter" class="w-full px-5 py-2 text-center text-gray-900 bg-white border rounded-lg border-slate-300 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:border-0 dark:bg-blue-600 dark:text-gray-300 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">
+              <div class="flex items-center">
+                <FunnelIcon class="inline-block mr-1 text-lg" />
+                <span class="flex items-center">{{ currentFilter === '' ? 'Saralash' : currentFilter }} <TimesIcon v-if="currentFilter !== ''" @click="defaultView()" class="w-5 h-5 ml-2 text-gray-700 cursor-pointer hover:text-gray-500 dark:text-gray-300 dark:hover:text-gray-400"/></span>
+              </div>
+            </button>
             <div v-if="openFilter" ref="filterDropdown" class="absolute right-0 z-30 w-1/4 mt-2 bg-white border rounded-lg top-11 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
-              <div @click="filterDropdownClick('monthly')" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Oylik to'lovlar</div>
-              <div @click="filterDropdownClick('daily')" class="px-3 py-2 cursor-pointer dark:hover:bg-gray-700">Kunlik To'lovlar</div>
+              <div @click="filterDropdownClick('monthly'); currentFilter = 'Oylik to\'lovlar'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Oylik to'lovlar</div>
+              <div @click="filterDropdownClick('daily'); currentFilter = 'Kunlik to\'lovlar'" class="px-3 py-2 cursor-pointer dark:hover:bg-gray-700">Kunlik To'lovlar</div>
             </div>
           </div>
         </div>
@@ -184,6 +189,7 @@ const search = ref('')
 // Filter By
 const openFilter = ref(false)
 const filterDropdown = ref(null)
+const currentFilter = ref('')
 
 onClickOutside(filterDropdown, () => {
   if (openFilter.value) openFilter.value = false
@@ -192,6 +198,13 @@ onClickOutside(filterDropdown, () => {
 const filterDropdownClick = (payType) => {
   openFilter.value = false
   filterData.typeBy = payType
+}
+
+const defaultView = () => {
+  currentFilter.value = ''
+  filterData.typeBy = null
+  page = 1
+  loadLastAddedPayment()
 }
 // get sum
 const sum = ref(0)
