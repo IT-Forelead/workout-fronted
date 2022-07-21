@@ -2,16 +2,16 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   {
-    path: '/',
+    path: '/login',
     name: 'Login',
     component: () => import('../components/Login.vue'),
-    meta: { layout: "empty" },
+    meta: { layout: 'login' },
   },
   {
     path: '/register',
     name: 'Register',
     component: () => import('../components/Register.vue'),
-    meta: { layout: "empty" },
+    meta: { layout: 'register' },
   },
   {
     path: '/dashboard',
@@ -20,12 +20,12 @@ const routes = [
   },
   {
     path: '/members',
-    name: 'A\'zolar',
+    name: "A'zolar",
     component: () => import('../components/pages/Membership.vue'),
   },
   {
     path: '/payments',
-    name: 'To\'lovlar',
+    name: "To'lovlar",
     component: () => import('../components/pages/Payments.vue'),
   },
   {
@@ -34,7 +34,7 @@ const routes = [
     component: () => import('../components/pages/Arrival.vue'),
   },
   {
-    path: '/Messages',
+    path: '/messages',
     name: 'SMS xabarlar',
     component: () => import('../components/pages/Messages.vue'),
   },
@@ -61,11 +61,11 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/', '/register']
+  const publicPages = ['/login', '/register']
   const authRequired = !publicPages.includes(to.path)
   const loggedIn = localStorage.getItem('token')
-  if (authRequired && !loggedIn) {
-    next('/register')
+  if ((authRequired && !loggedIn) || (to.path === '/' && !loggedIn)) {
+    next('/login')
   } else if (to.path === '/' && loggedIn) {
     next('/dashboard')
   } else {

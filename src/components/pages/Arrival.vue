@@ -33,7 +33,7 @@
       </div>
       <div v-show="arrivals.length > 0" :class="{ 'overflow-hidden': total / 10 <= 1 }" class="grid grid-cols-1 overflow-x-auto border rounded-lg shadow-lg arrival-wrapper border-slate-200 dark:border-gray-600 arrival-table-h">
         <table class="w-full divide-y divide-gray-300 dark:divide-gray-600">
-          <thead class="z-0 shadow sticky-top bg-slate-50 shadow-gray-600">
+          <thead class="z-0 shadow sticky-top bg-slate-50 dark:shadow-gray-600">
             <tr class="font-semibold tracking-wide text-left text-gray-900 text-md dark:text-gray-300 dark:bg-gray-800">
               <th class="px-4 py-3">Foydalanuvchi</th>
               <th class="px-4 py-3">Vaqti</th>

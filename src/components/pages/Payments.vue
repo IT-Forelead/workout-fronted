@@ -34,7 +34,7 @@
         </div>
         <div v-show="payments.length > 0" :class="{ 'overflow-hidden': total / 10 <= 1 || Object.keys(selectedPayment).length !== 0 }" class="grid grid-cols-1 overflow-x-auto border rounded-lg shadow-lg payments-wrapper payment-table-h border-slate-200 dark:border-gray-600">
           <table class="w-full divide-y divide-gray-300 dark:divide-gray-600">
-            <thead class="z-0 shadow sticky-top bg-slate-50 shadow-gray-600">
+            <thead class="z-0 shadow sticky-top bg-slate-50 dark:shadow-gray-600">
               <tr class="font-semibold tracking-wide text-left text-gray-900 text-md dark:bg-gray-800 dark:text-gray-300">
                 <th scope="col" class="px-4 py-3">To'lovchi</th>
                 <th scope="col" class="hidden px-4 py-3 md:table-cell">To'lov vaqti</th>

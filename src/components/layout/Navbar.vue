@@ -1,9 +1,12 @@
 <template>
-  <div class="z-10 flex items-center justify-between h-16 py-4 bg-white sticky-top dark:bg-gray-800 dark:text-gray-300 md:h-20">
+  <div
+    class="z-10 flex items-center justify-between h-16 py-4 bg-white sticky-top dark:bg-gray-800 dark:text-gray-300 md:h-20">
     <div class="items-center justify-between ml-5 md:flex">
       <div v-if="showSearchAndBtn">
-        <ListIcon v-if="!sidebarStatus" @click="toggleSidebar()" class="p-1 mr-5 text-4xl rounded-full cursor-pointer menu-btn hover:text-blue-600 hover:shadow" />
-        <MenuIcon v-else @click="toggleSidebar()" class="p-1 mr-5 text-4xl rounded-full cursor-pointer menu-btn hover:text-blue-600 hover:shadow" />
+        <ListIcon v-if="!sidebarStatus" @click="toggleSidebar()"
+          class="p-1 mr-5 text-4xl rounded-full cursor-pointer menu-btn hover:text-blue-600 hover:shadow" />
+        <MenuIcon v-else @click="toggleSidebar()"
+          class="p-1 mr-5 text-4xl rounded-full cursor-pointer menu-btn hover:text-blue-600 hover:shadow" />
       </div>
       <div class="p-1 mr-5 lg:hidden">
         <img src="../../assets/images/logo.png" class="w-12 shrink-0" alt="#" />
@@ -14,18 +17,22 @@
             <SearchIcon class="w-5 h-5" />
           </button>
         </span>
-        <input type="search" name="search" class="py-2 pl-16 text-lg border rounded-full outline-none w-96 border-slate-300 bg-slate-100 text-slate-500 focus:bg-slate-200 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:placeholder-gray-300" placeholder="Izlash..." autocomplete="off" />
+        <input type="search" name="search"
+          class="py-2 pl-16 text-lg border rounded-full outline-none w-96 border-slate-300 bg-slate-100 text-slate-500 focus:bg-slate-200 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:placeholder-gray-300"
+          placeholder="Izlash..." autocomplete="off" />
       </div>
     </div>
     <div class="flex items-center mr-5">
-      <button id="dropdownNotificationBtn" @click="toggleDropDownNotification()" class="relative inline-block p-1 mr-3 rounded-full shadow bg-slate-100 text-slate-500 hover:bg-slate-200 dark:bg-gray-700 dark:hover:bg-gray-600 md:p-2">
+      <button id="dropdownNotificationBtn" @click="toggleDropDownNotification()"
+        class="relative inline-block p-1 mr-3 rounded-full shadow bg-slate-100 text-slate-500 hover:bg-slate-200 dark:bg-gray-700 dark:hover:bg-gray-600 md:p-2">
         <BellIcon class="w-6 h-6 dark:text-gray-300 md:h-7 md:w-7" />
         <div v-if="showNotificationAlert">
           <span class="absolute top-0.5 right-0 animate-ping rounded-full bg-rose-500 p-1 md:p-1.5"></span>
           <span class="absolute top-0.5 right-0 rounded-full bg-rose-500 p-1 md:p-1.5"></span>
         </div>
       </button>
-      <div id="dropdownNotification" class="hidden bg-white border rounded shadow w-96 dark:border-gray-600 dark:bg-gray-800">
+      <div id="dropdownNotification"
+        class="hidden bg-white border rounded shadow w-96 dark:border-gray-600 dark:bg-gray-800">
         <div v-if="showNotificationAlert" class="flex items-center justify-between px-5 py-3 text-md">
           <div class="flex items-center px-1 mr-3">
             <div class="relative bottom-1.5 mr-3">
@@ -40,7 +47,8 @@
           </div>
           <div>
             <p class="font-semibold text-gray-900 dark:text-gray-300">Bildirishnoma</p>
-            <p class="text-gray-600 text-md dark:text-gray-400">Fitnes klubingizning nomini va to'lov summalarini sozlamalar bo'limi orqali kiriting!</p>
+            <p class="text-gray-600 text-md dark:text-gray-400">Fitnes klubingizning nomini va to'lov summalarini
+              sozlamalar bo'limi orqali kiriting!</p>
           </div>
         </div>
         <div v-else class="flex flex-col items-center justify-center px-5 py-20 text-md">
@@ -50,34 +58,44 @@
       </div>
       <div class="flex items-center md:mx-3" v-if="showSearchAndBtn">
         <button id="dropdownBtn" @click="toggleDropDown()" class="flex items-center" type="button">
-          <span class="relative inline-block p-1 rounded-full shadow bg-slate-100 text-slate-500 hover:bg-slate-200 dark:bg-gray-700 dark:hover:bg-gray-600 md:p-2">
+          <span
+            class="relative inline-block p-1 rounded-full shadow bg-slate-100 text-slate-500 hover:bg-slate-200 dark:bg-gray-700 dark:hover:bg-gray-600 md:p-2">
             <UserIcon class="w-6 h-6 dark:text-gray-300 md:h-7 md:w-7" />
           </span>
           <span class="flex items-center">
             <span class="text-left">
-              <span class="block px-2 ml-2 text-lg font-semibold text-gray-900 capitalize cursor-pointer dark:text-gray-300">
+              <span
+                class="block px-2 ml-2 text-lg font-semibold text-gray-900 capitalize cursor-pointer dark:text-gray-300">
                 {{ fullname }}
               </span>
               <span class="block px-2 ml-2 text-gray-400 capitalize cursor-pointer text-md">
                 {{ gymName }}
               </span>
             </span>
-            <span class="p-1 ml-2 border rounded-full shadow border-slate-200 bg-slate-50 text-slate-500 hover:bg-slate-100 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <span
+              class="p-1 ml-2 border rounded-full shadow border-slate-200 bg-slate-50 text-slate-500 hover:bg-slate-100 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
               </svg>
             </span>
           </span>
         </button>
-        <div id="dropdownInformation" class="hidden bg-white border rounded shadow w-60 dark:border-gray-600 dark:bg-gray-800">
+        <div id="dropdownInformation"
+          class="hidden bg-white border rounded shadow w-60 dark:border-gray-600 dark:bg-gray-800">
           <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformationButton">
             <li class="border-b hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
-              <router-link to="/profile" class="flex items-center px-4 py-2 text-md dark:text-gray-300"> <UserIcon class="mr-2 text-xl dark:text-gray-300" /> Profil </router-link>
+              <router-link to="/profile" class="flex items-center px-4 py-2 text-md dark:text-gray-300">
+                <UserIcon class="mr-2 text-xl dark:text-gray-300" /> Profil
+              </router-link>
             </li>
             <li class="border-b hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
-              <router-link to="/settings" class="flex items-center px-4 py-2 text-md dark:text-gray-300"> <GearIcon class="mr-2 text-xl dark:text-gray-300" /> Sozlamalar </router-link>
+              <router-link to="/settings" class="flex items-center px-4 py-2 text-md dark:text-gray-300">
+                <GearIcon class="mr-2 text-xl dark:text-gray-300" /> Sozlamalar
+              </router-link>
             </li>
-            <li class="flex items-center justify-between px-3 py-2 border-b hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
+            <li
+              class="flex items-center justify-between px-3 py-2 border-b hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
               <div class="flex items-center">
                 <MoonIcon v-if="isDark" class="w-6 h-6 mr-2" />
                 <SunIcon v-else class="w-6 h-6 mr-2" />
@@ -85,15 +103,20 @@
               </div>
               <label v-if="isLight" for="checked-toggle-off" class="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" value="" id="checked-toggle-off" class="sr-only peer" />
-                <div @click="toggleDark()" class="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:top-0.5 after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white dark:border-gray-600 dark:bg-gray-700"></div>
+                <div @click="toggleDark()"
+                  class="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:top-0.5 after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white dark:border-gray-600 dark:bg-gray-700">
+                </div>
               </label>
               <label v-else for="checked-toggle-on" class="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" value="" id="checked-toggle-on" class="sr-only peer" checked />
-                <div @click="toggleDark()" class="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:top-0.5 after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white dark:border-gray-600 dark:bg-gray-700"></div>
+                <div @click="toggleDark()"
+                  class="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:top-0.5 after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white dark:border-gray-600 dark:bg-gray-700">
+                </div>
               </label>
             </li>
             <li class="hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
-              <router-link to="/" @click="onLogout()" class="flex items-center px-4 py-2 text-gray-700 text-md dark:text-gray-300">
+              <router-link to="/" @click="onLogout()"
+                class="flex items-center px-4 py-2 text-gray-700 text-md dark:text-gray-300">
                 <LogoutIcon class="mr-2 text-xl dark:text-gray-300" />
                 Chiqish
               </router-link>
@@ -160,7 +183,7 @@ function onLogout() {
     () => {
       store.commit('setSelectedPage', '')
     },
-    (error) => {}
+    (error) => { }
   )
 }
 
@@ -171,7 +194,7 @@ function forbiddenChecker(error, msg) {
       () => {
         store.commit('setSelectedPage', '')
       },
-      (error) => {}
+      (error) => { }
     )
   } else {
     notify.warning({
@@ -223,14 +246,16 @@ const checkUserUndefined = () => {
         }
       )
     }
-  }, 1000)
+  }, 600)
 }
 
-onMounted(() => {
-  addUserInStore()
-  addSettingInStore()
-  checkUserUndefined()
-})
+if (localStorage.getItem('token')) {
+  onMounted(() => {
+    addUserInStore()
+    addSettingInStore()
+    checkUserUndefined()
+  })
+}
 
 const fullname = computed(() => {
   return store.state.user.firstname + ' ' + store.state.user.lastname
