@@ -82,7 +82,7 @@
                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                   <span class="text-sm text-gray-500"> UZS </span>
                 </div>
-                <input type="text" id="monthly-price" class="block w-full pr-12 bg-gray-50 p-2.5 text-sm text-gray-900 border border-gray-300 rounded-lg pl-11 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="0.00" required />
+                <input type="text" name="monthlyPrice" id="monthly-price" class="block w-full pr-12 bg-gray-50 p-2.5 text-sm text-gray-900 border border-gray-300 rounded-lg pl-11 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="0.00" required />
               </div>
             </div>
             <div class="p-3">
