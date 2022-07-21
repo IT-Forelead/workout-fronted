@@ -1,35 +1,57 @@
 <template>
   <div>
     <div
-        class="z-40 grid w-screen h-16 grid-cols-5 text-gray-900 bg-white border-t fixed-bottom dark:text-gray-300 dark:bg-gray-800 dark:border-gray-600">
-      <router-link to="/dashboard" class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
+        class="z-40 grid w-screen h-16 grid-cols-5 text-gray-900 bg-white border-t fixed-bottom dark:text-gray-300 dark:bg-gray-800 dark:border-gray-600" :class="{'grid-cols-4': isAdmin}">
+      <!-- Admin access -->
+      <router-link to="/admin-dashboard" v-if="isAdmin" class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
+                   @click="changePage('admin-home')"
+                   :class="{'bg-blue-500 text-white': page === 'admin-home' || $router.currentRoute.value.path === '/admin-dashboard' && !(page === 'leads') && !(page === 'clients')}">
+        <HouseBoldIcon class="w-7 h-7"/>
+      </router-link>
+      <router-link to="/leads" v-if="isAdmin" class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
+                   @click="changePage('leads')"
+                   :class="{'bg-blue-500 text-white': page === 'leads' || $router.currentRoute.value.path === '/leads' && !(page === 'admin-home') && !(page === 'clients')}">
+        <UsersBoldIcon class="w-7 h-7"/>
+      </router-link>
+      <router-link to="/clients" v-if="isAdmin" class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
+                   @click="changePage('clients')"
+                   :class="{'bg-blue-500 text-white': page === 'clients' || $router.currentRoute.value.path === '/clients' && !(page === 'leads') && !(page === 'admin-home')}">
+        <UserPlusBoldIcon class="w-7 h-7"/>
+      </router-link>
+      <!-- Client access -->
+      <router-link to="/dashboard" v-if="!isAdmin" class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
                    @click="changePage('home')"
                    :class="{'bg-blue-500 text-white': page === 'home' || $router.currentRoute.value.path === '/dashboard' && !(page === 'reports') && !(page === 'profile')}">
         <HouseBoldIcon class="w-7 h-7"/>
       </router-link>
-      <router-link to="/members" class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
+      <router-link to="/members" v-if="!isAdmin" class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
                    @click="changePage('members')"
                    :class="{'bg-blue-500 text-white': page === 'members' || $router.currentRoute.value.path === '/members' && !(page === 'reports') && !(page === 'profile')}">
         <UsersBoldIcon class="w-7 h-7"/>
       </router-link>
-      <router-link to="/payments" class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
+      <router-link to="/payments" v-if="!isAdmin" class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
                    @click="changePage('payments')"
                    :class="{'bg-blue-500 text-white': page === 'payments' || $router.currentRoute.value.path === '/payments' && !(page === 'reports') && !(page === 'profile')}">
         <WalletBoldIcon class="w-7 h-7"/>
       </router-link>
-      <div class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
+      <div v-if="!isAdmin" class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
            @click="changePage('reports'); toggleReportDropMenu()"
-           :class="{'bg-blue-500 text-white': page === 'reports' || ($router.currentRoute.value.path === '/arrival' || $router.currentRoute.value.path === '/Messages') && !(page === 'profile') && !(page === 'settings')}">
+           :class="{'bg-blue-500 text-white': page === 'reports' || ($router.currentRoute.value.path === '/arrival' || $router.currentRoute.value.path === '/messages') && !(page === 'profile') && !(page === 'settings')}">
         <RepeatBoldIcon class="w-7 h-7"/>
       </div>
-      <div class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
+      <div v-if="!isAdmin" class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
            @click="changePage('profile'); toggleProfileDropMenu()"
            :class="{'bg-blue-500 text-white': page === 'profile' || ($router.currentRoute.value.path === '/settings' || $router.currentRoute.value.path === '/profile') && !(page === 'arrival') && !(page === 'messages')}">
         <UserBoldIcon class="w-7 h-7"/>
       </div>
+      <div v-else class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
+           @click="changePage('profile'); toggleProfileDropMenu()"
+           :class="{'bg-blue-500 text-white': page === 'profile' || ($router.currentRoute.value.path === '/profile') && !(page === 'leads') && !(page === 'clients')}">
+        <UserBoldIcon class="w-7 h-7"/>
+      </div>
     </div>
     <!--  DROP MENU Reports-->
-    <div ref="reportDropdown"
+    <div v-if="!isAdmin" ref="reportDropdown"
          class="z-30 px-4 py-2 text-gray-900 transition-all duration-300 bg-white border-t fixed-bottom dark:text-gray-300 dark:bg-gray-800 bottom-16 rounded-t-xl dark:border-gray-600 translate-y-52"
          :class="{'translate-y-0': showReportDropMenu}">
       <div class="flex items-start justify-center">
@@ -61,7 +83,7 @@
           <UserIcon class="mr-2 w-7 h-7"/>
           Profil
         </router-link>
-        <router-link to="/settings" @click="toggleProfileDropMenu()"
+        <router-link to="/settings" v-if="!isAdmin" @click="toggleProfileDropMenu()"
                      class="flex items-center py-3 dark:hover:bg-gray-700 border-y dark:border-gray-600">
           <GearIcon class="mr-2 w-7 h-7"/>
           Sozlamalar
@@ -96,6 +118,7 @@
 </template>
 <script setup>
 import UserBoldIcon from "../../assets/icons/UserBoldIcon.vue";
+import UserPlusBoldIcon from "../../assets/icons/UserPlusBoldIcon.vue";
 import HouseBoldIcon from "../../assets/icons/HouseBoldIcon.vue";
 import UsersBoldIcon from "../../assets/icons/UsersBoldIcon.vue";
 import WalletBoldIcon from "../../assets/icons/WalletBoldIcon.vue";
@@ -112,6 +135,9 @@ import {computed, ref} from 'vue'
 import {onClickOutside, useDark, useToggle} from "@vueuse/core";
 
 const store = useStore()
+
+// Admin access
+const isAdmin = computed(() => store.state.user.role === 'admin')
 
 // Dark & Light Mode
 const isDark = useDark()

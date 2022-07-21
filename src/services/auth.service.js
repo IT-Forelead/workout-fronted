@@ -15,7 +15,7 @@ class AuthService {
   logout() {
     localStorage.removeItem('time')
     localStorage.removeItem('token')
-
+    localStorage.removeItem('role')
   }
 }
 

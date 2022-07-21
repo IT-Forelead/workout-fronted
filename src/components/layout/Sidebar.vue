@@ -40,14 +40,14 @@ const sidebarStatus = computed(() => {
 })
 
 let menus = accessRoutes()
-
 function accessRoutes() {
-  if (store.state.user.role === 'admin') {
+  if (store.state.user.role === 'admin' || localStorage.getItem('role') === 'admin') {
     return [
-      { id: 1, url: '/leads', icon: 'people-outline', name: 'Leadlar' },
-      { id: 2, url: '/clients', icon: 'person-add-outline', name: 'Klientlar' },
+      { id: 1, url: '/admin-home', icon: 'home-outline', name: 'Bosh sahifa' },
+      { id: 2, url: '/leads', icon: 'people-outline', name: 'Leadlar' },
+      { id: 3, url: '/clients', icon: 'person-add-outline', name: 'Klientlar' },
     ]
-  } else {
+  } else if(store.state.user.role === 'clients' || localStorage.getItem('role') === 'clients'){
     return [
       { id: 1, url: '/dashboard', icon: 'home-outline', name: 'Asosiy sahifa' },
       { id: 2, url: '/members', icon: 'people-outline', name: "A'zolarimiz" },

@@ -48,6 +48,22 @@ const routes = [
     name: 'Profil',
     component: () => import('../components/pages/Profile.vue'),
   },
+  // Admin routes
+  {
+    path: '/admin-home',
+    name: 'Admin Home',
+    component: () => import('../components/pages/admin/AdminHome.vue'),
+  },
+  {
+    path: '/leads',
+    name: 'Leads',
+    component: () => import('../components/pages/admin/Leads.vue'),
+  },
+  {
+    path: '/clients',
+    name: 'Clients',
+    component: () => import('../components/pages/admin/Clients.vue'),
+  },
   {
     path: '/:pathMach(.*)*',
     name: 'NotFound',
