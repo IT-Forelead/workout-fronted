@@ -55,9 +55,9 @@ const routes = [
     component: () => import('../components/pages/admin/AdminHome.vue'),
   },
   {
-    path: '/leads',
-    name: 'Leads',
-    component: () => import('../components/pages/admin/Leads.vue'),
+    path: '/unverified-clients',
+    name: 'UnverifiedClients',
+    component: () => import('../components/pages/admin/UnverifiedClients.vue'),
   },
   {
     path: '/clients',

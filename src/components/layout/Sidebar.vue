@@ -44,8 +44,8 @@ function accessRoutes() {
   if (store.state.user.role === 'admin' || localStorage.getItem('role') === 'admin') {
     return [
       { id: 1, url: '/admin-home', icon: 'home-outline', name: 'Bosh sahifa' },
-      { id: 2, url: '/leads', icon: 'people-outline', name: 'Leadlar' },
-      { id: 3, url: '/clients', icon: 'person-add-outline', name: 'Klientlar' },
+      { id: 2, url: '/clients', icon: 'people-outline', name: 'Klientlar' },
+      { id: 3, url: '/unverified-clients', icon: 'person-add-outline', name: 'Kutishdagi mijozlar' },
     ]
   } else if(store.state.user.role === 'clients' || localStorage.getItem('role') === 'clients'){
     return [
