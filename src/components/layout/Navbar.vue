@@ -97,8 +97,8 @@
             <li
               class="flex items-center justify-between px-3 py-2 border-b hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
               <div class="flex items-center">
-                <MoonIcon v-if="isDark" class="w-6 h-6 mr-2" />
-                <SunIcon v-else class="w-6 h-6 mr-2" />
+                <BulbOffIcon v-if="isDark" class="w-6 h-6 mr-2" />
+                <BulbOnIcon v-else class="w-6 h-6 mr-2" />
                 Tungi rejim
               </div>
               <label v-if="isLight" for="checked-toggle-off" class="relative inline-flex items-center cursor-pointer">
@@ -135,8 +135,8 @@ import GearIcon from '../../assets/icons/GearIcon.vue'
 import MenuIcon from '../../assets/icons/MenuIcon.vue'
 import ListIcon from '../../assets/icons/ListIcon.vue'
 import BellIcon from '../../assets/icons/BellIcon.vue'
-import SunIcon from '../../assets/icons/SunIcon.vue'
-import MoonIcon from '../../assets/icons/MoonIcon.vue'
+import BulbOnIcon from '../../assets/icons/BulbOnIcon.vue'
+import BulbOffIcon from '../../assets/icons/BulbOffIcon.vue'
 import UserIcon from '../../assets/icons/UserIcon.vue'
 import SearchIcon from '../../assets/icons/SearchIcon.vue'
 import BookmarkIcon from '../../assets/icons/BookmarkIcon.vue'

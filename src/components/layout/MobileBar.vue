@@ -68,8 +68,8 @@
         </router-link>
         <div class="flex items-center justify-between py-3">
           <div class="flex items-center">
-            <MoonIcon v-if="isDark" class="mr-2 w-7 h-7"/>
-            <SunIcon v-else class="mr-2 w-7 h-7"/>
+            <BulbOffIcon v-if="isDark" class="mr-2 w-7 h-7"/>
+            <BulbOnIcon v-else class="mr-2 w-7 h-7"/>
             Tungi rejim
           </div>
           <label v-if="isLight" for="dark-mode-off" class="relative inline-flex items-center cursor-pointer">
@@ -104,8 +104,8 @@ import RepeatBoldIcon from "../../assets/icons/RepeatBoldIcon.vue";
 import EnvelopeIcon from "../../assets/icons/EnvelopeIcon.vue";
 import UserIcon from "../../assets/icons/UserIcon.vue";
 import GearIcon from "../../assets/icons/GearIcon.vue";
-import MoonIcon from "../../assets/icons/MoonIcon.vue";
-import SunIcon from "../../assets/icons/SunIcon.vue";
+import BulbOffIcon from "../../assets/icons/BulbOffIcon.vue";
+import BulbOnIcon from "../../assets/icons/BulbOnIcon.vue";
 import LogoutIcon from "../../assets/icons/LogoutIcon.vue";
 import {useStore} from 'vuex'
 import {computed, ref} from 'vue'
