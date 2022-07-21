@@ -69,6 +69,7 @@
 <script setup>
 import SpinIcon from '../../assets/icons/SpinIcon.vue'
 import FunnelIcon from '../../assets/icons/FunnelIcon.vue'
+import ArrowRightIcon from '../../assets/icons/ArrowRightIcon.vue'
 import MessagesInfo from './Messages/MessagesInfo.vue'
 import TimesIcon from '../../assets/icons/TimesIcon.vue'
 import { reactive, ref, watch } from 'vue'

@@ -8,6 +8,12 @@ const routes = [
     meta: { layout: "empty" },
   },
   {
+    path: '/register',
+    name: 'Register',
+    component: () => import('../components/Register.vue'),
+    meta: { layout: "empty" },
+  },
+  {
     path: '/dashboard',
     name: 'Asosiy sahifa',
     component: () => import('../components/pages/Main.vue'),
@@ -55,11 +61,11 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/']
+  const publicPages = ['/', '/register']
   const authRequired = !publicPages.includes(to.path)
   const loggedIn = localStorage.getItem('token')
   if (authRequired && !loggedIn) {
-    next('/')
+    next('/register')
   } else if (to.path === '/' && loggedIn) {
     next('/dashboard')
   } else {

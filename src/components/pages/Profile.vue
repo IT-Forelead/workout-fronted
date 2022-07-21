@@ -52,12 +52,12 @@
               <input type="password" id="password-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Hozirgi parolni kiriting..." disabled />
             </div>
             <div class="mb-6">
-              <label for="password-input" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Yangi parol</label>
-              <input type="password" id="password-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Yangi parolni kiriting..." disabled />
+              <label for="new-password-input" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Yangi parol</label>
+              <input type="password" id="new-password-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Yangi parolni kiriting..." disabled />
             </div>
             <div class="mb-6">
-              <label for="password-input" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Yangi parolni takrorlang</label>
-              <input type="password" id="password-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Yangi parolni takrorlang..." disabled />
+              <label for="repeat-password-input" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Yangi parolni takrorlang</label>
+              <input type="password" id="repeat-password-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Yangi parolni takrorlang..." disabled />
             </div>
             <hr class="border-gray-200 dark:border-gray-600 bottom-1 mb-6" />
             <div class="flex justify-end">
