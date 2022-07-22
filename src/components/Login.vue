@@ -28,9 +28,14 @@
                 </div>
                 <div class="flex items-center mt-8">
                   <button type="submit"
-                    class="flex justify-center w-full py-5 text-white bg-gray-900 text-md rounded-xl hover:bg-gray-800" :disabled="isLoading">
-                    <span v-if="!isLoading" class="flex items-center"><LoginIcon class="mr-3 text-2xl" />Tizimga kirish</span>
-                    <span v-else class="flex items-center"><SpinIcon class="w-6 h-6"/> Tekshirilmoqda...</span>
+                    class="flex justify-center w-full py-5 text-white bg-gray-900 text-md rounded-xl hover:bg-gray-800"
+                    :disabled="isLoading">
+                    <span v-if="!isLoading" class="flex items-center">
+                      <LoginIcon class="mr-3 text-2xl" />Tizimga kirish
+                    </span>
+                    <span v-else class="flex items-center">
+                      <SpinIcon class="w-6 h-6" /> Tekshirilmoqda...
+                    </span>
                   </button>
                 </div>
               </Form>
@@ -86,15 +91,33 @@ const schema = yup.object().shape({
 
 const isLoading = ref(false)
 
+// User Data
+const addUserInStore = () => {
+  store.dispatch('userModule/get').then(
+    (data) => {
+      store.commit('setUser', data)
+    },
+    (error) => {
+      forbiddenChecker(error, "Foydalanuvchi ma'lumotlarini olishda xatolik yuz berdi!")
+    }
+  )
+}
+
 const onSubmit = (user) => {
   isLoading.value = true
   user.phone = user.phone.replace(')', '').replace('(', '').replace(' ', '').replace('-', '').replace('-', '')
   store.dispatch('auth/login', user).then(
-    () => {
+    (data) => {
+      addUserInStore()
       setTimeout(() => {
-        router.push('/dashboard')
+        if (store.state.user.role === 'admin') {
+          router.push('/admin-home')
+        } else {
+          router.push('/dashboard')
+        }
         isLoading.value = false
-      }, 1000)
+        localStorage.setItem('role', store.state.user.role)
+      }, 700)
     },
     (error) => {
       notify.error({

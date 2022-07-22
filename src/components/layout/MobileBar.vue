@@ -45,8 +45,8 @@
         <UserBoldIcon class="w-7 h-7"/>
       </div>
       <div v-else class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
-           @click="changePage('profile'); toggleProfileDropMenu()"
-           :class="{'bg-blue-500 text-white': page === 'profile' || ($router.currentRoute.value.path === '/profile') && !(page === 'leads') && !(page === 'clients')}">
+           @click="changePage('admin-profile'); toggleProfileDropMenu()"
+           :class="{'bg-blue-500 text-white': page === 'admin-profile' || ($router.currentRoute.value.path === '/admin-profile') && !(page === 'leads') && !(page === 'clients')}">
         <UserBoldIcon class="w-7 h-7"/>
       </div>
     </div>

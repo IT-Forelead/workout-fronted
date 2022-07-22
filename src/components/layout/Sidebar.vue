@@ -16,7 +16,7 @@
         <MenuItem :menu="menu" :class="{ 'mx-3 pl-3.5': sidebarStatus }" />
       </li>
     </ul>
-    <div v-if="!sidebarStatus" class="relative text-sm text-center text-gray-400 custom-top dark:text-gray-400">
+    <div v-if="!sidebarStatus" class="absolute bottom-0 w-full mb-3 text-sm text-center text-gray-400 dark:text-gray-400">
       Copyright &copy; 2022 <a href="https://it-forelead.uz" class="hover:underline">IT-Forelead</a>. <br />
       All Rights Reserved.
     </div>
@@ -47,7 +47,7 @@ function accessRoutes() {
       { id: 2, url: '/clients', icon: 'people-outline', name: 'Klientlar' },
       { id: 3, url: '/unverified-clients', icon: 'person-add-outline', name: 'Kutishdagi mijozlar' },
     ]
-  } else if(store.state.user.role === 'clients' || localStorage.getItem('role') === 'clients'){
+  } else if(store.state.user.role === 'client' || localStorage.getItem('role') === 'client'){
     return [
       { id: 1, url: '/dashboard', icon: 'home-outline', name: 'Asosiy sahifa' },
       { id: 2, url: '/members', icon: 'people-outline', name: "A'zolarimiz" },

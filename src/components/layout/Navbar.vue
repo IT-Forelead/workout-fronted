@@ -258,7 +258,6 @@ if (localStorage.getItem('token')) {
 }
 
 const fullname = computed(() => {
-  localStorage.setItem('role', store.state.user.role)
   return store.state.user.firstname + ' ' + store.state.user.lastname
 })
 

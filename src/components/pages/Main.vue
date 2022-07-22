@@ -68,18 +68,4 @@ import StatisticDown from '../../assets/icons/StatisticDown.vue'
 import OrderIcon from '../../assets/icons/OrderIcon.vue'
 import ExpenseIcon from '../../assets/icons/ExpenseIcon.vue'
 import ExpectedIcon from '../../assets/icons/ExpectedIcon.vue'
-import { onMounted } from 'vue'
-import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
-
-const store = useStore()
-const router = useRouter()
-
-const checkAccess = () => {
-  console.log(store.state.user.role);
-  if (store.state.user.role === 'admin') {
-    router.push('/admin-home')
-  }
-}
-onMounted(() => checkAccess())
 </script>
