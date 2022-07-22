@@ -142,6 +142,7 @@ const loadFirstTenMessages = async () => {
       const json = await response.json()
       total.value = json.total
       setTimeout(() => {
+        messages.value = []
         messages.value.push(...json.messages)
       }, 500)
     } catch (error) {
@@ -163,6 +164,7 @@ const loadFiltered = async () => {
       const json = await response.json()
       total.value = json.total
       setTimeout(() => {
+        messages.value = []
         messages.value.push(...json.messages)
       }, 500)
     } catch (error) {

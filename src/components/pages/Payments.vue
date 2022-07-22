@@ -305,6 +305,7 @@ const loadFilteredPayments = async () => {
       const json = await response.json()
       total.value = json.total
       setTimeout(() => {
+        payments.value = []
         payments.value.push(...json.payment)
       }, 500)
     } catch (error) {
