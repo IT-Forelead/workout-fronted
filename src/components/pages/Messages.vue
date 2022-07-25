@@ -46,10 +46,10 @@
         <table class="w-full divide-y divide-gray-300 dark:divide-gray-600">
           <thead class="z-0 shadow sticky-top bg-slate-50 dark:shadow-gray-600">
             <tr class="font-semibold tracking-wide text-left text-gray-900 text-md dark:bg-gray-800 dark:text-gray-300">
-              <th scope="col" class="px-4 py-3">Foydalanuvchi</th>
-              <th scope="col" class="px-4 py-3">Yuborilgan vaqti</th>
-              <th scope="col" class="px-4 py-3">SMS matni</th>
-              <th scope="col" class="px-4 py-3">Status</th>
+              <th scope="col" class="px-4 py-5">Foydalanuvchi</th>
+              <th scope="col" class="px-4 py-5">Yuborilgan vaqti</th>
+              <th scope="col" class="px-4 py-5">SMS matni</th>
+              <th scope="col" class="px-4 py-5">Status</th>
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-600 dark:bg-gray-800 dark:text-gray-300">
