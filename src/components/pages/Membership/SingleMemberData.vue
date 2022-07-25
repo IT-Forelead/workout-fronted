@@ -1,35 +1,35 @@
 <template>
   <div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5 2xl:gap-x-14 h-1/2 overflow-y-auto">
+    <div class="grid grid-cols-1 gap-5 overflow-y-auto sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 2xl:gap-14 h-1/2">
       <div v-for="(member, idx) in members" :key="idx"
-           class="overflow-hidden rounded-xl bg-white shadow-md dark:bg-gray-800">
+           class="overflow-hidden bg-white shadow-md rounded-xl dark:bg-gray-800">
         <img :src="'http://localhost:9000/member/image/' + member.image" alt="#"
-             class="h-40 w-full cursor-zoom-out object-cover duration-500 hover:object-scale-down"/>
+             class="object-cover w-full h-40 duration-500 cursor-zoom-out hover:object-scale-down"/>
         <div class="flex flex-col justify-center p-5 text-center" x-data="{open: false}">
-          <h3 class="text-md mb-2 h-14 overflow-hidden font-extrabold dark:text-gray-300 text-xl">{{
+          <h3 class="mb-2 overflow-hidden text-xl font-extrabold text-md h-14 dark:text-gray-300">{{
               member.firstname + ' ' + member.lastname
             }}</h3>
-          <p class="text-medium my-2 mb-4 text-gray-600 dark:text-gray-300 text-xl">{{ phoneStyle(member.phone) }}</p>
+          <p class="my-2 mb-4 text-xl text-gray-600 text-medium dark:text-gray-300">{{ phoneStyle(member.phone) }}</p>
           <button x-on:mouseenter="open = true" x-on:mouseleave="open = false" @click="openModal(member); getPaymentsByMemberId(member.id); getArrivalByMemberId(member.id)"
-                  class="flex items-center justify-center rounded-md border border-slate-300 bg-white py-2 px-5 text-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 transition-all duration-200 ease-in hover:bg-slate-100">
+                  class="flex items-center justify-center px-5 py-2 text-gray-500 transition-all duration-200 ease-in bg-white border rounded-md border-slate-300 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 hover:bg-slate-100">
             Batafsil
-            <ArrowCircleRightIcon x-show="open" class="ml-3 animate-pulse text-xl transition-all duration-500 ease-in"/>
+            <ArrowCircleRightIcon x-show="open" class="ml-3 text-xl transition-all duration-500 ease-in animate-pulse"/>
           </button>
         </div>
       </div>
     </div>
-    <div class="p-2 flex justify-center items-center w-full">
+    <div class="flex items-center justify-center w-full p-2">
       <InfiniteLoading v-bind="$attrs"/>
     </div>
     <!-- Member Info Modal -->
-    <div v-if="isModalOpen" class="fixed top-0 right-0 left-0 z-50 w-full overflow-y-auto overflow-x-hidden backdrop-brightness-50 inset-0 h-full">
-      <div class="relative top-1/2 left-1/2 h-full w-full max-w-7xl -translate-x-1/2 -translate-y-1/2 p-4 md:h-auto">
-        <div class="relative rounded-lg bg-white shadow-lg dark:bg-gray-800 dark:text-gray-300">
-          <div class="flex items-start justify-between rounded-t border-b p-4 dark:border-gray-600">
+    <div v-if="isModalOpen" class="fixed inset-0 top-0 left-0 right-0 z-50 w-full h-full overflow-x-hidden overflow-y-auto backdrop-brightness-50">
+      <div class="relative w-full h-full p-4 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 max-w-7xl md:h-auto">
+        <div class="relative bg-white rounded-lg shadow-lg dark:bg-gray-800 dark:text-gray-300">
+          <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
             <div class="text-xl font-semibold text-gray-900 dark:text-white">
               <div v-if="Object.keys(selectedMember).length !== 0" class="flex items-center">
-                <img :src="'http://localhost:9000/member/image/' + selectedMember.image" alt="Avatar" class="ml-2 h-20 w-20 rounded-full"/>
-                <div class="ml-4 pr-2">
+                <img :src="'http://localhost:9000/member/image/' + selectedMember.image" alt="Avatar" class="w-20 h-20 ml-2 rounded-full"/>
+                <div class="pr-2 ml-4">
                   <h3>{{ selectedMember.firstname + ' ' + selectedMember.lastname }}</h3>
                   <h5 class="text-sm">{{ phoneStyle(selectedMember.phone) }}</h5>
                   <h6 class="text-sm text-gray-500">{{ selectedMember.birthday }}</h6>
@@ -45,12 +45,12 @@
               <ModalCloseIcon/>
             </button>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-6">
+          <div class="grid grid-cols-1 gap-4 p-6 md:grid-cols-3">
             <SinglePersonPayment :payments="payments"/>
             <SinglePersonArrival :arrivals="arrivals"/>
           </div>
           <div
-              class="flex items-center justify-end space-x-2 rounded-b border-t border-gray-200 p-6 dark:border-gray-600">
+              class="flex items-center justify-end p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
             <button type="button" @click="closeModal()"
                     class="rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
               Yopish
