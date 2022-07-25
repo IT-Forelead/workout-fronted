@@ -67,6 +67,7 @@ onClickOutside(filterDropdown, () => {
 const defaultView = () => {
   currentFilter.value = ''
   filterData.typeBy = null
+  clients.value = []
   page = 1
   loadDefaultClients()
 }

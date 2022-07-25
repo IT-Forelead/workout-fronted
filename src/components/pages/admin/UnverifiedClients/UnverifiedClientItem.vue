@@ -49,38 +49,16 @@ const { clients } = toRefs(props);
 
 const store = useStore()
 
-let page = 0
-const loadDefaultClients = async () => {
-  if (!(total.value / 10 + 1 < page && total.value !== 0)) {
-    try {
-      const response = await fetch('http://localhost:9000/user/clients/' + page, {
-        method: 'POST',
-        body: JSON.stringify(filterData),
-        headers: authHeader(),
-      })
-      const json = await response.json()
-      total.value = json.total
-      setTimeout(() => {
-        store.commit('setClients', 'clear')
-        store.commit('setClients', json.user)
-      }, 500)
-    } catch (error) {
-      console.log("Get Clients Error!");
-    }
-  } else $state.loaded()
-}
-
 function clientActivate(client) {
   store.dispatch('clientModule/activate', client.id).then(
     () => {
-      page = 1
-      loadDefaultClients()
       notify.success({
         message: "Mijozni aktivlash muvaffaqiyatli yakunlandi!",
         position: 'bottomLeft',
       })
-      store.commit('setSelectedClient', {})
-
+      let oldState = store.state.clients.filter(c => c.id !== client.id)
+      store.commit('setClients', 'clear')
+      store.commit('setClients', oldState)
     },
     (error) => {
       notify.error({
