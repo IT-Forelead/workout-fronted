@@ -43,7 +43,7 @@ let menus = accessRoutes()
 function accessRoutes() {
   if (store.state.user.role === 'admin' || localStorage.getItem('role') === 'admin') {
     return [
-      { id: 1, url: '/admin-home', icon: 'home-outline', name: 'Bosh sahifa' },
+      { id: 1, url: '/admin-dashboard', icon: 'home-outline', name: 'Bosh sahifa' },
       { id: 2, url: '/clients', icon: 'people-outline', name: 'Klientlar' },
       { id: 3, url: '/unverified-clients', icon: 'person-add-outline', name: 'Kutishdagi mijozlar' },
     ]

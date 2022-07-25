@@ -8,14 +8,14 @@
                    :class="{'bg-blue-500 text-white': page === 'admin-home' || $router.currentRoute.value.path === '/admin-dashboard' && !(page === 'leads') && !(page === 'clients')}">
         <HouseBoldIcon class="w-7 h-7"/>
       </router-link>
-      <router-link to="/leads" v-if="isAdmin" class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
-                   @click="changePage('leads')"
-                   :class="{'bg-blue-500 text-white': page === 'leads' || $router.currentRoute.value.path === '/leads' && !(page === 'admin-home') && !(page === 'clients')}">
-        <UsersBoldIcon class="w-7 h-7"/>
-      </router-link>
       <router-link to="/clients" v-if="isAdmin" class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
                    @click="changePage('clients')"
-                   :class="{'bg-blue-500 text-white': page === 'clients' || $router.currentRoute.value.path === '/clients' && !(page === 'leads') && !(page === 'admin-home')}">
+                   :class="{'bg-blue-500 text-white': page === 'clients' || $router.currentRoute.value.path === '/clients' && !(page === 'admin-home') && !(page === 'leads')}">
+        <UsersBoldIcon class="w-7 h-7"/>
+      </router-link>
+      <router-link to="/unverified-clients" v-if="isAdmin" class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
+                   @click="changePage('leads')"
+                   :class="{'bg-blue-500 text-white': page === 'leads' || $router.currentRoute.value.path === '/unverified-clients' && !(page === 'clients') && !(page === 'admin-home')}">
         <UserPlusBoldIcon class="w-7 h-7"/>
       </router-link>
       <!-- Client access -->
@@ -78,7 +78,12 @@
         <div class="h-1.5 w-10 bg-slate-200 dark:bg-gray-700 rounded-full" @click="toggleProfileDropMenu()"></div>
       </div>
       <div class="flex flex-col mt-2">
-        <router-link to="/profile" @click="toggleProfileDropMenu()"
+        <router-link to="/profile" v-if="!isAdmin" @click="toggleProfileDropMenu()"
+                     class="flex items-center py-3 dark:hover:bg-gray-700">
+          <UserIcon class="mr-2 w-7 h-7"/>
+          Profil
+        </router-link>
+        <router-link to="/admin-profile" v-else @click="toggleProfileDropMenu()"
                      class="flex items-center py-3 dark:hover:bg-gray-700">
           <UserIcon class="mr-2 w-7 h-7"/>
           Profil
@@ -107,7 +112,7 @@
             </span>
           </label>
         </div>
-        <a href="/" @click="onLogout()"
+        <a href="/login" @click="onLogout()"
            class="flex items-center py-3 dark:hover:bg-gray-700 border-y dark:border-gray-600">
           <LogoutIcon class="mr-2 w-7 h-7"/>
           Chiqish

@@ -57,8 +57,8 @@ const routes = [
   },
   // Admin routes
   {
-    path: '/admin-home',
-    name: 'Admin Home',
+    path: '/admin-dashboard',
+    name: 'Admin Dashboard',
     component: () => import('../components/pages/admin/AdminHome.vue'),
     beforeEnter: navidagionGuard('admin'),
   },

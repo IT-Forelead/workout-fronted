@@ -48,7 +48,7 @@
       <SingleMemberData v-show="showContent" :members="members" @infinite="loadMember" />
     </div>
 
-    <!-- Member Info Modal -->
+    <!-- Member Add Modal -->
     <div v-if="isAddMemberModalOpen" class="fixed inset-0 top-0 left-0 right-0 z-50 w-full h-full overflow-x-hidden overflow-y-auto backdrop-brightness-50">
       <div class="relative w-full max-w-5xl p-1 mt-16 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 md:mt-0 md:p-4" :class="{ 'mt-0': registerMemberProcess.checkingMode || registerMemberProcess.congratulationMode }">
         <div class="relative bg-white rounded-lg shadow-lg dark:bg-gray-800">

@@ -89,7 +89,7 @@
                 <UserIcon class="mr-2 text-xl dark:text-gray-300" /> Profil
               </router-link>
             </li>
-            <li class="border-b hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
+            <li v-if="!isAdmin" class="border-b hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
               <router-link to="/settings" class="flex items-center px-4 py-2 text-md dark:text-gray-300">
                 <GearIcon class="mr-2 text-xl dark:text-gray-300" /> Sozlamalar
               </router-link>
@@ -205,10 +205,12 @@ function forbiddenChecker(error, msg) {
 }
 
 // User Data
+const isAdmin = ref(false)
 const addUserInStore = () => {
   store.dispatch('userModule/get').then(
     (data) => {
       store.commit('setUser', data)
+      isAdmin.value = localStorage.getItem('role') === 'admin'
     },
     (error) => {
       forbiddenChecker(error, "Foydalanuvchi ma'lumotlarini olishda xatolik yuz berdi!")

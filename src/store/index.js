@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import { auth } from '../modules/auth.module'
 import { memberModule } from '../modules/member.module'
+import { clientModule } from '../modules/client.module'
 import { messageModule } from '../modules/message.module'
 import { paymentModule } from '../modules/payment.module'
 import { arrivalModule } from '../modules/arrival.module'
@@ -11,6 +12,7 @@ const store = createStore({
   modules: {
     auth,
     memberModule,
+    clientModule,
     messageModule,
     paymentModule,
     arrivalModule,
