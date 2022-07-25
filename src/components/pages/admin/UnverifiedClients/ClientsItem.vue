@@ -14,15 +14,10 @@
       </div>
     </td>
     <td class="px-4 py-3 whitespace-nowrap">
-      <p>Klub nomi: {{ client.setting.gymName }}</p>
-      <p>Oylik to'lovi: {{ client.setting.dailyPrice }} UZS</p>
-      <p>Kunlik to'lovi: {{ client.setting.monthlyPrice }} UZS</p>
+      <p>{{ client.setting.gymName }}</p>
     </td>
     <td class="px-4 py-3 whitespace-nowrap">
-      <button
-        class="w-full px-5 py-2 text-center text-gray-900 bg-white border rounded-lg border-slate-300 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto dark:border-0 dark:text-gray-300">
-        Aktivlash
-      </button>
+      <p>...</p>
     </td>
   </tr>
   <tr class="text-gray-700 text-md dark:text-gray-300 dark:bg-gray-800 ">

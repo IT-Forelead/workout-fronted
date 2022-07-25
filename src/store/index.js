@@ -32,7 +32,8 @@ const store = createStore({
       isSidebarOpen: false,
       members: [],
       total: 0,
-      selectedPayment: {}
+      selectedPayment: {},
+      clients: []
     }
   },
   mutations: {
@@ -68,6 +69,13 @@ const store = createStore({
     },
     setTotal(state, data) {
       state.total = data
+    },
+    setClients(state, data) {
+      if (data === 'clear'){
+        state.clients = []
+      } else {
+        state.clients.push(...data)
+      }
     },
     setSelectedPayment(state, payment) {
       state.selectedPayment = payment

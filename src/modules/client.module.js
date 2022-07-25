@@ -13,8 +13,18 @@ export const clientModule = {
         }
       )
     },
-    create({ commit }, ClientData) {
-      return ClientService.create(ClientData).then(
+    create({ commit }, clientData) {
+      return ClientService.create(clientData).then(
+        (client) => {
+          return Promise.resolve(client)
+        },
+        (error) => {
+          return Promise.reject(error)
+        }
+      )
+    },
+    activate({ commit }, id) {
+      return ClientService.activateClient(id).then(
         (client) => {
           return Promise.resolve(client)
         },

@@ -91,6 +91,20 @@ const schema = yup.object().shape({
 
 const isLoading = ref(false)
 
+// Token expire checker function
+function forbiddenChecker(error, msg) {
+  if (error.message.split(' ').includes('403')) {
+    store.dispatch('auth/logout').then(() => {
+      store.commit('setSelectedPage', '')
+    }, () => { })
+  } else {
+    notify.warning({
+      message: msg,
+      position: 'bottomLeft',
+    })
+  }
+}
+
 // User Data
 const addUserInStore = () => {
   store.dispatch('userModule/get').then(
@@ -120,10 +134,17 @@ const onSubmit = (user) => {
       }, 700)
     },
     (error) => {
-      notify.error({
-        message: "Telefon raqami yoki parol noto'g'ri!",
-        position: 'topRight',
-      })
+      if (error.message.split(' ').includes('406')) {
+        notify.warning({
+          message: "Sizning profilingiz aktivlanmagan holatda!",
+          position: 'topRight',
+        })
+      } else {
+        notify.error({
+          message: "Telefon raqami yoki parol noto'g'ri!",
+          position: 'topRight',
+        })
+      }
       isLoading.value = false
     }
   )

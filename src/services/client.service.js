@@ -13,6 +13,12 @@ class ClientService {
     const response = await axios.post(API_URL + '/auth/user', data, { headers: authHeader() })
     return response.data
   }
+
+  async activateClient(data) {
+    console.log(data)
+    const response = await axios.post(API_URL + '/user/activate', { userId: data }, { headers: authHeader() })
+    return response.data
+  }
 }
 
 export default new ClientService()
