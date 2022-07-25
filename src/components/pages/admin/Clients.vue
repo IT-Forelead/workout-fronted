@@ -138,6 +138,7 @@ const loadFiltered = async () => {
       const json = await response.json()
       total.value = json.total
       setTimeout(() => {
+        clients.value = []
         clients.value.push(...json.user)
       }, 500)
     } catch (error) {
