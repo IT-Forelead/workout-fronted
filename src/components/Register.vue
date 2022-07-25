@@ -211,7 +211,7 @@
         <div class="flex justify-center" v-if="registerClientProcess.congratulationMode">
           <div class="flex flex-col">
             <SuccessfulIcon class="mx-auto text-green-500 text-9xl" />
-            <p class="my-5 text-xl text-center text-green-500">
+            <p class="w-3/4 mx-auto my-5 text-xl text-center text-green-500">
               {{ lastMessage }}
             </p>
           </div>
@@ -500,7 +500,7 @@ const createClient = () => {
   }
   store.dispatch('clientModule/create', clientData).then(
     () => {
-      lastMessage.value = "Siz muvaffaqiyatli ro'yhatdan o'tdingiz! Ma'muryatimiz akountingizni aktivlagandan so'ng, tizimimizdan foydalanishingiz mumkun."
+      lastMessage.value = "Siz muvaffaqiyatli ro'yhatdan o'tdingiz! Ma'muriyatimiz profilingizni aktivlagandan so'ng, tizimdan foydalanishingiz mumkin."
       registerClientProcess.congratulationMode = true
       checkingStatus.inProgress = false
       checkingStatus.done = true

@@ -1,9 +1,9 @@
 <template>
   <tr v-for="(msg, index) in messages" :key="index"
-      class="text-md text-gray-700 dark:text-gray-300 dark:bg-gray-800">
-    <td class="whitespace-nowrap px-4 py-3">
+      class="text-gray-700 text-md dark:text-gray-300 dark:bg-gray-800">
+    <td class="px-4 py-3 whitespace-nowrap">
       <div v-if="msg.member" class="flex items-center">
-        <div class="flex mr-3 items-center justify-center h-10 w-10 border border-gray-50 rounded-full">
+        <div class="flex items-center justify-center w-10 h-10 mr-3 border rounded-full border-gray-50">
           <img class="object-cover w-full h-full rounded-full"
                :src="'http://localhost:9000/member/image/' + msg?.member?.image" alt="#"/>
         </div>
@@ -15,25 +15,25 @@
       </div>
       <div v-else class="flex items-center">
         <div
-            class="inline-block rounded-full mr-3 h-10 w-10 border border-gray-50 dark:border-gray-600 bg-slate-300 dark:bg-gray-800 p-1 text-slate-500 dark:text-gray-500 shadow">
-          <UserBoldIcon class="h-full w-full"/>
+            class="inline-block w-10 h-10 p-1 mr-3 border rounded-full shadow border-gray-50 dark:border-gray-600 bg-slate-300 dark:bg-gray-800 text-slate-500 dark:text-gray-500">
+          <UserBoldIcon class="w-full h-full"/>
         </div>
         <div class="font-semibold text-gray-900 dark:text-gray-300">Noma'lum foydalanuvchi</div>
       </div>
     </td>
-    <td class="whitespace-nowrap px-4 py-3">
-      <CalendarBlankIcon class="inline-block text-lg mr-1"/>
-      {{ msg.message.sentDate }}
+    <td class="px-4 py-3 whitespace-nowrap">
+      <CalendarBlankIcon class="inline-block mr-1 text-lg"/>
+      {{ formatDate(msg.message.sentDate) }}
     </td>
-    <td class="whitespace-nowrap px-4 py-3">{{ msg.message.text }}</td>
-    <td class="whitespace-nowrap px-4 py-3"><span
-        class="px-5 py-1 font-semibold leading-tight text-green-700 bg-green-100 dark:text-green-100 dark:bg-green-700 rounded-lg">{{
+    <td class="px-4 py-3 whitespace-nowrap">{{ msg.message.text }}</td>
+    <td class="px-4 py-3 whitespace-nowrap"><span
+        class="px-5 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-lg dark:text-green-100 dark:bg-green-700">{{
         deliveryStatusTranslate(msg.message.deliveryStatus)
       }}</span></td>
   </tr>
-  <tr class="text-md text-gray-700 dark:text-gray-300 dark:bg-gray-800 ">
+  <tr class="text-gray-700 text-md dark:text-gray-300 dark:bg-gray-800 ">
     <td colspan="4">
-      <div class="p-2 flex justify-center items-center w-full">
+      <div class="flex items-center justify-center w-full p-2">
         <InfiniteLoading v-bind="$attrs"/>
       </div>
     </td>
@@ -44,7 +44,7 @@ import UserBoldIcon from '../../../assets/icons/UserBoldIcon.vue'
 import CalendarBlankIcon from '../../../assets/icons/CalendarBlankIcon.vue'
 import {toRefs} from "vue";
 import InfiniteLoading from "v3-infinite-loading";
-import {phoneStyle} from "../../../utils/utils.js";
+import {phoneStyle, formatDate} from "../../../utils/utils.js";
 
 const props = defineProps({
   messages: {type: Array, required: true},

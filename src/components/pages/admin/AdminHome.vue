@@ -4,7 +4,7 @@
     <div class="grid grid-cols-1 gap-5 card-wrapper md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-4 md:gap-10">
       <div class="bg-white card rounded-3xl p-7 dark:bg-gray-800 dark:text-gray-300">
         <div class="flex justify-between items-top">
-          <h3 class="text-xl font-bold text-gray-600 dark:text-gray-300">Jami faol mijozlar</h3>
+          <h3 class="text-xl font-bold text-gray-600 dark:text-gray-300">Faol mijozlar</h3>
           <div class="p-3 rounded-3xl bg-violet-200">
             <MembersIcon class="text-5xl text-violet-600" />
           </div>
