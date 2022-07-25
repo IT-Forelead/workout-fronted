@@ -500,7 +500,7 @@ const createClient = () => {
   }
   store.dispatch('clientModule/create', clientData).then(
     () => {
-      lastMessage.value = "A'zo muvaffaqiyatli yaratildi!"
+      lastMessage.value = "Siz muvaffaqiyatli ro'yhatdan o'tdingiz! Ma'muryatimiz akountingizni aktivlagandan so'ng, tizimimizdan foydalanishingiz mumkun."
       registerClientProcess.congratulationMode = true
       checkingStatus.inProgress = false
       checkingStatus.done = true
