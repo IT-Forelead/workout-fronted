@@ -46,6 +46,7 @@ function accessRoutes() {
       { id: 1, url: '/admin-dashboard', icon: 'home-outline', name: 'Bosh sahifa' },
       { id: 2, url: '/clients', icon: 'people-outline', name: 'Mijozlar' },
       { id: 3, url: '/unverified-clients', icon: 'person-add-outline', name: 'Kutishdagi mijozlar' },
+      { id: 4, url: '/messages', icon: 'mail-outline', name: "SMS xaborlar" },
     ]
   } else if(store.state.user.role === 'client' || localStorage.getItem('role') === 'client'){
     return [

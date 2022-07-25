@@ -41,7 +41,7 @@ const routes = [
     path: '/messages',
     name: 'SMS xabarlar',
     component: () => import('../components/pages/Messages.vue'),
-    beforeEnter: navidagtionGuard('client'),
+    beforeEnter: navidagtionGuard('all'),
   },
   {
     path: '/settings',
@@ -104,8 +104,14 @@ router.beforeEach((to, from, next) => {
 })
 
 function navidagtionGuard(role) {
-  return () => {
-    return localStorage.getItem('role') === role
+  if (role === 'all'){
+    return () => {
+      return true
+    }
+  } else {
+    return () => {
+      return localStorage.getItem('role') === role
+    }
   }
 }
 

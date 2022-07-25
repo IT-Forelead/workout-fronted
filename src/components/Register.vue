@@ -287,8 +287,8 @@ const client = reactive({
   lastname: '',
   gymName: '',
   phone: '',
-  dailyPrice: 0,
-  monthlyPrice: 0,
+  dailyPrice: '',
+  monthlyPrice: '',
   password: '',
   confirmPassword: ''
 })
