@@ -6,7 +6,7 @@
           class="flex items-center justify-center w-10 h-10 mr-3 text-white uppercase bg-gray-500 border rounded-full border-gray-50 dark:border-gray-600">
           {{ client.user.firstname[0] }}</div>
         <div>
-          <p class="font-semibold text-gray-900 dark:text-gray-300">{{ client.user.firstname + " " +
+          <p class="font-semibold text-gray-900 capitalize dark:text-gray-300">{{ client.user.firstname + " " +
               client.user.lastname
           }}</p>
           <p class="text-sm text-gray-600 dark:text-gray-400">{{ phoneStyle(client.user.phone) }}</p>
@@ -14,10 +14,9 @@
       </div>
     </td>
     <td class="px-4 py-3 whitespace-nowrap">
-      <p>{{ client.setting.gymName }}</p>
-    </td>
-    <td class="px-4 py-3 whitespace-nowrap">
-      <p>...</p>
+      <p>Klub nomi: {{ client.setting.gymName }}</p>
+      <p>Oylik to'lovi: {{ client.setting.dailyPrice }} UZS</p>
+      <p>Kunlik to'lovi: {{ client.setting.monthlyPrice }} UZS</p>
     </td>
   </tr>
   <tr class="text-gray-700 text-md dark:text-gray-300 dark:bg-gray-800 ">

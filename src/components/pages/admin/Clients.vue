@@ -24,7 +24,6 @@
             <tr class="font-semibold tracking-wide text-left text-gray-900 text-md dark:text-gray-300 dark:bg-gray-800">
               <th class="px-4 py-3">Mijoz</th>
               <th class="px-4 py-3">Fitnes klub</th>
-              <th class="px-4 py-3 text-">Amallar</th>
             </tr>
           </thead>
           <tbody class="h-full bg-white divide-y divide-gray-200 dark:text-gray-300 dark:bg-gray-800 dark:divide-gray-600">
@@ -111,7 +110,7 @@ const loadDefaultClients = async () => {
       const json = await response.json()
       total.value = json.total
       setTimeout(() => {
-        clients.value.push(...json.clients)
+        clients.value.push(...json.user)
       }, 500)
     } catch (error) {
       console.log("Get Clients Error!");
@@ -137,7 +136,7 @@ const loadFiltered = async () => {
       const json = await response.json()
       total.value = json.total
       setTimeout(() => {
-        clients.value.push(...json.clients)
+        clients.value.push(...json.user)
       }, 500)
     } catch (error) {
       notify.warning({
