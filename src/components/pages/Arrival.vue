@@ -54,7 +54,6 @@
 </template>
 
 <script setup>
-import 'izitoast/dist/css/iziToast.min.css'
 import ArrivalItem from './Arrivals/ArrivalItem.vue'
 import { reactive, ref, watch } from 'vue'
 import authHeader from '../../services/auth-header'
@@ -85,7 +84,7 @@ const defaultView = () => {
   currentFilter.value = ''
   filterData.typeBy = null
   page = 1
-  loadLastAddedPayment()
+  loadDefaultArrivals()
 }
 
 // load default
@@ -139,7 +138,6 @@ const loadDefaultArrivals = async () => {
 setTimeout(() => {
   isArrivalEmpty.value = arrivals.value.length === 0
 }, 1000)
-
 
 // load filtered
 const loadFiltered = async () => {
