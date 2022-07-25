@@ -1,8 +1,8 @@
 <template>
-  <tr v-for="(arrival, index) in arrivals" :key="index" class="text-md text-gray-700 dark:text-gray-300">
-    <td class="whitespace-nowrap px-4 py-3">
+  <tr v-for="(arrival, index) in arrivals" :key="index" class="text-gray-700 text-md dark:text-gray-300">
+    <td class="px-4 py-3 whitespace-nowrap">
       <div class="flex items-center">
-        <div class="flex mr-3 items-center justify-center h-10 w-10 border border-gray-50 dark:border-gray-600 rounded-full">
+        <div class="flex items-center justify-center w-10 h-10 mr-3 border rounded-full border-gray-50 dark:border-gray-600">
           <img class="object-cover w-full h-full rounded-full" :src="'http://localhost:9000/member/image/' + arrival.member.image" alt="#" />
         </div>
         <div>
@@ -11,12 +11,12 @@
         </div>
       </div>
     </td>
-    <td class="whitespace-nowrap px-4 py-3"><CalendarBlankIcon class="inline-block text-lg mr-1" /> {{ arrival.arrival.createdAt }}</td>
-    <td class="whitespace-nowrap px-4 py-3">{{ arrivalTypeTranslate(arrival.arrival.arrivalType) }}</td>
+    <td class="px-4 py-3 whitespace-nowrap"><CalendarBlankIcon class="inline-block mr-1 text-lg" /> {{ arrival.arrival.createdAt }}</td>
+    <td class="px-4 py-3 whitespace-nowrap">{{ arrivalTypeTranslate(arrival.arrival.arrivalType) }}</td>
   </tr>
-  <tr class="text-md text-gray-700 dark:text-gray-300 dark:bg-gray-800 ">
+  <tr class="text-gray-700 text-md dark:text-gray-300 dark:bg-gray-800 ">
     <td colspan="4">
-      <div class="p-2 flex justify-center items-center w-full">
+      <div class="flex items-center justify-center w-full p-2">
         <InfiniteLoading v-bind="$attrs"/>
       </div>
     </td>
