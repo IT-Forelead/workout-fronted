@@ -111,7 +111,7 @@ const onSubmit = (user) => {
       addUserInStore()
       setTimeout(() => {
         if (store.state.user.role === 'admin') {
-          router.push('/admin-home')
+          router.push('/admin-dashboard')
         } else {
           router.push('/dashboard')
         }
