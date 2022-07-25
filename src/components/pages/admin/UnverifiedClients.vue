@@ -50,7 +50,7 @@
         </table>
       </div>
     </div>
-    <div v-show="!isClientsEmpty && clients.length === 0" class="flex items-start justify-center w-full h-10">
+    <div v-show="isLoading" class="flex items-start justify-center w-full h-10">
       <SpinIcon class="w-7 h-7" />
     </div>
     <h1 v-show="isClientsEmpty" class="text-xl text-center text-red-500">Ma'lumotlar bazasidan aktivlashmagan mijozlar
@@ -72,7 +72,9 @@ import store from "../../../store";
 const target = ref('.clients-wrapper')
 const distance = ref(200)
 const total = ref(0)
-const isClientsEmpty = ref(false)
+const isClientsEmpty = computed(() => {
+  return store.state.isClientsEmpty
+})
 
 store.commit('setClients', 'clear')
 
@@ -144,8 +146,11 @@ const loadDefaultClients = async () => {
   } else $state.loaded()
 }
 
+const isLoading = ref(true)
+store.commit('setClientsEmpty', false)
 setTimeout(() => {
-  isClientsEmpty.value = store.state.clients.length === 0
+  isLoading.value = false
+  store.commit('setClientsEmpty', store.state.clients.length === 0)
 }, 1000)
 
 
@@ -163,7 +168,9 @@ const loadFiltered = async () => {
       total.value = json.total
       setTimeout(() => {
         store.commit('setClients', 'clear')
+        isLoading.value = false
         store.commit('setClients', json.user)
+        store.commit('setClientsEmpty', store.state.clients.length === 0)
       }, 500)
     } catch (error) {
       notify.warning({
@@ -178,6 +185,8 @@ const refresher = () => {
   page = 0
   total.value = 0
   store.commit('setClients', 'clear')
+  isLoading.value = true
+  store.commit('setClientsEmpty', false)
   loadFiltered()
   setTimeout(() => {
     isClientsEmpty.value = store.state.clients.length === 0

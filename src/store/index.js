@@ -33,7 +33,8 @@ const store = createStore({
       members: [],
       total: 0,
       selectedPayment: {},
-      clients: []
+      clients: [],
+      isClientsEmpty: false
     }
   },
   mutations: {
@@ -69,6 +70,9 @@ const store = createStore({
     },
     setTotal(state, data) {
       state.total = data
+    },    
+    setClientsEmpty(state, data) {
+      state.isClientsEmpty = data
     },
     setClients(state, data) {
       if (data === 'clear'){

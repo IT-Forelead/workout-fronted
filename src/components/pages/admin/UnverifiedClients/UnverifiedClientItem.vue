@@ -56,9 +56,10 @@ function clientActivate(client) {
         message: "Mijozni aktivlash muvaffaqiyatli yakunlandi!",
         position: 'bottomLeft',
       })
-      let oldState = store.state.clients.filter(c => c.id !== client.id)
+      let oldState = store.state.clients.filter(c => c.user.id !== client.id)
       store.commit('setClients', 'clear')
       store.commit('setClients', oldState)
+      store.commit('setClientsEmpty', store.state.clients.length === 0)
     },
     (error) => {
       notify.error({
