@@ -26,25 +26,39 @@
       <div class="relative w-full h-full p-4 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 max-w-7xl md:h-auto">
         <div class="relative bg-white rounded-lg shadow-lg dark:bg-gray-800 dark:text-gray-300">
           <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-            <div class="text-xl font-semibold text-gray-900 dark:text-white">
-              <div v-if="Object.keys(selectedMember).length !== 0" class="flex items-center">
-                <img :src="'http://localhost:9000/member/image/' + selectedMember.image" alt="Avatar" class="w-20 h-20 ml-2 rounded-full"/>
-                <div class="pr-2 ml-4">
-                  <h3>{{ selectedMember.firstname + ' ' + selectedMember.lastname }}</h3>
-                  <h5 class="text-sm">{{ phoneStyle(selectedMember.phone) }}</h5>
-                  <h6 class="text-sm text-gray-500">{{ selectedMember.birthday }}</h6>
-                </div>
-              </div>
-              <div v-else>
-                <p>Member Not Selected!</p>
-              </div>
-            </div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">A'zo haqida ma'lumot</h3>
             <button type="button" @click="closeModal()"
                     class="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
                     data-modal-toggle="defaultModal">
               <ModalCloseIcon/>
             </button>
           </div>
+            <div class="p-5">
+              <div v-if="Object.keys(selectedMember).length !== 0" class="flex flex-col md:flex-row text-center md:justify-start items-center">
+                <img :src="'http://localhost:9000/member/image/' + selectedMember.image" alt="Avatar" class="w-48 h-48 mx-auto md:mx-2 rounded"/>
+                <div class="flex flex-col ml-2">
+                  <div class="flex flex-col md:flex-row md:justify-between p-2">
+                    <span class="text-lg mr-3">To'liq ismi:</span>
+                    <span class="text-lg font-semibold text-gray-900 dark:text-white">{{ selectedMember.firstname + ' ' + selectedMember.lastname }}</span>
+                  </div>
+                  <div class="flex flex-col md:flex-row md:justify-between p-2">
+                    <span class="text-lg mr-3">Telefon raqami:</span>
+                    <span class="text-lg font-semibold text-gray-900 dark:text-white">{{ phoneStyle(selectedMember.phone) }}</span>
+                  </div>
+                  <div class="flex flex-col md:flex-row md:justify-between p-2">
+                    <span class="text-lg mr-3">Tug'ilgan kuni: </span>
+                    <span class="text-lg font-semibold text-gray-900 dark:text-white">{{ selectedMember.birthday }}</span>
+                  </div>
+                  <div class="flex flex-col md:flex-row md:justify-between p-2">
+                    <span class="text-lg mr-3">Foydalanish vaqti: </span>
+                    <span class="text-lg font-semibold text-gray-900 dark:text-white">{{ formatDate(selectedMember.activeTime) }}</span>
+                  </div>
+                </div>
+              </div>
+              <div v-else>
+                <p>Member Not Selected!</p>
+              </div>
+            </div>
           <div class="grid grid-cols-1 gap-4 p-6 md:grid-cols-3">
             <SinglePersonPayment :payments="payments"/>
             <SinglePersonArrival :arrivals="arrivals"/>
@@ -71,7 +85,7 @@ import InfiniteLoading from "v3-infinite-loading";
 import {useStore} from 'vuex'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
-import {phoneStyle} from "../../../utils/utils.js";
+import {phoneStyle, formatDate} from "../../../utils/utils.js";
 
 const store = useStore()
 

@@ -63,10 +63,10 @@
             </tbody>
           </table>
         </div>
-        <div v-show="!isPaymentEmpty && payments.length === 0" class="flex items-start justify-center w-full h-10">
+        <div v-if="!isPaymentEmpty && payments.length === 0" class="flex items-start justify-center w-full h-10">
           <SpinIcon class="h-7 w-7" />
         </div>
-        <h1 v-show="isPaymentEmpty" class="text-xl text-center text-red-500">Ma'lumotlar bazasidan to'lovlar hisoboti
+        <h1 v-if="isPaymentEmpty" class="text-xl text-center text-red-500">Ma'lumotlar bazasidan to'lovlar hisoboti
           topilmadi!</h1>
       </div>
       <div
@@ -340,7 +340,9 @@ const loadPayments = async ($state) => {
 }
 
 setTimeout(() => {
-  isPaymentEmpty.value = total.value === 0
+  computed(() => {
+    isPaymentEmpty.value = total.value === 0
+  })
 }, 700)
 
 // load filtered
