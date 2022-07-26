@@ -5,7 +5,7 @@ const API_URL = 'http://localhost:9000'
 
 class ClientService {
   async getCode(data) {
-    const response = await axios.post(API_URL + '/message/sent-code', { phone: data })
+    const response = await axios.post(API_URL + '/message/public/sent-code', { phone: data })
     return response.data
   }
 
