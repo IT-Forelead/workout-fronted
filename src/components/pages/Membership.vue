@@ -42,7 +42,7 @@
           </button>
         </div>
       </div>
-      <div v-show="!showContent" class="flex justify-center w-full pt-5">
+      <div v-if="!showContent" class="flex justify-center w-full pt-5">
         <h1 class="text-xl font-bold text-center text-red-500">Ma'lumotlar bazasida a'zolar mavjud emas!</h1>
       </div>
       <SingleMemberData v-show="showContent" :members="members" @infinite="loadMember" />
@@ -475,6 +475,8 @@ const createMember = () => {
       congratulationStatus.done = true
       localStorage.setItem('time', '02:00')
       clearInterval(interval)
+      showContent.value = true
+      page = 1
       loadLastAddedMember()
     },
     (error) => {

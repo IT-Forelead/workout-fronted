@@ -63,11 +63,10 @@
             </tbody>
           </table>
         </div>
-        <div v-if="!isPaymentEmpty && payments.length === 0" class="flex items-start justify-center w-full h-10">
+        <div v-if="isLoading" class="flex items-start justify-center w-full h-10">
           <SpinIcon class="h-7 w-7" />
         </div>
-        <h1 v-if="isPaymentEmpty" class="text-xl text-center text-red-500">Ma'lumotlar bazasidan to'lovlar hisoboti
-          topilmadi!</h1>
+        <h1 v-if="isPaymentEmpty" class="text-xl text-center text-red-500">Ma'lumotlar bazasidan to'lovlar hisoboti topilmadi!</h1>
       </div>
       <div
         class="order-first p-3 px-5 mb-3 bg-white rounded-lg max-content-h dark:bg-gray-800 dark:text-gray-300 lg:order-last">
@@ -316,6 +315,7 @@ const filterData = reactive({
 const payments = ref([])
 const total = ref(0)
 const isPaymentEmpty = ref(false)
+const isLoading = ref(true)
 
 let page = 0
 const loadPayments = async ($state) => {
@@ -331,6 +331,7 @@ const loadPayments = async ($state) => {
       total.value = json.total
       setTimeout(() => {
         payments.value.push(...json.payment)
+        isPaymentEmpty.value = total.value === 0
         $state.loaded()
       }, 500)
     } catch (error) {
@@ -340,9 +341,8 @@ const loadPayments = async ($state) => {
 }
 
 setTimeout(() => {
-  computed(() => {
-    isPaymentEmpty.value = total.value === 0
-  })
+  isPaymentEmpty.value = total.value === 0
+  isLoading.value = false
 }, 700)
 
 // load filtered
@@ -360,6 +360,8 @@ const loadFilteredPayments = async () => {
       setTimeout(() => {
         payments.value = []
         payments.value.push(...json.payment)
+        isLoading.value = false
+        isPaymentEmpty.value = total.value === 0
       }, 500)
     } catch (error) {
       notify.warning({
@@ -374,6 +376,7 @@ const refresher = () => {
   page = 0
   total.value = 0
   payments.value = []
+  isLoading.value = true
   loadFilteredPayments()
   setTimeout(() => {
     isPaymentEmpty.value = payments.value.length === 0
@@ -399,6 +402,7 @@ watch(
 )
 
 const loadLastAddedPayment = async () => {
+  isLoading.value = true
   try {
     const response = await fetch('http://localhost:9000/payment/' + page, {
       method: 'POST',
@@ -410,6 +414,8 @@ const loadLastAddedPayment = async () => {
     setTimeout(() => {
       payments.value = []
       payments.value.push(...json.payment)
+      isLoading.value = false
+      isPaymentEmpty.value = total.value === 0
     }, 500)
   } catch (error) {
     console.log('Get Payment Error!')
