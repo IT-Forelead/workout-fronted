@@ -478,7 +478,7 @@ const createMember = () => {
       loadLastAddedMember()
     },
     (error) => {
-      if (error.message.slice(-3) === '400') {
+      if (error.message.slice(-3) === '406') {
         notify.warning({
           message: "Tasdiqlash kodi noto'g'ri!, Iltimos tekshirib qaytadan kiriting!",
           position: 'bottomLeft',
