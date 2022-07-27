@@ -7,7 +7,7 @@
 import {computed} from "vue";
 import {useRouter} from "vue-router";
 
-const defaultLayout = "default";
+const defaultLayout = "login";
 
 const {currentRoute} = useRouter();
 

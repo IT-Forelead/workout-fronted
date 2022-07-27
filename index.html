@@ -7,8 +7,63 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>IT-Forelead :: Workout</title>
 </head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  #loader {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    position: relative;
+  }
+
+  #loader img {
+    position: absolute;
+    width: 80px;
+  }
+
+  .wrapper {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .circle {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    animation: rotate 2.5s linear infinite;
+  }
+
+  @keyframes rotate {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* ==== Animation 2 ====  */
+  .circle2 {
+    box-shadow: 0px 5px 5px 3px #0496ff;
+  }
+</style>
 
 <body class="bg-slate-100 dark:bg-gray-900">
+  <div id="loader">
+    <img src="./src/assets/images/logo.png" alt="Logo">
+    <div class="wrapper">
+      <div class="circle circle2"></div>
+    </div>
+  </div>
   <div id="app"></div>
   <script type="module" src="./node_modules/flowbite/dist/flowbite.js"></script>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
