@@ -3,8 +3,8 @@
 echo '--------------------------------------------------------------------'
 echo 'Stoppping & Removing Frontend container...'
 echo '--------------------------------------------------------------------'
-docker container stop workout-ui
-docker container rm workout-ui
+docker container stop app_frontend_1
+docker container rm app_frontend_1
 echo '--------------------------------------------------------------------'
 echo 'Removing Frontend image...'
 echo '--------------------------------------------------------------------'
@@ -14,8 +14,3 @@ echo 'Building Frontend image...'
 echo '--------------------------------------------------------------------'
 docker build -t workout-frontend .
 echo '--------------------------------------------------------------------'
-# echo 'Running Frontend image container...'
-# echo '--------------------------------------------------------------------'
-# docker run -d --name workout-ui -p 80:80 --restart always workout-frontend
-# echo '--------------------------------------------------------------------'
-# echo 'All Done!'
