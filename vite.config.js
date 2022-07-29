@@ -3,7 +3,7 @@ import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   server: {
-    port: 3001
+    port: 3005
   },
   plugins: [
     vue({

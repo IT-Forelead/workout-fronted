@@ -299,6 +299,12 @@ $(document).ready(() => {
 $(window).resize(() => {
   showSearchAndBtn.value = $(window).width() > 1024
 })
+
+onMounted(() => {
+  if (document.getElementById('loader')) {
+    document.getElementById('loader').remove()
+  }
+})
 </script>
 
 <style scoped>

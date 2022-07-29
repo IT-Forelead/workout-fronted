@@ -14,8 +14,8 @@ echo 'Building Frontend image...'
 echo '--------------------------------------------------------------------'
 docker build -t workout-frontend .
 echo '--------------------------------------------------------------------'
-echo 'Running Frontend image container...'
-echo '--------------------------------------------------------------------'
-docker run -d --name workout-ui -p 80:80 --restart always workout-frontend
-echo '--------------------------------------------------------------------'
-echo 'All Done!'
+# echo 'Running Frontend image container...'
+# echo '--------------------------------------------------------------------'
+# docker run -d --name workout-ui -p 80:80 --restart always workout-frontend
+# echo '--------------------------------------------------------------------'
+# echo 'All Done!'

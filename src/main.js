@@ -23,7 +23,7 @@ const app = createApp(App)
 app.use(router)
 app.use(store)
 app.directive('mask', vMaskV3)
-app.component('default-layout', DashboardLayout);
+app.component('dashboard-layout', DashboardLayout);
 app.component('login-layout', LoginLayout);
 app.component('register-layout', RegisterLayout);
 app.component("infinite-loading", InfiniteLoading);
