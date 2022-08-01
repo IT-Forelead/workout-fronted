@@ -2,7 +2,7 @@ import axios from 'axios'
 import authHeader from './auth-header.js'
 import authHeaderForMultiPart from './auth-header-for-multipart.js'
 
-const API_URL = 'http://localhost:9000'
+const API_URL = process.env.BASE_API_URL
 
 class MemberService {
     async getCode(data) {

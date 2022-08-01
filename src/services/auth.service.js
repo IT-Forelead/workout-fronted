@@ -1,5 +1,5 @@
 import axios from 'axios'
-const API_URL = 'http://trim.uz/api'
+const API_URL = process.env.BASE_API_URL
 class AuthService {
   async login(user) {
     const response = await axios

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import authHeader from './auth-header.js'
 
-const API_URL = 'http://localhost:9000/'
+const API_URL = process.env.BASE_API_URL
 
 class ArrivalService {
   async getArrival() {
