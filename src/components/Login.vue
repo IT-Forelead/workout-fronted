@@ -30,7 +30,7 @@
                   <button type="submit"
                     class="flex justify-center w-full py-5 text-white bg-gray-900 text-md rounded-xl hover:bg-gray-800"
                     :disabled="isLoading">
-                    <span v-if="!isLoading" class="flex items-center">
+                    <span v-if="!isLoading" class="flex items-center cursor-pointer">
                       <LoginIcon class="mr-3 text-2xl" />Tizimga kirish
                     </span>
                     <span v-else class="flex items-center">
@@ -137,7 +137,7 @@ const onSubmit = (user) => {
     (error) => {
       if (error.message.split(' ').includes('406')) {
         notify.warning({
-          message: "Sizning profilingiz aktivlanmagan holatda!",
+          message: "Sizning profilingiz aktivlash jarayonida. Iltimos biroz kuting!",
           position: 'topRight',
         })
       } else {

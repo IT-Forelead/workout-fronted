@@ -500,7 +500,7 @@ const createClient = () => {
   }
   store.dispatch('clientModule/create', clientData).then(
     () => {
-      lastMessage.value = "Siz muvaffaqiyatli ro'yhatdan o'tdingiz! Ma'muriyatimiz profilingizni aktivlagandan so'ng, tizimdan foydalanishingiz mumkin."
+      lastMessage.value = "Siz muvaffaqiyatli ro'yhatdan o'tdingiz! Ma'muriyatimiz profilingizni aktivlagandan so'ng, tizimdan foydalanishingiz mumkin. Aktivlash 5 daqiqadan 24 soatgacha vaqt ichida amalga oshiriladi."
       registerClientProcess.congratulationMode = true
       checkingStatus.inProgress = false
       checkingStatus.done = true
