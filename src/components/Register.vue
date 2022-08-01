@@ -164,12 +164,12 @@
             <div class="p-3">
               <label for="reply-password" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Parolni takrorlang</label>
               <div class="relative">
-                <input v-model="client.confirmPassword" id="reply-password" :type="currentType"
+                <input v-model="client.confirmPassword" id="reply-password" :type="currentReplyPasswordType"
                   class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   placeholder="Parolni takrorlang" required />
                 <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 z-20">
-                  <EyeIcon @click="showPassword('password')" v-if="currentType === 'text'" class="h-5 w-5 text-gray-400 cursor-pointer" />
-                  <EyeSlashIcon @click="showPassword('text')" v-if="currentType === 'password'" class="h-5 w-5 text-gray-400 cursor-pointer" />
+                  <EyeIcon @click="showReplyPassword('password')" v-if="currentReplyPasswordType === 'text'" class="h-5 w-5 text-gray-400 cursor-pointer" />
+                  <EyeSlashIcon @click="showReplyPassword('text')" v-if="currentReplyPasswordType === 'password'" class="h-5 w-5 text-gray-400 cursor-pointer" />
                 </div>
               </div>
             </div>
@@ -313,9 +313,10 @@ const confirm = reactive({
 })
 
 // show/hide password
-const isLoading = ref(false)
 const currentType = ref('password')
-const showPassword = (u) => (currentType.value = u)
+const currentReplyPasswordType = ref('password')
+const showPassword = (t) => (currentType.value = t)
+const showReplyPassword = (t) => (currentReplyPasswordType.value = t)
 
 function clearFields() {
   client.firstname = ''
