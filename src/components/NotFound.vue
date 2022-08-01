@@ -7,9 +7,21 @@
           <p class="mb-2 text-2xl font-bold text-center text-gray-800 dark:text-gray-300 md:text-3xl">
             <span class="text-red-500">Kechirasiz!</span> Bunday sahifa mavjud emas!
           </p>
-          <a href="/" class="px-6 py-2 mt-6 text-sm font-semibold text-blue-800 bg-blue-100 rounded hover:text-white hover:bg-indigo-500 transition">Bosh sahifaga qaytish</a>
+          <a href="/"
+            class="px-6 py-2 mt-6 text-sm font-semibold text-blue-800 transition bg-blue-100 rounded hover:text-white hover:bg-indigo-500">Bosh
+            sahifaga qaytish</a>
         </div>
       </div>
     </div>
   </div>
 </template>
+<script setup>
+import { onMounted } from 'vue'
+onMounted(() => {
+  if (document.getElementById('loader')) {
+    document.getElementById('loader').remove()
+  }
+})
+</script>
+<style scoped>
+</style>
