@@ -150,18 +150,28 @@
               </div>
             </div>
             <div class="p-3">
-              <label for="password"
-                class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Parol</label>
-              <input type="password" v-model="client.password" id="password"
-                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                placeholder="Parolni kiriting" required />
+              <label for="password" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Parol</label>
+              <div class="relative">
+                <input v-model="client.password" id="password" :type="currentType"
+                  class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                  placeholder="Parolni kiriting" required />
+                <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 z-20">
+                  <EyeIcon @click="showPassword('password')" v-if="currentType === 'text'" class="h-5 w-5 text-gray-400 cursor-pointer" />
+                  <EyeSlashIcon @click="showPassword('text')" v-if="currentType === 'password'" class="h-5 w-5 text-gray-400 cursor-pointer" />
+                </div>
+              </div>
             </div>
             <div class="p-3">
-              <label for="reply-password"
-                class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Parolni takrorlang</label>
-              <input type="password" v-model="client.confirmPassword" id="reply-password"
-                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                placeholder="Parolni takrorlang" required />
+              <label for="reply-password" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Parolni takrorlang</label>
+              <div class="relative">
+                <input v-model="client.confirmPassword" id="reply-password" :type="currentType"
+                  class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                  placeholder="Parolni takrorlang" required />
+                <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 z-20">
+                  <EyeIcon @click="showPassword('password')" v-if="currentType === 'text'" class="h-5 w-5 text-gray-400 cursor-pointer" />
+                  <EyeSlashIcon @click="showPassword('text')" v-if="currentType === 'password'" class="h-5 w-5 text-gray-400 cursor-pointer" />
+                </div>
+              </div>
             </div>
           </div>
           <!-- Step 2 -->
@@ -243,6 +253,8 @@ import LoginIcon from '../assets/icons/LoginIcon.vue'
 import BellIcon from "../assets/icons/BellIcon.vue";
 import SunIcon from "../assets/icons/SunIcon.vue";
 import MoonIcon from "../assets/icons/MoonIcon.vue";
+import EyeIcon from '../assets/icons/EyeIcon.vue'
+import EyeSlashIcon from '../assets/icons/EyeSlashIcon.vue'
 import { ref, reactive } from 'vue'
 import { Field } from 'vee-validate'
 import { useRouter } from 'vue-router'
@@ -299,6 +311,11 @@ const confirm = reactive({
   third: '',
   fourth: '',
 })
+
+// show/hide password
+const isLoading = ref(false)
+const currentType = ref('password')
+const showPassword = (u) => (currentType.value = u)
 
 function clearFields() {
   client.firstname = ''
