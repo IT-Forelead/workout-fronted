@@ -13,7 +13,8 @@
         :class="{ 'bg-blue-500 text-white': page === 'clients' || $router.currentRoute.value.path === '/clients' && !(page === 'admin-home') && !(page === 'leads') }">
         <UsersBoldIcon class="w-7 h-7" />
       </router-link>
-      <router-link to="/messages" v-if="isAdmin" @click="toggleReportDropMenu()" class="flex items-center justify-center cursor-pointer hover:bg-blue-500">
+      <router-link to="/messages" v-if="isAdmin" @click="changePage('messages')" class="flex items-center justify-center cursor-pointer hover:bg-blue-500"
+      :class="{ 'bg-blue-500 text-white': page === 'messages' || $router.currentRoute.value.path === '/messages' && !(page === 'admin-home') && !(page === 'leads') && !(page === 'clients') && !(page === 'profile')}">
         <EnvelopeIcon class="w-7 h-7" />
       </router-link>
       <router-link to="/unverified-clients" v-if="isAdmin"

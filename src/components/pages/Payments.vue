@@ -473,7 +473,7 @@ const createPayment = () => {
       (error) => {
         if (error.message.split(' ').includes('405')) {
           notify.warning({
-            message: "To'lovchi allaqachon kunlik to'lov qilgan!",
+            message: "A'zo allaqachon to'lov qilgan!",
             position: 'bottomLeft',
           })
         } else {
