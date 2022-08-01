@@ -516,12 +516,13 @@ const filterData = reactive({
   typeBy: null
 })
 
+const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE;
 let page = 0
 const loadMember = async ($state) => {
   page++
   if (!(total.value / 10 + 1 < page && total.value !== 0)) {
     try {
-      const response = await fetch('http://localhost:9000/member/' + page, {
+      const response = await fetch(API_URL + '/member/' + page, {
         method: 'POST',
         body: JSON.stringify(filterData),
         headers: authHeader(),
@@ -541,7 +542,7 @@ const loadMember = async ($state) => {
 
 const loadLastAddedMember = async () => {
   try {
-    const response = await fetch('http://localhost:9000/member/' + page, {
+    const response = await fetch(API_URL + '/member/' + page, {
       method: 'POST',
       body: JSON.stringify(filterData),
       headers: authHeader(),
@@ -562,7 +563,7 @@ const loadFiltered = async () => {
   isLoading.value = true
   if (!(total.value / 10 + 1 < page && total.value !== 0)) {
     try {
-      const response = await fetch('http://localhost:9000/member/' + page, {
+      const response = await fetch(API_URL + '/member/' + page, {
         method: 'POST',
         body: JSON.stringify(filterData),
         headers: authHeader(),

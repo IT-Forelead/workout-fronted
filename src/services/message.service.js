@@ -1,7 +1,7 @@
 import axios from 'axios'
 import authHeader from './auth-header.js'
 
-const API_URL = process.env.BASE_API_URL
+const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE;
 
 class MessageService {
   async getMessages() {

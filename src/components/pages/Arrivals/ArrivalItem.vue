@@ -3,7 +3,7 @@
     <td class="px-4 py-3 whitespace-nowrap">
       <div class="flex items-center">
         <div class="flex items-center justify-center w-10 h-10 mr-3 border rounded-full border-gray-50 dark:border-gray-600">
-          <img class="object-cover w-full h-full rounded-full" :src="'http://localhost:9000/member/image/' + arrival.member.image" alt="#" />
+          <img class="object-cover w-full h-full rounded-full" :src="URL + '/member/image/' + arrival.member.image" alt="#" />
         </div>
         <div>
           <p class="font-semibold text-gray-900 dark:text-gray-300">{{ arrival.member.firstname + " " + arrival.member.lastname }}</p>
@@ -23,11 +23,12 @@
   </tr>
 </template>
 <script setup>
-import {toRefs} from "vue";
+import {toRefs, ref} from "vue";
 import CalendarBlankIcon from '../../../assets/icons/CalendarBlankIcon.vue'
 import InfiniteLoading from "v3-infinite-loading";
 import {phoneStyle, arrivalTypeTranslate, formatDate} from '../../../utils/utils.js'
 
+const URL = ref(import.meta.env.VITE_MY_ENV_VARIABLE)
 const props = defineProps({
   arrivals: {type: Array, required: true},
 });

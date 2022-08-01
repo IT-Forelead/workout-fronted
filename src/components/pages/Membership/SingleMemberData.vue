@@ -3,7 +3,7 @@
     <div class="grid grid-cols-1 gap-5 overflow-y-auto sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 2xl:gap-14 h-1/2">
       <div v-for="(member, idx) in members" :key="idx"
            class="overflow-hidden bg-white shadow-md rounded-xl dark:bg-gray-800">
-        <img :src="'http://localhost:9000/member/image/' + member.image" alt="#"
+        <img :src="URL + '/member/image/' + member.image" alt="#"
              class="object-cover w-full h-40 duration-500 cursor-zoom-out hover:object-scale-down"/>
         <div class="flex flex-col justify-center p-5 text-center" x-data="{open: false}">
           <h3 class="mb-2 overflow-hidden text-xl font-extrabold text-md h-14 dark:text-gray-300">{{
@@ -34,23 +34,23 @@
             </button>
           </div>
             <div class="p-5">
-              <div v-if="Object.keys(selectedMember).length !== 0" class="flex flex-col md:flex-row text-center md:justify-start items-center">
-                <img :src="'http://localhost:9000/member/image/' + selectedMember.image" alt="Avatar" class="w-48 h-48 mx-auto md:mx-2 rounded"/>
+              <div v-if="Object.keys(selectedMember).length !== 0" class="flex flex-col items-center text-center md:flex-row md:justify-start">
+                <img :src="URL + '/member/image/' + selectedMember.image" alt="Avatar" class="w-48 h-48 mx-auto rounded md:mx-2"/>
                 <div class="flex flex-col ml-2">
-                  <div class="flex flex-col md:flex-row md:justify-between p-2">
-                    <span class="text-lg mr-3">To'liq ismi:</span>
+                  <div class="flex flex-col p-2 md:flex-row md:justify-between">
+                    <span class="mr-3 text-lg">To'liq ismi:</span>
                     <span class="text-lg font-semibold text-gray-900 dark:text-white">{{ selectedMember.firstname + ' ' + selectedMember.lastname }}</span>
                   </div>
-                  <div class="flex flex-col md:flex-row md:justify-between p-2">
-                    <span class="text-lg mr-3">Telefon raqami:</span>
+                  <div class="flex flex-col p-2 md:flex-row md:justify-between">
+                    <span class="mr-3 text-lg">Telefon raqami:</span>
                     <span class="text-lg font-semibold text-gray-900 dark:text-white">{{ phoneStyle(selectedMember.phone) }}</span>
                   </div>
-                  <div class="flex flex-col md:flex-row md:justify-between p-2">
-                    <span class="text-lg mr-3">Tug'ilgan kuni: </span>
+                  <div class="flex flex-col p-2 md:flex-row md:justify-between">
+                    <span class="mr-3 text-lg">Tug'ilgan kuni: </span>
                     <span class="text-lg font-semibold text-gray-900 dark:text-white">{{ selectedMember.birthday }}</span>
                   </div>
-                  <div class="flex flex-col md:flex-row md:justify-between p-2">
-                    <span class="text-lg mr-3">Foydalanish vaqti: </span>
+                  <div class="flex flex-col p-2 md:flex-row md:justify-between">
+                    <span class="mr-3 text-lg">Foydalanish vaqti: </span>
                     <span class="text-lg font-semibold text-gray-900 dark:text-white">{{ formatDate(selectedMember.activeTime) }}</span>
                   </div>
                 </div>
@@ -93,6 +93,7 @@ const props = defineProps({
   members: {type: Array, required: true},
 });
 
+const URL = ref(import.meta.env.VITE_MY_ENV_VARIABLE)
 const {members} = toRefs(props);
 const isModalOpen = ref(false)
 const selectedMember = ref({})

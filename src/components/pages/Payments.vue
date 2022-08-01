@@ -93,7 +93,7 @@
                 <span class="flex items-center" v-if="Object.keys(selectedMember).length !== 0">
                   <span
                     class="relative inline-block p-1 rounded-full shadow bg-slate-300 text-slate-500 dark:bg-gray-800 dark:text-gray-500">
-                    <img class="w-5 h-5" :src="'http://localhost:9000/member/image/' + selectedMember.image" alt="#" />
+                    <img class="w-5 h-5" :src="URL + '/member/image/' + selectedMember.image" alt="#" />
                   </span>
                   <span x-show="!selectOption" class="block ml-3 truncate text-md"> {{ selectedMember.firstname + ' ' +
                       selectedMember.lastname
@@ -116,7 +116,7 @@
                   class="relative py-2 pl-3 text-gray-900 cursor-pointer select-none pr-9 hover:bg-blue-500 hover:text-white"
                   id="listbox-option-0" role="option">
                   <div class="flex items-center dark:text-gray-300">
-                    <img :src="'http://localhost:9000/member/image/' + member.image" alt="#"
+                    <img :src="URL + '/member/image/' + member.image" alt="#"
                       class="flex-shrink-0 w-6 h-6 rounded-full" />
                     <span class="block ml-3 font-normal truncate"> {{ member.firstname + ' ' + member.lastname }}
                     </span>
@@ -173,7 +173,7 @@
             </button>
           </div>
           <div class="p-3">
-            <img :src="'http://localhost:9000/member/image/' + selectedPayment.member.image" class="mx-auto h-36 w-36"
+            <img :src="URL + '/member/image/' + selectedPayment.member.image" class="mx-auto h-36 w-36"
               alt="#" />
             <p class="my-3 font-bold text-center capitalize">
               {{ selectedPayment.member.firstname + ' ' + selectedPayment.member.lastname }}
@@ -231,6 +231,7 @@ const store = useStore()
 
 const target = ref('.payments-wrapper')
 const distance = ref(200)
+const URL = ref(import.meta.env.VITE_MY_ENV_VARIABLE)
 
 const selectedMember = ref('')
 const paymentType = ref('monthly')
@@ -316,13 +317,14 @@ const payments = ref([])
 const total = ref(0)
 const isPaymentEmpty = ref(false)
 const isLoading = ref(true)
+const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE;
 
 let page = 0
 const loadPayments = async ($state) => {
   page++
   if (!(total.value / 10 + 1 < page && total.value !== 0)) {
     try {
-      const response = await fetch('http://localhost:9000/payment/' + page, {
+      const response = await fetch(API_URL + '/payment/' + page, {
         method: 'POST',
         body: JSON.stringify(filterData),
         headers: authHeader(),
@@ -350,7 +352,7 @@ const loadFilteredPayments = async () => {
   page++
   if (!(total.value / 10 + 1 < page && total.value !== 0)) {
     try {
-      const response = await fetch('http://localhost:9000/payment/' + page, {
+      const response = await fetch(API_URL + '/payment/' + page, {
         method: 'POST',
         body: JSON.stringify(filterData),
         headers: authHeader(),
@@ -404,7 +406,7 @@ watch(
 const loadLastAddedPayment = async () => {
   isLoading.value = true
   try {
-    const response = await fetch('http://localhost:9000/payment/' + page, {
+    const response = await fetch(API_URL + '/payment/' + page, {
       method: 'POST',
       body: JSON.stringify(filterData),
       headers: authHeader(),

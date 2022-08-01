@@ -93,13 +93,14 @@ const filterData = reactive({
   filterDateFrom: null,
   filterDateTo: null,
 })
+const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE;
 
 let page = 0
 const loadArrivals = async ($state) => {
   page++
   if (!(total.value / 10 + 1 < page && total.value !== 0)) {
     try {
-      const response = await fetch('http://localhost:9000/arrival/' + page, {
+      const response = await fetch(API_URL + '/arrival/' + page, {
         method: 'POST',
         body: JSON.stringify(filterData),
         headers: authHeader(),
@@ -119,7 +120,7 @@ const loadArrivals = async ($state) => {
 const loadDefaultArrivals = async () => {
   if (!(total.value / 10 + 1 < page && total.value !== 0)) {
     try {
-      const response = await fetch('http://localhost:9000/arrival/' + page, {
+      const response = await fetch(API_URL + '/arrival/' + page, {
         method: 'POST',
         body: JSON.stringify(filterData),
         headers: authHeader(),
@@ -144,7 +145,7 @@ const loadFiltered = async () => {
   page++
   if (!(total.value / 10 + 1 < page && total.value !== 0)) {
     try {
-      const response = await fetch('http://localhost:9000/arrival/' + page, {
+      const response = await fetch(API_URL + '/arrival/' + page, {
         method: 'POST',
         body: JSON.stringify(filterData),
         headers: authHeader(),

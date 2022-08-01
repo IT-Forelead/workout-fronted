@@ -5,7 +5,7 @@
       <div v-if="msg.member" class="flex items-center">
         <div class="flex items-center justify-center w-10 h-10 mr-3 border rounded-full border-gray-50">
           <img class="object-cover w-full h-full rounded-full"
-               :src="'http://localhost:9000/member/image/' + msg?.member?.image" alt="#"/>
+               :src="URL + '/member/image/' + msg?.member?.image" alt="#"/>
         </div>
         <div>
           <p class="font-semibold text-gray-900 dark:text-gray-300">
@@ -42,7 +42,7 @@
 <script setup>
 import UserBoldIcon from '../../../assets/icons/UserBoldIcon.vue'
 import CalendarBlankIcon from '../../../assets/icons/CalendarBlankIcon.vue'
-import {toRefs} from "vue";
+import {toRefs, ref} from "vue";
 import InfiniteLoading from "v3-infinite-loading";
 import {phoneStyle, formatDate} from "../../../utils/utils.js";
 
@@ -51,7 +51,7 @@ const props = defineProps({
 });
 
 const {messages} = toRefs(props);
-
+const URL = ref(import.meta.env.VITE_MY_ENV_VARIABLE)
 const deliveryStatusTranslate = (status) => {
   switch (status) {
     case 'sent':

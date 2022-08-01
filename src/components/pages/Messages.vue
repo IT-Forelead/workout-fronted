@@ -104,13 +104,14 @@ const filterData = reactive({
   filterDateTo: null,
 })
 const isMessagesEmpty = ref(false)
+const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE;
 
 let page = 0
 const loadMessages = async ($state) => {
   page++
   if (!(total.value / 10 + 1 < page && total.value !== 0)) {
     try {
-      const response = await fetch('http://localhost:9000/message/' + page, {
+      const response = await fetch(API_URL + '/message/' + page, {
         method: 'POST',
         body: JSON.stringify(filterData),
         headers: authHeader(),
@@ -134,7 +135,7 @@ const loadMessages = async ($state) => {
 const loadFirstTenMessages = async () => {
   if (!(total.value / 10 + 1 < page && total.value !== 0)) {
     try {
-      const response = await fetch('http://localhost:9000/message/' + page, {
+      const response = await fetch(API_URL + '/message/' + page, {
         method: 'POST',
         body: JSON.stringify(filterData),
         headers: authHeader(),
@@ -156,7 +157,7 @@ const loadFiltered = async () => {
   page++
   if (!(total.value / 10 + 1 < page && total.value !== 0)) {
     try {
-      const response = await fetch('http://localhost:9000/message/' + page, {
+      const response = await fetch(API_URL + '/message/' + page, {
         method: 'POST',
         body: JSON.stringify(filterData),
         headers: authHeader(),
