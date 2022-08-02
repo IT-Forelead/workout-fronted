@@ -132,20 +132,19 @@
                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                   <span class="text-sm text-gray-500"> UZS </span>
                 </div>
-                <input type="text" v-model="client.dailyPrice" id="daily-price"
-                  class="block w-full pr-12 bg-gray-50 p-2.5 text-sm text-gray-900 border border-gray-300 rounded-lg pl-11 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                <input type="number" v-model="client.dailyPrice" id="daily-price"
+                  class="block w-full bg-gray-50 p-2.5 text-sm text-gray-900 border border-gray-300 rounded-lg pl-11 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   placeholder="0.00" required />
               </div>
             </div>
             <div class="p-3">
-              <label for="monthly-price" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Oylik
-                to'lov</label>
+              <label for="monthly-price" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Oylik to'lov</label>
               <div class="relative rounded-md">
                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                   <span class="text-sm text-gray-500"> UZS </span>
                 </div>
-                <input type="text" v-model="client.monthlyPrice" name="monthlyPrice" id="monthly-price"
-                  class="block w-full pr-12 bg-gray-50 p-2.5 text-sm text-gray-900 border border-gray-300 rounded-lg pl-11 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                <input type="number" v-model="client.monthlyPrice" name="monthlyPrice" id="monthly-price"
+                  class="block w-full bg-gray-50 p-2.5 text-sm text-gray-900 border border-gray-300 rounded-lg pl-11 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   placeholder="0.00" required />
               </div>
             </div>
