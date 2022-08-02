@@ -154,9 +154,9 @@
                 <input v-model="client.password" id="password" :type="currentType"
                   class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   placeholder="Parolni kiriting" required />
-                <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 z-20">
-                  <EyeIcon @click="showPassword('password')" v-if="currentType === 'text'" class="h-5 w-5 text-gray-400 cursor-pointer" />
-                  <EyeSlashIcon @click="showPassword('text')" v-if="currentType === 'password'" class="h-5 w-5 text-gray-400 cursor-pointer" />
+                <div class="absolute inset-y-0 right-0 z-20 flex items-center pr-3 text-sm leading-5">
+                  <EyeIcon @click="showPassword('password')" v-if="currentType === 'text'" class="w-5 h-5 text-gray-400 cursor-pointer" />
+                  <EyeSlashIcon @click="showPassword('text')" v-if="currentType === 'password'" class="w-5 h-5 text-gray-400 cursor-pointer" />
                 </div>
               </div>
             </div>
@@ -166,9 +166,9 @@
                 <input v-model="client.confirmPassword" id="reply-password" :type="currentReplyPasswordType"
                   class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   placeholder="Parolni takrorlang" required />
-                <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 z-20">
-                  <EyeIcon @click="showReplyPassword('password')" v-if="currentReplyPasswordType === 'text'" class="h-5 w-5 text-gray-400 cursor-pointer" />
-                  <EyeSlashIcon @click="showReplyPassword('text')" v-if="currentReplyPasswordType === 'password'" class="h-5 w-5 text-gray-400 cursor-pointer" />
+                <div class="absolute inset-y-0 right-0 z-20 flex items-center pr-3 text-sm leading-5">
+                  <EyeIcon @click="showReplyPassword('password')" v-if="currentReplyPasswordType === 'text'" class="w-5 h-5 text-gray-400 cursor-pointer" />
+                  <EyeSlashIcon @click="showReplyPassword('text')" v-if="currentReplyPasswordType === 'password'" class="w-5 h-5 text-gray-400 cursor-pointer" />
                 </div>
               </div>
             </div>
@@ -529,7 +529,7 @@ const createClient = () => {
       clearInterval(interval)
     },
     (error) => {
-      if (error.message.slice(-3) === '400') {
+      if (error.message.slice(-3) === '406') {
         notify.warning({
           message: "Tasdiqlash kodi noto'g'ri!, Iltimos tekshirib qaytadan kiriting!",
           position: 'bottomLeft',
