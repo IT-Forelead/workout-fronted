@@ -32,10 +32,10 @@
         </table>
       </div>
     </div>
-    <div v-show="!isClientsEmpty && clients.length === 0" class="flex items-start justify-center w-full h-10">
+    <div v-if="isLoading" class="flex items-start justify-center w-full h-10">
       <SpinIcon class="w-7 h-7" />
     </div>
-    <h1 v-show="isClientsEmpty" class="text-xl text-center text-red-500">Ma'lumotlar bazasidan mijozlar topilmadi!</h1>
+    <h1 v-if="isClientsEmpty" class="text-xl text-center text-red-500">Ma'lumotlar bazasidan mijozlar topilmadi!</h1>
   </div>
 </template>
 <script setup>
@@ -53,6 +53,7 @@ const target = ref('.clients-wrapper')
 const distance = ref(200)
 const clients = ref([])
 const total = ref(0)
+const isLoading = ref(true)
 const isClientsEmpty = ref(false)
 
 // Filter By
@@ -93,6 +94,7 @@ const loadClients = async ($state) => {
       total.value = json.total
       setTimeout(() => {
         clients.value.push(...json.user)
+        isClientsEmpty
         $state.loaded()
       }, 500)
     } catch (error) {
@@ -100,6 +102,11 @@ const loadClients = async ($state) => {
     }
   } else $state.loaded()
 }
+
+setTimeout(() => {
+  isClientsEmpty.value = total.value === 0
+  isLoading.value = false
+}, 700)
 
 const loadDefaultClients = async () => {
   if (!(total.value / 10 + 1 < page && total.value !== 0)) {
@@ -114,17 +121,14 @@ const loadDefaultClients = async () => {
       setTimeout(() => {
         clients.value = []
         clients.value.push(...json.user)
+        isLoading.value = false
+        isClientsEmpty.value = total.value === 0
       }, 500)
     } catch (error) {
       console.log("Get Clients Error!");
     }
   }
 }
-
-setTimeout(() => {
-  isClientsEmpty.value = clients.value.length === 0
-}, 1000)
-
 
 // load filtered
 const loadFiltered = async () => {
@@ -141,6 +145,8 @@ const loadFiltered = async () => {
       setTimeout(() => {
         clients.value = []
         clients.value.push(...json.user)
+        isLoading.value = false
+        isPaymentEmpty.value = total.value === 0
       }, 500)
     } catch (error) {
       notify.warning({
@@ -155,6 +161,7 @@ const refresher = () => {
   page = 0
   total.value = 0
   clients.value = []
+  isLoading.value = true
   loadFiltered()
   setTimeout(() => {
     isClientsEmpty.value = clients.value.length === 0
