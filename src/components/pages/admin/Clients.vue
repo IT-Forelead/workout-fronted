@@ -94,7 +94,7 @@ const loadClients = async ($state) => {
       total.value = json.total
       setTimeout(() => {
         clients.value.push(...json.user)
-        isClientsEmpty
+        isClientsEmpty.value = total.value === 0
         $state.loaded()
       }, 500)
     } catch (error) {
@@ -146,7 +146,7 @@ const loadFiltered = async () => {
         clients.value = []
         clients.value.push(...json.user)
         isLoading.value = false
-        isPaymentEmpty.value = total.value === 0
+        isClientsEmpty.value = total.value === 0
       }, 500)
     } catch (error) {
       notify.warning({
