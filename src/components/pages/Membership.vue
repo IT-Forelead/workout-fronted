@@ -480,12 +480,10 @@ const createMember = () => {
       loadLastAddedMember()
     },
     (error) => {
-      if (error.message.slice(-3) === '406') {
         notify.warning({
-          message: "Tasdiqlash kodi noto'g'ri!, Iltimos tekshirib qaytadan kiriting!",
+          message: error.response.data,
           position: 'bottomLeft',
         })
-      }
       showCheckBtn.value = true
       lastProgressBtn.value = false
     }
