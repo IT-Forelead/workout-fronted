@@ -1,14 +1,10 @@
-import axios from 'axios'
 import authHeader from './auth-header.js'
 import authHeaderForMultiPart from './auth-header-for-multipart.js'
 import AxiosService from './axios.service.js'
 
-const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE;
-
 class MemberService {
     async getCode(data) {
-        const response = await axios.post(API_URL + '/message/sent-code', {phone: data}, {headers: authHeader()})
-        return response.data
+        return AxiosService.post('/message/sent-code', {phone: data}, {headers: authHeader()})
     }
 
     async create(data) {
@@ -29,8 +25,7 @@ class MemberService {
     }
 
     async getArrivalByMemberId(data) {
-        const response = await axios.post(API_URL + '/arrival/member', {memberId: data}, {headers: authHeader()})
-        return response.data
+        return AxiosService.post('/arrival/member', {memberId: data}, {headers: authHeader()})
     }
 }
 

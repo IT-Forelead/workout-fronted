@@ -1,5 +1,7 @@
 import axios from 'axios'
+
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE;
+
 class AuthService {
   async login(user) {
     const response = await axios
