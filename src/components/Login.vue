@@ -9,25 +9,38 @@
           </div>
           <div class="flex flex-col justify-center flex-1 mb-0 md:mb-5">
             <h3 class="text-4xl font-semibold text-center">KIRISH</h3>
-            <p class="px-10 my-5 text-sm text-center text-gray-500">Tizimga kirish uchun telefon raqamingiz va parolingizni kiritishgingiz lozim!</p>
+            <p class="px-10 my-5 text-sm text-center text-gray-500">Tizimga kirish uchun telefon raqamingiz va
+              parolingizni kiritishgingiz lozim!</p>
             <div class="w-full mt-3 md:mt-8">
               <Form @submit="onSubmit" class="form-horizontal md:mx-auto md:w-3/4" method="POST" action="#">
                 <div class="flex flex-col mt-4">
-                  <Field v-model="phone" v-mask="'+###(##) ###-##-##'" name="phone" type="phone" class="w-full p-4 text-gray-500 bg-gray-100 border-0 outline-none text-md rounded-xl focus:bg-gray-200 focus:outline-none" placeholder="+998(99) 876-54-32" />
+                  <Field v-model="phone" v-mask="'+###(##) ###-##-##'" name="phone" type="phone"
+                    class="w-full p-4 text-gray-500 bg-gray-100 border-0 outline-none text-md rounded-xl focus:bg-gray-200 focus:outline-none"
+                    placeholder="+998(99) 876-54-32" />
                 </div>
                 <div class="flex flex-col mt-4">
                   <div class="relative">
-                    <Field v-model="password" name="password" :type="currentType" class="w-full p-4 text-gray-500 bg-gray-100 border-0 outline-none text-md rounded-xl focus:bg-gray-200 focus:outline-none" placeholder="Parolni kiriting..." />
-                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 z-20">
-                      <EyeIcon @click="showPassword('password')" v-if="currentType === 'text'" class="h-5 w-5 text-gray-400 cursor-pointer" />
-                      <EyeSlashIcon @click="showPassword('text')" v-if="currentType === 'password'" class="h-5 w-5 text-gray-400 cursor-pointer" />
+                    <Field v-model="password" name="password" :type="currentType"
+                      class="w-full p-4 text-gray-500 bg-gray-100 border-0 outline-none text-md rounded-xl focus:bg-gray-200 focus:outline-none"
+                      placeholder="Parolni kiriting..." />
+                    <div class="absolute inset-y-0 right-0 z-20 flex items-center pr-3 text-sm leading-5">
+                      <EyeIcon @click="showPassword('password')" v-if="currentType === 'text'"
+                        class="w-5 h-5 text-gray-400 cursor-pointer" />
+                      <EyeSlashIcon @click="showPassword('text')" v-if="currentType === 'password'"
+                        class="w-5 h-5 text-gray-400 cursor-pointer" />
                     </div>
                   </div>
                 </div>
                 <div class="flex items-center mt-8">
-                  <button type="submit" class="flex justify-center w-full py-5 text-white bg-gray-900 text-md rounded-xl hover:bg-gray-800" :disabled="isLoading">
-                    <span v-if="!isLoading" class="flex items-center cursor-pointer"> <LoginIcon class="mr-3 text-2xl" />Tizimga kirish </span>
-                    <span v-else class="flex items-center"> <SpinIcon class="w-6 h-6" /> Tekshirilmoqda... </span>
+                  <button type="submit"
+                    class="flex justify-center w-full py-5 text-white bg-gray-900 text-md rounded-xl hover:bg-gray-800"
+                    :disabled="isLoading">
+                    <span v-if="!isLoading" class="flex items-center cursor-pointer">
+                      <LoginIcon class="mr-3 text-2xl" />Tizimga kirish
+                    </span>
+                    <span v-else class="flex items-center">
+                      <SpinIcon class="w-6 h-6" /> Tekshirilmoqda...
+                    </span>
                   </button>
                 </div>
               </Form>
@@ -35,17 +48,21 @@
                 <a @click="forgetPassword()" class="text-sm no-underline cursor-pointer text-rose-600 hover:underline">Parolni unitdingizmi?</a>
               </div>
               <div class="my-3 text-center">
-                <router-link to="/register" class="text-blue-600 cursor-pointer text-md hover:underline">Ro'yhatdan o'tish</router-link>
+                <router-link to="/register" class="text-blue-600 cursor-pointer text-md hover:underline">Ro'yhatdan
+                  o'tish</router-link>
               </div>
             </div>
           </div>
-          <div class="text-xs text-center text-gray-400 dark:text-gray-400">All rights reserved. &copy; <a href="https://it-forelead.uz" class="hover:underline">IT-Forelead</a> 2022</div>
+          <div class="text-xs text-center text-gray-400 dark:text-gray-400">All rights reserved. &copy; <a
+              href="https://it-forelead.uz" class="hover:underline">IT-Forelead</a> 2022</div>
         </div>
         <div class="hidden xl:block bg-image rounded-r-3xl md:w-2/3">
           <div class="flex items-center justify-center h-full">
-            <div class="w-full px-10 py-16 text-white xl:mx-16 2xl:mx-32 rounded-xl backdrop-blur-sm backdrop-contrast-50">
+            <div
+              class="w-full px-10 py-16 text-white xl:mx-16 2xl:mx-32 rounded-xl backdrop-blur-sm backdrop-contrast-50">
               <h3 class="mb-5 text-3xl font-semibold">Workout platformasi</h3>
-              <p class="text-md">Trinirovka klubingiz boshqaruvini qulaylashtiruvchi, harajatlarni kamaytirgan holda ish samaradoligini oshiruvchi qulay hamda sodda tizim.</p>
+              <p class="text-md">Trinirovka klubingiz boshqaruvini qulaylashtiruvchi, harajatlarni kamaytirgan holda ish
+                samaradoligini oshiruvchi qulay hamda sodda tizim.</p>
             </div>
           </div>
         </div>
@@ -84,7 +101,7 @@ function forbiddenChecker(error, msg) {
       () => {
         store.commit('setSelectedPage', '')
       },
-      () => {}
+      () => { }
     )
   } else {
     notify.warning({

@@ -480,7 +480,7 @@ const createMember = () => {
       loadLastAddedMember()
     },
     (error) => {
-      notify.warning({
+        notify.warning({
         message: error.response.data,
         position: 'bottomLeft',
       })

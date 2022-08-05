@@ -1,7 +1,7 @@
 <template>
-  <div class="fixed inset-0 top-0 left-0 right-0 w-full h-screen overflow-x-hidden overflow-y-auto">
+  <div class="fixed inset-0 top-0 left-0 right-0 w-full h-screen overflow-x-hidden overflow-y-auto bg-slate-100 dark:bg-gray-900">
     <div
-      class="w-full p-1 mb-20 md:-translate-x-1/2 md:-translate-y-1/2 md:relative md:w-3/4 md:top-1/2 md:left-1/2 md:mt-0 md:p-4">
+      class="w-full p-1 mx-auto mb-20 lg:mx-0 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:relative md:w-3/4 lg:top-1/2 lg:left-1/2 lg:p-4">
       <div class="relative bg-white rounded-lg shadow-lg dark:bg-gray-800">
         <div class="p-5 border-b rounded-t dark:border-gray-600">
           <div class="flex justify-between">
@@ -11,8 +11,8 @@
             </router-link>
             <button @click="toggleDark()"
               class="relative inline-block p-2 rounded-full shadow bg-slate-100 hover:bg-slate-200 dark:bg-gray-900 dark:hover:bg-gray-700">
-              <MoonIcon v-show="!isDark" class="w-5 h-5 text-black dark:text-gray-500" />
-              <SunIcon v-show="isDark" class="w-5 h-5 text-black dark:text-gray-500" />
+              <MoonIcon v-if="!isDark" class="w-5 h-5 text-black dark:text-gray-500" />
+              <SunIcon v-else class="w-5 h-5 text-black dark:text-gray-500" />
             </button>
           </div>
           <h3 class="mt-5 text-xl font-semibold text-center text-gray-900 uppercase dark:text-gray-300 md:mt-0">
@@ -138,7 +138,8 @@
               </div>
             </div>
             <div class="p-3">
-              <label for="monthly-price" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Oylik to'lov</label>
+              <label for="monthly-price" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Oylik
+                to'lov</label>
               <div class="relative rounded-md">
                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                   <span class="text-sm text-gray-500"> UZS </span>
@@ -149,26 +150,32 @@
               </div>
             </div>
             <div class="p-3">
-              <label for="password" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Parol</label>
+              <label for="password"
+                class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Parol</label>
               <div class="relative">
                 <input v-model="client.password" id="password" :type="currentType"
                   class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   placeholder="Parolni kiriting" required />
-                <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 z-20">
-                  <EyeIcon @click="showPassword('password')" v-if="currentType === 'text'" class="h-5 w-5 text-gray-400 cursor-pointer" />
-                  <EyeSlashIcon @click="showPassword('text')" v-if="currentType === 'password'" class="h-5 w-5 text-gray-400 cursor-pointer" />
+                <div class="absolute inset-y-0 right-0 z-20 flex items-center pr-3 text-sm leading-5">
+                  <EyeIcon @click="showPassword('password')" v-if="currentType === 'text'"
+                    class="w-5 h-5 text-gray-400 cursor-pointer" />
+                  <EyeSlashIcon @click="showPassword('text')" v-if="currentType === 'password'"
+                    class="w-5 h-5 text-gray-400 cursor-pointer" />
                 </div>
               </div>
             </div>
             <div class="p-3">
-              <label for="reply-password" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Parolni takrorlang</label>
+              <label for="reply-password"
+                class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Parolni takrorlang</label>
               <div class="relative">
                 <input v-model="client.confirmPassword" id="reply-password" :type="currentReplyPasswordType"
                   class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   placeholder="Parolni takrorlang" required />
-                <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 z-20">
-                  <EyeIcon @click="showReplyPassword('password')" v-if="currentReplyPasswordType === 'text'" class="h-5 w-5 text-gray-400 cursor-pointer" />
-                  <EyeSlashIcon @click="showReplyPassword('text')" v-if="currentReplyPasswordType === 'password'" class="h-5 w-5 text-gray-400 cursor-pointer" />
+                <div class="absolute inset-y-0 right-0 z-20 flex items-center pr-3 text-sm leading-5">
+                  <EyeIcon @click="showReplyPassword('password')" v-if="currentReplyPasswordType === 'text'"
+                    class="w-5 h-5 text-gray-400 cursor-pointer" />
+                  <EyeSlashIcon @click="showReplyPassword('text')" v-if="currentReplyPasswordType === 'password'"
+                    class="w-5 h-5 text-gray-400 cursor-pointer" />
                 </div>
               </div>
             </div>
@@ -257,7 +264,6 @@ import EyeSlashIcon from '../assets/icons/EyeSlashIcon.vue'
 import { ref, reactive } from 'vue'
 import { Field } from 'vee-validate'
 import { useRouter } from 'vue-router'
-import * as yup from 'yup'
 import { useStore } from 'vuex'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
