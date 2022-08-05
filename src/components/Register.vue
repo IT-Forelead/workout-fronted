@@ -529,12 +529,10 @@ const createClient = () => {
       clearInterval(interval)
     },
     (error) => {
-      if (error.message.slice(-3) === '400') {
-        notify.warning({
-          message: "Tasdiqlash kodi noto'g'ri!, Iltimos tekshirib qaytadan kiriting!",
-          position: 'bottomLeft',
-        })
-      }
+      notify.warning({
+        message: error.response.data,
+        position: 'bottomLeft',
+      })
       showCheckBtn.value = true
       lastProgressBtn.value = false
     }

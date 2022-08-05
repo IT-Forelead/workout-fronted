@@ -14,11 +14,10 @@
         </div>
       </div>
       <div v-else class="flex items-center">
-        <div
-            class="inline-block w-10 h-10 p-1 mr-3 border rounded-full shadow border-gray-50 dark:border-gray-600 bg-slate-300 dark:bg-gray-800 text-slate-500 dark:text-gray-500">
+        <div class="inline-block w-10 h-10 p-1 mr-3 border rounded-full shadow border-gray-50 dark:border-gray-600 bg-slate-300 dark:bg-gray-800 text-slate-500 dark:text-gray-500">
           <UserBoldIcon class="w-full h-full"/>
         </div>
-        <div class="font-semibold text-gray-900 dark:text-gray-300">Noma'lum foydalanuvchi</div>
+        <div class="font-semibold text-gray-900 dark:text-gray-300">{{ phoneStyle(msg?.message.phone) }}</div>
       </div>
     </td>
     <td class="px-4 py-3 whitespace-nowrap">

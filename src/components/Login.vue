@@ -32,7 +32,7 @@
                 </div>
               </Form>
               <div class="mt-8 text-center">
-                <a class="text-sm no-underline cursor-pointer text-rose-600 hover:underline">Parolni unitdingizmi?</a>
+                <a @click="forgetPassword()" class="text-sm no-underline cursor-pointer text-rose-600 hover:underline">Parolni unitdingizmi?</a>
               </div>
               <div class="my-3 text-center">
                 <router-link to="/register" class="text-blue-600 cursor-pointer text-md hover:underline">Ro'yhatdan o'tish</router-link>
@@ -94,6 +94,13 @@ function forbiddenChecker(error, msg) {
   }
 }
 
+const forgetPassword = () => {
+    notify.warning({
+      message: "Parolni tiklash BETA versiyada mavjud emas!",
+      position: 'bottomLeft',
+    })  
+}
+
 // User Data
 const addUserInStore = () => {
   store.dispatch('userModule/get').then(
@@ -136,17 +143,10 @@ const onSubmit = (user) => {
         }, 700)
       },
       (error) => {
-        if (error.message.split(' ').includes('406')) {
-          notify.warning({
-            message: 'Sizning profilingiz aktivlash jarayonida. Iltimos biroz kuting!',
-            position: 'topRight',
-          })
-        } else {
-          notify.error({
-            message: "Telefon raqami yoki parol noto'g'ri!",
-            position: 'topRight',
-          })
-        }
+        notify.error({
+          message: error.response.data,
+          position: 'topRight',
+        })
         isLoading.value = false
       }
     )

@@ -471,17 +471,10 @@ const createPayment = () => {
         loadLastAddedPayment()
       },
       (error) => {
-        if (error.message.split(' ').includes('405')) {
-          notify.warning({
-            message: "A'zo allaqachon to'lov qilgan!",
-            position: 'bottomLeft',
-          })
-        } else {
-          notify.warning({
-            message: "To'lovni qayd etishda xatolik yuz berdi!",
-            position: 'bottomLeft',
-          })
-        }
+        notify.warning({
+          message: error.response.data,
+          position: 'bottomLeft',
+        })
       }
     )
   }

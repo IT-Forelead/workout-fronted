@@ -31,13 +31,10 @@
               </span>
             </div>
           </button>
-          <div v-if="openFilter" ref="filterDropdown"
-            class="absolute right-0 z-30 w-1/4 mt-2 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 top-11 dark:text-gray-300">
-            <div @click="openFilter = false; filterData.typeBy = 'send-code'; currentFilter = 'Aktivlash kodlari'"
-              class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Aktivlash kodlari
-            </div>
-            <div @click="openFilter = false; filterData.typeBy = 'reminder'; currentFilter = 'Eslatma xabarlari'"
-              class="px-3 py-2 cursor-pointer dark:hover:bg-gray-700">Eslatma xabarlari</div>
+          <div v-if="openFilter" ref="filterDropdown" class="absolute right-0 z-30 w-1/4 mt-2 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 top-11 dark:text-gray-300">
+            <div @click="openFilter = false; filterData.typeBy = 'sent_code'; currentFilter = 'Aktivlash kodlari'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Aktivlash kodlari</div>
+            <div @click="openFilter = false; filterData.typeBy = 'activation'; currentFilter = 'Aktivlash xabarlari'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Aktivlash xabarlar</div>
+            <div @click="openFilter = false; filterData.typeBy = 'reminder'; currentFilter = 'Eslatma xabarlari'" class="px-3 py-2 cursor-pointer dark:hover:bg-gray-700">Eslatma xabarlari</div>
           </div>
         </div>
       </div>
