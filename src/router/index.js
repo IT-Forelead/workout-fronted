@@ -14,6 +14,12 @@ const routes = [
     meta: { layout: 'register' },
   },
   {
+    path: '/reset-password',
+    name: 'Parolni qayta tiklash',
+    component: () => import('../components/ResetPassword.vue'),
+    meta: { layout: 'register' },
+  },
+  {
     path: '/dashboard',
     name: 'Asosiy sahifa',
     component: () => import('../components/pages/Main.vue'),
@@ -104,7 +110,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/login', '/register']
+  const publicPages = ['/login', '/register', '/reset-password']
   const authRequired = !publicPages.includes(to.path)
   const loggedIn = localStorage.getItem('token')
   if ((authRequired && !loggedIn) || (to.path === '/' && !loggedIn)) {

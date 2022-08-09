@@ -72,7 +72,7 @@
 
     <!-- Member Add Modal -->
     <div v-if="isResetPasswordModal" class="fixed inset-0 top-0 left-0 right-0 z-50 w-full h-full overflow-x-hidden overflow-y-auto backdrop-brightness-50">
-      <div class="relative w-full max-w-5xl p-1 mt-16 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 md:mt-0 md:p-4">
+      <div class="relative w-full max-w-xl p-1 mt-16 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 md:mt-0 md:p-4">
         <div class="relative bg-white rounded-lg shadow-lg dark:bg-gray-800">
           <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
             <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Parolni qayta tiklash</h3>
