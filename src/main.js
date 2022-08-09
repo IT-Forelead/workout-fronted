@@ -27,4 +27,4 @@ app.component('dashboard-layout', DashboardLayout);
 app.component('login-layout', LoginLayout);
 app.component('register-layout', RegisterLayout);
 app.component("infinite-loading", InfiniteLoading);
-app.mount('#app')
+app.mount('#web-app')
