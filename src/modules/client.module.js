@@ -13,6 +13,16 @@ export const clientModule = {
         }
       )
     },
+    sendSMSLink({ commit }, contact) {
+      return ClientService.getLink(contact).then(
+        (client) => {
+          return Promise.resolve(client)
+        },
+        (error) => {
+          return Promise.reject(error)
+        }
+      )
+    },
     create({ commit }, clientData) {
       return ClientService.create(clientData).then(
         (client) => {

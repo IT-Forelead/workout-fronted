@@ -45,7 +45,7 @@
                 </div>
               </Form>
               <div class="mt-8 text-center">
-                <a @click="forgetPassword()" class="text-sm no-underline cursor-pointer text-rose-600 hover:underline">Parolni unitdingizmi?</a>
+                <a @click="openResetPasswordModal()" class="text-sm no-underline cursor-pointer text-rose-600 hover:underline">Parolni unitdingizmi?</a>
               </div>
               <div class="my-3 text-center">
                 <router-link to="/register" class="text-blue-600 cursor-pointer text-md hover:underline">Ro'yhatdan
@@ -69,6 +69,33 @@
       </div>
     </div>
   </div>
+
+    <!-- Member Add Modal -->
+    <div v-if="isResetPasswordModal" class="fixed inset-0 top-0 left-0 right-0 z-50 w-full h-full overflow-x-hidden overflow-y-auto backdrop-brightness-50">
+      <div class="relative w-full max-w-5xl p-1 mt-16 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 md:mt-0 md:p-4">
+        <div class="relative bg-white rounded-lg shadow-lg dark:bg-gray-800">
+          <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Parolni qayta tiklash</h3>
+            <button type="button" @click="closeResetPasswordModal()" class="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="defaultModal">
+              <ModalCloseIcon />
+            </button>
+          </div>
+          <div class="p-5">
+            <div class="px-3">
+              <label for="phone" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Telefon raqam</label>
+              <input v-model="clientPhone" name="phone" v-mask="'+###(##) ###-##-##'" id="phone" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="+998(90) 123-45-67" required />
+            </div>
+            <div class="p-3 text-sm text-gray-700 dark:text-gray-400">
+              Parolni qayta tiklash uchun profilingizga biriktirilgan telefon raqamingizni kiriting. Biz telefon raqamingizga parolni tiklash linkini jo'natamiz. Linkning amal qilish muddati 10 daqiqa.
+            </div>
+          </div>
+          <div class="flex items-center justify-between p-5 px-7 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+            <button @click="closeResetPasswordModal()" class="px-4 py-2 mr-2 font-medium text-white transition-colors duration-200 bg-teal-500 border border-teal-500 rounded outline-none hover:bg-teal-400 hover:text-white focus:ring-teal-600 focus:ring-offset-2 active:scale-95 disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">Yopish</button>
+            <button @click="sendSMSLink()" class="px-4 py-2 font-medium text-white transition-colors duration-200 bg-indigo-500 rounded shadow-lg outline-none hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">Jo'natish</button>
+          </div>
+        </div>
+      </div>
+    </div>
 </template>
 
 <script setup>
@@ -82,6 +109,7 @@ import LoginIcon from '../assets/icons/LoginIcon.vue'
 import SpinIcon from '../assets/icons/SpinIcon.vue'
 import EyeIcon from '../assets/icons/EyeIcon.vue'
 import EyeSlashIcon from '../assets/icons/EyeSlashIcon.vue'
+import ModalCloseIcon from '../assets/icons/ModalCloseIcon.vue'
 
 const router = useRouter()
 
@@ -89,10 +117,21 @@ const store = useStore()
 
 const phone = ref('')
 const password = ref('')
+const clientPhone = ref('')
 
 const isLoading = ref(false)
+const isResetPasswordModal = ref(false)
 const currentType = ref('password')
 const showPassword = (u) => (currentType.value = u)
+
+const openResetPasswordModal = () => {
+  isResetPasswordModal.value = true
+}
+
+const closeResetPasswordModal = () => {
+  isResetPasswordModal.value = false
+  clientPhone.value = ''
+}
 
 // Token expire checker function
 function forbiddenChecker(error, msg) {
@@ -109,13 +148,6 @@ function forbiddenChecker(error, msg) {
       position: 'bottomLeft',
     })
   }
-}
-
-const forgetPassword = () => {
-    notify.warning({
-      message: "Parolni tiklash BETA versiyada mavjud emas!",
-      position: 'bottomLeft',
-    })  
 }
 
 // User Data
@@ -165,6 +197,32 @@ const onSubmit = (user) => {
           position: 'topRight',
         })
         isLoading.value = false
+      }
+    )
+  }
+}
+
+const sendSMSLink = () => {
+  if (clientPhone.value === '') {
+    notify.warning({
+      message: "Iltimos, telefon raqamni kiriting!",
+      position: 'bottomLeft',
+    })
+  } else {
+    clientPhone.value = clientPhone.value.replace(')', '').replace('(', '').replace(' ', '').replace(' ', '').replace('-', '').replace('-', '')
+    store.dispatch('clientModule/sendSMSLink', clientPhone.value).then(
+      () => {
+        notify.success({
+          message: "Xabarnoma telefoningizga jo'natildi!",
+          position: 'bottomLeft',
+        }),
+        closeResetPasswordModal()
+      },
+      (error) => {
+        notify.warning({
+          message: error.response.data,
+          position: 'bottomLeft',
+        })
       }
     )
   }
