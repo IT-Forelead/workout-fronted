@@ -6,6 +6,10 @@ class ClientService {
     return AxiosService.post('/message/public/sent-code', {phone: data})
   }
 
+  async getLink(data) {
+    return AxiosService.post('/message/reset-password', {phone: data})
+  }
+
   async create(data) {
     return AxiosService.post('/auth/user', data, {headers: authHeader()})
   }
