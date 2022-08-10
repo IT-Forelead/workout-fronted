@@ -13,8 +13,9 @@ const routes = [
     component: () => import('../components/Register.vue'),
     meta: { layout: 'register' },
   },
+  // RESET PASSWORD Dynamic link
   {
-    path: '/reset-password',
+    path: '/reset-password/:link',
     name: 'Parolni qayta tiklash',
     component: () => import('../components/ResetPassword.vue'),
     meta: { layout: 'register' },
@@ -121,12 +122,13 @@ router.beforeEach((to, from, next) => {
 })
 
 function navigationGuard(role) {
-  if (role === 'all'){
+  if (role === 'all' && localStorage.getItem('token')) {
     return () => {
       return true
     }
   } else {
     return () => {
+      router.push('/not-found')
       return localStorage.getItem('role') === role
     }
   }
