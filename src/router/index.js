@@ -112,12 +112,12 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const publicPages = ['/login', '/register', '/reset-password']
-  const authRequired = !publicPages.includes(to.path)
-  const loggedIn = localStorage.getItem('token')
-  if ((authRequired && !loggedIn) || (to.path === '/' && !loggedIn)) {
-    next('/login')
-  } else {
+  const authNotRequired = !publicPages.includes(to.path)
+  const notLoggedIn = localStorage.getItem('token')
+  if ((authNotRequired && notLoggedIn) || (to.path === '/' && notLoggedIn) || publicPages.includes(`/${to.path.split('/')[1]}`)) {
     next()
+  } else {
+    next('/login')
   }
 })
 

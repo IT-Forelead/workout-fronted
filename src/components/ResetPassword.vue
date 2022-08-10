@@ -97,11 +97,11 @@ onMounted(() => {
   axios
     .get(API_URL + '/auth/link-validation/' + router.currentRoute.value.path.split('/')[2])
     .then((data) => {
-      console.log('Data ' + data)
+      console.log('Data ------->' + data)
       localStorage.setItem('current-user', JSON.stringify(data))
     })
     .catch((err) => {
-      console.log('Error ' + err)
+      console.log('Error -------> ' + err)
       router.push('/not-found')
     })
 })
