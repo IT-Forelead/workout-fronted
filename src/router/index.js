@@ -128,7 +128,6 @@ function navigationGuard(role) {
     }
   } else {
     return () => {
-      router.push('/not-found')
       return localStorage.getItem('role') === role
     }
   }

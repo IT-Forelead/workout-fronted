@@ -93,7 +93,7 @@ const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 
 onMounted(() => {
   axios
-    .get(API_URL + '/auth/link-validation/' + router.currentRoute.value.path.split('/')[2])
+    .get(API_URL + '/auth/link-validation-and-return-user/' + router.currentRoute.value.path.split('/')[2])
     .then((data) => {
       localStorage.setItem('current-user', JSON.stringify(data))
     })

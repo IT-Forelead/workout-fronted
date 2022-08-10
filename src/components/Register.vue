@@ -255,7 +255,6 @@ import SuccessfulIcon from '../assets/icons/SuccessfulIcon.vue'
 import SpinIcon from '../assets/icons/SpinIcon.vue'
 import ConfirmCode from '../assets/icons/ConfirmCode.vue'
 import TimerIcon from '../assets/icons/TimerIcon.vue'
-import LoginIcon from '../assets/icons/LoginIcon.vue'
 import BellIcon from "../assets/icons/BellIcon.vue";
 import SunIcon from "../assets/icons/SunIcon.vue";
 import MoonIcon from "../assets/icons/MoonIcon.vue";
