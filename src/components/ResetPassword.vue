@@ -89,19 +89,15 @@ const currentReplyPasswordType = ref('password')
 const showPassword = (t) => (currentType.value = t)
 const showReplyPassword = (t) => (currentReplyPasswordType.value = t)
 
-
 const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
 
 onMounted(() => {
-  console.log(router.currentRoute.value.path.split('/')[2]);
   axios
     .get(API_URL + '/auth/link-validation/' + router.currentRoute.value.path.split('/')[2])
     .then((data) => {
-      console.log('Data ------->' + data)
       localStorage.setItem('current-user', JSON.stringify(data))
     })
     .catch((err) => {
-      console.log('Error -------> ' + err)
       router.push('/not-found')
     })
 })
