@@ -23,6 +23,16 @@ export const clientModule = {
         }
       )
     },
+    resetPassword({ commit }, data) {
+      return ClientService.resetPasswordClient(data).then(
+        (client) => {
+          return Promise.resolve(client)
+        },
+        (error) => {
+          return Promise.reject(error)
+        }
+      )
+    },
     create({ commit }, clientData) {
       return ClientService.create(clientData).then(
         (client) => {
