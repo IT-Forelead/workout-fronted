@@ -85,6 +85,13 @@ const routes = [
     beforeEnter: navigationGuard('admin'),
   },
   {
+    path: '/messages-report',
+    name: 'MessagesReport',
+    component: () => import('../components/pages/admin/Messages.vue'),
+    meta: { layout: 'dashboard' },
+    beforeEnter: navigationGuard('admin'),
+  },
+  {
     path: '/clients',
     name: 'Clients',
     component: () => import('../components/pages/admin/Clients.vue'),
