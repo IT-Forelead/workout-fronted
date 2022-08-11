@@ -31,10 +31,15 @@
               </span>
             </div>
           </button>
-          <div v-if="openFilter" ref="filterDropdown" class="absolute right-0 z-30 w-1/4 mt-2 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 top-11 dark:text-gray-300">
-            <div @click="openFilter = false; filterData.typeBy = 'sent_code'; currentFilter = 'Aktivlash kodlari'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Aktivlash kodlari</div>
+          <div v-if="openFilter" ref="filterDropdown" class="absolute right-0 z-30 w-1/3 mt-2 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 top-11 dark:text-gray-300">
+            <div @click="openFilter = false; filterData.typeBy = 'reminder'; currentFilter = 'Eslatma xabarlari'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Eslatma xabarlari</div>
             <div @click="openFilter = false; filterData.typeBy = 'activation'; currentFilter = 'Aktivlash xabarlari'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Aktivlash xabarlar</div>
-            <div @click="openFilter = false; filterData.typeBy = 'reminder'; currentFilter = 'Eslatma xabarlari'" class="px-3 py-2 cursor-pointer dark:hover:bg-gray-700">Eslatma xabarlari</div>
+            <div @click="openFilter = false; filterData.typeBy = 'sent_code'; currentFilter = 'Aktivlash kodlari'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Aktivlash kodlari</div>
+            <div @click="openFilter = false; filterData.typeBy = 'reset_password'; currentFilter = 'Parolni tiklash'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Parolni tiklash</div>
+            <div @click="openFilter = false; filterData.deliveryStatus = 'delivered'; currentFilter = 'Yetkazilgan xabarlar'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Yetkazilgan xabarlar</div>
+            <div @click="openFilter = false; filterData.deliveryStatus = 'sent'; currentFilter = 'Yuborilgan xabarlar'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Yuborilgan xabarlar</div>
+            <div @click="openFilter = false; filterData.deliveryStatus = 'failed'; currentFilter = 'Yetkazilmagan xabarlar'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Yetkazilmagan xabarlar</div>
+            <div @click="openFilter = false; filterData.deliveryStatus = 'undefined'; currentFilter = 'Noma\'lum xabarlar'" class="px-3 py-2 cursor-pointer dark:hover:bg-gray-700">Noma'lum xabarlar</div>
           </div>
         </div>
       </div>
@@ -97,6 +102,7 @@ const defaultView = () => {
 // load default
 const filterData = reactive({
   typeBy: null,
+  deliveryStatus: null,
   filterDateFrom: null,
   filterDateTo: null,
 })
@@ -186,6 +192,12 @@ const refresher = () => {
 
 watch(
   () => filterData.typeBy,
+  () => refresher(),
+  { deep: true }
+)
+
+watch(
+  () => filterData.deliveryStatus,
   () => refresher(),
   { deep: true }
 )
