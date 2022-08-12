@@ -30,7 +30,7 @@
                   class="w-5 h-5 ml-2 text-gray-700 cursor-pointer hover:text-gray-500 dark:text-gray-300 dark:hover:text-gray-400" />
               </span>
             </div>
-          </button>
+          </button>j
           <div v-if="openFilter" ref="filterDropdown" class="absolute right-0 z-30 w-1/3 mt-2 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 top-11 dark:text-gray-300">
             <div @click="openFilter = false; filterData.typeBy = 'reminder'; currentFilter = 'Eslatma xabarlari'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Eslatma xabarlari</div>
             <div @click="openFilter = false; filterData.typeBy = 'activation'; currentFilter = 'Aktivlash xabarlari'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Aktivlash xabarlar</div>

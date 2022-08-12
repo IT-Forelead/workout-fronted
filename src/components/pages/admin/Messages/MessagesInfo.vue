@@ -13,7 +13,7 @@
     </td>
     <td class="px-4 py-3 whitespace-nowrap">
       <div v-if="msg.member" class="flex items-center">
-        <div class="flex items-center justify-center w-10 h-10 mr-3 border rounded-full border-gray-50">
+        <div class="flex items-center justify-center w-10 h-10 mr-3 border rounded-full border-gray-50 dark:border-gray-600">
           <img class="object-cover w-full h-full rounded-full" :src="URL + '/member/image/' + msg?.member?.image" alt="#"/>
         </div>
         <div>
@@ -39,7 +39,7 @@
       }}</span></td>
   </tr>
   <tr class="text-gray-700 text-md dark:text-gray-300 dark:bg-gray-800 ">
-    <td colspan="4">
+    <td colspan="5">
       <div class="flex items-center justify-center w-full p-2">
         <InfiniteLoading v-bind="$attrs"/>
       </div>
