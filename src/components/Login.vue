@@ -35,7 +35,7 @@
                     </div>
                   </div>
                   <div class="mt-1 ml-2">
-                    <a @click="openResetPasswordModal()" class="text-sm no-underline cursor-pointer text-rose-600 dark:text-rose-500 hover:underline">Parolni unitdingizmi?</a>
+                    <a @click="openResetPasswordModal()" class="text-sm no-underline cursor-pointer text-blue-600 dark:text-blue-500 hover:underline">Parolni unitdingizmi?</a>
                   </div>
                 </div>
                 <div class="flex items-center mt-4">
@@ -221,8 +221,8 @@ const sendSMSLink = () => {
       position: 'bottomLeft',
     })
   } else {
-    clientPhone.value = clientPhone.value.replace(')', '').replace('(', '').replace(' ', '').replace(' ', '').replace('-', '').replace('-', '')
-    store.dispatch('clientModule/sendSMSLink', clientPhone.value).then(
+    let clearedPhone = clientPhone.value.replace(')', '').replace('(', '').replace(' ', '').replace(' ', '').replace('-', '').replace('-', '')
+    store.dispatch('clientModule/sendSMSLink', clearedPhone).then(
       () => {
         notify.success({
           message: "Xabarnoma telefoningizga jo'natildi!",
