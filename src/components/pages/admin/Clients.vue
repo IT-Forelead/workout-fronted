@@ -32,10 +32,10 @@
         </table>
       </div>
     </div>
-    <div v-if="isLoading" class="flex items-start justify-center w-full h-10">
+    <div v-show="isLoading" class="flex items-start justify-center w-full h-10">
       <SpinIcon class="w-7 h-7" />
     </div>
-    <h1 v-if="isClientsEmpty" class="text-xl text-center text-red-500">Ma'lumotlar bazasidan mijozlar topilmadi!</h1>
+    <h1 v-show="isClientsEmpty" class="text-xl text-center text-red-500">Ma'lumotlar bazasidan mijozlar topilmadi!</h1>
   </div>
 </template>
 <script setup>

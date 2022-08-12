@@ -53,7 +53,7 @@ const routes = [
     name: 'SMS xabarlar',
     component: () => import('../components/pages/Messages.vue'),
     meta: { layout: 'dashboard' },
-    beforeEnter: navigationGuard('all'),
+    beforeEnter: navigationGuard('client'),
   },
   {
     path: '/settings',
@@ -85,9 +85,16 @@ const routes = [
     beforeEnter: navigationGuard('admin'),
   },
   {
+    path: '/admin-messages',
+    name: 'SMS xabarlar',
+    component: () => import('../components/pages/AdminMessages.vue'),
+    meta: { layout: 'dashboard' },
+    beforeEnter: navigationGuard('admin'),
+  },
+  {
     path: '/messages-report',
     name: 'MessagesReport',
-    component: () => import('../components/pages/admin/Messages.vue'),
+    component: () => import('../components/pages/admin/MessagesReport.vue'),
     meta: { layout: 'dashboard' },
     beforeEnter: navigationGuard('admin'),
   },
@@ -121,7 +128,7 @@ router.beforeEach((to, from, next) => {
   const publicPages = ['/login', '/register', '/reset-password']
   const authNotRequired = !publicPages.includes(to.path)
   const notLoggedIn = localStorage.getItem('token')
-  if ((authNotRequired && notLoggedIn) || (to.path === '/' && notLoggedIn) || publicPages.includes(`/${to.path.split('/')[1]}`)) {
+  if ((authNotRequired && notLoggedIn) || publicPages.includes(`/${to.path.split('/')[1]}`)) {
     next()
   } else {
     next('/login')
@@ -129,15 +136,15 @@ router.beforeEach((to, from, next) => {
 })
 
 function navigationGuard(role) {
-  if (role === 'all' && localStorage.getItem('token')) {
-    return () => {
-      return true
-    }
-  } else {
-    return () => {
-      return localStorage.getItem('role') === role
-    }
+  // if (role === 'all' && localStorage.getItem('token')) {
+  //   return () => {
+  //     return true
+  //   }
+  // } else {
+  return () => {
+    return localStorage.getItem('role') === role
   }
+  // }
 }
 
 export default router

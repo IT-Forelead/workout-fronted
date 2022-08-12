@@ -16,9 +16,16 @@
 </template>
 <script setup>
 import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
 onMounted(() => {
   if (document.getElementById('loader')) {
     document.getElementById('loader').remove()
+  }
+  if (router.currentRoute.value.path === '/') {
+    router.push('/login')
   }
 })
 </script>
