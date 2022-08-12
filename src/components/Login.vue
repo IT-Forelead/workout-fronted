@@ -21,13 +21,13 @@
               <Form @submit="onSubmit" class="form-horizontal md:mx-auto md:w-3/4" method="POST" action="#">
                 <div class="flex flex-col mt-4">
                   <Field v-model="phone" v-mask="'+###(##) ###-##-##'" name="phone" type="phone"
-                    class="w-full p-3 text-gray-500 bg-gray-100 border-gray-200 border outline-none text-md rounded-xl focus:bg-gray-200 focus:outline-none dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400 dark:border-gray-600"
+                    class="w-full p-3 text-gray-500 bg-gray-100 border border-gray-200 outline-none text-md rounded-xl focus:bg-gray-200 focus:outline-none dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400 dark:border-gray-600"
                     placeholder="+998(99) 876-54-32" />
                 </div>
                 <div class="flex flex-col mt-4">
                   <div class="relative">
                     <Field v-model="password" name="password" :type="currentType"
-                      class="w-full p-3 text-gray-500 bg-gray-100 border-gray-200 border outline-none text-md rounded-xl focus:bg-gray-200 focus:outline-none dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400 dark:border-gray-600"
+                      class="w-full p-3 text-gray-500 bg-gray-100 border border-gray-200 outline-none text-md rounded-xl focus:bg-gray-200 focus:outline-none dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400 dark:border-gray-600"
                       placeholder="Parolni kiriting..." />
                     <div class="absolute inset-y-0 right-0 z-20 flex items-center pr-3 text-sm leading-5">
                       <EyeIcon @click="showPassword('password')" v-if="currentType === 'text'" class="w-5 h-5 text-gray-400 cursor-pointer" />
@@ -49,9 +49,9 @@
                   </button>
                 </div>
               </Form>
-                <div class="relative my-4 text-center mx-auto w-1/2">
+                <div class="relative w-1/2 mx-auto my-4 text-center">
                   <hr class="border-gray-300 dark:border-gray-600">
-                  <span class="text-xs bg-white text-gray-500 dark:bg-gray-800 px-3 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">YOKI</span>
+                  <span class="absolute px-3 text-xs text-gray-500 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 top-1/2 left-1/2">YOKI</span>
                 </div>
               <div class="flex items-center md:mx-auto md:w-3/4">
                 <router-link  to="/register" class="flex justify-center w-full py-4 text-white bg-gray-900 text-md rounded-xl dark:text-gray-300 hover:bg-gray-900/60">
@@ -61,7 +61,7 @@
             </div>
           </div>
           <div class="text-xs text-center text-gray-400 dark:text-gray-400">All rights reserved. &copy; <a
-              href="https://it-forelead.uz" class="hover:underline">IT-Forelead</a> 2022</div>
+              href="https://t.me/trimuzsupport" class="hover:underline">IT-Forelead</a> 2022</div>
         </div>
         <div class="hidden xl:block bg-image rounded-r-3xl md:w-2/3">
           <div class="flex items-center justify-center h-full">
@@ -96,7 +96,7 @@
             Parolni qayta tiklash uchun profilingizga biriktirilgan telefon raqamingizni kiriting. Biz telefon raqamingizga parolni tiklash linkini jo'natamiz. Linkning amal qilish muddati 10 daqiqa.
           </div>
         </div>
-        <div class="flex items-center justify-between p-5 px-7 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+        <div class="flex items-center justify-between p-5 space-x-2 border-t border-gray-200 rounded-b px-7 dark:border-gray-600">
           <button @click="closeResetPasswordModal()" class="px-4 py-2 mr-2 font-medium text-white transition-colors duration-200 bg-teal-500 border border-teal-500 rounded outline-none hover:bg-teal-400 hover:text-white focus:ring-teal-600 focus:ring-offset-2 active:scale-95 disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">Yopish</button>
           <button @click="sendSMSLink()" class="px-4 py-2 font-medium text-white transition-colors duration-200 bg-indigo-500 rounded shadow-lg outline-none hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">Jo'natish</button>
         </div>

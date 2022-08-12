@@ -17,7 +17,7 @@
       </li>
     </ul>
     <div v-if="!sidebarStatus" class="absolute bottom-0 w-full mb-3 text-sm text-center text-gray-400 dark:text-gray-400">
-      Copyright &copy; 2022 <a href="https://it-forelead.uz" class="hover:underline">IT-Forelead</a>. <br />
+      Copyright &copy; 2022 <a href="https://t.me/trimuzsupport" class="hover:underline">IT-Forelead</a>. <br />
       All Rights Reserved.
     </div>
   </div>
