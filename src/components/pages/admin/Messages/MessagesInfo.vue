@@ -32,7 +32,7 @@
       <CalendarBlankIcon class="inline-block mr-1 text-lg"/>
       {{ formatDate(msg.message.sentDate) }}
     </td>
-    <td class="px-4 py-3 whitespace-nowrap">{{ msg.message.text }}</td>
+    <td class="px-4 py-3 text-xs lg:text-sm">{{ msg.message.text }}</td>
     <td class="px-4 py-3 whitespace-nowrap"><span
         class="px-5 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-lg dark:text-green-100 dark:bg-green-700">{{
         deliveryStatusTranslate(msg.message.deliveryStatus)
