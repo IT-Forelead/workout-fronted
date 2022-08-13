@@ -190,7 +190,7 @@ const refresher = () => {
   store.commit('setClientsEmpty', false)
   loadFiltered()
   setTimeout(() => {
-    isClientsEmpty.value = store.state.clients.length === 0
+    store.commit('setClientsEmpty', store.state.clients.length === 0)
   }, 700)
 }
 

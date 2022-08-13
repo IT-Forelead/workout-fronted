@@ -34,7 +34,8 @@ const store = createStore({
       total: 0,
       selectedPayment: {},
       clients: [],
-      isClientsEmpty: false
+      isClientsEmpty: false,
+      isActiveClientsEmpty: false
     }
   },
   mutations: {
@@ -73,6 +74,9 @@ const store = createStore({
     },    
     setClientsEmpty(state, data) {
       state.isClientsEmpty = data
+    },
+    setActiveClientsEmpty(state, data) {
+      state.isActiveClientsEmpty = data
     },
     setClients(state, data) {
       if (data === 'clear'){

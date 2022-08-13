@@ -1,5 +1,6 @@
 <template>
-  <div class="fixed inset-0 top-0 left-0 right-0 w-full h-screen overflow-x-hidden overflow-y-auto bg-slate-100 dark:bg-gray-900">
+  <div
+    class="fixed inset-0 top-0 left-0 right-0 w-full h-screen overflow-x-hidden overflow-y-auto bg-slate-100 dark:bg-gray-900">
     <div
       class="w-full p-1 mx-auto mb-20 lg:mx-0 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:relative md:w-3/4 lg:top-1/2 lg:left-1/2 lg:p-4">
       <div class="relative bg-white rounded-lg shadow-lg dark:bg-gray-800">
@@ -260,7 +261,7 @@ import SunIcon from "../assets/icons/SunIcon.vue";
 import MoonIcon from "../assets/icons/MoonIcon.vue";
 import EyeIcon from '../assets/icons/EyeIcon.vue'
 import EyeSlashIcon from '../assets/icons/EyeSlashIcon.vue'
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { Field } from 'vee-validate'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
@@ -364,7 +365,6 @@ const clearAndLogout = () => {
   clearFields()
   router.push('/login')
 }
-
 
 function onlyNumber(order) {
   confirm[order] = confirm[order].replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')
