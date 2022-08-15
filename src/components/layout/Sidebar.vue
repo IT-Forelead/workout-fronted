@@ -1,6 +1,6 @@
 <template>
-  <div class="fixed hidden h-screen transition-all duration-500 bg-white lg:block w-80 dark:bg-gray-800"
-    :class="{ 'w-20': sidebarStatus }" id="sidenavSecExample">
+  <div class="fixed hidden h-screen transition-all duration-500 bg-white lg:block dark:bg-gray-800"
+    :class="{ 'w-80': !sidebarStatus, 'w-20': sidebarStatus }">
     <div class="p-2 pl-10 mt-3 ml-3" :class="{ 'ml-0 pl-5': sidebarStatus }">
       <div class="flex items-center">
         <img src="../../assets/images/logo.png" class="w-14 shrink-0" alt="#" />
