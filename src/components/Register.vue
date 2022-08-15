@@ -414,6 +414,11 @@ const getClientData = () => {
       message: 'Iltimos, telefon raqamni kiriting!',
       position: 'bottomLeft',
     })
+  } else if (client.phone.length <= 17) {
+    notify.warning({
+      message: "Iltimos, telefon raqamni to'g'ri kiriting!",
+      position: 'bottomLeft',
+    })
   } else if (client.dailyPrice === '') {
     notify.warning({
       title: 'Diqqat!',

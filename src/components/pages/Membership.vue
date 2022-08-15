@@ -228,9 +228,11 @@
                   kodi SMS tarzida jo'natildi!
                 </p>
                 <div class="flex justify-center my-5">
-                  <v-otp-input ref="otpInput" input-classes="otp-input dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 mx-2 w-9 border-gray-300 rounded text-center p-0 py-1.5 text-xl" separator=" " :num-inputs="4"
-                  :should-auto-focus="true" :is-input-num="true" :conditionalClass="['one', 'two', 'three', 'four']"
-                  :placeholder="['', '', '', '']" @on-complete="handleOnComplete" />
+                  <v-otp-input ref="otpInput"
+                    input-classes="otp-input dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 mx-2 w-9 border-gray-300 rounded text-center p-0 py-1.5 text-xl"
+                    separator=" " :num-inputs="4" :should-auto-focus="true" :is-input-num="true"
+                    :conditionalClass="['one', 'two', 'three', 'four']" :placeholder="['', '', '', '']"
+                    @on-complete="handleOnComplete" />
                 </div>
                 <div v-if="showResendSMS" class="flex justify-center my-3 text-lg text-red-500 hover:underline"><a
                     href="#" @click="getMemberData()">SMS xabarnoma kelmadimi?</a></div>
@@ -465,6 +467,11 @@ const getMemberData = () => {
     notify.warning({
       title: 'Diqqat!',
       message: 'Iltimos, telefon raqamni kiriting!',
+      position: 'bottomLeft',
+    })
+  } else if (member.phone.length <= 17) {
+    notify.warning({
+      message: "Iltimos, telefon raqamni to'g'ri kiriting!",
       position: 'bottomLeft',
     })
   } else {
