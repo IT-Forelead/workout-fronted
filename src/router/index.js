@@ -86,7 +86,7 @@ const routes = [
   },
   {
     path: '/admin-messages',
-    name: 'SMS xabarlar',
+    name: 'SMS xabarlar admin uchun',
     component: () => import('../components/pages/AdminMessages.vue'),
     meta: { layout: 'dashboard' },
     beforeEnter: navigationGuard('admin'),

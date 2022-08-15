@@ -46,8 +46,8 @@ function accessRoutes() {
       { id: 1, url: '/admin-dashboard', icon: 'home-outline', name: 'Bosh sahifa' },
       { id: 2, url: '/clients', icon: 'people-outline', name: 'Mijozlar' },
       { id: 3, url: '/unverified-clients', icon: 'person-add-outline', name: 'Kutishdagi mijozlar' },
-      { id: 4, url: '/admin-messages', icon: 'mail-outline', name: "SMS xaborlar" },
-      { id: 4, url: '/messages-report', icon: 'mail-outline', name: "SMS xaborlar hisoboti" },
+      { id: 4, url: '/admin-messages', icon: 'mail-outline', name: "SMS xabarlar" },
+      { id: 4, url: '/messages-report', icon: 'mail-outline', name: "SMS xabarlar hisoboti" },
     ]
   } else if(store.state.user.role === 'client' || localStorage.getItem('role') === 'client'){
     return [
@@ -55,7 +55,7 @@ function accessRoutes() {
       { id: 2, url: '/members', icon: 'people-outline', name: "A'zolarimiz" },
       { id: 3, url: '/payments', icon: 'wallet-outline', name: "To'lovlar" },
       { id: 4, url: '/arrival', icon: 'repeat-outline', name: "Kelib-Ketishlar" },
-      { id: 5, url: '/messages', icon: 'mail-outline', name: "SMS xaborlar" },
+      { id: 5, url: '/messages', icon: 'mail-outline', name: "SMS xabarlar" },
       { id: 6, url: '/settings', icon: 'settings-outline', name: "Sozlamalar" },
     ]
   }
