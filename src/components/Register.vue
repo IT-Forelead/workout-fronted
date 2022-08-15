@@ -190,14 +190,9 @@
                 kodi SMS tarzida jo'natildi!
               </p>
               <div class="flex justify-center my-5">
-                <input type="text" class="code dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300" maxlength="1"
-                  v-model="confirm.first" @input="onlyNumber('first')" required />
-                <input type="text" class="code dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300" maxlength="1"
-                  v-model="confirm.second" @input="onlyNumber('second')" required />
-                <input type="text" class="code dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300" maxlength="1"
-                  v-model="confirm.third" @input="onlyNumber('third')" required />
-                <input type="text" class="code dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300" maxlength="1"
-                  v-model="confirm.fourth" @input="onlyNumber('fourth')" required />
+                <v-otp-input ref="otpInput" input-classes="otp-input code dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 mx-2 w-9 border-gray-300 rounded text-center p-0 py-1.5 text-xl" separator=" " :num-inputs="4"
+                  :should-auto-focus="true" :is-input-num="true" :conditionalClass="['one', 'two', 'three', 'four']"
+                  :placeholder="['', '', '', '']" @on-complete="handleOnComplete" />
               </div>
               <div v-if="showResendSMS" class="flex justify-center my-3 text-lg text-red-500 hover:underline"><a
                   href="#" @click="getClientData()">SMS xabarnoma kelmadimi?</a></div>
@@ -310,13 +305,6 @@ const client = reactive({
   confirmPassword: ''
 })
 
-const confirm = reactive({
-  first: '',
-  second: '',
-  third: '',
-  fourth: '',
-})
-
 // show/hide password
 const currentType = ref('password')
 const currentReplyPasswordType = ref('password')
@@ -332,10 +320,6 @@ function clearFields() {
   client.monthlyPrice = ''
   client.password = ''
   client.confirmPassword = ''
-  confirm.first = ''
-  confirm.second = ''
-  confirm.third = ''
-  confirm.fourth = ''
   confirmCode.value = ''
 }
 
@@ -366,32 +350,10 @@ const clearAndLogout = () => {
   router.push('/login')
 }
 
-function onlyNumber(order) {
-  confirm[order] = confirm[order].replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')
-  const codes = document.querySelectorAll('.code')
-  codes.forEach((code, idx) => {
-    code.addEventListener('keydown', (e) => {
-      if (idx >= 0 && idx < 3) {
-        if (e.key >= 0 && e.key <= 9) {
-          codes[idx].value = ''
-          setTimeout(() => codes[idx + 1].focus(), 10)
-        }
-      }
-      if (e.key === 'Backspace' && idx > 0 && idx <= 3) {
-        codes[idx - 1].value = ''
-        setTimeout(() => codes[idx - 1].focus(), 10)
-      }
-    })
-  })
-  if (confirm.first !== '' && confirm.second !== '' && confirm.third !== '' && confirm.fourth !== '') {
-    confirmCode.value = confirm.first + confirm.second + confirm.third + confirm.fourth
-    if (confirmCode.value.length === 4) {
-      showCheckBtn.value = true
-    }
-  } else {
-    showCheckBtn.value = false
-  }
-}
+const handleOnComplete = (code) => {
+  confirmCode.value = code
+  showCheckBtn.value = true
+};
 
 const timer = ref('02:00')
 const showResendSMS = ref(false)
