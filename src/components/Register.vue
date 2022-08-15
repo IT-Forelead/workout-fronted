@@ -190,7 +190,7 @@
                 kodi SMS tarzida jo'natildi!
               </p>
               <div class="flex justify-center my-5">
-                <v-otp-input ref="otpInput" input-classes="otp-input code dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 mx-2 w-9 border-gray-300 rounded text-center p-0 py-1.5 text-xl" separator=" " :num-inputs="4"
+                <v-otp-input ref="otpInput" input-classes="otp-input dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 mx-2 w-9 border-gray-300 rounded text-center p-0 py-1.5 text-xl" separator=" " :num-inputs="4"
                   :should-auto-focus="true" :is-input-num="true" :conditionalClass="['one', 'two', 'three', 'four']"
                   :placeholder="['', '', '', '']" @on-complete="handleOnComplete" />
               </div>
@@ -514,19 +514,5 @@ const createClient = () => {
 
 .rotate-25 {
   transform: rotate(25deg);
-}
-
-.code {
-  border-radius: 5px;
-  font-size: 25px;
-  height: 60px;
-  width: 50px;
-  margin: 1%;
-  text-align: center;
-  font-weight: 300;
-}
-
-.code:valid {
-  border-color: #3498db;
 }
 </style>
