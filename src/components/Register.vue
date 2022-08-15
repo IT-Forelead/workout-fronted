@@ -190,9 +190,11 @@
                 kodi SMS tarzida jo'natildi!
               </p>
               <div class="flex justify-center my-5">
-                <v-otp-input ref="otpInput" input-classes="otp-input dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 mx-2 w-9 border-gray-300 rounded text-center p-0 py-1.5 text-xl" separator=" " :num-inputs="4"
-                  :should-auto-focus="true" :is-input-num="true" :conditionalClass="['one', 'two', 'three', 'four']"
-                  :placeholder="['', '', '', '']" @on-complete="handleOnComplete" />
+                <v-otp-input ref="otpInput"
+                  input-classes="otp-input dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 mx-2 w-9 border-gray-300 rounded text-center p-0 py-1.5 text-xl"
+                  separator=" " :num-inputs="4" :should-auto-focus="true" :is-input-num="true"
+                  :conditionalClass="['one', 'two', 'three', 'four']" :placeholder="['', '', '', '']"
+                  @on-complete="handleOnComplete" />
               </div>
               <div v-if="showResendSMS" class="flex justify-center my-3 text-lg text-red-500 hover:underline"><a
                   href="#" @click="getClientData()">SMS xabarnoma kelmadimi?</a></div>
@@ -385,6 +387,8 @@ function startTimer() {
   }, 1000)
 }
 
+const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[-`~+_!@#\$%\^&\*])(?=.{6,})");
+
 const getClientData = () => {
   if (client.firstname === '') {
     notify.warning({
@@ -434,6 +438,17 @@ const getClientData = () => {
       message: 'Iltimos, parolni takror kiriting!',
       position: 'bottomLeft',
     })
+  } else if (!strongRegex.test(client.password)) {
+    notify.warning({
+      title: 'Diqqat!',
+      message:
+        `Parol kamida 6 ta belgidan va : 
+      1 ta bosh harf,
+      1 ta kichik harf,
+      1 ta maxsus belgi,
+      1 ta raqamdan iborat bo'lishi kerak!`,
+      position: 'bottomLeft',
+    })
   } else if (client.confirmPassword !== client.password) {
     notify.warning({
       title: 'Diqqat!',
@@ -448,24 +463,24 @@ const getClientData = () => {
           message: `${client.phone} raqamiga tasdiqlash kodi muvaffaqiyatli yaratildi!`,
           position: 'bottomLeft',
         })
+        localStorage.setItem('time', '02:00')
+        startTimer()
+        registerClientProcess.registerMode = false
+        registerClientProcess.checkingMode = true
+        registerStatus.inProgress = false
+        registerStatus.done = true
+        checkingStatus.default = false
+        checkingStatus.inProgress = true
+        showResendSMS.value = false
       },
-      () => {
+      (error) => {
         notify.error({
-          message: `${client.phone} raqamiga tasdiqlash kodi yuborishda xatolik yuz berdi!`,
+          message: error.response.data,
           position: 'bottomLeft',
         })
         showResendSMS.value = true
       }
     )
-    localStorage.setItem('time', '02:00')
-    startTimer()
-    registerClientProcess.registerMode = false
-    registerClientProcess.checkingMode = true
-    registerStatus.inProgress = false
-    registerStatus.done = true
-    checkingStatus.default = false
-    checkingStatus.inProgress = true
-    showResendSMS.value = false
   }
 }
 
