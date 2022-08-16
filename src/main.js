@@ -9,6 +9,7 @@ import InfiniteLoading from 'v3-infinite-loading'
 import 'v3-infinite-loading/lib/style.css'
 import { VueMaskDirective } from 'v-mask'
 import VOtpInput from 'vue3-otp-input'
+import money from "v-money3";
 import DashboardLayout from './components/layout/DashboardLayout.vue'
 import LoginLayout from './components/layout/LoginLayout.vue'
 import RegisterLayout from './components/layout/RegisterLayout.vue'
@@ -23,6 +24,7 @@ const vMaskV3 = {
 const app = createApp(App)
 app.use(router)
 app.use(store)
+app.use(money)
 app.directive('mask', vMaskV3)
 app.component('dashboard-layout', DashboardLayout)
 app.component('login-layout', LoginLayout)

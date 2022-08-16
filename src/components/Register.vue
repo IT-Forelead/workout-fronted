@@ -129,26 +129,16 @@
             <div class="p-3">
               <label for="daily-price" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Kunlik
                 to'lov</label>
-              <div class="relative rounded-md">
-                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                  <span class="text-sm text-gray-500"> UZS </span>
-                </div>
-                <input type="number" v-model="client.dailyPrice" id="daily-price"
-                  class="block w-full bg-gray-50 p-2.5 text-sm text-gray-900 border border-gray-300 rounded-lg pl-11 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                  placeholder="0.00" required />
-              </div>
+              <money3 v-model="client.dailyPrice" v-bind="moneyConf"
+                class="block w-full text-right bg-gray-50 p-2.5 text-sm text-gray-900 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+              </money3>
             </div>
             <div class="p-3">
               <label for="monthly-price" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Oylik
                 to'lov</label>
-              <div class="relative rounded-md">
-                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                  <span class="text-sm text-gray-500"> UZS </span>
-                </div>
-                <input type="number" v-model="client.monthlyPrice" name="monthlyPrice" id="monthly-price"
-                  class="block w-full bg-gray-50 p-2.5 text-sm text-gray-900 border border-gray-300 rounded-lg pl-11 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                  placeholder="0.00" required />
-              </div>
+              <money3 v-model="client.monthlyPrice" v-bind="moneyConf"
+                class="block w-full text-right bg-gray-50 p-2.5 text-sm text-gray-900 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+              </money3>
             </div>
             <div class="p-3">
               <label for="password"
@@ -258,7 +248,7 @@ import SunIcon from "../assets/icons/SunIcon.vue";
 import MoonIcon from "../assets/icons/MoonIcon.vue";
 import EyeIcon from '../assets/icons/EyeIcon.vue'
 import EyeSlashIcon from '../assets/icons/EyeSlashIcon.vue'
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, computed } from 'vue'
 import { Field } from 'vee-validate'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
@@ -323,6 +313,12 @@ function clearFields() {
   client.password = ''
   client.confirmPassword = ''
   confirmCode.value = ''
+}
+
+const moneyConf = {
+  thousands: " ",
+  suffix: " UZS",
+  precision: 0,
 }
 
 const confirmCode = ref('')

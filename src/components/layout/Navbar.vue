@@ -84,8 +84,13 @@
         <div id="dropdownInformation"
           class="hidden bg-white border rounded shadow w-60 dark:border-gray-600 dark:bg-gray-800">
           <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformationButton">
-            <li class="border-b hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
+            <li v-if="!isAdmin" class="border-b hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
               <router-link to="/profile" class="flex items-center px-4 py-2 text-md dark:text-gray-300">
+                <UserIcon class="mr-2 text-xl dark:text-gray-300" /> Profil
+              </router-link>
+            </li>
+            <li v-else class="border-b hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
+              <router-link to="/admin-profile" class="flex items-center px-4 py-2 text-md dark:text-gray-300">
                 <UserIcon class="mr-2 text-xl dark:text-gray-300" /> Profil
               </router-link>
             </li>

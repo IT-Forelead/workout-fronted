@@ -9,30 +9,30 @@
         <hr class="mb-6 border border-gray-200 bottom-1 dark:border-gray-600" />
         <form @submit.prevent="updateSettings()">
           <div class="mb-6">
-            <label for="gym-name" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Klub nomi</label>
-            <input v-model="gymName" type="text" name="name" id="gym-name" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="Klub nomini kiriting..." />
+            <label for="gym-name" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Klub
+              nomi</label>
+            <input v-model="gymName" type="text" name="name" id="gym-name"
+              class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              placeholder="Klub nomini kiriting..." />
           </div>
           <div class="mb-6">
-            <label for="daily-price" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Kunlik to'lov</label>
-            <div class="relative rounded-md shadow-sm">
-              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <span class="text-sm text-gray-500 dark:text-gray-300"> UZS </span>
-              </div>
-              <input v-model="dailyPrice" type="number" name="daily-price" id="daily-price" class="block w-full pr-12 text-sm text-gray-900 border border-gray-300 rounded-lg pl-11 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="0.00" />
-            </div>
+            <label for="daily-price" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Kunlik
+              to'lov</label>
+            <money3 v-model="dailyPrice" v-bind="moneyConf"
+              class="block w-full text-right bg-gray-50 p-2.5 text-sm text-gray-900 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+            </money3>
           </div>
           <div class="mb-6">
-            <label for="monthly-price" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Oylik to'lov</label>
-            <div class="relative rounded-md shadow-sm">
-              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <span class="text-sm text-gray-500 dark:text-gray-300"> UZS </span>
-              </div>
-              <input v-model="monthlyPrice" type="number" name="monthly-price" id="monthly-price" class="block w-full pr-12 text-sm text-gray-900 border border-gray-300 rounded-lg pl-11 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="0.00" />
-            </div>
+            <label for="monthly-price" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Oylik
+              to'lov</label>
+            <money3 v-model="monthlyPrice" v-bind="moneyConf"
+              class="block w-full text-right bg-gray-50 p-2.5 text-sm text-gray-900 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+            </money3>
           </div>
           <hr class="mb-6 border border-gray-200 bottom-1 dark:border-gray-600" />
           <div class="flex justify-end">
-            <button type="submit" class="mx-1 rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Jo'natish</button>
+            <button type="submit"
+              class="mx-1 rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Jo'natish</button>
           </div>
         </form>
       </div>
@@ -52,12 +52,18 @@ const gymName = ref('')
 const dailyPrice = ref(0)
 const monthlyPrice = ref(0)
 
+const moneyConf = {
+  thousands: " ",
+  suffix: " UZS",
+  precision: 0,
+}
+
 // Token expire checker function
 function forbiddenChecker(error, msg) {
   if (error.message.split(' ').includes('403')) {
     store.dispatch('auth/logout').then(() => {
       store.commit('setSelectedPage', '')
-    }, () => {})
+    }, () => { })
   } else {
     notify.warning({
       message: msg,
@@ -93,7 +99,7 @@ const updateSettings = () => {
       message: 'Iltimos, kunlik narxni kiriting!',
       position: 'bottomLeft',
     })
-  } else  if (dailyPrice.value < 1000) {
+  } else if (dailyPrice.value < 1000) {
     notify.warning({
       title: 'Diqqat!',
       message: 'Iltimos, kunlik narxni to\'g\'ri kiriting!',
