@@ -95,7 +95,8 @@
               </router-link>
             </li>
             <li v-if="!isAdmin" class="border-b hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600">
-              <router-link to="/settings" class="flex items-center px-4 py-2 text-md dark:text-gray-300">
+              <router-link to="/settings" @click="changePage('Sozlamalar')"
+                class="flex items-center px-4 py-2 text-md dark:text-gray-300">
                 <GearIcon class="mr-2 text-xl dark:text-gray-300" /> Sozlamalar
               </router-link>
             </li>
@@ -156,6 +157,10 @@ import MobileBar from './MobileBar.vue'
 
 const store = useStore()
 const router = useRouter()
+
+const changePage = (page) => {
+  store.commit('setSelectedPage', page)
+}
 
 // Dark & Light mode
 const isDark = useDark()
