@@ -7,7 +7,7 @@
             alt="#" />
         </div>
         <div>
-          <p class="font-semibold text-gray-900 dark:text-gray-300">
+          <p class="font-semibold text-gray-900 capitalize dark:text-gray-300">
             {{ msg?.member?.firstname + " " + msg?.member?.lastname }}</p>
           <p class="text-sm text-gray-600 dark:text-gray-400">{{ phoneStyle(msg?.member?.phone) }}</p>
         </div>
@@ -22,7 +22,7 @@
     </td>
     <td class="px-4 py-3 whitespace-nowrap">
       <CalendarBlankIcon class="inline-block mr-1 text-lg" />
-      {{ formatDate(msg.message.sentDate) }}
+      {{ formatDateTime(msg.message.sentDate) }}
     </td>
     <td class="px-4 py-3 text-xs lg:text-sm">{{ msg.message.text }}</td>
     <td class="px-4 py-3 whitespace-nowrap"><span class="px-5 py-1 font-semibold leading-tight rounded-lg"
@@ -48,7 +48,7 @@ import UserBoldIcon from '../../../assets/icons/UserBoldIcon.vue'
 import CalendarBlankIcon from '../../../assets/icons/CalendarBlankIcon.vue'
 import { toRefs, ref } from "vue";
 import InfiniteLoading from "v3-infinite-loading";
-import { phoneStyle, formatDate } from "../../../utils/utils.js";
+import { phoneStyle, formatDateTime } from "../../../utils/utils.js";
 
 const props = defineProps({
   messages: { type: Array, required: true },

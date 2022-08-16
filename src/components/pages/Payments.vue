@@ -185,7 +185,7 @@
               </tr>
               <tr>
                 <td class="text-left"><strong>To'lov qilingan sana: </strong></td>
-                <td class="text-right">{{ formatDate(selectedPayment.payment.createdAt) }}</td>
+                <td class="text-right">{{ formatDateTime(selectedPayment.payment.createdAt) }}</td>
               </tr>
               <tr>
                 <td class="text-left"><strong>To'lov turi: </strong></td>
@@ -193,7 +193,7 @@
               </tr>
               <tr>
                 <td class="text-left"><strong>Qiymati: </strong></td>
-                <td class="text-right">{{ selectedPayment.payment.cost + ' UZS' }}</td>
+                <td class="text-right">{{ selectedPayment.payment.cost.toLocaleString('en-US') + ' UZS' }}</td>
               </tr>
             </table>
           </div>
@@ -225,7 +225,7 @@ import 'izitoast/dist/css/iziToast.min.css'
 import { onClickOutside } from '@vueuse/core'
 import { paymentTypeTranslate, phoneStyle } from '../../utils/utils.js'
 import authHeader from '../../services/auth-header.js'
-import { formatDate } from '../../utils/utils.js'
+import { formatDateTime } from '../../utils/utils.js'
 
 const store = useStore()
 
@@ -259,11 +259,13 @@ const defaultView = () => {
 }
 // get sum
 const sum = ref(0)
+sum.value = sum.value.toLocaleString('en-US')
+
 const getSum = () => {
   if (paymentType.value === 'monthly') {
-    sum.value = store.state.settings.monthlyPrice
+    sum.value = store.state.settings.monthlyPrice.toLocaleString('en-US')
   } else {
-    sum.value = store.state.settings.dailyPrice
+    sum.value = store.state.settings.dailyPrice.toLocaleString('en-US')
   }
 }
 

@@ -15,8 +15,8 @@
     </td>
     <td class="px-4 py-3 whitespace-nowrap">
       <p>Klub nomi: {{ client.setting.gymName }}</p>
-      <p>Oylik to'lovi: {{ client.setting.dailyPrice }} UZS</p>
-      <p>Kunlik to'lovi: {{ client.setting.monthlyPrice }} UZS</p>
+      <p>Oylik to'lovi: {{ client.setting.dailyPrice.toLocaleString('en-US') }} UZS</p>
+      <p>Kunlik to'lovi: {{ client.setting.monthlyPrice.toLocaleString('en-US') }} UZS</p>
     </td>
     <td class="px-4 py-3 whitespace-nowrap">
       <button @click="clientActivate(client.user)"

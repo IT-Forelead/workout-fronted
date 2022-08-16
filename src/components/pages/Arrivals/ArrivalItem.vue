@@ -11,7 +11,7 @@
         </div>
       </div>
     </td>
-    <td class="px-4 py-3 whitespace-nowrap"><CalendarBlankIcon class="inline-block mr-1 text-lg" /> {{ formatDate(arrival.arrival.createdAt) }}</td>
+    <td class="px-4 py-3 whitespace-nowrap"><CalendarBlankIcon class="inline-block mr-1 text-lg" /> {{ formatDateTime(arrival.arrival.createdAt) }}</td>
     <td class="px-4 py-3 whitespace-nowrap">{{ arrivalTypeTranslate(arrival.arrival.arrivalType) }}</td>
   </tr>
   <tr class="text-gray-700 text-md dark:text-gray-300 dark:bg-gray-800 ">
@@ -26,7 +26,7 @@
 import {toRefs, ref} from "vue";
 import CalendarBlankIcon from '../../../assets/icons/CalendarBlankIcon.vue'
 import InfiniteLoading from "v3-infinite-loading";
-import {phoneStyle, arrivalTypeTranslate, formatDate} from '../../../utils/utils.js'
+import {phoneStyle, arrivalTypeTranslate, formatDateTime} from '../../../utils/utils.js'
 
 const URL = ref(import.meta.env.VITE_MY_ENV_VARIABLE)
 const props = defineProps({
