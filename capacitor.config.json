@@ -2,5 +2,13 @@
   "appId": "com.example.app",
   "appName": "workout",
   "webDir": "dist",
-  "bundledWebRuntime": false
+  "bundledWebRuntime": false,
+
+  "server": {
+    "androidScheme": "http",
+    "cleartext": true,
+    "allowNavigation": [
+      "http://trim.uz/api"
+    ]
+  }
 }
