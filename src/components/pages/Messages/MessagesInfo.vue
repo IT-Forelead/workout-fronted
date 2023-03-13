@@ -55,7 +55,7 @@ const props = defineProps({
 });
 
 const { messages } = toRefs(props);
-const URL = ref(import.meta.env.VITE_MY_ENV_VARIABLE)
+const URL = ref(import.meta.env.VITE_BASE_URL)
 const deliveryStatusTranslate = (status) => {
   switch (status) {
     case 'sent':

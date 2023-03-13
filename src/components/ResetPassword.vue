@@ -113,13 +113,13 @@ const showPassword = (t) => (currentType.value = t)
 const showReplyPassword = (t) => (currentReplyPasswordType.value = t)
 
 const resetPassword = () => {
-  if (client.password === '') {
+  if (!client.password) {
     notify.warning({
       title: 'Diqqat!',
       message: 'Iltimos, yangi parolni kiriting!',
       position: 'bottomLeft',
     })
-  } else if (client.confirmPassword === '') {
+  } else if (!client.confirmPassword) {
     notify.warning({
       title: 'Diqqat!',
       message: 'Iltimos, parolni takror kiriting!',
@@ -155,7 +155,7 @@ const resetPassword = () => {
   }
 }
 
-const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE
+const API_URL = import.meta.env.VITE_BASE_URL
 
 onMounted(() => {
   axios

@@ -51,7 +51,7 @@ const props = defineProps({
 
 const { payments } = toRefs(props);
 
-const URL = ref(import.meta.env.VITE_MY_ENV_VARIABLE)
+const URL = ref(import.meta.env.VITE_BASE_URL)
 const showPaymentInfo = (payment) => {
   if (window.innerWidth < 768) {
     store.commit('setSelectedPayment', payment)

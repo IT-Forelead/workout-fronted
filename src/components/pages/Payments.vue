@@ -28,7 +28,7 @@
               class="w-full px-5 py-2 text-center text-gray-900 bg-white border rounded-lg border-slate-300 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:border-0 dark:bg-blue-600 dark:text-gray-300 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">
               <div class="flex items-center">
                 <FunnelIcon class="inline-block mr-1 text-lg" />
-                <span class="flex items-center">{{ currentFilter === '' ? 'Saralash' : currentFilter }}
+                <span class="flex items-center">{{ !currentFilter ? 'Saralash' : currentFilter }}
                   <TimesIcon v-if="currentFilter !== ''" @click="defaultView()"
                     class="w-5 h-5 ml-2 text-gray-700 cursor-pointer hover:text-gray-500 dark:text-gray-300 dark:hover:text-gray-400" />
                 </span>
@@ -231,7 +231,7 @@ const store = useStore()
 
 const target = ref('.payments-wrapper')
 const distance = ref(200)
-const URL = ref(import.meta.env.VITE_MY_ENV_VARIABLE)
+const URL = ref(import.meta.env.VITE_BASE_URL)
 
 const selectedMember = ref('')
 const paymentType = ref('monthly')
@@ -319,7 +319,7 @@ const payments = ref([])
 const total = ref(0)
 const isPaymentEmpty = ref(false)
 const isLoading = ref(true)
-const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE;
+const API_URL = import.meta.env.VITE_BASE_URL;
 
 let page = 0
 const loadPayments = async ($state) => {
@@ -452,7 +452,7 @@ const addSettingInStore = () => {
 }
 
 const createPayment = () => {
-  if (selectedMember.value === '') {
+  if (!selectedMember.value) {
     notify.warning({
       message: "Iltimos, to'lovchini tanlang!",
       position: 'bottomLeft',

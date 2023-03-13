@@ -196,13 +196,13 @@ const addUserInStore = () => {
 const onSubmit = (user) => {
   isLoading.value = true
   user.phone = user.phone.replace(')', '').replace('(', '').replace(' ', '').replace('-', '').replace('-', '')
-  if (user.phone === '') {
+  if (!user.phone) {
     notify.warning({
       message: 'Iltimos telefon raqamni kiriting!',
       position: 'topRight',
     })
     isLoading.value = false
-  } else if (user.password === '') {
+  } else if (!user.password) {
     notify.warning({
       message: 'Iltimos parolni kiriting!',
       position: 'topRight',
@@ -234,7 +234,7 @@ const onSubmit = (user) => {
 }
 
 const sendSMSLink = () => {
-  if (clientPhone.value === '') {
+  if (!clientPhone.value) {
     notify.warning({
       message: "Iltimos, telefon raqamni kiriting!",
       position: 'bottomLeft',

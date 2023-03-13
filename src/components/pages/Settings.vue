@@ -87,13 +87,13 @@ const getSettings = () => {
 }
 
 const updateSettings = () => {
-  if (gymName.value === '') {
+  if (!gymName.value) {
     notify.warning({
       title: 'Diqqat!',
       message: 'Iltimos, klub nomini kiriting!',
       position: 'bottomLeft',
     })
-  } else if (dailyPrice.value === '') {
+  } else if (!dailyPrice.value) {
     notify.warning({
       title: 'Diqqat!',
       message: 'Iltimos, kunlik narxni kiriting!',
@@ -105,7 +105,7 @@ const updateSettings = () => {
       message: 'Iltimos, kunlik narxni to\'g\'ri kiriting!',
       position: 'bottomLeft',
     })
-  } else if (monthlyPrice.value === '') {
+  } else if (!monthlyPrice.value) {
     notify.warning({
       title: 'Diqqat!',
       message: 'Iltimos, oylik narxni to\'g\'ri kiriting!',

@@ -386,25 +386,25 @@ function startTimer() {
 const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[-`~+_!@#\$%\^&\*])(?=.{6,})");
 
 const getClientData = () => {
-  if (client.firstname === '') {
+  if (!client.firstname) {
     notify.warning({
       title: 'Diqqat!',
       message: 'Iltimos, ismni kiriting!',
       position: 'bottomLeft',
     })
-  } else if (client.lastname === '') {
+  } else if (!client.lastname) {
     notify.warning({
       title: 'Diqqat!',
       message: 'Iltimos, familiyani kiriting!',
       position: 'bottomLeft',
     })
-  } else if (client.gymName === '') {
+  } else if (!client.gymName) {
     notify.warning({
       title: 'Diqqat!',
       message: "Iltimos, fitnes klub nomini kiriting!",
       position: 'bottomLeft',
     })
-  } else if (client.phone === '') {
+  } else if (!client.phone) {
     notify.warning({
       title: 'Diqqat!',
       message: 'Iltimos, telefon raqamni kiriting!',
@@ -415,25 +415,25 @@ const getClientData = () => {
       message: "Iltimos, telefon raqamni to'g'ri kiriting!",
       position: 'bottomLeft',
     })
-  } else if (client.dailyPrice === '') {
+  } else if (!client.dailyPrice) {
     notify.warning({
       title: 'Diqqat!',
       message: 'Iltimos, kunlik narxni kiriting!',
       position: 'bottomLeft',
     })
-  } else if (client.monthlyPrice === '') {
+  } else if (!client.monthlyPrice) {
     notify.warning({
       title: 'Diqqat!',
       message: 'Iltimos, oylik narxni kiriting!',
       position: 'bottomLeft',
     })
-  } else if (client.password === '') {
+  } else if (!client.password) {
     notify.warning({
       title: 'Diqqat!',
       message: 'Iltimos, parolni kiriting!',
       position: 'bottomLeft',
     })
-  } else if (client.confirmPassword === '') {
+  } else if (!client.confirmPassword) {
     notify.warning({
       title: 'Diqqat!',
       message: 'Iltimos, parolni takror kiriting!',

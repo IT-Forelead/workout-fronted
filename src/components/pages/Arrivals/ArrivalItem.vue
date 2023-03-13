@@ -28,7 +28,7 @@ import CalendarBlankIcon from '../../../assets/icons/CalendarBlankIcon.vue'
 import InfiniteLoading from "v3-infinite-loading";
 import {phoneStyle, arrivalTypeTranslate, formatDateTime} from '../../../utils/utils.js'
 
-const URL = ref(import.meta.env.VITE_MY_ENV_VARIABLE)
+const URL = ref(import.meta.env.VITE_BASE_URL)
 const props = defineProps({
   arrivals: {type: Array, required: true},
 });

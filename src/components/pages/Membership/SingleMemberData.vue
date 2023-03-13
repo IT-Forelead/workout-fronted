@@ -99,7 +99,7 @@ const props = defineProps({
   members: { type: Array, required: true },
 });
 
-const URL = ref(import.meta.env.VITE_MY_ENV_VARIABLE)
+const URL = ref(import.meta.env.VITE_BASE_URL)
 const { members } = toRefs(props);
 const isModalOpen = ref(false)
 const selectedMember = ref({})

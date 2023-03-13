@@ -20,7 +20,7 @@
             class="mr-3 flex flex-nowrap justify-center rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-center text-gray-900 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:border-0 dark:bg-blue-600 dark:text-gray-300 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto lg:inline-block">
             <div class="flex items-center">
               <FunnelIcon class="inline-block mr-1 text-lg" />
-              <span class="flex items-center">{{ currentFilter === '' ? 'Saralash' : currentFilter }}
+              <span class="flex items-center">{{ !currentFilter ? 'Saralash' : currentFilter }}
                 <TimesIcon v-if="currentFilter !== ''" @click="defaultView()"
                   class="w-5 h-5 ml-2 text-gray-700 cursor-pointer hover:text-gray-500 dark:text-gray-300 dark:hover:text-gray-400" />
               </span>
@@ -439,31 +439,19 @@ function getImage(e) {
 }
 
 const getMemberData = () => {
-  if (!member.image) {
-    notify.warning({
-      title: 'Diqqat!',
-      message: "Iltimos, a'zoning rasmini kiriting!",
-      position: 'bottomLeft',
-    })
-  } else if (member.firstname === '') {
+  if (!member.firstname) {
     notify.warning({
       title: 'Diqqat!',
       message: 'Iltimos, ismni kiriting!',
       position: 'bottomLeft',
     })
-  } else if (member.lastname === '') {
+  } else if (!member.lastname) {
     notify.warning({
       title: 'Diqqat!',
       message: 'Iltimos, familiyani kiriting!',
       position: 'bottomLeft',
     })
-  } else if (member.birthday === '') {
-    notify.warning({
-      title: 'Diqqat!',
-      message: "Iltimos, tug'ilgan kunni kiriting!",
-      position: 'bottomLeft',
-    })
-  } else if (member.phone === '') {
+  } else if (!member.phone) {
     notify.warning({
       title: 'Diqqat!',
       message: 'Iltimos, telefon raqamni kiriting!',
@@ -510,7 +498,7 @@ const createMember = () => {
   formData.append('userId', store.state.user.id)
   formData.append('firstname', member.firstname)
   formData.append('lastname', member.lastname)
-  formData.append('birthday', member.birthday)
+  if (member.birthday) formData.append('birthday', member.birthday)
   formData.append('image', member.image)
   formData.append('phone', member.phone)
   formData.append('code', confirmCode.value)
@@ -566,7 +554,7 @@ const filterData = reactive({
   typeBy: null
 })
 
-const API_URL = import.meta.env.VITE_MY_ENV_VARIABLE;
+const API_URL = import.meta.env.VITE_BASE_URL;
 let page = 0
 const loadMember = async ($state) => {
   page++
@@ -682,7 +670,7 @@ const getMembers = () => {
 
 const search = ref('')
 watch(search, () => {
-  if (search.value === '') {
+  if (!search.value) {
     page = 1
     loadLastAddedMember()
   } else {
