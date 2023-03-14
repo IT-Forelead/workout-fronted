@@ -499,7 +499,7 @@ const createMember = () => {
   formData.append('firstname', member.firstname)
   formData.append('lastname', member.lastname)
   if (member.birthday) formData.append('birthday', member.birthday)
-  formData.append('image', member.image)
+  if (member.image) formData.append('image', member.image)
   formData.append('phone', member.phone)
   formData.append('code', confirmCode.value)
 
