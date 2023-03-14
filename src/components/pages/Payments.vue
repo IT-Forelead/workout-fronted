@@ -142,14 +142,7 @@
           </div>
           <div class="mb-6">
             <label for="price" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Mablag'</label>
-            <div class="relative rounded-md shadow-sm">
-              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <span class="text-sm text-gray-500"> UZS </span>
-              </div>
-              <input type="text" v-model="sum" name="price" id="price"
-                class="block w-full pr-12 text-sm text-gray-900 border border-gray-300 rounded-lg pl-11 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                placeholder="0.00" disabled />
-            </div>
+            <money3 v-model="sum" v-bind="moneyConf" id="servicePrice" class="w-full text-sm text-right text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"> </money3>
           </div>
           <hr class="mb-6 border border-gray-200 bottom-1 dark:border-gray-600" />
           <div class="flex justify-end">
@@ -237,6 +230,12 @@ const selectedMember = ref('')
 const paymentType = ref('monthly')
 const search = ref('')
 
+const moneyConf = {
+  thousands: ' ',
+  suffix: ' UZS',
+  precision: 0,
+}
+
 // Filter By
 const openFilter = ref(false)
 const filterDropdown = ref(null)
@@ -259,20 +258,11 @@ const defaultView = () => {
 }
 // get sum
 const sum = ref(0)
-sum.value = sum.value.toLocaleString('en-US')
-
-const getSum = () => {
-  if (paymentType.value === 'monthly') {
-    sum.value = store.state.settings.monthlyPrice.toLocaleString('en-US')
-  } else {
-    sum.value = store.state.settings.dailyPrice.toLocaleString('en-US')
-  }
-}
 
 const saveMemberId = (member) => (selectedMember.value = member)
+
 const savePaymentType = (type) => {
   paymentType.value = type
-  getSum()
 }
 
 const selectedPayment = computed(() => {
@@ -285,6 +275,7 @@ const closePaymentInfoModal = () => {
 
 const clearFields = () => {
   selectedMember.value = ''
+  sum.value = 0
 }
 
 const members = computed(() => {
@@ -443,7 +434,6 @@ const addSettingInStore = () => {
   store.dispatch('settingModule/get').then(
     (data) => {
       store.commit('setSetting', data)
-      getSum()
     },
     (error) => {
       forbiddenChecker(error, 'Sozlamalarni olishda xatolik yuz berdi!')
@@ -461,6 +451,7 @@ const createPayment = () => {
     const paymentData = {
       memberId: selectedMember.value.id,
       paymentType: paymentType.value,
+      cost: sum.value,
     }
     store.dispatch('paymentModule/create', paymentData).then(
       () => {

@@ -220,7 +220,7 @@
                 required />
             </div>
             <!-- Step 2 -->
-            <div class="flex justify-center" v-if="registerMemberProcess.checkingMode">
+            <div class="flex justify-center" v-if="registerMemberProcess.checkingMode && member.smsConfirmation">
               <div class="flex flex-col">
                 <ConfirmCode class="mx-auto text-blue-500 text-9xl" />
                 <p class="px-3 text-xl text-center text-gray-600 dark:text-gray-300">
@@ -242,7 +242,7 @@
                 </div>
               </div>
             </div>
-            <div v-if="registerMemberProcess.checkingMode"
+            <div v-if="registerMemberProcess.checkingMode && member.smsConfirmation"
               class="flex items-center justify-end p-5 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
               <div>
                 <button v-if="registerMemberProcess.checkingMode && !showCheckBtn && !lastProgressBtn"
@@ -269,13 +269,23 @@
             </div>
           </div>
           <div v-if="!registerMemberProcess.checkingMode"
-            class="flex items-center justify-end p-5 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+            class="flex items-center justify-between p-5 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+            <div v-if="registerMemberProcess.registerMode" class="flex items-start">
+              <div class="flex items-center h-6">
+                <input v-model="member.smsConfirmation" id="comments" name="comments" type="checkbox" class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-600">
+              </div>
+              <div class="ml-3 text-sm leading-6">
+                <label for="comments" class="font-medium text-gray-900 dark:text-gray-300">SMS tasdiqlash</label>
+              </div>
+            </div>
+            <div v-else></div>
             <div>
               <button v-if="registerMemberProcess.registerMode" @click="clearFields()"
                 class="px-4 py-2 mr-2 font-medium text-white transition-colors duration-200 bg-teal-500 border border-teal-500 rounded outline-none hover:bg-teal-400 hover:text-white focus:ring-teal-600 focus:ring-offset-2 active:scale-95 disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">Tozalash</button>
               <button v-if="registerMemberProcess.registerMode" @click="getMemberData()"
-                class="px-4 py-2 font-medium text-white transition-colors duration-200 bg-indigo-500 rounded shadow-lg outline-none hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">Keyingi
-                qadam</button>
+                class="px-4 py-2 font-medium text-white transition-colors duration-200 bg-indigo-500 rounded shadow-lg outline-none hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">
+                Keyingi qadam
+              </button>
               <button v-if="registerMemberProcess.congratulationMode" @click="closeAddMemberModal()"
                 class="px-4 py-2 font-medium text-white transition-colors duration-200 bg-indigo-500 rounded shadow-lg outline-none hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">Yakunlash</button>
             </div>
@@ -347,6 +357,7 @@ const member = reactive({
   lastname: '',
   birthday: '',
   phone: '',
+  smsConfirmation: true,
 })
 
 function clearFields() {
@@ -355,6 +366,7 @@ function clearFields() {
   member.lastname = ''
   member.birthday = ''
   member.phone = ''
+  member.smsConfirmation = true
   confirmCode.value = ''
 }
 
@@ -462,7 +474,7 @@ const getMemberData = () => {
       message: "Iltimos, telefon raqamni to'g'ri kiriting!",
       position: 'bottomLeft',
     })
-  } else {
+  } else if (member.smsConfirmation) {
     member.phone = member.phone.replace(')', '').replace('(', '').replace(' ', '').replace(' ', '').replace('-', '').replace('-', '')
     store.dispatch('memberModule/sendSMS', member.phone).then(
       () => {
@@ -488,10 +500,11 @@ const getMemberData = () => {
     checkingStatus.default = false
     checkingStatus.inProgress = true
     showResendSMS.value = false
-  }
+  } else createMember()
 }
 
 const createMember = () => {
+  member.phone = member.phone.replace(')', '').replace('(', '').replace(' ', '').replace(' ', '').replace('-', '').replace('-', '')
   showCheckBtn.value = false
   lastProgressBtn.value = true
   const formData = new FormData()
@@ -501,14 +514,19 @@ const createMember = () => {
   if (member.birthday) formData.append('birthday', member.birthday)
   if (member.image) formData.append('image', member.image)
   formData.append('phone', member.phone)
-  formData.append('code', confirmCode.value)
+  formData.append('smsConfirmation', member.smsConfirmation)
+  formData.append('code', member.smsConfirmation ? confirmCode.value : '7777')
 
   store.dispatch('memberModule/create', formData).then(
     () => {
       lastMessage.value = "A'zo muvaffaqiyatli yaratildi!"
+      registerMemberProcess.registerMode = false
       registerMemberProcess.congratulationMode = true
+      registerStatus.inProgress = false
+      registerStatus.done = true
       checkingStatus.inProgress = false
       checkingStatus.done = true
+      checkingStatus.default = false
       congratulationStatus.default = false
       congratulationStatus.done = true
       registerMemberProcess.checkingMode = false
