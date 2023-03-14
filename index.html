@@ -1,81 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" href="/src/assets/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IT-Forelead :: Workout</title>
-</head>
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  #loader {
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    background: #fff;
-    position: relative;
-  }
-
-  #loader img {
-    position: absolute;
-    width: 80px;
-  }
-
-  .wrapper {
-    width: 200px;
-    height: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .circle {
-    position: relative;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    animation: rotate 2.5s linear infinite;
-  }
-
-  @keyframes rotate {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  .circle2 {
-    box-shadow: 0px 5px 5px 3px #0496ff;
-  }
-</style>
-
-<body class="bg-slate-100 dark:bg-gray-900">
-  <div id="loader">
-    <img src="./src/assets/images/logo.png" alt="Logo">
-    <div class="wrapper">
-      <div class="circle circle2"></div>
-    </div>
-  </div>
-  <div id="web-app"></div>
-  <script type="module" src="./node_modules/flowbite/dist/flowbite.js"></script>
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-  <script type="module" src="/src/main.js"></script>
-  <script>
-    window.replainSettings = { id: '9c568f73-4a25-457d-b906-6edf147f855c' };
-    (function (u) {
-      var s = document.createElement('script'); s.async = true; s.src = u;
-      var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
-    })('https://widget.replain.cc/dist/client.js');
-  </script>
-</body>
-
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React + TS</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
