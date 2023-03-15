@@ -19,8 +19,8 @@
       <p>{{ formatDateTime(payment.payment.createdAt) }}</p>
       <p>{{ payment.payment.expiredAt ? formatDateTime(payment.payment.expiredAt) : '' }}</p>
     </td>
-    <td class="hidden px-4 py-3 whitespace-nowrap md:table-cell">{{ paymentTypeTranslate(payment.payment.paymentType) }}
-    </td>
+    <td v-if="payment.trainer" class="hidden px-4 py-3 whitespace-nowrap md:table-cell">{{ payment.trainer.fullName }}</td>
+    <td v-else class="hidden px-4 py-3 whitespace-nowrap md:table-cell"> </td>
     <td class="hidden px-4 py-3 whitespace-nowrap md:table-cell">
       {{ payment.payment.cost.toLocaleString('en-US') }}
       <span class="text-xs">UZS</span>
@@ -32,9 +32,6 @@
         <InfiniteLoading v-bind="$attrs" />
       </div>
     </td>
-  </tr>
-  <tr>
-
   </tr>
 </template>
 <script setup>

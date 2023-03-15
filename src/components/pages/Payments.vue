@@ -24,16 +24,6 @@
                   placeholder="Select date start" />
               </div>
             </div>
-            <button @click="openFilter = !openFilter"
-              class="w-full px-5 py-2 text-center text-gray-900 bg-white border rounded-lg border-slate-300 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:border-0 dark:bg-blue-600 dark:text-gray-300 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">
-              <div class="flex items-center">
-                <FunnelIcon class="inline-block mr-1 text-lg" />
-                <span class="flex items-center">{{ !currentFilter ? 'Saralash' : currentFilter }}
-                  <TimesIcon v-if="currentFilter !== ''" @click="defaultView()"
-                    class="w-5 h-5 ml-2 text-gray-700 cursor-pointer hover:text-gray-500 dark:text-gray-300 dark:hover:text-gray-400" />
-                </span>
-              </div>
-            </button>
             <div v-if="openFilter" ref="filterDropdown"
               class="absolute right-0 z-30 w-1/4 mt-2 bg-white border rounded-lg top-11 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
               <div @click="filterDropdownClick('monthly'); currentFilter = 'Oylik to\'lovlar'"
@@ -53,7 +43,7 @@
                 class="font-semibold tracking-wide text-left text-gray-900 text-md dark:bg-gray-800 dark:text-gray-300">
                 <th scope="col" class="px-4 py-3">To'lovchi</th>
                 <th scope="col" class="hidden px-4 py-3 md:table-cell">To'lov vaqti</th>
-                <th scope="col" class="hidden px-4 py-3 md:table-cell">To'lov turi</th>
+                <th scope="col" class="hidden px-4 py-3 md:table-cell">Murabbiy</th>
                 <th scope="col" class="hidden px-4 py-3 md:table-cell">Qiymati</th>
               </tr>
             </thead>
@@ -125,24 +115,16 @@
               </ul>
             </div>
           </div>
-          <label for="price" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">To'lov turi</label>
-          <div class="flex items-center justify-around p-0 mb-6 border border-gray-300 rounded-lg dark:border-gray-600">
-            <input id="toggle-on" class="toggle toggle-left" name="toggle" value="false" type="radio" checked />
-            <label for="toggle-on" @click="savePaymentType('monthly')"
-              class="relative flex items-center justify-center py-2.5">
-              <span class="hidden mr-2">
-                <CheckIcon />
-              </span> Oylik to'lov</label>
-            <input id="toggle-off" class="toggle toggle-right" name="toggle" value="true" type="radio" />
-            <label for="toggle-off" @click="savePaymentType('daily')"
-              class="relative flex items-center justify-center py-2.5">
-              <span class="hidden mr-2">
-                <CheckIcon />
-              </span> Kunlik to'lov</label>
+          <div class="mb-4">
+            <label for="trainer" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Murabbiy</label>
+            <select v-model="paymentData.trainerId" id="trainer" name="country" autocomplete="country-name" class="w-full text-sm text-left text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+              <option value="" selected>Murabbiyni tanlash</option>
+              <option value="40b5519d-37a7-492b-843e-25d0329c389f">Рашин Дмитрий</option>
+            </select>
           </div>
-          <div class="mb-6">
+          <div class="mb-4">
             <label for="price" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Mablag'</label>
-            <money3 v-model="sum" v-bind="moneyConf" id="servicePrice" class="w-full text-sm text-right text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"> </money3>
+            <money3 v-model="paymentData.cost" v-bind="moneyConf" id="servicePrice" class="w-full text-sm text-right text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"> </money3>
           </div>
           <hr class="mb-6 border border-gray-200 bottom-1 dark:border-gray-600" />
           <div class="flex justify-end">
@@ -181,8 +163,8 @@
                 <td class="text-right">{{ formatDateTime(selectedPayment.payment.createdAt) }}</td>
               </tr>
               <tr>
-                <td class="text-left"><strong>To'lov turi: </strong></td>
-                <td class="text-right">{{ paymentTypeTranslate(selectedPayment.payment.paymentType) }}</td>
+                <td class="text-left"><strong>Murabbiy: </strong></td>
+                <td class="text-right">{{ selectedPayment.payment.trainerId }}</td>
               </tr>
               <tr>
                 <td class="text-left"><strong>Qiymati: </strong></td>
@@ -205,7 +187,6 @@
 import SelectIcon from '../../assets/icons/SelectIcon.vue'
 import TimesIcon from '../../assets/icons/TimesIcon.vue'
 import UserBoldIcon from '../../assets/icons/UserBoldIcon.vue'
-import CheckIcon from '../../assets/icons/CheckIcon.vue'
 import SpinIcon from '../../assets/icons/SpinIcon.vue'
 import ModalCloseIcon from '../../assets/icons/ModalCloseIcon.vue'
 import ArrowRightIcon from '../../assets/icons/ArrowRightIcon.vue'
@@ -216,9 +197,10 @@ import { useStore } from 'vuex'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 import { onClickOutside } from '@vueuse/core'
-import { paymentTypeTranslate, phoneStyle } from '../../utils/utils.js'
+import { phoneStyle } from '../../utils/utils.js'
 import authHeader from '../../services/auth-header.js'
 import { formatDateTime } from '../../utils/utils.js'
+import { cleanObjectEmptyFields } from '../../utils/utils.js'
 
 const store = useStore()
 
@@ -227,7 +209,6 @@ const distance = ref(200)
 const URL = ref(import.meta.env.VITE_BASE_URL)
 
 const selectedMember = ref('')
-const paymentType = ref('monthly')
 const search = ref('')
 
 const moneyConf = {
@@ -256,14 +237,8 @@ const defaultView = () => {
   page = 1
   loadLastAddedPayment()
 }
-// get sum
-const sum = ref(0)
 
 const saveMemberId = (member) => (selectedMember.value = member)
-
-const savePaymentType = (type) => {
-  paymentType.value = type
-}
 
 const selectedPayment = computed(() => {
   return store.state.selectedPayment
@@ -274,8 +249,11 @@ const closePaymentInfoModal = () => {
 }
 
 const clearFields = () => {
+  paymentData.memberId = ''
+  paymentData.paymentType = 'monthly'
+  paymentData.trainerId = ''
+  paymentData.cost = 0
   selectedMember.value = ''
-  sum.value = 0
 }
 
 const members = computed(() => {
@@ -385,6 +363,12 @@ watch(
 )
 
 watch(
+  () => selectedMember.value,
+  () => paymentData.memberId = selectedMember.value.id,
+  { deep: true }
+)
+
+watch(
   () => filterData.filterDateFrom,
   () => refresher(),
   { deep: true }
@@ -441,19 +425,26 @@ const addSettingInStore = () => {
   )
 }
 
+const paymentData = reactive({
+  memberId: '',
+  paymentType: 'monthly',
+  cost: 0,
+  trainerId: '',
+})
+
 const createPayment = () => {
-  if (!selectedMember.value) {
+  if (!paymentData.memberId) {
     notify.warning({
       message: "Iltimos, to'lovchini tanlang!",
       position: 'bottomLeft',
     })
+  } else if (paymentData.cost == 0) {
+    notify.warning({
+      message: "Iltimos, mablag'ni kiriting!",
+      position: 'bottomLeft',
+    })
   } else {
-    const paymentData = {
-      memberId: selectedMember.value.id,
-      paymentType: paymentType.value,
-      cost: sum.value,
-    }
-    store.dispatch('paymentModule/create', paymentData).then(
+    store.dispatch('paymentModule/create', cleanObjectEmptyFields(paymentData)).then(
       () => {
         notify.success({
           message: "To'lov muvaffaqiyatli qayd etildi!",
