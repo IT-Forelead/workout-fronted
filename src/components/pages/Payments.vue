@@ -119,7 +119,7 @@
             <label for="trainer" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Murabbiy</label>
             <select v-model="paymentData.trainerId" id="trainer" name="country" autocomplete="country-name" class="w-full text-sm text-left text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
               <option value="" selected>Murabbiyni tanlash</option>
-              <option value="40b5519d-37a7-492b-843e-25d0329c389f">Рашин Дмитрий</option>
+              <option v-for="(trainer, idx) in trainers" :key="idx" :value="trainer.id">{{ trainer.fullName }}</option>
             </select>
           </div>
           <div class="mb-4">
@@ -190,7 +190,6 @@ import UserBoldIcon from '../../assets/icons/UserBoldIcon.vue'
 import SpinIcon from '../../assets/icons/SpinIcon.vue'
 import ModalCloseIcon from '../../assets/icons/ModalCloseIcon.vue'
 import ArrowRightIcon from '../../assets/icons/ArrowRightIcon.vue'
-import FunnelIcon from '../../assets/icons/FunnelIcon.vue'
 import PaymentItem from './Payments/PaymentItem.vue'
 import { computed, onMounted, ref, reactive, watch } from 'vue'
 import { useStore } from 'vuex'
@@ -258,6 +257,10 @@ const clearFields = () => {
 
 const members = computed(() => {
   return store.state.members.filter((member) => member.firstname.toLowerCase().includes(search.value.toLowerCase()))
+})
+
+const trainers = computed(() => {
+  return store.state.trainers
 })
 
 // Token expire checker function
@@ -413,6 +416,18 @@ const getMembers = () => {
   )
 }
 
+// Trainers Data
+const getTrainers = () => {
+  store.dispatch('userModule/getTrainers').then(
+    (data) => {
+      store.commit('setTrainers', data)
+    },
+    (error) => {
+      forbiddenChecker(error, "Ma'lumotlarni bazadan olishda xatolik yuz berdi!")
+    }
+  )
+}
+
 // Setting Data
 const addSettingInStore = () => {
   store.dispatch('settingModule/get').then(
@@ -464,7 +479,7 @@ const createPayment = () => {
   }
 }
 
-onMounted(() => getMembers(), addSettingInStore())
+onMounted(() => getMembers(), addSettingInStore(), getTrainers())
 </script>
 
 <style scoped>

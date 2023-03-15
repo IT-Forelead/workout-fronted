@@ -26,6 +26,7 @@ const store = createStore({
       payments: [],
       arrivals: [],
       settings: [],
+      trainers: [],
       paymentsByMemberId: [],
       arrivalByMemberId: [],
       currentPage: '',
@@ -53,6 +54,9 @@ const store = createStore({
     },
     setSetting(state, data) {
       state.settings = data
+    },
+    setTrainers(state, data) {
+      state.trainers = data
     },
     setPaymentsByMemberId(state, data) {
       state.paymentsByMemberId = data

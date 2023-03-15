@@ -5,6 +5,9 @@ class UserService {
   async getUser() {
     return AxiosService.get('/user', {headers: authHeader()})
   }
+  async getTrainers() {
+    return AxiosService.get('/user/trainers', {headers: authHeader()})
+  }
 }
 
 export default new UserService()

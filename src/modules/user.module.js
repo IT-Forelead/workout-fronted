@@ -12,6 +12,16 @@ export const userModule = {
           return Promise.reject(error);
         }
       );
+    },
+    getTrainers({ commit }) {
+      return UserService.getTrainers().then(
+        trainer => {
+          return Promise.resolve(trainer);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
     }
   },
 
