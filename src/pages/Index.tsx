@@ -1,8 +1,7 @@
-import React from 'react'
+import { ReactNode } from 'react'
 
-type Props = {}
 
-export default function Index({}: Props) {
+export default function Index<ReactNode>() {
   return (
     <div>Index</div>
   )
