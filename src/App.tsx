@@ -1,22 +1,21 @@
-import { useState } from "react"
-import { BrowserRouter, Routes, Route, Link, RouterProvider } from 'react-router-dom';
-import DashboardLayout from "./layouts/DashboardLayout"
-import LoginLayout from "./layouts/LoginLayout"
-import Index from "./pages/Index"
-import Login from "./pages/Login"
+import { useState } from "react";
+import {
+  QueryClient,
+  QueryClientProvider
+} from 'react-query';
+import { RouterProvider } from 'react-router-dom';
+import DashboardLayout from "./layouts/DashboardLayout";
+import LoginLayout from "./layouts/LoginLayout";
 import { privateRouter, publicRouter } from "./router";
+
+// Create a client
+const queryClient = new QueryClient()
 
 function App() {
   const [isLogin, setIsLogin] = useState<boolean>(true)
-  // const { pathname } = useLocation()
-  // const navigate = useNavigate()
-
-  // useEffect(() => {
-
-  // }, [pathname])
   return (
     <>
-      <>
+      <QueryClientProvider client={queryClient}>
         {isLogin ?
           <DashboardLayout>
             <RouterProvider router={privateRouter} />
@@ -24,7 +23,7 @@ function App() {
           : <LoginLayout>
             <RouterProvider router={publicRouter} />
           </LoginLayout>}
-      </>
+      </QueryClientProvider>
     </>
   )
 }
