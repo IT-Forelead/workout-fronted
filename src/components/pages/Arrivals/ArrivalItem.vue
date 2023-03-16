@@ -4,7 +4,7 @@
       <div class="flex items-center">
         <div class="flex items-center justify-center w-10 h-10 mr-3 border rounded-full border-gray-50 dark:border-gray-600">
           <img v-if="arrival.member.image" class="object-cover w-full h-full rounded-full" :src="URL + '/member/image/' + arrival.member.image" alt="#" />
-          <img v-else src="images/avatar.jpg" class="object-cover w-full h-full rounded-full" alt="#">
+          <img v-else src="../../../assets/images/avatar.jpg" class="object-cover w-full h-full rounded-full" alt="#">
         </div>
         <div>
           <p class="font-semibold text-gray-900 dark:text-gray-300">{{ arrival.member.firstname + " " + arrival.member.lastname }}</p>
