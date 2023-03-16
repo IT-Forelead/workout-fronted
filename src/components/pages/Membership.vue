@@ -281,9 +281,9 @@
             <div v-else></div>
             <div>
               <button v-if="registerMemberProcess.registerMode" @click="clearFields()"
-                class="px-4 py-2 mr-2 font-medium text-white transition-colors duration-200 bg-teal-500 border border-teal-500 rounded outline-none hover:bg-teal-400 hover:text-white focus:ring-teal-600 focus:ring-offset-2 active:scale-95 disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">Tozalash</button>
+                class="px-4 py-2 mr-2 font-medium text-white transition-colors duration-200 bg-gray-400 border border-gray-500 rounded outline-none hover:bg-gray-500 hover:text-white focus:ring-teal-600 focus:ring-offset-2 active:scale-95 disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">Tozalash</button>
               <button v-if="registerMemberProcess.registerMode" @click="getMemberData()"
-                class="px-4 py-2 font-medium text-white transition-colors duration-200 bg-indigo-500 rounded shadow-lg outline-none hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">
+                class="px-4 py-2 font-medium text-white transition-colors duration-200 bg-green-500 rounded shadow-lg outline-none hover:bg-green-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">
                 Keyingi qadam
               </button>
               <button v-if="registerMemberProcess.congratulationMode" @click="closeAddMemberModal()"
