@@ -23,7 +23,7 @@
             <div class="w-full mt-3 md:mt-4">
               <Form @submit="onSubmit" class="form-horizontal md:mx-auto md:w-3/4" method="POST" action="#">
                 <div class="flex flex-col mt-4">
-                  <Field v-model="phone" v-mask="'+###(##) ###-##-##'" name="phone" type="phone"
+                  <Field v-model="phone" v-mask="'+998(##) ###-##-##'" name="phone" type="phone"
                     class="w-full p-3 text-gray-500 bg-gray-100 border border-gray-200 outline-none text-md rounded-xl focus:bg-gray-200 focus:outline-none dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400 dark:border-gray-600"
                     placeholder="+998(99) 876-54-32" />
                 </div>
@@ -103,7 +103,7 @@
           <div class="px-3">
             <label for="phone" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Telefon
               raqam</label>
-            <input v-model="clientPhone" name="phone" v-mask="'+###(##) ###-##-##'" id="phone"
+            <input v-model="clientPhone" name="phone" v-mask="'+998(##) ###-##-##'" id="phone"
               class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
               placeholder="+998(90) 123-45-67" required />
           </div>
