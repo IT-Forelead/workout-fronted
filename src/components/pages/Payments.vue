@@ -81,9 +81,9 @@
                     placeholder="Ism bo'yicha izlash" />
                 </span>
                 <span class="flex items-center" v-if="Object.keys(selectedMember).length !== 0">
-                  <span
-                    class="relative inline-block p-1 rounded-full shadow bg-slate-300 text-slate-500 dark:bg-gray-800 dark:text-gray-500">
-                    <img class="w-5 h-5" :src="URL + '/member/image/' + selectedMember.image" alt="#" />
+                  <span class="relative inline-block p-1 rounded-full shadow bg-slate-300 text-slate-500 dark:bg-gray-800 dark:text-gray-500">
+                    <img v-if="selectedMember.image" class="w-5 h-5" :src="URL + '/member/image/' + selectedMember.image" alt="#" />
+                    <img v-else src="images/avatar.jpg" class="w-5 h-5" alt="#">
                   </span>
                   <span x-show="!selectOption" class="block ml-3 truncate text-md"> {{ selectedMember.firstname + ' ' +
                       selectedMember.lastname
@@ -106,8 +106,8 @@
                   class="relative py-2 pl-3 text-gray-900 cursor-pointer select-none pr-9 hover:bg-blue-500 hover:text-white"
                   id="listbox-option-0" role="option">
                   <div class="flex items-center dark:text-gray-300">
-                    <img :src="URL + '/member/image/' + member.image" alt="#"
-                      class="flex-shrink-0 w-6 h-6 rounded-full" />
+                    <img v-if="member.image" :src="URL + '/member/image/' + member.image" alt="#" class="flex-shrink-0 w-6 h-6 rounded-full" />
+                    <img v-else src="images/avatar.jpg" class="flex-shrink-0 w-6 h-6 rounded-full" alt="#">
                     <span class="block ml-3 font-normal truncate"> {{ member.firstname + ' ' + member.lastname }}
                     </span>
                   </div>
@@ -148,8 +148,8 @@
             </button>
           </div>
           <div class="p-3">
-            <img :src="URL + '/member/image/' + selectedPayment.member.image" class="mx-auto h-36 w-36"
-              alt="#" />
+            <img v-if="selectedPayment.member.image" :src="URL + '/member/image/' + selectedPayment.member.image" class="mx-auto h-36 w-36" alt="#" />
+            <img v-else src="images/avatar.jpg" class="mx-auto h-36 w-36" alt="#">
             <p class="my-3 font-bold text-center capitalize">
               {{ selectedPayment.member.firstname + ' ' + selectedPayment.member.lastname }}
             </p>

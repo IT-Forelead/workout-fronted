@@ -2,10 +2,9 @@
   <div>
     <div
       class="grid grid-cols-1 gap-5 overflow-y-auto sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 2xl:gap-14 h-1/2">
-      <div v-for="(member, idx) in members" :key="idx"
-        class="overflow-hidden bg-white shadow-md rounded-xl dark:bg-gray-800">
-        <img :src="URL + '/member/image/' + member.image" alt="#"
-          class="object-cover w-full h-40 duration-500 cursor-zoom-out hover:object-scale-down" />
+      <div v-for="(member, idx) in members" :key="idx" class="overflow-hidden bg-white shadow-md rounded-xl dark:bg-gray-800">
+        <img v-if="member.image" :src="URL + '/member/image/' + member.image" alt="#" class="object-cover w-full h-40 duration-500 cursor-zoom-out hover:object-scale-down" />
+        <img v-else src="images/avatar.jpg" class="object-cover w-full h-40 duration-500 cursor-zoom-out hover:object-scale-down" alt="#">
         <div class="flex flex-col justify-center p-5 text-center" x-data="{open: false}">
           <h3 class="mb-2 overflow-hidden text-xl font-extrabold capitalize text-md h-14 dark:text-gray-300">
             {{ member.firstname + ' ' + member.lastname }}</h3>
@@ -39,8 +38,8 @@
           <div class="p-5">
             <div v-if="Object.keys(selectedMember).length !== 0"
               class="flex flex-col items-center text-center md:flex-row md:justify-start">
-              <img :src="URL + '/member/image/' + selectedMember.image" alt="Avatar"
-                class="w-48 h-48 mx-auto rounded md:mx-2" />
+              <img v-if="selectedMember.image" :src="URL + '/member/image/' + selectedMember.image" alt="Avatar" class="w-48 h-48 mx-auto rounded md:mx-2" />
+              <img v-else src="images/avatar.jpg" class="w-48 h-48 mx-auto rounded md:mx-2" alt="#">
               <div class="flex flex-col ml-2">
                 <div class="flex flex-col p-2 md:flex-row md:justify-between">
                   <span class="mr-3 text-lg">To'liq ismi:</span>
