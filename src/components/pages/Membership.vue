@@ -75,8 +75,8 @@
 
     <!-- Member Add Modal -->
     <div v-if="isAddMemberModalOpen"
-      class="fixed inset-0 top-0 left-0 right-0 z-50 w-full h-full overflow-x-hidden overflow-y-auto backdrop-brightness-50">
-      <div class="relative w-full max-w-5xl p-1 mt-16 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 md:mt-0 md:p-4"
+      class="fixed inset-0 z-50 w-full h-full overflow-x-hidden overflow-y-auto backdrop-brightness-50">
+      <div class="relative w-full max-w-5xl mt-16 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 md:mt-0"
         :class="{ 'mt-0': registerMemberProcess.checkingMode || registerMemberProcess.congratulationMode }">
         <div class="relative bg-white rounded-lg shadow-lg dark:bg-gray-800">
           <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
@@ -106,8 +106,7 @@
                   <div class="hidden ml-3 font-semibold text-gray-700 text-md md:block">A'zo ma'lumotlari</div>
                 </div>
                 <div class="relative mt-1 ml-7 md:-left-8 md:ml-0">
-                  <div
-                    class="absolute bottom-0 border-r border-gray-300 rounded-lg -rotate-25 h-9 dark:border-gray-600">
+                  <div class="absolute bottom-0 border-r border-gray-300 rounded-lg -rotate-25 h-9 dark:border-gray-600">
                   </div>
                   <div class="absolute border-r border-gray-300 rounded-lg rotate-25 -top-1 h-9 dark:border-gray-600">
                   </div>
@@ -136,8 +135,7 @@
                   <div class="hidden ml-3 font-semibold text-gray-700 text-md md:block">Tasdiqlash</div>
                 </div>
                 <div class="relative mt-1 ml-7 md:-left-8 md:ml-0">
-                  <div
-                    class="absolute bottom-0 border-r border-gray-300 rounded-lg -rotate-25 h-9 dark:border-gray-600">
+                  <div class="absolute bottom-0 border-r border-gray-300 rounded-lg -rotate-25 h-9 dark:border-gray-600">
                   </div>
                   <div class="absolute border-r border-gray-300 rounded-lg rotate-25 -top-1 h-9 dark:border-gray-600">
                   </div>
@@ -188,8 +186,7 @@
             <!-- Step 1 -->
             <div v-if="registerMemberProcess.registerMode" class="grid p-5 md:mb-6 md:gap-6 lg:grid-cols-2">
               <div class="p-3">
-                <label for="firstname"
-                  class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Ism</label>
+                <label for="firstname" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Ism</label>
                 <input type="text" v-model="member.firstname" id="firstname" name="firstname"
                   class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   placeholder="Ism kiriting" required />
@@ -272,15 +269,29 @@
             class="flex items-center justify-between p-5 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
             <div v-if="registerMemberProcess.registerMode" class="flex items-start">
               <div class="flex items-center h-6">
-                <input v-model="member.smsConfirmation" id="comments" name="comments" type="checkbox" class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-600">
+                <input v-model="member.smsConfirmation" id="comments" name="comments" type="checkbox"
+                  class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-600">
               </div>
               <div class="ml-3 text-sm leading-6">
                 <label for="comments" class="font-medium text-gray-900 dark:text-gray-300">SMS tasdiqlash</label>
               </div>
             </div>
             <div v-else></div>
+            <div v-if="isClear" class="fixed top-0 bottom-0 -left-[20px] right-[-20px] backdrop-brightness-50 backdrop-blur-sm"></div>
+            <div v-if="isClear" class="fixed z-50 left-[30%] top-[40%] h-screen">
+              <div class="flex p-5 pt-8 bg-white rounded-lg">
+                <div>
+                  <h3 class="mb-4 mr-10 text-xl font-bold">Siz rostdan ham tozalashni xohlaysizmi?</h3>
+                  <div class="text-center">
+                    <button class="bg-blue-500 py-2 px-4 text-white rounded mr-5"
+                      @click="clearFields(), isClear = false">Ha</button>
+                    <button class="bg-blue-500 py-2 px-4 text-white rounded" @click="isClear = false">Yo'q</button>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div>
-              <button v-if="registerMemberProcess.registerMode" @click="clearFields()"
+              <button v-if="registerMemberProcess.registerMode" @click="isClear = true"
                 class="px-4 py-2 mr-2 font-medium text-white transition-colors duration-200 bg-teal-500 border border-teal-500 rounded outline-none hover:bg-teal-400 hover:text-white focus:ring-teal-600 focus:ring-offset-2 active:scale-95 disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">Tozalash</button>
               <button v-if="registerMemberProcess.registerMode" @click="getMemberData()"
                 class="px-4 py-2 font-medium text-white transition-colors duration-200 bg-indigo-500 rounded shadow-lg outline-none hover:bg-indigo-600 focus:bg-indigo-600 focus:ring-indigo-600 focus:ring-offset-2 active:scale-95 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-400/80 disabled:shadow-none">
@@ -325,6 +336,7 @@ const store = useStore()
 
 const isAddMemberModalOpen = ref(false)
 const showContent = ref(false)
+const isClear = ref(false)
 
 const registerMemberProcess = reactive({
   registerMode: false,
