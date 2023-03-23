@@ -7,11 +7,20 @@ import authService from '../services/auth.service'
 import userService from '../services/user.service'
 import { setUserData } from '../features/userSlice'
 import { User } from '../types/interfaces'
-import { ReactNode } from 'react'
+import { EyeIcon } from '../assets/icons/EyeIcon'
+import { EyeSlashIcon } from '../assets/icons/EyeSlashIcon'
+import { SunIcon } from '../assets/icons/SunIcon'
+import { MoonIcon } from '../assets/icons/MoonIcon'
 
 export default function Login<ReactNode>(props: {
   test: string
 }) {
+
+  const [darkMode, setDarkMode] = React.useState(true)
+
+  const toggleDarkMode = () => {
+    setDarkMode(prevDarkMode => !prevDarkMode)
+  }
 
   const { isOpenModal } = useAppSelector(state => state.resetPasswordModalSlice)
   const userInfo = useAppSelector(state => state.userSlice)
@@ -102,10 +111,6 @@ export default function Login<ReactNode>(props: {
     }
   }
 
-  const toggleDark = (): void => {
-    console.log("Toggle Clicked!");
-  }
-
   return (
     <>
       {/* {props.test}
@@ -120,10 +125,12 @@ export default function Login<ReactNode>(props: {
                   <img src="../assets/images/logo.png" className="w-8 ml-2 shrink-0" alt="#" />
                   <div className="ml-2 text-lg font-semibold text-gray-900 dark:text-gray-300 grow">IT-Forelead</div>
                 </div>
-                <button onClick={() => toggleDark()}
+                <button onClick={() => toggleDarkMode()}
                   className="relative inline-block p-2 rounded-full shadow bg-slate-100 hover:bg-slate-200 dark:bg-gray-900 dark:hover:bg-gray-700">
-                  {/* <MoonIcon v-if="!isDark" className="w-5 h-5 text-black dark:text-gray-500" />
-              <SunIcon v-else className="w-5 h-5 text-black dark:text-gray-500" /> */}
+                  {
+                    darkMode ? <MoonIcon className="w-5 h-5 text-black dark:text-gray-500" />
+                      : <SunIcon className="w-5 h-5 text-black dark:text-gray-500" />
+                  }
                 </button>
               </div>
               <div className="flex flex-col justify-center flex-1 mb-0 md:mb-5">
@@ -147,10 +154,10 @@ export default function Login<ReactNode>(props: {
                           className="w-full p-3 text-gray-500 bg-gray-100 border border-gray-200 outline-none text-md rounded-xl focus:bg-gray-200 focus:outline-none dark:focus:dark:bg-gray-700 dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400 dark:border-gray-600"
                           placeholder="Parolni kiriting..." />
                         <div className="absolute inset-y-0 right-0 z-20 flex items-center pr-3 text-sm leading-5">
-                          {/* <EyeIcon @click="showPassword('password')" v-if="currentType === 'text'"
-                        className="w-5 h-5 text-gray-400 cursor-pointer" />
-                      <EyeSlashIcon @click="showPassword('text')" v-if="currentType === 'password'"
-                        className="w-5 h-5 text-gray-400 cursor-pointer" /> */}
+                          {currentType === 'text' ?
+                            <EyeIcon onClick={() => showPassword('password')} className="w-5 h-5 text-gray-400 cursor-pointer" /> :
+                            <EyeSlashIcon onClick={() => showPassword('text')} className="w-5 h-5 text-gray-400 cursor-pointer" />
+                          }
                         </div>
                       </div>
                       <div className="mt-1 ml-2">
