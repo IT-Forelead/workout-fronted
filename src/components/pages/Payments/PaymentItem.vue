@@ -5,13 +5,13 @@
       <div class="flex items-center">
         <div
           class="flex items-center justify-center w-10 h-10 mr-3 border rounded-full border-gray-50 dark:border-gray-600">
-          <img v-if="payment.member.image" class="object-cover w-full h-full rounded-full" :src="URL + '/member/image/' + payment.member.image" alt="#" />
+          <img v-if="payment.serviceMembers.member.image" class="object-cover w-full h-full rounded-full" :src="URL + '/member/image/' + payment.serviceMembers.member.image" alt="#" />
           <img v-else src="/images/avatar.jpg" class="object-cover w-full h-full rounded-full" alt="#">
         </div>
         <div>
           <p class="font-semibold text-gray-900 capitalize dark:text-gray-300">
-            {{ payment.member.firstname + " " + payment.member.lastname }}</p>
-          <p class="text-sm text-gray-600 dark:text-gray-400">{{ phoneStyle(payment.member.phone) }}</p>
+            {{ payment.serviceMembers.member.firstname + " " + payment.serviceMembers.member.lastname }}</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400">{{ phoneStyle(payment.serviceMembers.member.phone) }}</p>
         </div>
       </div>
     </td>
@@ -20,15 +20,15 @@
       <p>{{ payment.payment.expireAt ? formatDateTime(payment.payment.expireAt) : '' }}</p>
     </td>
     <td class="hidden px-4 py-3 whitespace-nowrap md:table-cell">
-      <div>{{ payment.service.name }}</div>
+      <div>{{ payment.serviceMembers.service.name }}</div>
       <div>
-        {{ payment.service.price.toLocaleString('en-US') }}
+        {{ payment.serviceMembers.service.price.toLocaleString('en-US') }}
         <span class="text-xs">UZS</span>
       </div>
     </td>
-    <td v-if="payment.trainerService" class="hidden px-4 py-3 whitespace-nowrap md:table-cell">
-      <div>{{ payment.trainerService.trainerName }}</div>
-      <div>{{ payment.trainerService.name }}</div>
+    <td v-if="payment.serviceMembers.trainerService" class="hidden px-4 py-3 whitespace-nowrap md:table-cell">
+      <div>{{ payment.serviceMembers.trainerService.trainerName }}</div>
+      <div>{{ payment.serviceMembers.trainerService.name }}</div>
     </td>
     <td v-else class="hidden px-4 py-3 whitespace-nowrap md:table-cell">-</td>
     <td class="hidden px-4 py-3 whitespace-nowrap md:table-cell">
