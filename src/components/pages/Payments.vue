@@ -43,7 +43,8 @@
                 class="font-semibold tracking-wide text-left text-gray-900 text-md dark:bg-gray-800 dark:text-gray-300">
                 <th scope="col" class="px-4 py-3">To'lovchi</th>
                 <th scope="col" class="hidden px-4 py-3 md:table-cell">To'lov vaqti</th>
-                <th scope="col" class="hidden px-4 py-3 md:table-cell">Murabbiy</th>
+                <th scope="col" class="hidden px-4 py-3 md:table-cell">Tarif</th>
+                <th scope="col" class="hidden px-4 py-3 md:table-cell">Murabbiy tarifi</th>
                 <th scope="col" class="hidden px-4 py-3 md:table-cell">Qiymati</th>
               </tr>
             </thead>
@@ -81,9 +82,9 @@
                     placeholder="Ism bo'yicha izlash" />
                 </span>
                 <span class="flex items-center" v-if="Object.keys(selectedMember).length !== 0">
-                  <span
-                    class="relative inline-block p-1 rounded-full shadow bg-slate-300 text-slate-500 dark:bg-gray-800 dark:text-gray-500">
-                    <img class="w-5 h-5" :src="URL + '/member/image/' + selectedMember.image" alt="#" />
+                  <span class="relative inline-block p-1 rounded-full shadow bg-slate-300 text-slate-500 dark:bg-gray-800 dark:text-gray-500">
+                    <img v-if="selectedMember.image" class="w-5 h-5" :src="URL + '/member/image/' + selectedMember.image" alt="#" />
+                    <img v-else src="/images/avatar.jpg" class="w-5 h-5" alt="#">
                   </span>
                   <span x-show="!selectOption" class="block ml-3 truncate text-md"> {{ selectedMember.firstname + ' ' +
                       selectedMember.lastname
@@ -106,8 +107,8 @@
                   class="relative py-2 pl-3 text-gray-900 cursor-pointer select-none pr-9 hover:bg-blue-500 hover:text-white"
                   id="listbox-option-0" role="option">
                   <div class="flex items-center dark:text-gray-300">
-                    <img :src="URL + '/member/image/' + member.image" alt="#"
-                      class="flex-shrink-0 w-6 h-6 rounded-full" />
+                    <img v-if="member.image" :src="URL + '/member/image/' + member.image" alt="#" class="flex-shrink-0 w-6 h-6 rounded-full" />
+                    <img v-else src="/images/avatar.jpg" class="flex-shrink-0 w-6 h-6 rounded-full" alt="#">
                     <span class="block ml-3 font-normal truncate"> {{ member.firstname + ' ' + member.lastname }}
                     </span>
                   </div>
@@ -116,10 +117,17 @@
             </div>
           </div>
           <div class="mb-4">
-            <label for="trainer" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Murabbiy</label>
-            <select v-model="paymentData.trainerId" id="trainer" name="country" autocomplete="country-name" class="w-full text-sm text-left text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
-              <option value="" selected>Murabbiyni tanlash</option>
-              <option v-for="(trainer, idx) in trainers" :key="idx" :value="trainer.id">{{ trainer.fullName }}</option>
+            <label for="service" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Tarif</label>
+            <select v-model="paymentData.serviceId" id="service" class="w-full text-sm text-left text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+              <option value="" selected>Tarif tanlash</option>
+              <option v-for="(service, idx) in services" :key="idx" :value="service.id">{{ service.name }}</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label for="trainerService" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Murabbiy tarifi</label>
+            <select v-model="paymentData.trainerServiceId" id="trainerService" class="w-full text-sm text-left text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+              <option value="" selected>Murabbiy tarifi tanlash</option>
+              <option v-for="(ts, idx) in trainerServices" :key="idx" :value="ts.id">{{ ts.trainerName + ' - ' + ts.name }}</option>
             </select>
           </div>
           <div class="mb-4">
@@ -148,8 +156,8 @@
             </button>
           </div>
           <div class="p-3">
-            <img :src="URL + '/member/image/' + selectedPayment.member.image" class="mx-auto h-36 w-36"
-              alt="#" />
+            <img v-if="selectedPayment.member.image" :src="URL + '/member/image/' + selectedPayment.member.image" class="mx-auto h-36 w-36" alt="#" />
+            <img v-else src="/images/avatar.jpg" class="mx-auto h-36 w-36" alt="#">
             <p class="my-3 font-bold text-center capitalize">
               {{ selectedPayment.member.firstname + ' ' + selectedPayment.member.lastname }}
             </p>
@@ -250,7 +258,8 @@ const closePaymentInfoModal = () => {
 const clearFields = () => {
   paymentData.memberId = ''
   paymentData.paymentType = 'monthly'
-  paymentData.trainerId = ''
+  paymentData.serviceId = ''
+  paymentData.trainerServiceId = ''
   paymentData.cost = 0
   selectedMember.value = ''
 }
@@ -261,6 +270,14 @@ const members = computed(() => {
 
 const trainers = computed(() => {
   return store.state.trainers
+})
+
+const services = computed(() => {
+  return store.state.services
+})
+
+const trainerServices = computed(() => {
+  return store.state.trainerServices
 })
 
 // Token expire checker function
@@ -428,6 +445,30 @@ const getTrainers = () => {
   )
 }
 
+// Get Services
+const getServices = () => {
+  store.dispatch('servicesModule/getServices').then(
+    (data) => {
+      store.commit('setServices', data)
+    },
+    (error) => {
+      forbiddenChecker(error, "Ma'lumotlarni bazadan olishda xatolik yuz berdi!")
+    }
+  )
+}
+
+// Trainers Data
+const getTrainerServices = () => {
+  store.dispatch('servicesModule/getTrainerServices').then(
+    (data) => {
+      store.commit('setTrainerServices', data)
+    },
+    (error) => {
+      forbiddenChecker(error, "Ma'lumotlarni bazadan olishda xatolik yuz berdi!")
+    }
+  )
+}
+
 // Setting Data
 const addSettingInStore = () => {
   store.dispatch('settingModule/get').then(
@@ -444,13 +485,19 @@ const paymentData = reactive({
   memberId: '',
   paymentType: 'monthly',
   cost: 0,
-  trainerId: '',
+  serviceId: '',
+  trainerServiceId: '',
 })
 
 const createPayment = () => {
   if (!paymentData.memberId) {
     notify.warning({
       message: "Iltimos, to'lovchini tanlang!",
+      position: 'bottomLeft',
+    })
+  } else if (!paymentData.serviceId) {
+    notify.warning({
+      message: "Iltimos, tarifni tanlang!",
       position: 'bottomLeft',
     })
   } else if (paymentData.cost == 0) {
@@ -479,7 +526,7 @@ const createPayment = () => {
   }
 }
 
-onMounted(() => getMembers(), addSettingInStore(), getTrainers())
+onMounted(() => getMembers(), addSettingInStore(), getTrainers(), getServices(), getTrainerServices())
 </script>
 
 <style scoped>

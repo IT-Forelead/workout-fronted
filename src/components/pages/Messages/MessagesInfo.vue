@@ -3,8 +3,8 @@
     <td class="px-4 py-3 whitespace-nowrap">
       <div v-if="msg.member" class="flex items-center">
         <div class="flex items-center justify-center w-10 h-10 mr-3 border rounded-full border-gray-50">
-          <img class="object-cover w-full h-full rounded-full" :src="URL + '/member/image/' + msg?.member?.image"
-            alt="#" />
+          <img v-if="msg?.member?.image" class="object-cover w-full h-full rounded-full" :src="URL + '/member/image/' + msg?.member?.image" alt="#" />
+          <img v-else src="/images/avatar.jpg" class="object-cover w-full h-full rounded-full" alt="#">
         </div>
         <div>
           <p class="font-semibold text-gray-900 capitalize dark:text-gray-300">

@@ -5,8 +5,8 @@
       <div class="flex items-center">
         <div
           class="flex items-center justify-center w-10 h-10 mr-3 border rounded-full border-gray-50 dark:border-gray-600">
-          <img class="object-cover w-full h-full rounded-full" :src="URL + '/member/image/' + payment.member.image"
-            alt="#" />
+          <img v-if="payment.member.image" class="object-cover w-full h-full rounded-full" :src="URL + '/member/image/' + payment.member.image" alt="#" />
+          <img v-else src="/images/avatar.jpg" class="object-cover w-full h-full rounded-full" alt="#">
         </div>
         <div>
           <p class="font-semibold text-gray-900 capitalize dark:text-gray-300">
@@ -17,17 +17,27 @@
     </td>
     <td class="hidden px-4 py-3 whitespace-nowrap md:table-cell">
       <p>{{ formatDateTime(payment.payment.createdAt) }}</p>
-      <p>{{ payment.payment.expiredAt ? formatDateTime(payment.payment.expiredAt) : '' }}</p>
+      <p>{{ payment.payment.expireAt ? formatDateTime(payment.payment.expireAt) : '' }}</p>
     </td>
-    <td v-if="payment.trainer" class="hidden px-4 py-3 whitespace-nowrap md:table-cell">{{ payment.trainer.fullName }}</td>
-    <td v-else class="hidden px-4 py-3 whitespace-nowrap md:table-cell"> </td>
+    <td class="hidden px-4 py-3 whitespace-nowrap md:table-cell">
+      <div>{{ payment.service.name }}</div>
+      <div>
+        {{ payment.service.price.toLocaleString('en-US') }}
+        <span class="text-xs">UZS</span>
+      </div>
+    </td>
+    <td v-if="payment.trainerService" class="hidden px-4 py-3 whitespace-nowrap md:table-cell">
+      <div>{{ payment.trainerService.trainerName }}</div>
+      <div>{{ payment.trainerService.name }}</div>
+    </td>
+    <td v-else class="hidden px-4 py-3 whitespace-nowrap md:table-cell">-</td>
     <td class="hidden px-4 py-3 whitespace-nowrap md:table-cell">
       {{ payment.payment.cost.toLocaleString('en-US') }}
       <span class="text-xs">UZS</span>
     </td>
   </tr>
   <tr class="text-gray-700 text-md dark:text-gray-300 dark:bg-gray-800 ">
-    <td colspan="4">
+    <td colspan="5">
       <div class="flex items-center justify-center w-full p-2">
         <InfiniteLoading v-bind="$attrs" />
       </div>

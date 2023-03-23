@@ -122,7 +122,7 @@
             <div class="p-3">
               <label for="phone" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Telefon
                 raqam</label>
-              <Field type="text" v-model="client.phone" v-mask="'+###(##) ###-##-##'" id="phone" name="phone"
+              <Field type="text" v-model="client.phone" v-mask="'+998(##) ###-##-##'" id="phone" name="phone"
                 class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                 placeholder="+998(90) 123-45-67" required />
             </div>

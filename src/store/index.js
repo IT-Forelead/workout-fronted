@@ -4,6 +4,7 @@ import { memberModule } from '../modules/member.module'
 import { clientModule } from '../modules/client.module'
 import { messageModule } from '../modules/message.module'
 import { paymentModule } from '../modules/payment.module'
+import { servicesModule } from '../modules/services.module'
 import { arrivalModule } from '../modules/arrival.module'
 import { settingModule } from '../modules/setting.module'
 import { userModule } from '../modules/user.module'
@@ -15,6 +16,7 @@ const store = createStore({
     clientModule,
     messageModule,
     paymentModule,
+    servicesModule,
     arrivalModule,
     settingModule,
     userModule
@@ -27,6 +29,8 @@ const store = createStore({
       arrivals: [],
       settings: [],
       trainers: [],
+      services: [],
+      trainerServices: [],
       paymentsByMemberId: [],
       arrivalByMemberId: [],
       currentPage: '',
@@ -57,6 +61,12 @@ const store = createStore({
     },
     setTrainers(state, data) {
       state.trainers = data
+    },
+    setServices(state, data) {
+      state.services = data
+    },
+    setTrainerServices(state, data) {
+      state.trainerServices = data
     },
     setPaymentsByMemberId(state, data) {
       state.paymentsByMemberId = data
