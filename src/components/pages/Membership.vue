@@ -215,6 +215,14 @@
                   class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   placeholder="+998(90) 123-45-67" required />
               </div>
+              <div class="p-3">
+                <label for="sex" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Jinsi</label>
+                <select id="sex" v-model="member.gender" class="w-full text-sm text-left text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                  <option value="" selected>Jinsni tanlash</option>
+                  <option value="male">Erkak</option>
+                  <option value="female">Ayol</option>
+                </select>
+              </div>
               <input name="code" v-model="confirmCode" type="hidden"
                 class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                 required />
@@ -357,6 +365,7 @@ const member = reactive({
   lastname: '',
   birthday: '',
   phone: '',
+  gender: '',
   smsConfirmation: true,
 })
 
@@ -366,6 +375,7 @@ function clearFields() {
   member.lastname = ''
   member.birthday = ''
   member.phone = ''
+  member.gender = ''
   member.smsConfirmation = true
   confirmCode.value = ''
 }
@@ -463,6 +473,12 @@ const getMemberData = () => {
       message: 'Iltimos, familiyani kiriting!',
       position: 'bottomLeft',
     })
+  }  else if (!member.gender) {
+    notify.warning({
+      title: 'Diqqat!',
+      message: 'Iltimos, jinsni tanlang!',
+      position: 'bottomLeft',
+    })
   } else if (!member.phone) {
     notify.warning({
       title: 'Diqqat!',
@@ -514,6 +530,7 @@ const createMember = () => {
   if (member.birthday) formData.append('birthday', member.birthday)
   if (member.image) formData.append('image', member.image)
   formData.append('phone', member.phone)
+  formData.append('gender', member.gender)
   formData.append('smsConfirmation', member.smsConfirmation)
   formData.append('code', member.smsConfirmation ? confirmCode.value : '7777')
 
