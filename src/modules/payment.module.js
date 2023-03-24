@@ -22,7 +22,17 @@ export const paymentModule = {
           return Promise.reject(error);
         }
       );
-    }
+    },
+    getServiceMembers({ commit }) {
+      return PaymentService.getServiceMembers().then(
+        payment => {
+          return Promise.resolve(payment);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
   }
 
 };

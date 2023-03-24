@@ -42,6 +42,13 @@ const routes = [
     beforeEnter: navigationGuard('client'),
   },
   {
+    path: '/services',
+    name: 'Servislar',
+    component: () => import('../components/ServiceMembers.vue'),
+    meta: { layout: 'dashboard' },
+    beforeEnter: navigationGuard('client'),
+  },
+  {
     path: '/arrival',
     name: 'Kelib-ketishlar',
     component: () => import('../components/pages/Arrival.vue'),

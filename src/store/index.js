@@ -30,6 +30,7 @@ const store = createStore({
       settings: [],
       trainers: [],
       services: [],
+      serviceMembers: [],
       trainerServices: [],
       paymentsByMemberId: [],
       arrivalByMemberId: [],
@@ -64,6 +65,9 @@ const store = createStore({
     },
     setServices(state, data) {
       state.services = data
+    },
+    setServiceMembers(state, data) {
+      state.serviceMembers = data
     },
     setTrainerServices(state, data) {
       state.trainerServices = data

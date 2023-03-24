@@ -75,10 +75,10 @@
 
     <!-- Member Add Modal -->
     <div v-if="isAddMemberModalOpen"
-      class="fixed inset-0 z-50 w-full h-full overflow-x-hidden overflow-y-auto backdrop-brightness-50">
+      class="fixed inset-0 z-50 overflow-x-hidden overflow-y-auto backdrop-brightness-50">
       <div class="relative w-full max-w-5xl mt-16 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 md:mt-0"
         :class="{ 'mt-0': registerMemberProcess.checkingMode || registerMemberProcess.congratulationMode }">
-        <div class="relative bg-white rounded-lg shadow-lg dark:bg-gray-800">
+        <div class="relative bg-white shadow-lg dark:bg-gray-800">
           <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
             <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Yangi a'zo qo'shish</h3>
             <button type="button" @click="closeAddMemberModal()"
@@ -265,6 +265,7 @@
               </p>
             </div>
           </div>
+          <div v-if="isClear" class="fixed top-0 bottom-0 left-0 right-0 backdrop-brightness-50 backdrop-blur-sm"></div>
           <div v-if="!registerMemberProcess.checkingMode"
             class="flex items-center justify-between p-5 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
             <div v-if="registerMemberProcess.registerMode" class="flex items-start">
@@ -277,15 +278,14 @@
               </div>
             </div>
             <div v-else></div>
-            <div v-if="isClear" class="fixed top-0 bottom-0 -left-[20px] right-[-20px] backdrop-brightness-50 backdrop-blur-sm"></div>
             <div v-if="isClear" class="fixed z-50 left-[30%] top-[40%] h-screen">
               <div class="flex p-5 pt-8 bg-white rounded-lg">
                 <div>
                   <h3 class="mb-4 mr-10 text-xl font-bold">Siz rostdan ham tozalashni xohlaysizmi?</h3>
                   <div class="text-center">
-                    <button class="bg-blue-500 py-2 px-4 text-white rounded mr-5"
+                    <button class="bg-blue-500 hover:bg-blue-600 duration-300 py-2 px-4 text-white rounded mr-5"
                       @click="clearFields(), isClear = false">Ha</button>
-                    <button class="bg-blue-500 py-2 px-4 text-white rounded" @click="isClear = false">Yo'q</button>
+                    <button class="bg-blue-500 hover:bg-blue-600 duration-300 py-2 px-4 text-white rounded" @click="isClear = false">Yo'q</button>
                   </div>
                 </div>
               </div>

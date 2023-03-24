@@ -8,6 +8,9 @@ class PaymentService {
   async createPayment(data) {
     return AxiosService.post('/payment', data, {headers: authHeader()})
   }
+  async getServiceMembers(data) {
+    return AxiosService.post('/payment/service-members', data, {headers: authHeader()})
+  }
 }
 
 export default new PaymentService()
