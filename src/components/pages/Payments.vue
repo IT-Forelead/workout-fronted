@@ -64,70 +64,13 @@
         <h3 class="mb-3 text-2xl font-extrabold">To'lov qo'shish</h3>
         <hr class="mb-6 border border-gray-200 bottom-1 dark:border-gray-600" />
         <form @submit.prevent="createPayment()">
-          <div class="mb-6">
-            <label id="listbox-label"
-              class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">To'lovchi</label>
-            <div class="relative mt-1" x-data="{selectOption: false}" x-on:click.outside="selectOption = false">
-              <button x-on:click="selectOption = true" type="button"
-                class="relative w-full py-2 pl-3 pr-10 text-left bg-white border border-gray-300 rounded-md shadow-sm cursor-pointer focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 sm:text-sm"
-                aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
-                <span class="flex items-center" v-if="!selectedMember">
-                  <span
-                    class="relative inline-block p-1 rounded-full shadow bg-slate-300 text-slate-500 dark:bg-gray-800 dark:text-gray-500">
-                    <UserBoldIcon class="w-5 h-5" />
-                  </span>
-                  <span x-show="!selectOption" class="block ml-3 truncate text-md"> To'lovchini tanlang</span>
-                  <input x-show="selectOption" type="text" v-model="search"
-                    class="p-0 ml-3 border-transparent focus:border-transparent focus:ring-0 dark:bg-gray-700 dark:placeholder-gray-400"
-                    placeholder="Ism bo'yicha izlash" />
-                </span>
-                <span class="flex items-center" v-if="Object.keys(selectedMember).length !== 0">
-                  <span class="relative inline-block p-1 rounded-full shadow bg-slate-300 text-slate-500 dark:bg-gray-800 dark:text-gray-500">
-                    <img v-if="selectedMember.image" class="w-5 h-5" :src="URL + '/member/image/' + selectedMember.image" alt="#" />
-                    <img v-else src="/images/avatar.jpg" class="w-5 h-5" alt="#">
-                  </span>
-                  <span x-show="!selectOption" class="block ml-3 truncate text-md"> {{ selectedMember.firstname + ' ' +
-                      selectedMember.lastname
-                  }}</span>
-                  <input x-show="selectOption" type="text" v-model="search"
-                    class="p-0 ml-3 border-transparent focus:border-transparent focus:ring-0 dark:bg-gray-700 dark:placeholder-gray-400"
-                    placeholder="Ism bo'yicha izlash" />
-                </span>
-                <span class="absolute inset-y-0 right-0 flex items-center pr-2 ml-3 pointer-events-none">
-                  <SelectIcon />
-                </span>
-              </button>
-              <TimesIcon v-if="selectedMember" @click="clearFields()"
-                class="absolute w-6 h-6 text-gray-500 cursor-pointer top-3 right-8 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-400" />
-              <ul x-show="selectOption"
-                class="absolute z-10 w-full mt-1 overflow-auto text-base bg-white border rounded-md shadow-lg max-h-56 ring-1 ring-black ring-opacity-5 focus:outline-none dark:border-gray-600 dark:bg-gray-700 sm:text-sm"
-                tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-option-3">
-                <li x-on:click="selectOption = false" v-for="(member, idx) in members" :key="idx"
-                  @click="saveMemberId(member)"
-                  class="relative py-2 pl-3 text-gray-900 cursor-pointer select-none pr-9 hover:bg-blue-500 hover:text-white"
-                  id="listbox-option-0" role="option">
-                  <div class="flex items-center dark:text-gray-300">
-                    <img v-if="member.image" :src="URL + '/member/image/' + member.image" alt="#" class="flex-shrink-0 w-6 h-6 rounded-full" />
-                    <img v-else src="/images/avatar.jpg" class="flex-shrink-0 w-6 h-6 rounded-full" alt="#">
-                    <span class="block ml-3 font-normal truncate"> {{ member.firstname + ' ' + member.lastname }}
-                    </span>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
           <div class="mb-4">
             <label for="service" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Tarif</label>
             <select v-model="paymentData.serviceId" id="service" class="w-full text-sm text-left text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
               <option value="" selected>Tarif tanlash</option>
-              <option v-for="(service, idx) in services" :key="idx" :value="service.id">{{ service.name }}</option>
-            </select>
-          </div>
-          <div class="mb-4">
-            <label for="trainerService" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Murabbiy tarifi</label>
-            <select v-model="paymentData.trainerServiceId" id="trainerService" class="w-full text-sm text-left text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
-              <option value="" selected>Murabbiy tarifi tanlash</option>
-              <option v-for="(ts, idx) in trainerServices" :key="idx" :value="ts.id">{{ ts.trainerName + ' - ' + ts.name }}</option>
+              <option value="" selected>Tarif tanlash</option>
+              <option value="" selected>Tarif tanlash</option>
+              <!-- <option v-for="(service, idx) in services" :key="idx" :value="service.id">{{ service.name }}</option> -->
             </select>
           </div>
           <div class="mb-4">
@@ -278,6 +221,10 @@ const services = computed(() => {
 
 const trainerServices = computed(() => {
   return store.state.trainerServices
+})
+
+const serviceMembers = computed(() => {
+  return store.state.serviceMembers
 })
 
 // Token expire checker function
@@ -434,34 +381,10 @@ const getMembers = () => {
 }
 
 // Trainers Data
-const getTrainers = () => {
-  store.dispatch('userModule/getTrainers').then(
+const getServiceMembers = () => {
+  store.dispatch('servicesModule/getServiceMembers').then(
     (data) => {
-      store.commit('setTrainers', data)
-    },
-    (error) => {
-      forbiddenChecker(error, "Ma'lumotlarni bazadan olishda xatolik yuz berdi!")
-    }
-  )
-}
-
-// Get Services
-const getServices = () => {
-  store.dispatch('servicesModule/getServices').then(
-    (data) => {
-      store.commit('setServices', data)
-    },
-    (error) => {
-      forbiddenChecker(error, "Ma'lumotlarni bazadan olishda xatolik yuz berdi!")
-    }
-  )
-}
-
-// Trainers Data
-const getTrainerServices = () => {
-  store.dispatch('servicesModule/getTrainerServices').then(
-    (data) => {
-      store.commit('setTrainerServices', data)
+      store.commit('setServiceMembers', data)
     },
     (error) => {
       forbiddenChecker(error, "Ma'lumotlarni bazadan olishda xatolik yuz berdi!")
@@ -526,7 +449,10 @@ const createPayment = () => {
   }
 }
 
-onMounted(() => getMembers(), addSettingInStore(), getTrainers(), getServices(), getTrainerServices())
+onMounted(() =>
+  addSettingInStore(),
+  getServiceMembers()
+  )
 </script>
 
 <style scoped>

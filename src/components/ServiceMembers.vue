@@ -1,12 +1,12 @@
 <template>
   <div class="h-full px-5">
-    <div v-if="isAddModal" class="fixed z-10 top-0 bottom-0 left-0 right-0 backdrop-brightness-50 backdrop-blur-sm"></div>
+    <div v-if="isAddModal" class="fixed top-0 bottom-0 left-0 right-0 z-10 backdrop-brightness-50 backdrop-blur-sm"></div>
     <div v-if="isAddModal"
       class="p-3 px-5 mb-3 bg-white rounded-lg w-96 md:w-[450px] dark:bg-gray-800 dark:text-gray-300 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 fixed z-20">
       <div class="flex justify-between">
         <h3 class="mb-3 text-2xl font-extrabold">To'lov qo'shish</h3>
         <div
-          class="w-8 cursor-pointer h-8 flex items-center justify-center rounded-full duration-300 hover:bg-red-500 hover:text-white">
+          class="flex items-center justify-center w-8 h-8 duration-300 rounded-full cursor-pointer hover:bg-red-500 hover:text-white">
           <ModalCloseIcon @click="isAddModal = false" />
         </div>
       </div>
@@ -117,7 +117,7 @@
                   class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pr-14 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
                   placeholder="Select date start" />
               </div>
-              <button class="py-2 px-4 ml-5 block bg-blue-500 text-white font-bold rounded" @click="isAddModal = true">
+              <button class="block px-4 py-2 ml-5 font-bold text-white bg-blue-500 rounded" @click="isAddModal = true">
                 Qo'shish
               </button>
             </div>
@@ -448,6 +448,30 @@ const getTrainers = () => {
   )
 }
 
+// Get Services
+const getServices = () => {
+  store.dispatch('servicesModule/getServices').then(
+    (data) => {
+      store.commit('setServices', data)
+    },
+    (error) => {
+      forbiddenChecker(error, "Ma'lumotlarni bazadan olishda xatolik yuz berdi!")
+    }
+  )
+}
+
+// Trainers Data
+const getTrainerServices = () => {
+  store.dispatch('servicesModule/getTrainerServices').then(
+    (data) => {
+      store.commit('setTrainerServices', data)
+    },
+    (error) => {
+      forbiddenChecker(error, "Ma'lumotlarni bazadan olishda xatolik yuz berdi!")
+    }
+  )
+}
+
 // Setting Data
 const addSettingInStore = () => {
   store.dispatch('settingModule/get').then(
@@ -494,7 +518,7 @@ const createPayment = () => {
   }
 }
 
-onMounted(() => getMembers(), addSettingInStore(), getTrainers())
+onMounted(() => getMembers(), addSettingInStore(), getServices(), getTrainerServices(), getTrainers())
 </script>
   
 <style scoped>

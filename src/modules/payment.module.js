@@ -23,16 +23,6 @@ export const paymentModule = {
         }
       );
     },
-    getServiceMembers({ commit }) {
-      return PaymentService.getServiceMembers().then(
-        payment => {
-          return Promise.resolve(payment);
-        },
-        error => {
-          return Promise.reject(error);
-        }
-      );
-    },
   }
 
 };

@@ -8,6 +8,9 @@ class ServicesService {
   async getTrainerServices() {
     return AxiosService.get('/payment/trainer-services', {headers: authHeader()})
   }
+  async getServiceMembers(data) {
+    return AxiosService.post('/payment/service-members', data, {headers: authHeader()})
+  }
 }
 
 export default new ServicesService()
