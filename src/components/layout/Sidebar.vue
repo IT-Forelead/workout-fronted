@@ -53,8 +53,8 @@ function accessRoutes() {
     return [
       { id: 1, url: '/dashboard', icon: 'home-outline', name: 'Asosiy sahifa' },
       { id: 2, url: '/members', icon: 'people-outline', name: "A'zolarimiz" },
-      { id: 3, url: '/payments', icon: 'wallet-outline', name: "To'lovlar" },
-      { id: 4, url: '/services', icon: 'settings', name: "Service members" },
+      { id: 3, url: '/services', icon: 'people-outline', name: "Service members" },
+      { id: 4, url: '/payments', icon: 'wallet-outline', name: "To'lovlar" },
       { id: 5, url: '/arrival', icon: 'repeat-outline', name: "Kelib-Ketishlar" },
       { id: 6, url: '/messages', icon: 'mail-outline', name: "SMS xabarlar" },
       { id: 7, url: '/settings', icon: 'settings-outline', name: "Sozlamalar" },

@@ -203,22 +203,6 @@ const clearFields = () => {
   paymentData.cost = 0
 }
 
-const members = computed(() => {
-  return store.state.members.filter((member) => member.firstname.toLowerCase().includes(search.value.toLowerCase()))
-})
-
-const trainers = computed(() => {
-  return store.state.trainers
-})
-
-const services = computed(() => {
-  return store.state.services
-})
-
-const trainerServices = computed(() => {
-  return store.state.trainerServices
-})
-
 const serviceMembers = computed(() => {
   return store.state.serviceMembers
 })

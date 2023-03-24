@@ -20,6 +20,32 @@ export function paymentTypeTranslate(type) {
   }
 }
 
+export function paymentStatusTranslate(type) {
+  switch (type) {
+    case 'not_paid':
+      return "To'lanmagan"
+    case 'partially_paid':
+      return "Qisman to'langan"
+    case 'fully_paid':
+      return "To'liq to'langan"
+    case 'canceled':
+      return "Bekor qilingan"
+  }
+}
+
+export function paymentStatusClass(type) {
+  switch (type) {
+    case 'not_paid':
+      return 'bg-red-500 text-white'
+    case 'partially_paid':
+      return 'bg-yellow-300 text-black'
+    case 'fully_paid':
+      return 'bg-green-500 text-white'
+    case 'canceled':
+      return 'bg-teal-500 text-white'
+  }
+}
+
 export function cleanObjectEmptyFields(obj) {
   for (let propName in obj) {
     if (!obj[propName]) {

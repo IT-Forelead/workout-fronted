@@ -70,7 +70,7 @@
         </div>
         <div class="mb-4">
           <label for="service" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Tarif</label>
-          <select v-model="paymentData.serviceId" id="service"
+          <select v-model="serviceMembersData.serviceId" id="service"
             class="w-full text-sm text-left text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
             <option value="" selected>Tarif tanlash</option>
             <option v-for="(service, idx) in services" :key="idx" :value="service.id">{{ service.name }}
@@ -80,7 +80,7 @@
         <div class="mb-4">
           <label for="trainerService" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Murabbiy
             tarifi</label>
-          <select v-model="paymentData.trainerServiceId" id="trainerService"
+          <select v-model="serviceMembersData.trainerServiceId" id="trainerService"
             class="w-full text-sm text-left text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
             <option value="" selected>Murabbiy tarifi tanlash</option>
             <option v-for="(ts, idx) in trainerServices" :key="idx" :value="ts.id">{{ ts.trainerName + ' - ' +
@@ -121,14 +121,6 @@
                 Qo'shish
               </button>
             </div>
-            <div v-if="openFilter" ref="filterDropdown"
-              class="absolute right-0 z-30 w-1/4 mt-2 bg-white border rounded-lg top-11 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
-              <div @click="filterDropdownClick('monthly'); currentFilter = 'Oylik to\'lovlar'"
-                class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Oylik to'lovlar
-              </div>
-              <div @click="filterDropdownClick('daily'); currentFilter = 'Kunlik to\'lovlar'"
-                class="px-3 py-2 cursor-pointer dark:hover:bg-gray-700">Kunlik To'lovlar</div>
-            </div>
           </div>
         </div>
         <div v-show="payments.length > 0"
@@ -137,15 +129,17 @@
           <table class="w-full divide-y divide-gray-300 dark:divide-gray-600">
             <thead class="z-0 shadow sticky-top bg-slate-50 dark:shadow-gray-600">
               <tr class="font-semibold tracking-wide text-left text-gray-900 text-md dark:bg-gray-800 dark:text-gray-300">
-                <th scope="col" class="px-4 py-3">To'lovchi</th>
-                <th scope="col" class="hidden px-4 py-3 md:table-cell">To'lov vaqti</th>
-                <th scope="col" class="hidden px-4 py-3 md:table-cell">Murabbiy</th>
-                <th scope="col" class="hidden px-4 py-3 md:table-cell">Qiymati</th>
+                <th scope="col" class="px-4 py-3">Mijoz</th>
+                <th scope="col" class="hidden px-4 py-3 md:table-cell">Vaqtlar</th>
+                <th scope="col" class="hidden px-4 py-3 md:table-cell">Xizmat</th>
+                <th scope="col" class="hidden px-4 py-3 md:table-cell">Murabbiy xizmati</th>
+                <th scope="col" class="hidden px-4 py-3 md:table-cell">HIsob kitob</th>
+                <th scope="col" class="hidden px-4 py-3 md:table-cell">To'lov holati</th>
               </tr>
             </thead>
             <tbody
               class="bg-white divide-y divide-gray-200 custom-height dark:divide-gray-600 dark:bg-gray-800 dark:text-gray-300">
-              <PaymentItem :payments="payments" :distance="distance" :target="target" @infinite="loadPayments" />
+              <ServiceMembersItem :payments="payments" :distance="distance" :target="target" @infinite="loadPayments" />
             </tbody>
           </table>
         </div>
@@ -205,21 +199,22 @@
 </template>
   
 <script setup>
-import SelectIcon from '../assets/icons/SelectIcon.vue'
-import TimesIcon from '../assets/icons/TimesIcon.vue'
-import UserBoldIcon from '../assets/icons/UserBoldIcon.vue'
-import SpinIcon from '../assets/icons/SpinIcon.vue'
-import ModalCloseIcon from '../assets/icons/ModalCloseIcon.vue'
-import ArrowRightIcon from '../assets/icons/ArrowRightIcon.vue'
+import SelectIcon from '../../assets/icons/SelectIcon.vue'
+import TimesIcon from '../../assets/icons/TimesIcon.vue'
+import UserBoldIcon from '../../assets/icons/UserBoldIcon.vue'
+import SpinIcon from '../../assets/icons/SpinIcon.vue'
+import ModalCloseIcon from '../../assets/icons/ModalCloseIcon.vue'
+import ArrowRightIcon from '../../assets/icons/ArrowRightIcon.vue'
 import { computed, onMounted, ref, reactive, watch } from 'vue'
 import { useStore } from 'vuex'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 import { onClickOutside } from '@vueuse/core'
-import { phoneStyle } from '../utils/utils.js'
-import authHeader from '../services/auth-header.js'
-import { formatDateTime } from '../utils/utils.js'
-import { cleanObjectEmptyFields } from '../utils/utils.js'
+import { phoneStyle } from '../../utils/utils.js'
+import authHeader from '../../services/auth-header.js'
+import { formatDateTime } from '../../utils/utils.js'
+import { cleanObjectEmptyFields } from '../../utils/utils.js'
+import ServiceMembersItem from './Payments/ServiceMembersItem.vue'
 
 const store = useStore()
 
@@ -230,12 +225,6 @@ const URL = ref(import.meta.env.VITE_BASE_URL)
 const search = ref('')
 const isAddModal = ref(false)
 const selectedMember = ref('')
-
-const moneyConf = {
-  thousands: ' ',
-  suffix: ' UZS',
-  precision: 0,
-}
 
 // Filter By
 const openFilter = ref(false)
@@ -269,18 +258,22 @@ const closePaymentInfoModal = () => {
 }
 
 const clearFields = () => {
-  paymentData.memberId = ''
   selectedMember.value = ''
-  paymentData.trainerId = ''
-  paymentData.paymentType = 'monthly'
+  serviceMembersData.memberId = ''
+  serviceMembersData.serviceId = ''
+  serviceMembersData.trainerServiceId = ''
 }
 
 const members = computed(() => {
   return store.state.members.filter((member) => member.firstname.toLowerCase().includes(search.value.toLowerCase()))
 })
 
-const trainers = computed(() => {
-  return store.state.trainers
+const services = computed(() => {
+  return store.state.services
+})
+
+const trainerServices = computed(() => {
+  return store.state.trainerServices
 })
 
 // Token expire checker function
@@ -318,7 +311,7 @@ const loadPayments = async ($state) => {
   page++
   if (!(total.value / 10 + 1 < page && total.value !== 0)) {
     try {
-      const response = await fetch(API_URL + '/payment/' + page, {
+      const response = await fetch(API_URL + '/payment/service-members/' + page, {
         method: 'POST',
         body: JSON.stringify(filterData),
         headers: authHeader(),
@@ -326,7 +319,7 @@ const loadPayments = async ($state) => {
       const json = await response.json()
       total.value = json.total
       setTimeout(() => {
-        payments.value.push(...json.payment)
+        payments.value.push(...json.serviceMembers)
         isPaymentEmpty.value = total.value === 0
         $state.loaded()
       }, 500)
@@ -346,7 +339,7 @@ const loadFilteredPayments = async () => {
   page++
   if (!(total.value / 10 + 1 < page && total.value !== 0)) {
     try {
-      const response = await fetch(API_URL + '/payment/' + page, {
+      const response = await fetch(API_URL + '/payment/service-members/' + page, {
         method: 'POST',
         body: JSON.stringify(filterData),
         headers: authHeader(),
@@ -387,7 +380,7 @@ watch(
 
 watch(
   () => selectedMember.value,
-  () => paymentData.memberId = selectedMember.value.id,
+  () => serviceMembersData.memberId = selectedMember.value.id,
   { deep: true }
 )
 
@@ -406,7 +399,7 @@ watch(
 const loadLastAddedPayment = async () => {
   isLoading.value = true
   try {
-    const response = await fetch(API_URL + '/payment/' + page, {
+    const response = await fetch(API_URL + '/payment/service-members/' + page, {
       method: 'POST',
       body: JSON.stringify(filterData),
       headers: authHeader(),
@@ -429,18 +422,6 @@ const getMembers = () => {
   store.dispatch('memberModule/get').then(
     (data) => {
       store.commit('setMembers', data)
-    },
-    (error) => {
-      forbiddenChecker(error, "Ma'lumotlarni bazadan olishda xatolik yuz berdi!")
-    }
-  )
-}
-
-// Trainers Data
-const getTrainers = () => {
-  store.dispatch('userModule/getTrainers').then(
-    (data) => {
-      store.commit('setTrainers', data)
     },
     (error) => {
       forbiddenChecker(error, "Ma'lumotlarni bazadan olishda xatolik yuz berdi!")
@@ -484,24 +465,29 @@ const addSettingInStore = () => {
   )
 }
 
-const paymentData = reactive({
-  cost: 0,
+const serviceMembersData = reactive({
   memberId: '',
-  trainerId: '',
-  paymentType: 'monthly',
+  serviceId: '',
+  trainerServiceId: '',
+  cost: 0,
 })
 
 const createPayment = () => {
-  if (!paymentData.memberId) {
+  if (!serviceMembersData.memberId) {
     notify.warning({
-      message: "Iltimos, to'lovchini tanlang!",
+      message: "Iltimos, mijozni tanlang!",
+      position: 'bottomLeft',
+    })
+  } else if (!serviceMembersData.serviceId) {
+    notify.warning({
+      message: "Iltimos, xizmatni tanlang!",
       position: 'bottomLeft',
     })
   } else {
-    store.dispatch('paymentModule/create', cleanObjectEmptyFields(paymentData)).then(
+    store.dispatch('servicesModule/createServiceMembers', cleanObjectEmptyFields(serviceMembersData)).then(
       () => {
         notify.success({
-          message: "To'lov muvaffaqiyatli qayd etildi!",
+          message: "Mijoz muvaffaqiyatli ro'yhatga olindi",
           position: 'bottomLeft',
         })
         clearFields()
@@ -518,51 +504,10 @@ const createPayment = () => {
   }
 }
 
-onMounted(() => getMembers(), addSettingInStore(), getServices(), getTrainerServices(), getTrainers())
+onMounted(() => getMembers(), addSettingInStore(), getServices(), getTrainerServices())
 </script>
   
 <style scoped>
-input[type='radio'].toggle {
-  display: none;
-}
-
-input[type='radio'].toggle+label {
-  cursor: pointer;
-  width: 50%;
-}
-
-input[type='radio'].toggle.toggle-left+label {
-  border-right: 0;
-}
-
-input[type='radio'].toggle.toggle-left+label:after {
-  left: 100%;
-}
-
-input[type='radio'].toggle.toggle-right+label {
-  margin-left: -5px;
-}
-
-input[type='radio'].toggle.toggle-right+label:after {
-  left: -100%;
-}
-
-input[type='radio'].toggle:checked+label {
-  cursor: default;
-  color: #fff;
-  background-color: #3b82f6;
-  border-radius: 6px;
-  transition: color 300ms;
-}
-
-input[type='radio'].toggle:checked+label>span {
-  display: inline-block;
-}
-
-input[type='radio'].toggle:checked+label:after {
-  left: 0;
-}
-
 .payment-table-h {
   max-height: 75vh;
 }

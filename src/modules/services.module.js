@@ -33,5 +33,15 @@ export const servicesModule = {
         }
       )
     },
+    createServiceMembers({ commit }, data) {
+      return ServicesService.createServiceMembers(data).then(
+        serviceMembers => {
+          return Promise.resolve(serviceMembers);
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
   },
 }

@@ -44,7 +44,7 @@ const routes = [
   {
     path: '/services',
     name: 'Servislar',
-    component: () => import('../components/ServiceMembers.vue'),
+    component: () => import('../components/pages/ServiceMembers.vue'),
     meta: { layout: 'dashboard' },
     beforeEnter: navigationGuard('client'),
   },

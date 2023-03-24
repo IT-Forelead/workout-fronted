@@ -11,6 +11,9 @@ class ServicesService {
   async getServiceMembers() {
     return AxiosService.get('/payment/service-members', {headers: authHeader()})
   }
+  async createServiceMembers(data) {
+    return AxiosService.post('/payment/create-service-members', data, {headers: authHeader()})
+  }
 }
 
 export default new ServicesService()
