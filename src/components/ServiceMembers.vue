@@ -2,7 +2,7 @@
   <div class="h-full px-5">
     <div v-if="isAddModal" class="fixed z-10 top-0 bottom-0 left-0 right-0 backdrop-brightness-50 backdrop-blur-sm"></div>
     <div v-if="isAddModal"
-      class="p-3 px-5 mb-3 bg-white rounded-lg w-96 dark:bg-gray-800 dark:text-gray-300 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 fixed z-20">
+      class="p-3 px-5 mb-3 bg-white rounded-lg w-96 md:w-[450px] dark:bg-gray-800 dark:text-gray-300 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 fixed z-20">
       <div class="flex justify-between">
         <h3 class="mb-3 text-2xl font-extrabold">To'lov qo'shish</h3>
         <div
