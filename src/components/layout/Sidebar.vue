@@ -63,13 +63,4 @@ function accessRoutes() {
 }
 </script>
 
-<style scoped>
-.active {
-  background-color: rgb(59 130 246);
-  color: #fff;
-}
-
-.custom-top {
-  top: 49vh;
-}
-</style>
+<style scoped></style>

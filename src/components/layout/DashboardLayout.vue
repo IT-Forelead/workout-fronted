@@ -27,22 +27,4 @@ const sidebarStatus = computed(() => {
   return store.state.isSidebarOpen || refreshConf
 })
 </script>
-<style scoped>
-.fade-enter-from {
-  opacity: 0;
-  transform: translateY(100px);
-}
-
-.fade-enter-active {
-  transition: all 0.3s ease-out;
-}
-
-.fade-leave-to {
-  opacity: 0;
-  transform: translateY(-100px);
-}
-
-.fade-leave-active {
-  transition: all 0.3s ease-in;
-}
-</style>
+<style scoped></style>

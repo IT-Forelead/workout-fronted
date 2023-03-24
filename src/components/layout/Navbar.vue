@@ -318,11 +318,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.hidden {
-  display: none;
-  transition: all 0.5s ease-in-out;
-}
-
 #dropdownInformation {
   position: absolute;
   top: 100%;
