@@ -66,11 +66,11 @@
         <form @submit.prevent="createPayment()">
           <div class="mb-4">
             <label for="service" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Tarif</label>
-            <select v-model="paymentData.serviceMembersId" id="service" class="w-full text-sm text-left text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+            <select v-model="paymentData.serviceId" id="service" class="w-full text-sm text-left text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
               <option value="" selected>Tarif tanlash</option>
-              <option v-for="(sm, idx) in serviceMembers" :key="idx" :value="sm.serviceMembers.id">
-                {{ sm.member.firstname + ' ' + sm.member.lastname + ' - ' + sm.service.name }}
-              </option>
+              <option value="" selected>Tarif tanlash</option>
+              <option value="" selected>Tarif tanlash</option>
+              <!-- <option v-for="(service, idx) in services" :key="idx" :value="service.id">{{ service.name }}</option> -->
             </select>
           </div>
           <div class="mb-4">
@@ -199,9 +199,29 @@ const closePaymentInfoModal = () => {
 }
 
 const clearFields = () => {
-  paymentData.serviceMembersId = ''
+  paymentData.memberId = ''
+  paymentData.paymentType = 'monthly'
+  paymentData.serviceId = ''
+  paymentData.trainerServiceId = ''
   paymentData.cost = 0
+  selectedMember.value = ''
 }
+
+const members = computed(() => {
+  return store.state.members.filter((member) => member.firstname.toLowerCase().includes(search.value.toLowerCase()))
+})
+
+const trainers = computed(() => {
+  return store.state.trainers
+})
+
+const services = computed(() => {
+  return store.state.services
+})
+
+const trainerServices = computed(() => {
+  return store.state.trainerServices
+})
 
 const serviceMembers = computed(() => {
   return store.state.serviceMembers
@@ -310,6 +330,12 @@ watch(
 )
 
 watch(
+  () => selectedMember.value,
+  () => paymentData.memberId = selectedMember.value.id,
+  { deep: true }
+)
+
+watch(
   () => filterData.filterDateFrom,
   () => refresher(),
   { deep: true }
@@ -379,12 +405,20 @@ const addSettingInStore = () => {
 }
 
 const paymentData = reactive({
-  serviceMembersId: '',
+  memberId: '',
+  paymentType: 'monthly',
   cost: 0,
+  serviceId: '',
+  trainerServiceId: '',
 })
 
 const createPayment = () => {
-  if (!paymentData.serviceMembersId) {
+  if (!paymentData.memberId) {
+    notify.warning({
+      message: "Iltimos, to'lovchini tanlang!",
+      position: 'bottomLeft',
+    })
+  } else if (!paymentData.serviceId) {
     notify.warning({
       message: "Iltimos, tarifni tanlang!",
       position: 'bottomLeft',
