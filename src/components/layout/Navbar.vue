@@ -11,7 +11,7 @@
       <div class="p-1 mr-5 lg:hidden">
         <img src="../../assets/images/logo.png" class="w-12 shrink-0" alt="#" />
       </div>
-      <div class="relative" v-if="showSearchAndBtn">
+      <!-- <div class="relative" v-if="showSearchAndBtn">zz
         <span class="absolute inset-y-0 left-0 flex items-center pl-2">
           <button type="submit" class="p-4 focus:shadow-outline focus:outline-none">
             <SearchIcon class="w-5 h-5" />
@@ -19,8 +19,8 @@
         </span>
         <input type="search" name="search"
           class="py-2 pl-16 text-lg border rounded-full outline-none w-96 border-slate-300 bg-slate-100 text-slate-500 focus:bg-slate-200 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:placeholder-gray-300"
-          placeholder="Izlash..." autocomplete="off" />
-      </div>
+          placeholder="Izlash..ccc." autocomplete="off" />
+      </div> -->
     </div>
     <div class="flex items-center mr-5">
       <button id="dropdownNotificationBtn" @click="toggleDropDownNotification()"
