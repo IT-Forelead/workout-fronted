@@ -134,7 +134,7 @@
                 </div>
               </button>
               <div v-if="openFilter" ref="filterDropdown"
-                class="absolute mt-2 z-50 bg-white border rounded-lg top-16 right-40 dark:border-gray-600 dark:bg-gray-800 p-4 dark:text-gray-300">
+                class="absolute mt-2 z-50 bg-white border rounded-lg top-16 right-20 dark:border-gray-600 dark:bg-gray-800 p-4 dark:text-gray-300">
                 <form @submit.prevent="createPayment()">
                   <div class="mb-4">
                     <label for="service"
