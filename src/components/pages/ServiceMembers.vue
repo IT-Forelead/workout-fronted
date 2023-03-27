@@ -97,7 +97,7 @@
     <div class="relative z-0">
       <div class="order-last w-full col-span-2 overflow-x-auto">
         <div class="flex items-center justify-between p-1 mb-5">
-          <h3 class="mb-3 ml-2 text-2xl font-extrabold dark:text-gray-300">Service members</h3>
+          <h3 class="mb-3 ml-2 text-2xl font-extrabold dark:text-gray-300">Tariflangan a'zolar</h3>
           <div class="relative hidden lg:flex lg:items-center lg:justify-between">
             <div class="flex items-center mr-3">
               <div class="relative">
