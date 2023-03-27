@@ -6,9 +6,9 @@
       class="p-3 z-10 px-5 fixed w-96 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 bg-white rounded-lg dark:bg-gray-800 dark:text-gray-300">
       <div class="flex justify-between">
         <h3 class="mb-3 text-2xl font-extrabold">To'lov qo'shish</h3>
-        <div
+        <div  @click="isModal = false"
           class="flex items-center justify-center w-8 h-8 duration-300 rounded-full cursor-pointer hover:bg-red-500 hover:text-white">
-          <ModalCloseIcon @click="isModal = false" />
+          <ModalCloseIcon/>
         </div>
       </div>
       <hr class="mb-6 border border-gray-200 bottom-1 dark:border-gray-600" />

@@ -5,9 +5,9 @@
       class="p-3 px-5 mb-3 bg-white rounded-lg w-96 md:w-[450px] dark:bg-gray-800 dark:text-gray-300 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 fixed z-20">
       <div class="flex justify-between">
         <h3 class="mb-3 text-2xl font-extrabold">To'lov qo'shish</h3>
-        <div
+        <div @click="isAddModal = false"
           class="flex items-center justify-center w-8 h-8 duration-300 rounded-full cursor-pointer hover:bg-red-500 hover:text-white">
-          <ModalCloseIcon @click="isAddModal = false" />
+          <ModalCloseIcon />
         </div>
       </div>
       <hr class="mb-6 border border-gray-200 bottom-1 dark:border-gray-600" />
@@ -101,11 +101,11 @@
       </form>
     </div>
     <div class="relative z-0">
-      <div class="order-last w-full col-span-2 overflow-x-auto">
+      <div>
         <div class="flex items-center justify-between p-1 mb-5">
           <h3 class="mb-3 ml-2 text-2xl font-extrabold dark:text-gray-300">Tariflangan a'zolar</h3>
           <div class="relative hidden lg:flex lg:items-center lg:justify-between">
-            <div class="flex items-center mr-3">
+            <div class="flex items-center">
               <div class="relative">
                 <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                   <span class="text-sm text-gray-600 dark:text-gray-300"> dan </span>
@@ -122,6 +122,36 @@
                 <input v-model.lazy="filterData.filterDateTo" name="end" type="datetime-local"
                   class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pr-14 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
                   placeholder="Select date start" />
+              </div>
+              <button @click="openFilter = !openFilter"
+                class="ml-5 flex flex-nowrap justify-center rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-center text-gray-900 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:border-0 dark:bg-blue-600 dark:text-gray-300 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto lg:inline-block">
+                <div class="flex items-center">
+                  <FunnelIcon class="inline-block mr-1 text-lg" />
+                  <span class="flex items-center">{{ !currentFilter ? 'Saralash' : currentFilter }}
+                    <TimesIcon v-if="currentFilter !== ''" @click="defaultView()"
+                      class="w-5 h-5 ml-2 text-gray-700 cursor-pointer hover:text-gray-500 dark:text-gray-300 dark:hover:text-gray-400" />
+                  </span>
+                </div>
+              </button>
+              <div v-if="openFilter" ref="filterDropdown"
+                class="absolute mt-2 z-50 bg-white border rounded-lg top-16 right-40 dark:border-gray-600 dark:bg-gray-800 p-4 dark:text-gray-300">
+                <form @submit.prevent="createPayment()">
+                  <div class="mb-4">
+                    <label for="service"
+                      class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Tarif</label>
+                    <select v-model="serviceMembersData.serviceId" id="service"
+                      class="w-full text-sm text-left text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                      <option value="" selected>Tarif tanlash</option>
+                      <option v-for="(service, idx) in services" :key="idx" :value="service.id">{{ service.name }}
+                      </option>
+                    </select>
+                  </div>
+                  <hr class="mb-6 border border-gray-200 bottom-1 dark:border-gray-600" />
+                  <div class="flex justify-end">
+                    <button type="submit"
+                      class="mx-1 w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">Jo'natish</button>
+                  </div>
+                </form>
               </div>
               <button class="block px-4 py-2 ml-5 font-bold text-white bg-blue-500 rounded" @click="isAddModal = true">
                 Qo'shish
@@ -206,6 +236,7 @@
   
 <script setup>
 import SelectIcon from '../../assets/icons/SelectIcon.vue'
+import FunnelIcon from '../../assets/icons/FunnelIcon.vue'
 import TimesIcon from '../../assets/icons/TimesIcon.vue'
 import UserBoldIcon from '../../assets/icons/UserBoldIcon.vue'
 import SpinIcon from '../../assets/icons/SpinIcon.vue'
