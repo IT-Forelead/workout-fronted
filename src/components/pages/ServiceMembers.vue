@@ -134,26 +134,23 @@
                   </span>
                 </div>
               </button>
-              <form @submit.prevent="createPayment()">
-                <div v-if="openFilter" ref="filterDropdown"
-                  class="absolute mt-2 z-50 bg-white w-60 border rounded-lg top-16 right-[7rem] dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
-                  <div @click="openFilter = false; filterData.paymentStatus = 'not_paid'; currentFilter = 'To\'lanmagan'"
-                    class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">To'lanmagan
-                  </div>
-                  <div
-                    @click="openFilter = false; filterData.paymentStatus = 'partially_paid'; currentFilter = 'Qisman to\'langan'"
-                    class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Qisman
-                    to'langan</div>
-                  <div
-                    @click="openFilter = false; filterData.paymentStatus = 'fully_paid'; currentFilter = 'To\'liq to\'langan'"
-                    class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">To'liq
-                    to'langan</div>
-                  <div
-                    @click="openFilter = false; filterData.paymentStatus = 'canceled'; currentFilter = 'Bekor qilingan'"
-                    class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Bekor qilingan
-                  </div>
+              <div v-if="openFilter" ref="filterDropdown"
+                class="absolute mt-2 z-50 bg-white w-60 border rounded-lg top-16 right-[7rem] dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
+                <div @click="openFilter = false; filterData.paymentStatus = 'not_paid'; currentFilter = 'To\'lanmagan'"
+                  class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">To'lanmagan</div>
+                <div
+                  @click="openFilter = false; filterData.paymentStatus = 'firstname-za'; currentFilter = 'Qisman to\'langan'"
+                  class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Qisman to'langan
                 </div>
-              </form>
+                <div
+                  @click="openFilter = false; filterData.paymentStatus = 'lastname-az'; currentFilter = 'To\'liq to\'langan'"
+                  class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">To'liq to'langan
+                </div>
+                <div
+                  @click="openFilter = false; filterData.paymentStatus = 'lastname-za'; currentFilter = 'Bekor qilingan'"
+                  class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Bekor qilingan
+                </div>
+              </div>
               <button class="block px-4 py-2 ml-5 font-bold text-white bg-blue-500 rounded" @click="isAddModal = true">
                 Qo'shish
               </button>
@@ -183,7 +180,7 @@
         <div v-if="isLoading" class="flex items-start justify-center w-full h-10">
           <SpinIcon class="h-7 w-7" />
         </div>
-        <h1 v-if="isPaymentEmpty" class="text-xl text-center text-red-500">Ma'lumotlar bazasidan to'lovlar hisoboti
+        <h1 v-if="isPaymentEmpty" class="text-xl text-center text-red-500">Ma'lumotlar bazasidan to'sssslovlar hisoboti
           topilmadi!</h1>
       </div>
     </div>
