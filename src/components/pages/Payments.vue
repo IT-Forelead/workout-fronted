@@ -1,7 +1,43 @@
 <template>
   <div class="h-full px-5">
-    <div class="relative z-0 grid grid-cols-1 md:gap-4 lg:grid-cols-3">
-      <div class="order-last w-full col-span-2 overflow-x-auto lg:order-first">
+
+    <div v-if="isModal" class="fixed top-0 bottom-0 left-0 right-0 z-10 backdrop-brightness-50 backdrop-blur-sm"></div>
+    <div v-if="isModal"
+      class="p-3 z-10 px-5 fixed w-96 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 bg-white rounded-lg dark:bg-gray-800 dark:text-gray-300">
+      <div class="flex justify-between">
+        <h3 class="mb-3 text-2xl font-extrabold">To'lov qo'shish</h3>
+        <div
+          class="flex items-center justify-center w-8 h-8 duration-300 rounded-full cursor-pointer hover:bg-red-500 hover:text-white">
+          <ModalCloseIcon @click="isModal = false" />
+        </div>
+      </div>
+      <hr class="mb-6 border border-gray-200 bottom-1 dark:border-gray-600" />
+      <form @submit.prevent="createPayment()">
+        <div class="mb-4">
+          <label for="service" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Tarif</label>
+          <select v-model="paymentData.serviceId" id="service"
+            class="w-full text-sm text-left text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+            <option value="" selected>Tarif tanlash</option>
+            <option value="" selected>Tarif tanlash</option>
+            <option value="" selected>Tarif tanlash</option>
+            <!-- <option v-for="(service, idx) in services" :key="idx" :value="service.id">{{ service.name }}</option> -->
+          </select>
+        </div>
+        <div class="mb-4">
+          <label for="price" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Mablag'</label>
+          <money3 v-model="paymentData.cost" v-bind="moneyConf" id="servicePrice"
+            class="w-full text-sm text-right text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+          </money3>
+        </div>
+        <hr class="mb-6 border border-gray-200 bottom-1 dark:border-gray-600" />
+        <div class="flex justify-end">
+          <button type="submit"
+            class="mx-1 w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">Jo'natish</button>
+        </div>
+      </form>
+    </div>
+    <div class="relative z-0">
+      <div class="col-span-2 overflow-x-auto">
         <div class="flex items-center justify-between p-1 mb-5">
           <h3 class="mb-3 ml-2 text-2xl font-extrabold dark:text-gray-300">To'lovlar</h3>
           <div class="relative hidden lg:flex lg:items-center lg:justify-between">
@@ -23,6 +59,9 @@
                   class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pr-14 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
                   placeholder="Select date start" />
               </div>
+              <button class="block px-4 py-2 ml-5 font-bold text-white bg-blue-500 rounded" @click="isModal = true">
+                Qo'shish
+              </button>
             </div>
             <div v-if="openFilter" ref="filterDropdown"
               class="absolute right-0 z-30 w-1/4 mt-2 bg-white border rounded-lg top-11 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
@@ -39,8 +78,7 @@
           class="grid grid-cols-1 overflow-x-auto border rounded-lg shadow-lg payments-wrapper payment-table-h border-slate-200 dark:border-gray-600">
           <table class="w-full divide-y divide-gray-300 dark:divide-gray-600">
             <thead class="z-0 shadow sticky-top bg-slate-50 dark:shadow-gray-600">
-              <tr
-                class="font-semibold tracking-wide text-left text-gray-900 text-md dark:bg-gray-800 dark:text-gray-300">
+              <tr class="font-semibold tracking-wide text-left text-gray-900 text-md dark:bg-gray-800 dark:text-gray-300">
                 <th scope="col" class="px-4 py-3">To'lovchi</th>
                 <th scope="col" class="hidden px-4 py-3 md:table-cell">To'lov vaqti</th>
                 <th scope="col" class="hidden px-4 py-3 md:table-cell">Tarif</th>
@@ -57,32 +95,8 @@
         <div v-if="isLoading" class="flex items-start justify-center w-full h-10">
           <SpinIcon class="h-7 w-7" />
         </div>
-        <h1 v-if="isPaymentEmpty" class="text-xl text-center text-red-500">Ma'lumotlar bazasidan to'lovlar hisoboti topilmadi!</h1>
-      </div>
-      <div
-        class="order-first p-3 px-5 mb-3 bg-white rounded-lg max-content-h dark:bg-gray-800 dark:text-gray-300 lg:order-last">
-        <h3 class="mb-3 text-2xl font-extrabold">To'lov qo'shish</h3>
-        <hr class="mb-6 border border-gray-200 bottom-1 dark:border-gray-600" />
-        <form @submit.prevent="createPayment()">
-          <div class="mb-4">
-            <label for="service" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Tarif</label>
-            <select v-model="paymentData.serviceMembersId" id="service" class="w-full text-sm text-left text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
-              <option value="" selected>Tarif tanlash</option>
-              <option v-for="(sm, idx) in serviceMembers" :key="idx" :value="sm.serviceMembers.id">
-                {{ sm.member.firstname + ' ' + sm.member.lastname + ' - ' + sm.service.name }}
-              </option>
-            </select>
-          </div>
-          <div class="mb-4">
-            <label for="price" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Mablag'</label>
-            <money3 v-model="paymentData.cost" v-bind="moneyConf" id="servicePrice" class="w-full text-sm text-right text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"> </money3>
-          </div>
-          <hr class="mb-6 border border-gray-200 bottom-1 dark:border-gray-600" />
-          <div class="flex justify-end">
-            <button type="submit"
-              class="mx-1 w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">Jo'natish</button>
-          </div>
-        </form>
+        <h1 v-if="isPaymentEmpty" class="text-xl text-center text-red-500">Ma'lumotlar bazasidan to'lovlar hisoboti
+          topilmadi!</h1>
       </div>
     </div>
     <!-- Payment Info Modal -->
@@ -99,7 +113,8 @@
             </button>
           </div>
           <div class="p-3">
-            <img v-if="selectedPayment.member.image" :src="URL + '/member/image/' + selectedPayment.member.image" class="mx-auto h-36 w-36" alt="#" />
+            <img v-if="selectedPayment.member.image" :src="URL + '/member/image/' + selectedPayment.member.image"
+              class="mx-auto h-36 w-36" alt="#" />
             <img v-else src="/images/avatar.jpg" class="mx-auto h-36 w-36" alt="#">
             <p class="my-3 font-bold text-center capitalize">
               {{ selectedPayment.member.firstname + ' ' + selectedPayment.member.lastname }}
@@ -158,8 +173,9 @@ const target = ref('.payments-wrapper')
 const distance = ref(200)
 const URL = ref(import.meta.env.VITE_BASE_URL)
 
-const selectedMember = ref('')
 const search = ref('')
+const isModal = ref(false)
+const selectedMember = ref('')
 
 const moneyConf = {
   thousands: ' ',
@@ -199,9 +215,29 @@ const closePaymentInfoModal = () => {
 }
 
 const clearFields = () => {
-  paymentData.serviceMembersId = ''
+  paymentData.memberId = ''
+  paymentData.paymentType = 'monthly'
+  paymentData.serviceId = ''
+  paymentData.trainerServiceId = ''
   paymentData.cost = 0
+  selectedMember.value = ''
 }
+
+const members = computed(() => {
+  return store.state.members.filter((member) => member.firstname.toLowerCase().includes(search.value.toLowerCase()))
+})
+
+const trainers = computed(() => {
+  return store.state.trainers
+})
+
+const services = computed(() => {
+  return store.state.services
+})
+
+const trainerServices = computed(() => {
+  return store.state.trainerServices
+})
 
 const serviceMembers = computed(() => {
   return store.state.serviceMembers
@@ -310,6 +346,12 @@ watch(
 )
 
 watch(
+  () => selectedMember.value,
+  () => paymentData.memberId = selectedMember.value.id,
+  { deep: true }
+)
+
+watch(
   () => filterData.filterDateFrom,
   () => refresher(),
   { deep: true }
@@ -379,12 +421,20 @@ const addSettingInStore = () => {
 }
 
 const paymentData = reactive({
-  serviceMembersId: '',
+  memberId: '',
+  paymentType: 'monthly',
   cost: 0,
+  serviceId: '',
+  trainerServiceId: '',
 })
 
 const createPayment = () => {
-  if (!paymentData.serviceMembersId) {
+  if (!paymentData.memberId) {
+    notify.warning({
+      message: "Iltimos, to'lovchini tanlang!",
+      position: 'bottomLeft',
+    })
+  } else if (!paymentData.serviceId) {
     notify.warning({
       message: "Iltimos, tarifni tanlang!",
       position: 'bottomLeft',
@@ -418,7 +468,7 @@ const createPayment = () => {
 onMounted(() =>
   addSettingInStore(),
   getServiceMembers()
-  )
+)
 </script>
 
 <style scoped>
@@ -465,5 +515,4 @@ input[type='radio'].toggle:checked+label:after {
 
 .payment-table-h {
   max-height: 75vh;
-}
-</style>
+}</style>
