@@ -219,4 +219,8 @@ watch(
 .messages-table-h {
   max-height: 75vh;
 }
+
+.test {
+    color: #fff;
+}
 </style>
