@@ -72,7 +72,8 @@
           <label for="createdAt" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">
             Ro'yxatlangan vaqti
           </label>
-          <input v-model.lazy="serviceMembersData.createdAt" name="end" type="datetime-local" class="w-full text-sm text-left text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" />
+          <input v-model.lazy="serviceMembersData.createdAt" name="end" type="datetime-local"
+            class="w-full text-sm text-left text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" />
         </div>
         <div class="mb-4">
           <label for="service" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Tarif</label>
@@ -134,24 +135,21 @@
                 </div>
               </button>
               <div v-if="openFilter" ref="filterDropdown"
-                class="absolute mt-2 z-50 bg-white border rounded-lg top-16 right-40 dark:border-gray-600 dark:bg-gray-800 p-4 dark:text-gray-300">
-                <form @submit.prevent="createPayment()">
-                  <div class="mb-4">
-                    <label for="service"
-                      class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Tarif</label>
-                    <select v-model="serviceMembersData.serviceId" id="service"
-                      class="w-full text-sm text-left text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
-                      <option value="" selected>Tarif tanlash</option>
-                      <option v-for="(service, idx) in services" :key="idx" :value="service.id">{{ service.name }}
-                      </option>
-                    </select>
-                  </div>
-                  <hr class="mb-6 border border-gray-200 bottom-1 dark:border-gray-600" />
-                  <div class="flex justify-end">
-                    <button type="submit"
-                      class="mx-1 w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">Jo'natish</button>
-                  </div>
-                </form>
+                class="absolute mt-2 z-50 bg-white w-60 border rounded-lg top-16 right-[7rem] dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
+                <div @click="openFilter = false; filterData.paymentStatus = 'not_paid'; currentFilter = 'To\'lanmagan'"
+                  class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">To'lanmagan</div>
+                <div
+                  @click="openFilter = false; filterData.paymentStatus = 'firstname-za'; currentFilter = 'Qisman to\'langan'"
+                  class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Qisman to'langan
+                </div>
+                <div
+                  @click="openFilter = false; filterData.paymentStatus = 'lastname-az'; currentFilter = 'To\'liq to\'langan'"
+                  class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">To'liq to'langan
+                </div>
+                <div
+                  @click="openFilter = false; filterData.paymentStatus = 'lastname-za'; currentFilter = 'Bekor qilingan'"
+                  class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Bekor qilingan
+                </div>
               </div>
               <button class="block px-4 py-2 ml-5 font-bold text-white bg-blue-500 rounded" @click="isAddModal = true">
                 Qo'shish
@@ -182,7 +180,7 @@
         <div v-if="isLoading" class="flex items-start justify-center w-full h-10">
           <SpinIcon class="h-7 w-7" />
         </div>
-        <h1 v-if="isPaymentEmpty" class="text-xl text-center text-red-500">Ma'lumotlar bazasidan to'lovlar hisoboti
+        <h1 v-if="isPaymentEmpty" class="text-xl text-center text-red-500">Ma'lumotlar bazasidan to'sssslovlar hisoboti
           topilmadi!</h1>
       </div>
     </div>
@@ -274,12 +272,12 @@ onClickOutside(filterDropdown, () => {
 
 const filterDropdownClick = (payType) => {
   openFilter.value = false
-  filterData.typeBy = payType
+  filterData.paymentStatus = payType
 }
 
 const defaultView = () => {
   currentFilter.value = ''
-  filterData.typeBy = null
+  filterData.paymentStatus = null
   page = 1
   loadLastAddedPayment()
 }
@@ -333,7 +331,7 @@ function forbiddenChecker(error, msg) {
 
 // load default
 const filterData = reactive({
-  typeBy: null,
+  paymentStatus: null,
   filterDateTo: null,
   filterDateFrom: null,
 })
@@ -411,7 +409,7 @@ const refresher = () => {
 }
 
 watch(
-  () => filterData.typeBy,
+  () => filterData.paymentStatus,
   () => refresher(),
   { deep: true }
 )
