@@ -550,5 +550,9 @@ onMounted(() => getMembers(), addSettingInStore(), getServices(), getTrainerServ
 .payment-table-h {
   max-height: 75vh;
 }
+
+.jjjjjjjjjj{
+  color: indigo;
+}
 </style>
   
