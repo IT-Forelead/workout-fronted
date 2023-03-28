@@ -3,7 +3,7 @@
 
     <div v-if="isModal" class="fixed top-0 bottom-0 left-0 right-0 z-10 backdrop-brightness-50 backdrop-blur-sm"></div>
     <div v-if="isModal"
-      class="p-3 z-10 px-5 fixed w-96 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 bg-white rounded-lg dark:bg-gray-800 dark:text-gray-300">
+      class="fixed z-10 p-3 px-5 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg w-96 top-1/2 left-1/2 dark:bg-gray-800 dark:text-gray-300">
       <div class="flex justify-between">
         <h3 class="mb-3 text-2xl font-extrabold">To'lov qo'shish</h3>
         <div  @click="isModal = false"
