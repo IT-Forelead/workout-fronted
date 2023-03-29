@@ -4,34 +4,65 @@
       <div class="flex items-center justify-between mb-5">
         <h3 class="mb-3 ml-2 text-2xl font-extrabold dark:text-gray-300">Kelib-ketishlar</h3>
         <div class="relative hidden lg:flex lg:justify-between lg:items-center">
-          <div class="flex items-center mr-3">
-            <div class="relative">
-              <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                <span class="text-sm text-gray-600 dark:text-gray-300"> dan </span>
-              </div>
-              <input v-model.lazy="filterData.filterDateFrom" name="start" type="datetime-local" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pr-11 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-            </div>
-            <ArrowRightIcon class="mx-2 text-gray-500" />
-            <div class="relative">
-              <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                <span class="text-sm text-gray-600 dark:text-gray-300"> gacha </span>
-              </div>
-              <input v-model.lazy="filterData.filterDateTo" name="end" type="datetime-local" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pr-14 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-            </div>
-          </div>
-          <button @click="openFilter = !openFilter" class="w-full px-5 py-2 text-center text-gray-900 bg-white border rounded-lg border-slate-300 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto dark:border-0 dark:text-gray-300">
+          <button @click="openFilter = !openFilter"
+            class="ml-5 flex flex-nowrap justify-center rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-center text-gray-900 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:border-0 dark:bg-blue-600 dark:text-gray-300 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto lg:inline-block">
             <div class="flex items-center">
               <FunnelIcon class="inline-block mr-1 text-lg" />
-              <span class="flex items-center">{{ !currentFilter ? 'Saralash' : currentFilter }} <TimesIcon v-if="currentFilter !== ''" @click="defaultView()" class="w-5 h-5 ml-2 text-gray-700 cursor-pointer hover:text-gray-500 dark:text-gray-300 dark:hover:text-gray-400"/></span>
+              <span class="flex items-center">{{ !currentFilter ? 'Saralash' : currentFilter }}
+                <TimesIcon v-if="currentFilter !== ''" @click="defaultView()"
+                  class="w-5 h-5 ml-2 text-gray-700 cursor-pointer hover:text-gray-500 dark:text-gray-300 dark:hover:text-gray-400" />
+              </span>
             </div>
           </button>
-          <div v-if="openFilter" ref="filterDropdown" class="absolute right-0 z-30 w-1/4 mt-2 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 top-11 dark:text-gray-300">
-            <div @click="openFilter = false; filterData.typeBy = 'come_in'; currentFilter = 'Kelishlar'" class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Kelishlar</div>
-            <div @click="openFilter = false; filterData.typeBy = 'go_out'; currentFilter = 'Ketishlar'" class="px-3 py-2 cursor-pointer dark:hover:bg-gray-700">Ketishlar</div>
+          <div v-if="openFilter" ref="filterDropdown"
+            class="absolute mt-2 z-50 bg-white border rounded-lg top-16 right-0 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
+            <div class="p-3">
+              <label for="first_name" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Ism</label>
+              <input type="text" id="first_name" name="firstname"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                placeholder="Ismingizni kiriting" required />
+            </div>
+            <div class="p-3">
+              <label for="last_name"
+                class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Familiya</label>
+              <input type="text" id="last_name" name="lastname"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                placeholder="Familiya kiriting" required />
+            </div>
+            <div class="p-3">
+              <label for="region" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Viloyat</label>
+              <select id="region"
+                class="w-full text-sm text-left text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                <option value="" disabled selected>Viloyatni tanlang</option>
+                <option value="0">Toshkent</option>
+                <option :value="i" v-for="i in 5" :key="i">Xorazm</option>
+              </select>
+              <div class="flex mt-4 items-center">
+                <div class="relative">
+                  <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                    <span class="text-sm text-gray-600 dark:text-gray-300"> dan </span>
+                  </div>
+                  <input v-model.lazy="filterData.filterDateFrom" name="start" type="datetime-local"
+                    class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pr-11 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+                    placeholder="Select date start" />
+                </div>
+                <ArrowRightIcon class="mx-2 text-gray-500" />
+                <div class="relative">
+                  <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                    <span class="text-sm text-gray-600 dark:text-gray-300"> gacha </span>
+                  </div>
+                  <input v-model.lazy="filterData.filterDateTo" name="end" type="datetime-local"
+                    class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pr-14 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+                    placeholder="Select date start" />
+                </div>
+              </div>
+              <button class="w-full text-white font-bold p-2 rounded mt-4 bg-blue-700">Filtr</button>
+            </div>
           </div>
         </div>
       </div>
-      <div v-show="arrivals.length > 0" :class="{ 'overflow-hidden': total / 10 <= 1 }" class="grid grid-cols-1 overflow-x-auto border rounded-lg shadow-lg arrival-wrapper border-slate-200 dark:border-gray-600 arrival-table-h">
+      <div v-show="arrivals.length > 0" :class="{ 'overflow-hidden': total / 10 <= 1 }"
+        class="grid grid-cols-1 overflow-x-auto border rounded-lg shadow-lg arrival-wrapper border-slate-200 dark:border-gray-600 arrival-table-h">
         <table class="w-full divide-y divide-gray-300 dark:divide-gray-600">
           <thead class="z-0 shadow sticky-top bg-slate-50 dark:shadow-gray-600">
             <tr class="font-semibold tracking-wide text-left text-gray-900 text-md dark:text-gray-300 dark:bg-gray-800">
@@ -40,7 +71,8 @@
               <th class="px-4 py-3">Turi</th>
             </tr>
           </thead>
-          <tbody class="h-full bg-white divide-y divide-gray-200 dark:text-gray-300 dark:bg-gray-800 dark:divide-gray-600">
+          <tbody
+            class="h-full bg-white divide-y divide-gray-200 dark:text-gray-300 dark:bg-gray-800 dark:divide-gray-600">
             <ArrivalItem :arrivals="arrivals" :distance="distance" :target="target" @infinite="loadArrivals" />
           </tbody>
         </table>
@@ -49,7 +81,8 @@
     <div v-show="!isArrivalEmpty && arrivals.length === 0" class="flex items-start justify-center w-full h-10">
       <SpinIcon class="w-7 h-7" />
     </div>
-    <h1 v-show="isArrivalEmpty" class="text-xl text-center text-red-500">Ma'lumotlar bazasidan kelib-ketishlar hisoboti topilmadi!</h1>
+    <h1 v-show="isArrivalEmpty" class="text-xl text-center text-red-500">Ma'lumotlar bazasidan kelib-ketishlar hisoboti
+      topilmadi!</h1>
   </div>
 </template>
 

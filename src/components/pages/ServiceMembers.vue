@@ -107,23 +107,6 @@
           <h3 class="mb-3 ml-2 text-2xl font-extrabold dark:text-gray-300">Tariflangan a'zolar</h3>
           <div class="relative hidden lg:flex lg:items-center lg:justify-between">
             <div class="flex items-center">
-              <div class="relative">
-                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                  <span class="text-sm text-gray-600 dark:text-gray-300"> dan </span>
-                </div>
-                <input v-model.lazy="filterData.filterDateFrom" name="start" type="datetime-local"
-                  class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pr-11 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
-                  placeholder="Select date start" />
-              </div>
-              <ArrowRightIcon class="mx-2 text-gray-500" />
-              <div class="relative">
-                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                  <span class="text-sm text-gray-600 dark:text-gray-300"> gacha </span>
-                </div>
-                <input v-model.lazy="filterData.filterDateTo" name="end" type="datetime-local"
-                  class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pr-14 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
-                  placeholder="Select date start" />
-              </div>
               <button @click="openFilter = !openFilter"
                 class="ml-5 flex flex-nowrap justify-center rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-center text-gray-900 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:border-0 dark:bg-blue-600 dark:text-gray-300 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto lg:inline-block">
                 <div class="flex items-center">
@@ -135,20 +118,45 @@
                 </div>
               </button>
               <div v-if="openFilter" ref="filterDropdown"
-                class="absolute mt-2 z-50 bg-white w-60 border rounded-lg top-16 right-[7rem] dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
-                <div @click="openFilter = false; filterData.paymentStatus = 'not_paid'; currentFilter = 'To\'lanmagan'"
-                  class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">To'lanmagan</div>
-                <div
-                  @click="openFilter = false; filterData.paymentStatus = 'firstname-za'; currentFilter = 'Qisman to\'langan'"
-                  class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Qisman to'langan
+                class="absolute mt-2 z-50 bg-white border rounded-lg top-16 right-[7rem] dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
+                <div class="p-3">
+                  <select v-model="filterData.memberId"
+                    class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                    required>
+                    <option value="" selected disabled>Foydalanuvchini tanlang</option>
+                    <option v-for="i in 5" :value="i">Known</option>
+                  </select>
                 </div>
-                <div
-                  @click="openFilter = false; filterData.paymentStatus = 'lastname-az'; currentFilter = 'To\'liq to\'langan'"
-                  class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">To'liq to'langan
+                <div class="p-3">
+                  <select v-model="filterData.serviceId"
+                    class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                    required>
+                    <option value="" selected disabled>Xizmat turini tanlang</option>
+                    <option v-for="i in 5" :value="i">Service</option>
+                  </select>
                 </div>
-                <div
-                  @click="openFilter = false; filterData.paymentStatus = 'lastname-za'; currentFilter = 'Bekor qilingan'"
-                  class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Bekor qilingan
+                <div class="p-3">
+                  <select v-model="filterData.trainerServicesId"
+                    class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                    required>
+                    <option value="" selected disabled>Murabbiyni tanlang</option>
+                    <option v-for="i in 5" :value="i">Trener</option>
+                  </select>
+                </div>
+                <div class="p-3">
+                  <select v-model="filterData.paymentStatus"
+                    class="border-1 w-full rounded-lg border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                    <option value="" disabled selected>Holatni tanlang</option>
+                    <option value="not_paid">To'lanmagan</option>
+                    <option value="partially_paid">Qisman to'langan</option>
+                    <option value="fully_paid">To'liq to'langan</option>
+                    <option value="canceled">Bekor qilingan</option>
+                  </select>
+                </div>
+                
+                <div class="px-3 w-96">
+                  <button @click="submitFilterData()"
+                    class="w-full text-white font-bold p-2 rounded mt-4 bg-blue-700">Filtr</button>
                 </div>
               </div>
               <button class="block px-4 py-2 ml-5 font-bold text-white bg-blue-500 rounded" @click="isAddModal = true">
@@ -236,10 +244,10 @@
 import SelectIcon from '../../assets/icons/SelectIcon.vue'
 import FunnelIcon from '../../assets/icons/FunnelIcon.vue'
 import TimesIcon from '../../assets/icons/TimesIcon.vue'
+import ArrowRightIcon from '../../assets/icons/ArrowRightIcon.vue'
 import UserBoldIcon from '../../assets/icons/UserBoldIcon.vue'
 import SpinIcon from '../../assets/icons/SpinIcon.vue'
 import ModalCloseIcon from '../../assets/icons/ModalCloseIcon.vue'
-import ArrowRightIcon from '../../assets/icons/ArrowRightIcon.vue'
 import { computed, onMounted, ref, reactive, watch } from 'vue'
 import { useStore } from 'vuex'
 import notify from 'izitoast'
@@ -250,6 +258,7 @@ import authHeader from '../../services/auth-header.js'
 import { formatDateTime } from '../../utils/utils.js'
 import { cleanObjectEmptyFields } from '../../utils/utils.js'
 import ServiceMembersItem from './Payments/ServiceMembersItem.vue'
+import { Field, Form } from 'vee-validate'
 
 const store = useStore()
 
@@ -265,6 +274,45 @@ const selectedMember = ref('')
 const openFilter = ref(false)
 const currentFilter = ref('')
 const filterDropdown = ref(null)
+
+const filterData = reactive({
+  memberId: '',
+  serviceId: '',
+  filterDateTo: '',
+  paymentStatus: '',
+  filterDateFrom: '',
+  trainerServicesId: '',
+})
+
+const submitFilterData = () => {
+  page = 0
+  total.value = 0
+  payments.value = []
+  isLoading.value = true
+  loadFilteredPayments()
+  setTimeout(() => {
+    isPaymentEmpty.value = payments.value.length === 0
+  }, 700)
+}
+
+// const submitFilterData = () => {
+//   isLoading.value = true
+//   SmsMessageService.getSmsMessages(
+//     cleanObjectEmptyFields({
+//       phone: filterData.phone?.value?.id,
+//       gender: filterData.gender?.value?.id,
+//       lastname: filterData.lastname?.value?.id,
+//       firstname: filterData.firstname?.value?.id,
+//     })
+//   ).then((res) => {
+//     useSmsMessagesStore().clearStore()
+//     useSmsMessagesStore().setSmsMessages(res?.data)
+//     isLoading.value = false
+//     if (useModalStore().isOpenFilterBy) {
+//       useModalStore().toggleFilterBy()
+//     }
+//   })
+// }
 
 onClickOutside(filterDropdown, () => {
   if (openFilter.value) openFilter.value = false
@@ -330,11 +378,11 @@ function forbiddenChecker(error, msg) {
 }
 
 // load default
-const filterData = reactive({
-  paymentStatus: null,
-  filterDateTo: null,
-  filterDateFrom: null,
-})
+// const filterData = reactive({
+//   paymentStatus: null,
+//   filterDateTo: null,
+//   filterDateFrom: null,
+// })
 
 const total = ref(0)
 const payments = ref([])

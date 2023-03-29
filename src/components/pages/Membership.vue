@@ -27,44 +27,45 @@
             </div>
           </button>
           <div v-if="openFilter" ref="filterDropdown"
-            class="absolute mt-2 bg-white border rounded-lg top-16 right-40 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
-            <div @click="openFilter = false; filterData.typeBy = 'firstname-az'; currentFilter = 'Ism bo\'yicha (A-Z)'"
-              class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Ism bo'yicha (A-Z)
+            class="absolute mt-2 z-50 bg-white border rounded-lg top-16 right-[7rem] dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
+            <div class="p-3">
+              <label for="first_name" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Ism</label>
+              <input type="text" id="first_name" name="firstname" v-model="filterData.firstname"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                placeholder="Ismingizni kiriting" required />
             </div>
-            <div @click="openFilter = false; filterData.typeBy = 'firstname-za'; currentFilter = 'Ism bo\'yicha (Z-A)'"
-              class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Ism bo'yicha (Z-A)
+            <div class="p-3">
+              <label for="last_name" class="mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Familiya</label>
+              <input type="text" id="last_name" name="lastname" v-model="filterData.lastname"
+                class="w-full rounded-lg border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                placeholder="Familiya kiriting" required />
             </div>
-            <div
-              @click="openFilter = false; filterData.typeBy = 'lastname-az'; currentFilter = 'Familiya bo\'yicha (A-Z)'"
-              class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Familiya bo'yicha
-              (A-Z)</div>
-            <div
-              @click="openFilter = false; filterData.typeBy = 'lastname-za'; currentFilter = 'Familiya bo\'yicha (Z-A)'"
-              class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Familiya bo'yicha
-              (Z-A)</div>
-            <div
-              @click="openFilter = false; filterData.typeBy = 'active-time'; currentFilter = 'To\'lov sanasi yaqinlashganlar'"
-              class="px-3 py-2 cursor-pointer dark:hover:bg-gray-700">To'lov sanasi yaqinlashganlar</div>
+            <div class="px-3 mt-3">
+              <label for="last_name" class="font-medium text-gray-900 text-md dark:text-gray-300">Telefon
+                raqam</label>
+              <Field v-model="filterData.phone" v-mask="'+998(##) ###-##-##'" name="phone" type="phone"
+                class="w-full p-2.5 text-gray-500 bg-gray-100 border border-gray-200 outline-none text-md rounded-xl focus:bg-gray-200 focus:outline-none dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400 dark:border-gray-600"
+                placeholder="+998(99) 777-77-77" />
+            </div>
+            <div class="p-3">
+              <label for="" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Jins</label>
+              <select v-model="filterData.paymentStatus"
+                class="border-1 w-full rounded-lg border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                <option value="" selected>Jinsni tanlang</option>
+                <option value="not_paid">To'lanmagan</option>
+                <option value="partially_paid">Qisman to'langan</option>
+                <option value="fully_paid">To'liq to'langan</option>
+                <option value="canceled">Bekor qilingan</option>
+              </select>
+            </div>
+            <div class="px-3 w-96">
+              <button @click="submitFilterData()"
+                class="w-full text-white font-bold p-2 rounded mt-4 bg-blue-700">Filtr</button>
+            </div>
           </div>
           <button @click="openAddMemberModal()"
             class="mx-1 w-full rounded-lg bg-blue-500 px-5 py-2.5 text-center text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">A'zo
             qo'shish</button>
-        </div>
-        <div class="flex items-center md:hidden">
-          <div class="relative inline-block mr-3">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-2">
-              <button type="submit" class="p-2 focus:shadow-outline focus:outline-none dark:text-gray-300">
-                <SearchIcon />
-              </button>
-            </span>
-            <input type="search" name="search" v-model="search"
-              class="w-full rounded-lg border border-slate-300 bg-white py-1.5 pl-10 text-lg text-slate-500 outline-none focus:bg-slate-200 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:placeholder-gray-300"
-              placeholder="Izlash..." autocomplete="off" />
-          </div>
-          <button @click="openAddMemberModal()"
-            class="mx-1 rounded-lg bg-blue-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">
-            <UserPlusBoldIcon class="w-5 h-5" />
-          </button>
         </div>
       </div>
       <div v-if="!showContent" class="flex justify-center w-full pt-5">
@@ -74,8 +75,7 @@
     </div>
 
     <!-- Member Add Modal -->
-    <div v-if="isAddMemberModalOpen"
-      class="fixed inset-0 z-50 overflow-x-hidden overflow-y-auto backdrop-brightness-50">
+    <div v-if="isAddMemberModalOpen" class="fixed inset-0 z-50 overflow-x-hidden overflow-y-auto backdrop-brightness-50">
       <div class="relative w-full max-w-5xl mt-16 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 md:mt-0"
         :class="{ 'mt-0': registerMemberProcess.checkingMode || registerMemberProcess.congratulationMode }">
         <div class="relative bg-white shadow-lg dark:bg-gray-800">
@@ -214,7 +214,8 @@
               </div>
               <div class="p-3">
                 <label for="sex" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Jinsi</label>
-                <select id="sex" v-model="member.gender" class="w-full text-sm text-left text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                <select id="sex" v-model="member.gender"
+                  class="w-full text-sm text-left text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
                   <option value="" selected>Jinsni tanlash</option>
                   <option value="male">Erkak</option>
                   <option value="female">Ayol</option>
@@ -293,7 +294,8 @@
                   <div class="text-center">
                     <button class="bg-blue-500 hover:bg-blue-600 duration-300 py-2 px-4 text-white rounded mr-5"
                       @click="clearFields(), isClear = false">Ha</button>
-                    <button class="bg-blue-500 hover:bg-blue-600 duration-300 py-2 px-4 text-white rounded" @click="isClear = false">Yo'q</button>
+                    <button class="bg-blue-500 hover:bg-blue-600 duration-300 py-2 px-4 text-white rounded"
+                      @click="isClear = false">Yo'q</button>
                   </div>
                 </div>
               </div>
@@ -485,7 +487,7 @@ const getMemberData = () => {
       message: 'Iltimos, familiyani kiriting!',
       position: 'bottomLeft',
     })
-  }  else if (!member.gender) {
+  } else if (!member.gender) {
     notify.warning({
       title: 'Diqqat!',
       message: 'Iltimos, jinsni tanlang!',
@@ -598,8 +600,23 @@ const members = ref([])
 const total = ref(0)
 
 const filterData = reactive({
-  typeBy: null
+  phone: '',
+  paymentStatus: '',
+  lastname: '',
+  firstname: '',
+  typeBy: ''
 })
+
+const submitFilterData = () => {
+  page = 0
+  total.value = 0
+  payments.value = []
+  isLoading.value = true
+  loadFilteredPayments()
+  setTimeout(() => {
+    isPaymentEmpty.value = payments.value.length === 0
+  }, 700)
+}
 
 const API_URL = import.meta.env.VITE_BASE_URL;
 let page = 0
