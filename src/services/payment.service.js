@@ -1,12 +1,12 @@
-import authHeader from './auth-header.js'
+import authHeader from '@/mixins/auth-header.js'
 import AxiosService from './axios.service.js'
 
 class PaymentService {
   async getPayments() {
-    return AxiosService.get('/payment', {headers: authHeader()})
+    return AxiosService.get('/payment', { headers: authHeader() })
   }
   async createPayment(data) {
-    return AxiosService.post('/payment', data, {headers: authHeader()})
+    return AxiosService.post('/payment', data, { headers: authHeader() })
   }
 }
 

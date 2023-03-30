@@ -1,14 +1,11 @@
-import axios from 'axios'
-
-const API_URL = import.meta.env.VITE_BASE_URL;
+import AxiosService from './axios.service'
 
 class AuthService {
   async login(user) {
-    const response = await axios
-      .post(API_URL + '/auth/login', {
-        phone: user.phone,
-        password: user.password,
-      })
+    const response = await AxiosService.post('/auth/login', {
+      phone: user.phone,
+      password: user.password,
+    })
     if (response.data) {
       localStorage.setItem('token', JSON.stringify(response.data))
     }

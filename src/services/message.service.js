@@ -1,4 +1,4 @@
-import authHeader from './auth-header.js'
+import authHeader from '@/mixins/auth-header.js'
 import AxiosService from './axios.service.js'
 
 class MessageService {
