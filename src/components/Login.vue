@@ -6,7 +6,7 @@
         <div class="flex flex-col w-full p-4 xl:w-1/2">
           <div class="flex justify-between">
             <div class="flex items-center">
-              <img src="../assets/images/logo.png" class="w-8 ml-2 shrink-0" alt="#" />
+              <img src="/images/logo.png" class="w-8 ml-2 shrink-0" alt="#" />
               <div class="ml-2 text-lg font-semibold text-gray-900 dark:text-gray-300 grow">IT-Forelead</div>
             </div>
             <button @click="toggleDark()"
@@ -24,13 +24,13 @@
               <Form @submit="onSubmit" class="form-horizontal md:mx-auto md:w-3/4" method="POST" action="#">
                 <div class="flex flex-col mt-4">
                   <Field v-model="phone" v-mask="'+998(##) ###-##-##'" name="phone" type="phone"
-                    class="w-full p-3 text-gray-500 bg-gray-100 border border-gray-200 outline-none text-md rounded-xl focus:bg-gray-200 focus:outline-none dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400 dark:border-gray-600"
+                    class="w-full p-3 text-gray-500 bg-gray-100 border border-gray-200 outline-none text-md rounded-xl focus:bg-gray-700 focus:outline-none dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400 dark:border-gray-600"
                     placeholder="+998(99) 876-54-32" />
                 </div>
                 <div class="flex flex-col mt-4">
                   <div class="relative">
                     <Field v-model="password" name="password" :type="currentType"
-                      class="w-full p-3 text-gray-500 bg-gray-100 border border-gray-200 outline-none text-md rounded-xl focus:bg-gray-200 focus:outline-none dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400 dark:border-gray-600"
+                      class="w-full p-3 text-gray-500 bg-gray-100 border border-gray-200 outline-none text-md rounded-xl focus:bg-gray-700 focus:outline-none dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400 dark:border-gray-600"
                       placeholder="Parolni kiriting..." />
                     <div class="absolute inset-y-0 right-0 z-20 flex items-center pr-3 text-sm leading-5">
                       <EyeIcon @click="showPassword('password')" v-if="currentType === 'text'"
@@ -70,9 +70,9 @@
             </div>
           </div>
           <div class="text-xs text-center text-gray-400 dark:text-gray-400">All rights reserved. &copy; <a
-              href="https://t.me/trimuzsupport" class="hover:underline">IT-Forelead</a> 2022</div>
+              href="https://t.me/trimuzsupport" class="hover:underline">IT-Forelead</a> {{ new Date().getFullYear() }}</div>
         </div>
-        <div class="hidden xl:block bg-image rounded-r-3xl md:w-2/3">
+        <div class="hidden xl:block bg-[url('/images/bg-login.jpg')] bg-cover bg-right rounded-r-3xl md:w-2/3">
           <div class="flex items-center justify-center h-full">
             <div
               class="w-full px-10 py-16 text-white xl:mx-16 2xl:mx-32 rounded-xl backdrop-blur-sm backdrop-contrast-50">
@@ -132,12 +132,12 @@ import { useStore } from 'vuex'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 import { useDark, useToggle } from '@vueuse/core'
-import SpinIcon from '../assets/icons/SpinIcon.vue'
-import EyeIcon from '../assets/icons/EyeIcon.vue'
-import EyeSlashIcon from '../assets/icons/EyeSlashIcon.vue'
-import ModalCloseIcon from '../assets/icons/ModalCloseIcon.vue'
-import SunIcon from '../assets/icons/SunIcon.vue'
-import MoonIcon from '../assets/icons/MoonIcon.vue'
+import SpinIcon from '@/components/icons/SpinIcon.vue'
+import EyeIcon from '@/components/icons/EyeIcon.vue'
+import EyeSlashIcon from '@/components/icons/EyeSlashIcon.vue'
+import ModalCloseIcon from '@/components/icons/ModalCloseIcon.vue'
+import SunIcon from '@/components/icons/SunIcon.vue'
+import MoonIcon from '@/components/icons/MoonIcon.vue'
 
 const router = useRouter()
 
@@ -195,7 +195,7 @@ const addUserInStore = () => {
 
 const onSubmit = (user) => {
   isLoading.value = true
-  user.phone = user.phone.replace(')', '').replace('(', '').replace(' ', '').replace('-', '').replace('-', '')
+  user.phone = user.phone.replaceAll(/[^\w\s+]/ig, '').replaceAll(' ', '')
   if (!user.phone) {
     notify.warning({
       message: 'Iltimos telefon raqamni kiriting!',
@@ -224,7 +224,7 @@ const onSubmit = (user) => {
       },
       (error) => {
         notify.error({
-          message: error.response.data,
+          message: error.response.data || "Login yoki parol noto'g'ri",
           position: 'topRight',
         })
         isLoading.value = false
@@ -256,7 +256,7 @@ const sendSMSLink = () => {
       },
       (error) => {
         notify.warning({
-          message: error.response.data,
+          message: error.response.data || "SMS yuborishda xatolik yuz berdi",
           position: 'bottomLeft',
         })
       }
@@ -272,8 +272,4 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.bg-image {
-  background: url('../assets/images/bg-login.jpg') -290px center;
-  background-size: cover;
-}
 </style>

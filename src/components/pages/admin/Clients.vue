@@ -63,9 +63,9 @@ import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 import { onClickOutside } from '@vueuse/core'
 import { useStore } from 'vuex'
-import TimesIcon from "../../../assets/icons/TimesIcon.vue";
-import SpinIcon from '../../../assets/icons/SpinIcon.vue'
-import FunnelIcon from '../../../assets/icons/FunnelIcon.vue'
+import TimesIcon from "@/components/icons/TimesIcon.vue";
+import SpinIcon from '@/components/icons/SpinIcon.vue'
+import FunnelIcon from '@/components/icons/FunnelIcon.vue'
 import ClientsItem from "./UnverifiedClients/ClientsItem.vue";
 
 const store = useStore()

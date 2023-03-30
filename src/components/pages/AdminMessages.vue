@@ -69,10 +69,10 @@
 </template>
 
 <script setup>
-import SpinIcon from '../../assets/icons/SpinIcon.vue'
-import FunnelIcon from '../../assets/icons/FunnelIcon.vue'
-import ArrowRightIcon from '../../assets/icons/ArrowRightIcon.vue'
-import TimesIcon from '../../assets/icons/TimesIcon.vue'
+import SpinIcon from '@/components/icons/SpinIcon.vue'
+import FunnelIcon from '@/components/icons/FunnelIcon.vue'
+import ArrowRightIcon from '@/components/icons/ArrowRightIcon.vue'
+import TimesIcon from '@/components/icons/TimesIcon.vue'
 import MessagesInfo from './Messages/MessagesInfo.vue'
 import { reactive, ref, watch } from 'vue'
 import { onClickOutside } from '@vueuse/core'

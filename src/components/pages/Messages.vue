@@ -15,7 +15,7 @@
             </div>
           </button>
           <div v-if="openFilter" ref="filterDropdown"
-            class="absolute mt-2 z-50 bg-white border rounded-lg top-16 right-0 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
+            class="absolute right-0 z-50 mt-2 bg-white border rounded-lg top-16 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
             <div class="p-3">
               <label for="first_name" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Ism</label>
               <input type="text" id="first_name" name="firstname"
@@ -37,7 +37,7 @@
                 <option value="0">Toshkent</option>
                 <option :value="i" v-for="i in 5" :key="i">Xorazm</option>
               </select>
-              <div class="flex mt-4 items-center">
+              <div class="flex items-center mt-4">
                 <div class="relative">
                   <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                     <span class="text-sm text-gray-600 dark:text-gray-300"> dan </span>
@@ -56,7 +56,7 @@
                     placeholder="Select date start" />
                 </div>
               </div>
-              <button class="w-full text-white font-bold p-2 rounded mt-4 bg-blue-700">Filtr</button>
+              <button class="w-full p-2 mt-4 font-bold text-white bg-blue-700 rounded">Filtr</button>
             </div>
           </div>
           <!-- <div v-if="openFilter" ref="filterDropdown"
@@ -115,10 +115,10 @@
 </template>
 
 <script setup>
-import SpinIcon from '../../assets/icons/SpinIcon.vue'
-import FunnelIcon from '../../assets/icons/FunnelIcon.vue'
-import ArrowRightIcon from '../../assets/icons/ArrowRightIcon.vue'
-import TimesIcon from '../../assets/icons/TimesIcon.vue'
+import SpinIcon from '@/components/icons/SpinIcon.vue'
+import FunnelIcon from '@/components/icons/FunnelIcon.vue'
+import ArrowRightIcon from '@/components/icons/ArrowRightIcon.vue'
+import TimesIcon from '@/components/icons/TimesIcon.vue'
 import MessagesInfo from './Messages/MessagesInfo.vue'
 import { reactive, ref, watch } from 'vue'
 import { onClickOutside } from '@vueuse/core'

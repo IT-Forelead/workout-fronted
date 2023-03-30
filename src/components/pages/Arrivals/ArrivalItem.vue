@@ -25,7 +25,7 @@
 </template>
 <script setup>
 import {toRefs, ref} from "vue";
-import CalendarBlankIcon from '../../../assets/icons/CalendarBlankIcon.vue'
+import CalendarBlankIcon from '@/components/icons/CalendarBlankIcon.vue'
 import InfiniteLoading from "v3-infinite-loading";
 import {phoneStyle, arrivalTypeTranslate, formatDateTime} from '../../../utils/utils.js'
 

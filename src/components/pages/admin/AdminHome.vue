@@ -63,8 +63,8 @@
 </template>
 
 <script setup>
-import MembersIcon from '../../../assets/icons/MembersIcon.vue'
-import StatisticUp from '../../../assets/icons/StatisticUp.vue'
-import StatisticDown from '../../../assets/icons/StatisticDown.vue'
-import OrderIcon from '../../../assets/icons/OrderIcon.vue'
+import MembersIcon from '../@/components/icons/MembersIcon.vue'
+import StatisticUp from '../@/components/icons/StatisticUp.vue'
+import StatisticDown from '../@/components/icons/StatisticDown.vue'
+import OrderIcon from '../@/components/icons/OrderIcon.vue'
 </script>

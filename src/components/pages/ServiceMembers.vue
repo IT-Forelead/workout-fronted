@@ -156,7 +156,7 @@
                 
                 <div class="px-3 w-96">
                   <button @click="submitFilterData()"
-                    class="w-full text-white font-bold p-2 rounded mt-4 bg-blue-700">Filtr</button>
+                    class="w-full p-2 mt-4 font-bold text-white bg-blue-700 rounded">Filtr</button>
                 </div>
               </div>
               <button class="block px-4 py-2 ml-5 font-bold text-white bg-blue-500 rounded" @click="isAddModal = true">
@@ -241,13 +241,13 @@
 </template>
   
 <script setup>
-import SelectIcon from '../../assets/icons/SelectIcon.vue'
-import FunnelIcon from '../../assets/icons/FunnelIcon.vue'
-import TimesIcon from '../../assets/icons/TimesIcon.vue'
-import ArrowRightIcon from '../../assets/icons/ArrowRightIcon.vue'
-import UserBoldIcon from '../../assets/icons/UserBoldIcon.vue'
-import SpinIcon from '../../assets/icons/SpinIcon.vue'
-import ModalCloseIcon from '../../assets/icons/ModalCloseIcon.vue'
+import SelectIcon from '@/components/icons/SelectIcon.vue'
+import FunnelIcon from '@/components/icons/FunnelIcon.vue'
+import TimesIcon from '@/components/icons/TimesIcon.vue'
+import ArrowRightIcon from '@/components/icons/ArrowRightIcon.vue'
+import UserBoldIcon from '@/components/icons/UserBoldIcon.vue'
+import SpinIcon from '@/components/icons/SpinIcon.vue'
+import ModalCloseIcon from '@/components/icons/ModalCloseIcon.vue'
 import { computed, onMounted, ref, reactive, watch } from 'vue'
 import { useStore } from 'vuex'
 import notify from 'izitoast'

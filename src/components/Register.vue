@@ -238,16 +238,16 @@
 </template>
 
 <script setup>
-import CheckIcon from '../assets/icons/CheckIcon.vue'
-import SuccessfulIcon from '../assets/icons/SuccessfulIcon.vue'
-import SpinIcon from '../assets/icons/SpinIcon.vue'
-import ConfirmCode from '../assets/icons/ConfirmCode.vue'
-import TimerIcon from '../assets/icons/TimerIcon.vue'
-import BellIcon from "../assets/icons/BellIcon.vue";
-import SunIcon from "../assets/icons/SunIcon.vue";
-import MoonIcon from "../assets/icons/MoonIcon.vue";
-import EyeIcon from '../assets/icons/EyeIcon.vue'
-import EyeSlashIcon from '../assets/icons/EyeSlashIcon.vue'
+import CheckIcon from '@/components/icons/CheckIcon.vue'
+import SuccessfulIcon from '@/components/icons/SuccessfulIcon.vue'
+import SpinIcon from '@/components/icons/SpinIcon.vue'
+import ConfirmCode from '@/components/icons/ConfirmCode.vue'
+import TimerIcon from '@/components/icons/TimerIcon.vue'
+import BellIcon from "@/components/icons/BellIcon.vue";
+import SunIcon from "@/components/icons/SunIcon.vue";
+import MoonIcon from "@/components/icons/MoonIcon.vue";
+import EyeIcon from '@/components/icons/EyeIcon.vue'
+import EyeSlashIcon from '@/components/icons/EyeSlashIcon.vue'
 import { ref, reactive, onMounted, computed } from 'vue'
 import { Field } from 'vee-validate'
 import { useRouter } from 'vue-router'

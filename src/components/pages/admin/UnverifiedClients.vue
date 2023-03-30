@@ -64,9 +64,9 @@ import authHeader from '../../../services/auth-header'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 import { onClickOutside } from '@vueuse/core'
-import TimesIcon from "../../../assets/icons/TimesIcon.vue";
-import SpinIcon from '../../../assets/icons/SpinIcon.vue'
-import FunnelIcon from '../../../assets/icons/FunnelIcon.vue'
+import TimesIcon from "@/components/icons/TimesIcon.vue";
+import SpinIcon from '@/components/icons/SpinIcon.vue'
+import FunnelIcon from '@/components/icons/FunnelIcon.vue'
 import store from "../../../store";
 
 const target = ref('.clients-wrapper')

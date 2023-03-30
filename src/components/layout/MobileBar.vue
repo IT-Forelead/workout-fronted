@@ -126,19 +126,19 @@
   </div>
 </template>
 <script setup>
-import UserBoldIcon from "../../assets/icons/UserBoldIcon.vue";
-import UserPlusBoldIcon from "../../assets/icons/UserPlusBoldIcon.vue";
-import HouseBoldIcon from "../../assets/icons/HouseBoldIcon.vue";
-import UsersBoldIcon from "../../assets/icons/UsersBoldIcon.vue";
-import WalletBoldIcon from "../../assets/icons/WalletBoldIcon.vue";
-import RepeatIcon from "../../assets/icons/RepeatIcon.vue";
-import RepeatBoldIcon from "../../assets/icons/RepeatBoldIcon.vue";
-import EnvelopeIcon from "../../assets/icons/EnvelopeIcon.vue";
-import UserIcon from "../../assets/icons/UserIcon.vue";
-import GearIcon from "../../assets/icons/GearIcon.vue";
-import BulbOffIcon from "../../assets/icons/BulbOffIcon.vue";
-import BulbOnIcon from "../../assets/icons/BulbOnIcon.vue";
-import LogoutIcon from "../../assets/icons/LogoutIcon.vue";
+import UserBoldIcon from "@/components/icons/UserBoldIcon.vue";
+import UserPlusBoldIcon from "@/components/icons/UserPlusBoldIcon.vue";
+import HouseBoldIcon from "@/components/icons/HouseBoldIcon.vue";
+import UsersBoldIcon from "@/components/icons/UsersBoldIcon.vue";
+import WalletBoldIcon from "@/components/icons/WalletBoldIcon.vue";
+import RepeatIcon from "@/components/icons/RepeatIcon.vue";
+import RepeatBoldIcon from "@/components/icons/RepeatBoldIcon.vue";
+import EnvelopeIcon from "@/components/icons/EnvelopeIcon.vue";
+import UserIcon from "@/components/icons/UserIcon.vue";
+import GearIcon from "@/components/icons/GearIcon.vue";
+import BulbOffIcon from "@/components/icons/BulbOffIcon.vue";
+import BulbOnIcon from "@/components/icons/BulbOnIcon.vue";
+import LogoutIcon from "@/components/icons/LogoutIcon.vue";
 import { useStore } from 'vuex'
 import { computed, ref } from 'vue'
 import { onClickOutside, useDark, useToggle } from "@vueuse/core";

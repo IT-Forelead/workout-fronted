@@ -40,7 +40,7 @@
         <div class="flex items-center justify-between p-1 mb-5">
           <h3 class="mb-3 ml-2 text-2xl font-extrabold dark:text-gray-300">To'lovlar</h3>
           <div class="relative hidden lg:flex lg:items-center lg:justify-between">
-            <div class="flex items-center mr-3 relative">
+            <div class="relative flex items-center mr-3">
               <button @click="openFilter = !openFilter"
                 class="ml-5 flex flex-nowrap justify-center rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-center text-gray-900 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:border-0 dark:bg-blue-600 dark:text-gray-300 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto lg:inline-block">
                 <div class="flex items-center">
@@ -76,7 +76,7 @@
                     <option value="0">Toshkent</option>
                     <option :value="i" v-for="i in 5" :key="i">Xorazm</option>
                   </select>
-                  <div class="flex mt-4 items-center">
+                  <div class="flex items-center mt-4">
                     <div class="relative">
                       <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                         <span class="text-sm text-gray-600 dark:text-gray-300"> dan </span>
@@ -95,7 +95,7 @@
                         placeholder="Select date start" />
                     </div>
                   </div>
-                  <button class="w-full text-white font-bold p-2 rounded mt-4 bg-blue-700">Filtr</button>
+                  <button class="w-full p-2 mt-4 font-bold text-white bg-blue-700 rounded">Filtr</button>
                 </div>
               </div>
               <button class="block px-4 py-2 ml-5 font-bold text-white bg-blue-500 rounded" @click="isModal = true">
@@ -190,11 +190,11 @@
 
 <script setup>
 import PaymentItem from './Payments/PaymentItem.vue'
-import SpinIcon from '../../assets/icons/SpinIcon.vue'
-import TimesIcon from '../../assets/icons/TimesIcon.vue'
-import FunnelIcon from '../../assets/icons/FunnelIcon.vue'
-import ModalCloseIcon from '../../assets/icons/ModalCloseIcon.vue'
-import ArrowRightIcon from '../../assets/icons/ArrowRightIcon.vue'
+import SpinIcon from '@/components/icons/SpinIcon.vue'
+import TimesIcon from '@/components/icons/TimesIcon.vue'
+import FunnelIcon from '@/components/icons/FunnelIcon.vue'
+import ModalCloseIcon from '@/components/icons/ModalCloseIcon.vue'
+import ArrowRightIcon from '@/components/icons/ArrowRightIcon.vue'
 import { computed, onMounted, ref, reactive, watch } from 'vue'
 import { useStore } from 'vuex'
 import notify from 'izitoast'

@@ -41,7 +41,7 @@
   </div>
 </template>
 <script setup>
-import CalendarBlankIcon from '../../../assets/icons/CalendarBlankIcon.vue'
+import CalendarBlankIcon from '@/components/icons/CalendarBlankIcon.vue'
 import {toRefs} from "vue";
 import { formatDateTime } from "../../../utils/utils.js";
 

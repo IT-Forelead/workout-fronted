@@ -44,8 +44,8 @@
   </tr>
 </template>
 <script setup>
-import UserBoldIcon from '../../../assets/icons/UserBoldIcon.vue'
-import CalendarBlankIcon from '../../../assets/icons/CalendarBlankIcon.vue'
+import UserBoldIcon from '@/components/icons/UserBoldIcon.vue'
+import CalendarBlankIcon from '@/components/icons/CalendarBlankIcon.vue'
 import { toRefs, ref } from "vue";
 import InfiniteLoading from "v3-infinite-loading";
 import { phoneStyle, formatDateTime } from "../../../utils/utils.js";

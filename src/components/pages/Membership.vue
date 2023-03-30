@@ -60,7 +60,7 @@
             </div>
             <div class="px-3 w-96">
               <button @click="submitFilterData()"
-                class="w-full text-white font-bold p-2 rounded mt-4 bg-blue-700">Filtr</button>
+                class="w-full p-2 mt-4 font-bold text-white bg-blue-700 rounded">Filtr</button>
             </div>
           </div>
           <button @click="openAddMemberModal()"
@@ -292,9 +292,9 @@
                 <div>
                   <h3 class="mb-4 mr-10 text-xl font-bold">Siz rostdan ham tozalashni xohlaysizmi?</h3>
                   <div class="text-center">
-                    <button class="bg-blue-500 hover:bg-blue-600 duration-300 py-2 px-4 text-white rounded mr-5"
+                    <button class="px-4 py-2 mr-5 text-white duration-300 bg-blue-500 rounded hover:bg-blue-600"
                       @click="clearFields(), isClear = false">Ha</button>
-                    <button class="bg-blue-500 hover:bg-blue-600 duration-300 py-2 px-4 text-white rounded"
+                    <button class="px-4 py-2 text-white duration-300 bg-blue-500 rounded hover:bg-blue-600"
                       @click="isClear = false">Yo'q</button>
                   </div>
                 </div>
@@ -322,16 +322,16 @@
 </template>
 
 <script setup>
-import FunnelIcon from '../../assets/icons/FunnelIcon.vue'
-import CheckIcon from '../../assets/icons/CheckIcon.vue'
-import ConfirmCode from '../../assets/icons/ConfirmCode.vue'
-import TimerIcon from '../../assets/icons/TimerIcon.vue'
-import SuccessfulIcon from '../../assets/icons/SuccessfulIcon.vue'
-import SearchIcon from '../../assets/icons/SearchIcon.vue'
-import SpinIcon from '../../assets/icons/SpinIcon.vue'
-import PictureIcon from '../../assets/icons/PictureIcon.vue'
-import UserPlusBoldIcon from '../../assets/icons/UserPlusBoldIcon.vue'
-import ModalCloseIcon from '../../assets/icons/ModalCloseIcon.vue'
+import FunnelIcon from '@/components/icons/FunnelIcon.vue'
+import CheckIcon from '@/components/icons/CheckIcon.vue'
+import ConfirmCode from '@/components/icons/ConfirmCode.vue'
+import TimerIcon from '@/components/icons/TimerIcon.vue'
+import SuccessfulIcon from '@/components/icons/SuccessfulIcon.vue'
+import SearchIcon from '@/components/icons/SearchIcon.vue'
+import SpinIcon from '@/components/icons/SpinIcon.vue'
+import PictureIcon from '@/components/icons/PictureIcon.vue'
+import UserPlusBoldIcon from '@/components/icons/UserPlusBoldIcon.vue'
+import ModalCloseIcon from '@/components/icons/ModalCloseIcon.vue'
 import { ref, reactive, onMounted, watch } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 import notify from 'izitoast'
@@ -340,7 +340,7 @@ import { useStore } from 'vuex'
 import 'v3-infinite-loading/lib/style.css'
 import SingleMemberData from './Membership/SingleMemberData.vue'
 import authHeader from '../../services/auth-header.js'
-import TimesIcon from '../../assets/icons/TimesIcon.vue'
+import TimesIcon from '@/components/icons/TimesIcon.vue'
 
 const store = useStore()
 

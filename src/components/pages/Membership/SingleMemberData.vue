@@ -82,8 +82,8 @@
 </template>
 <script setup>
 import { toRefs, ref, computed } from "vue";
-import ArrowCircleRightIcon from '../../../assets/icons/ArrowCircleRightIcon.vue'
-import ModalCloseIcon from "../../../assets/icons/ModalCloseIcon.vue";
+import ArrowCircleRightIcon from '@/components/icons/ArrowCircleRightIcon.vue'
+import ModalCloseIcon from "@/components/icons/ModalCloseIcon.vue";
 import SinglePersonArrival from '../Membership/SinglePersonArrival.vue'
 import SinglePersonPayment from '../Membership/SinglePersonPayment.vue'
 import InfiniteLoading from "v3-infinite-loading";

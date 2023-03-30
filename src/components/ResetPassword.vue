@@ -74,11 +74,11 @@
 </template>
 
 <script setup>
-import SunIcon from '../assets/icons/SunIcon.vue'
-import MoonIcon from '../assets/icons/MoonIcon.vue'
-import EyeIcon from '../assets/icons/EyeIcon.vue'
-import EyeSlashIcon from '../assets/icons/EyeSlashIcon.vue'
-import UserBoldIcon from '../assets/icons/UserBoldIcon.vue'
+import SunIcon from '@/components/icons/SunIcon.vue'
+import MoonIcon from '@/components/icons/MoonIcon.vue'
+import EyeIcon from '@/components/icons/EyeIcon.vue'
+import EyeSlashIcon from '@/components/icons/EyeSlashIcon.vue'
+import UserBoldIcon from '@/components/icons/UserBoldIcon.vue'
 import { phoneStyle } from "../utils/utils.js";
 import { onMounted, ref, reactive, computed } from 'vue'
 import { useRouter } from 'vue-router'

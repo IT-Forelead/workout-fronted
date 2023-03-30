@@ -13,6 +13,7 @@ import money from "v-money3";
 import DashboardLayout from './components/layout/DashboardLayout.vue'
 import LoginLayout from './components/layout/LoginLayout.vue'
 import RegisterLayout from './components/layout/RegisterLayout.vue'
+import { createPinia } from 'pinia'
 
 const vMaskV2 = VueMaskDirective
 const vMaskV3 = {
@@ -21,7 +22,9 @@ const vMaskV3 = {
   unmounted: vMaskV2.unbind,
 }
 
+const pinia = createPinia()
 const app = createApp(App)
+app.use(pinia)
 app.use(router)
 app.use(store)
 app.use(money)
