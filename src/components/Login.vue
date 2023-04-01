@@ -224,7 +224,7 @@ const onSubmit = (user) => {
       },
       (error) => {
         notify.error({
-          message: error.response.data || "Login yoki parol noto'g'ri",
+          message: "Login yoki parol noto'g'ri",
           position: 'topRight',
         })
         isLoading.value = false
@@ -256,7 +256,7 @@ const sendSMSLink = () => {
       },
       (error) => {
         notify.warning({
-          message: error.response.data || "SMS yuborishda xatolik yuz berdi",
+          message: "SMS yuborishda xatolik yuz berdi",
           position: 'bottomLeft',
         })
       }
