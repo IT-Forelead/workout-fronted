@@ -123,40 +123,42 @@
                   <select v-model="filterData.memberId"
                     class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                     required>
-                    <option value="" selected disabled>Foydalanuvchini tanlang</option>
-                    <option v-for="i in 5" :value="i">Known</option>
+                    <option value="null" selected disabled>Foydalanuvchini tanlang</option>
+                    <option v-for="payment in payments" :value="payment.member.id">
+                      {{ payment.member.firstname + " " + payment.member.lastname }}
+                    </option>
                   </select>
                 </div>
                 <div class="p-3">
                   <select v-model="filterData.serviceId"
                     class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                     required>
-                    <option value="" selected disabled>Xizmat turini tanlang</option>
-                    <option v-for="i in 5" :value="i">Service</option>
+                    <option value="null" selected disabled>Xizmat turini tanlang</option>
+                    <option v-for="service in services" :value="service.id">{{ service.name }}</option>
                   </select>
                 </div>
                 <div class="p-3">
                   <select v-model="filterData.trainerServicesId"
                     class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                     required>
-                    <option value="" selected disabled>Murabbiyni tanlang</option>
-                    <option v-for="i in 5" :value="i">Trener</option>
+                    <option value="null" selected disabled>Murabbiy xizmatini tanlang</option>
+                    <option v-for="trainer in trainerServices" :value="trainer.id">{{ trainer.trainerName }} - {{ trainer.name }}</option>
                   </select>
                 </div>
                 <div class="p-3">
                   <select v-model="filterData.paymentStatus"
                     class="border-1 w-full rounded-lg border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
-                    <option value="" disabled selected>Holatni tanlang</option>
+                    <option value="null" disabled selected>To'lov holatini tanlang</option>
                     <option value="not_paid">To'lanmagan</option>
                     <option value="partially_paid">Qisman to'langan</option>
                     <option value="fully_paid">To'liq to'langan</option>
                     <option value="canceled">Bekor qilingan</option>
                   </select>
                 </div>
-                
-                <div class="px-3 w-96">
+
+                <div class="px-3 mb-3 w-96">
                   <button @click="submitFilterData()"
-                    class="w-full text-white font-bold p-2 rounded mt-4 bg-blue-700">Filtr</button>
+                    class="w-full p-2 mt-4 font-bold text-white bg-blue-700 rounded">Filtr</button>
                 </div>
               </div>
               <button class="block px-4 py-2 ml-5 font-bold text-white bg-blue-500 rounded" @click="isAddModal = true">
@@ -276,52 +278,22 @@ const currentFilter = ref('')
 const filterDropdown = ref(null)
 
 const filterData = reactive({
-  memberId: '',
-  serviceId: '',
-  filterDateTo: '',
-  paymentStatus: '',
-  filterDateFrom: '',
-  trainerServicesId: '',
+  memberId: null,
+  serviceId: null,
+  filterDateTo: null,
+  paymentStatus: null,
+  filterDateFrom: null,
+  trainerServicesId: null,
 })
 
 const submitFilterData = () => {
-  page = 0
-  total.value = 0
-  payments.value = []
-  isLoading.value = true
-  loadFilteredPayments()
-  setTimeout(() => {
-    isPaymentEmpty.value = payments.value.length === 0
-  }, 700)
+  refresher()
+  openFilter.value = false
 }
-
-// const submitFilterData = () => {
-//   isLoading.value = true
-//   SmsMessageService.getSmsMessages(
-//     cleanObjectEmptyFields({
-//       phone: filterData.phone?.value?.id,
-//       gender: filterData.gender?.value?.id,
-//       lastname: filterData.lastname?.value?.id,
-//       firstname: filterData.firstname?.value?.id,
-//     })
-//   ).then((res) => {
-//     useSmsMessagesStore().clearStore()
-//     useSmsMessagesStore().setSmsMessages(res?.data)
-//     isLoading.value = false
-//     if (useModalStore().isOpenFilterBy) {
-//       useModalStore().toggleFilterBy()
-//     }
-//   })
-// }
 
 onClickOutside(filterDropdown, () => {
   if (openFilter.value) openFilter.value = false
 })
-
-const filterDropdownClick = (payType) => {
-  openFilter.value = false
-  filterData.paymentStatus = payType
-}
 
 const defaultView = () => {
   currentFilter.value = ''
@@ -377,13 +349,6 @@ function forbiddenChecker(error, msg) {
   }
 }
 
-// load default
-// const filterData = reactive({
-//   paymentStatus: null,
-//   filterDateTo: null,
-//   filterDateFrom: null,
-// })
-
 const total = ref(0)
 const payments = ref([])
 const isLoading = ref(true)
@@ -432,7 +397,7 @@ const loadFilteredPayments = async () => {
       total.value = json.total
       setTimeout(() => {
         payments.value = []
-        payments.value.push(...json.payment)
+        payments.value.push(...json.serviceMembers)
         isLoading.value = false
         isPaymentEmpty.value = total.value === 0
       }, 500)
@@ -455,30 +420,6 @@ const refresher = () => {
     isPaymentEmpty.value = payments.value.length === 0
   }, 700)
 }
-
-watch(
-  () => filterData.paymentStatus,
-  () => refresher(),
-  { deep: true }
-)
-
-watch(
-  () => selectedMember.value,
-  () => serviceMembersData.memberId = selectedMember.value.id,
-  { deep: true }
-)
-
-watch(
-  () => filterData.filterDateFrom,
-  () => refresher(),
-  { deep: true }
-)
-
-watch(
-  () => filterData.filterDateTo,
-  () => refresher(),
-  { deep: true }
-)
 
 const loadLastAddedPayment = async () => {
   isLoading.value = true

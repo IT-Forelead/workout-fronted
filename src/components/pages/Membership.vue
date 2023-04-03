@@ -49,18 +49,16 @@
             </div>
             <div class="p-3">
               <label for="" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Jins</label>
-              <select v-model="filterData.paymentStatus"
+              <select v-model="filterData.gender"
                 class="border-1 w-full rounded-lg border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
-                <option value="" selected>Jinsni tanlang</option>
-                <option value="not_paid">To'lanmagan</option>
-                <option value="partially_paid">Qisman to'langan</option>
-                <option value="fully_paid">To'liq to'langan</option>
-                <option value="canceled">Bekor qilingan</option>
+                <option value="null" selected>Jinsni tanlang</option>
+                <option value="male">Erkak</option>
+                <option value="female">Ayol</option>
               </select>
             </div>
-            <div class="px-3 w-96">
+            <div class="px-3 mb-3 w-96">
               <button @click="submitFilterData()"
-                class="w-full text-white font-bold p-2 rounded mt-4 bg-blue-700">Filtr</button>
+                class="w-full p-2 mt-4 font-bold text-white bg-blue-700 rounded">Filtr</button>
             </div>
           </div>
           <button @click="openAddMemberModal()"
@@ -292,9 +290,9 @@
                 <div>
                   <h3 class="mb-4 mr-10 text-xl font-bold">Siz rostdan ham tozalashni xohlaysizmi?</h3>
                   <div class="text-center">
-                    <button class="bg-blue-500 hover:bg-blue-600 duration-300 py-2 px-4 text-white rounded mr-5"
+                    <button class="px-4 py-2 mr-5 text-white duration-300 bg-blue-500 rounded hover:bg-blue-600"
                       @click="clearFields(), isClear = false">Ha</button>
-                    <button class="bg-blue-500 hover:bg-blue-600 duration-300 py-2 px-4 text-white rounded"
+                    <button class="px-4 py-2 text-white duration-300 bg-blue-500 rounded hover:bg-blue-600"
                       @click="isClear = false">Yo'q</button>
                   </div>
                 </div>
@@ -330,12 +328,12 @@ import SuccessfulIcon from '../../assets/icons/SuccessfulIcon.vue'
 import SearchIcon from '../../assets/icons/SearchIcon.vue'
 import SpinIcon from '../../assets/icons/SpinIcon.vue'
 import PictureIcon from '../../assets/icons/PictureIcon.vue'
-import UserPlusBoldIcon from '../../assets/icons/UserPlusBoldIcon.vue'
 import ModalCloseIcon from '../../assets/icons/ModalCloseIcon.vue'
 import { ref, reactive, onMounted, watch } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 import notify from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
+import { Field } from 'vee-validate'
 import { useStore } from 'vuex'
 import 'v3-infinite-loading/lib/style.css'
 import SingleMemberData from './Membership/SingleMemberData.vue'
@@ -600,22 +598,15 @@ const members = ref([])
 const total = ref(0)
 
 const filterData = reactive({
-  phone: '',
-  paymentStatus: '',
-  lastname: '',
-  firstname: '',
-  typeBy: ''
+  phone: null,
+  lastname: null,
+  firstname: null,
+  gender: null,
 })
 
 const submitFilterData = () => {
-  page = 0
-  total.value = 0
-  payments.value = []
-  isLoading.value = true
-  loadFilteredPayments()
-  setTimeout(() => {
-    isPaymentEmpty.value = payments.value.length === 0
-  }, 700)
+  refresher()
+  openFilter.value = false
 }
 
 const API_URL = import.meta.env.VITE_BASE_URL;
@@ -697,11 +688,11 @@ const refresher = () => {
   }, 2000)
 }
 
-watch(
-  () => filterData.typeBy,
-  () => refresher(),
-  { deep: true }
-)
+// watch(
+//   () => filterData.typeBy,
+//   () => refresher(),
+//   { deep: true }
+// )
 
 // Token expire checker function
 function forbiddenChecker(error, msg) {
