@@ -688,12 +688,6 @@ const refresher = () => {
   }, 2000)
 }
 
-// watch(
-//   () => filterData.typeBy,
-//   () => refresher(),
-//   { deep: true }
-// )
-
 // Token expire checker function
 function forbiddenChecker(error, msg) {
   if (error.message.split(' ').includes('403')) {

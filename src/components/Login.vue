@@ -70,7 +70,8 @@
             </div>
           </div>
           <div class="text-xs text-center text-gray-400 dark:text-gray-400">All rights reserved. &copy; <a
-              href="https://t.me/trimuzsupport" class="hover:underline">IT-Forelead</a> 2022</div>
+              href="https://t.me/trimuzsupport" class="hover:underline">IT-Forelead</a> {{ (new Date).getFullYear() }}
+          </div>
         </div>
         <div class="hidden xl:block bg-image rounded-r-3xl md:w-2/3">
           <div class="flex items-center justify-center h-full">

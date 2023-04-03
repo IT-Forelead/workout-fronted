@@ -52,64 +52,48 @@
                 </div>
               </button>
               <div v-if="openFilter" ref="filterDropdown"
-                class="absolute mt-2 z-50 bg-white border rounded-lg top-16 right-[7rem] dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
-                <div class="p-3">
-                  <label for="first_name"
-                    class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Ism</label>
-                  <input type="text" id="first_name" name="firstname"
-                    class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                    placeholder="Ismingizni kiriting" required />
-                </div>
-                <div class="p-3">
-                  <label for="last_name"
-                    class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Familiya</label>
-                  <input type="text" id="last_name" name="lastname"
-                    class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                    placeholder="Familiya kiriting" required />
-                </div>
-                <div class="p-3">
-                  <label for="region"
-                    class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Viloyat</label>
-                  <select id="region"
-                    class="w-full text-sm text-left text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
-                    <option value="" disabled selected>Viloyatni tanlang</option>
-                    <option value="0">Toshkent</option>
-                    <option :value="i" v-for="i in 5" :key="i">Xorazm</option>
+                class="absolute z-50 bg-white border rounded-lg top-16 right-[8rem] dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
+                <div class="p-3 space-y-2">
+                  <label for="serviceType" class="block">Xizmat turini tanlang</label>
+                  <select v-model="filterData.serviceMembersId" id="serviceType"
+                    class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                    required>
+                    <option value="null" selected disabled>Xizmat turini tanlang</option>
+                    <option v-for="service in services" :value="service.id">{{ service.name }}</option>
                   </select>
-                  <div class="flex mt-4 items-center">
-                    <div class="relative">
-                      <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                        <span class="text-sm text-gray-600 dark:text-gray-300"> dan </span>
-                      </div>
-                      <input v-model.lazy="filterData.filterDateFrom" name="start" type="datetime-local"
-                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pr-11 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
-                        placeholder="Select date start" />
+                </div>
+                <div class="flex p-3 items-center">
+                  <div class="relative">
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                      <span class="text-sm text-gray-600 dark:text-gray-300"> dan </span>
                     </div>
-                    <ArrowRightIcon class="mx-2 text-gray-500" />
-                    <div class="relative">
-                      <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                        <span class="text-sm text-gray-600 dark:text-gray-300"> gacha </span>
-                      </div>
-                      <input v-model.lazy="filterData.filterDateTo" name="end" type="datetime-local"
-                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pr-14 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
-                        placeholder="Select date start" />
-                    </div>
+                    <input v-model.lazy="filterData.filterDateFrom" name="start" type="datetime-local"
+                      class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pr-10 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+                      placeholder="Select date start" />
                   </div>
-                  <button class="w-full text-white font-bold p-2 rounded mt-4 bg-blue-700">Filtr</button>
+                  <ArrowRightIcon class="mx-2 text-gray-500" />
+                  <div class="relative">
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                      <span class="text-sm text-gray-600 dark:text-gray-300"> gacha </span>
+                    </div>
+                    <input v-model.lazy="filterData.filterDateTo" name="end" type="datetime-local"
+                      class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pr-14 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+                      placeholder="Select date start" />
+                  </div>
+                </div>
+                <div class="px-3 my-3 flex gap-x-3">
+                  <button @click="submitFilterData()"
+                    class="p-2 font-bold w-1/2 text-white bg-blue-700 rounded">Filtr</button>
+                  <button @click="clearFilterDate()"
+                    class="p-2 font-bold w-1/2 text-white bg-blue-700 rounded">Tozalash</button>
                 </div>
               </div>
-              <button class="block px-4 py-2 ml-5 font-bold text-white bg-blue-500 rounded" @click="isModal = true">
+              <button
+                class="block px-6 py-2.5 ml-5 text-white dark:text-gray-300 bg-blue-600 rounded-lg hover:bg-blue-700"
+                @click="isModal = true">
                 Qo'shish
               </button>
             </div>
-            <!-- <div v-if="openFilter" ref="filterDropdown"
-              class="absolute right-0 z-30 w-1/4 mt-2 bg-white border rounded-lg top-11 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
-              <div @click="filterDropdownClick('monthly'); currentFilter = 'Oylik to\'lovlar'"
-                class="px-3 py-2 border-b cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700">Oylik to'lovlar
-              </div>
-              <div @click="filterDropdownClick('daily'); currentFilter = 'Kunlik to\'lovlar'"
-                class="px-3 py-2 cursor-pointer dark:hover:bg-gray-700">Kunlik To'lovlar</div>
-            </div> -->
           </div>
         </div>
         <div v-show="payments.length > 0"
@@ -230,11 +214,6 @@ onClickOutside(filterDropdown, () => {
   if (openFilter.value) openFilter.value = false
 })
 
-const filterDropdownClick = (payType) => {
-  openFilter.value = false
-  filterData.typeBy = payType
-}
-
 const defaultView = () => {
   currentFilter.value = ''
   filterData.typeBy = null
@@ -300,9 +279,9 @@ function forbiddenChecker(error, msg) {
 
 // load default
 const filterData = reactive({
-  typeBy: null,
-  filterDateFrom: null,
   filterDateTo: null,
+  filterDateFrom: null,
+  serviceMembersId: null
 })
 
 const payments = ref([])

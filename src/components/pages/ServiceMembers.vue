@@ -118,8 +118,9 @@
                 </div>
               </button>
               <div v-if="openFilter" ref="filterDropdown"
-                class="absolute mt-2 z-50 bg-white border rounded-lg top-16 right-[7rem] dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
-                <div class="p-3">
+                class="absolute p-3 space-y-4 z-50 bg-white border rounded-lg top-16 right-[8rem] dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
+                <div>
+                  <label for="" class="mb-1 block">Foydalanuvchini tanlang</label>
                   <select v-model="filterData.memberId"
                     class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                     required>
@@ -129,7 +130,8 @@
                     </option>
                   </select>
                 </div>
-                <div class="p-3">
+                <div>
+                  <label for="" class="mb-1 block">Xizmat turini tanlang</label>
                   <select v-model="filterData.serviceId"
                     class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                     required>
@@ -137,15 +139,18 @@
                     <option v-for="service in services" :value="service.id">{{ service.name }}</option>
                   </select>
                 </div>
-                <div class="p-3">
+                <div>
+                  <label for="" class="mb-1 block">Murabbiy xizmatini tanlang</label>
                   <select v-model="filterData.trainerServicesId"
                     class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                     required>
                     <option value="null" selected disabled>Murabbiy xizmatini tanlang</option>
-                    <option v-for="trainer in trainerServices" :value="trainer.id">{{ trainer.trainerName }} - {{ trainer.name }}</option>
+                    <option v-for="trainer in trainerServices" :value="trainer.id">{{ trainer.trainerName }} - {{
+                      trainer.name }}</option>
                   </select>
                 </div>
-                <div class="p-3">
+                <div>
+                  <label for="" class="mb-1 block">To'lov holatini tanlang</label>
                   <select v-model="filterData.paymentStatus"
                     class="border-1 w-full rounded-lg border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
                     <option value="null" disabled selected>To'lov holatini tanlang</option>
@@ -155,13 +160,35 @@
                     <option value="canceled">Bekor qilingan</option>
                   </select>
                 </div>
-
-                <div class="px-3 mb-3 w-96">
+                <div class="flex mt-2 items-center">
+                  <div class="relative">
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                      <span class="text-sm text-gray-600 dark:text-gray-300"> dan </span>
+                    </div>
+                    <input v-model.lazy="filterData.filterDateFrom" name="start" type="datetime-local"
+                      class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pr-10 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+                      placeholder="Select date start" />
+                  </div>
+                  <ArrowRightIcon class="mx-2 text-gray-500" />
+                  <div class="relative">
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                      <span class="text-sm text-gray-600 dark:text-gray-300"> gacha </span>
+                    </div>
+                    <input v-model.lazy="filterData.filterDateTo" name="end" type="datetime-local"
+                      class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pr-14 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+                      placeholder="Select date start" />
+                  </div>
+                </div>
+                <div class="flex justify-between gap-x-3">
                   <button @click="submitFilterData()"
-                    class="w-full p-2 mt-4 font-bold text-white bg-blue-700 rounded">Filtr</button>
+                    class="p-2 font-bold w-1/2 text-white bg-blue-700 rounded">Filtr</button>
+                  <button @click="clearFilterDate()"
+                    class="p-2 font-bold w-1/2 text-white bg-blue-700 rounded">Tozalash</button>
                 </div>
               </div>
-              <button class="block px-4 py-2 ml-5 font-bold text-white bg-blue-500 rounded" @click="isAddModal = true">
+              <button
+                class="block px-6 py-2.5 ml-5 text-white dark:text-gray-300 bg-blue-600 rounded-lg hover:bg-blue-700"
+                @click="isAddModal = true">
                 Qo'shish
               </button>
             </div>
@@ -169,7 +196,7 @@
         </div>
         <div v-show="payments.length > 0"
           :class="{ 'overflow-hidden': total / 10 <= 1 || Object.keys(selectedPayment).length !== 0 }"
-          class="grid grid-cols-1 overflow-x-auto border rounded-lg shadow-lg payments-wrapper payment-table-h border-slate-200 dark:border-gray-600">
+          class="grid grid-cols-1 overflow-x-auto border rounded-lg shadow-lg payments-wrapper border-slate-200 dark:border-gray-600">
           <table class="w-full divide-y divide-gray-300 dark:divide-gray-600">
             <thead class="z-0 shadow sticky-top bg-slate-50 dark:shadow-gray-600">
               <tr class="font-semibold tracking-wide text-left text-gray-900 text-md dark:bg-gray-800 dark:text-gray-300">
@@ -177,7 +204,7 @@
                 <th scope="col" class="hidden px-4 py-3 md:table-cell">Vaqtlar</th>
                 <th scope="col" class="hidden px-4 py-3 md:table-cell">Xizmat</th>
                 <th scope="col" class="hidden px-4 py-3 md:table-cell">Murabbiy xizmati</th>
-                <th scope="col" class="hidden px-4 py-3 md:table-cell">HIsob kitob</th>
+                <th scope="col" class="hidden px-4 py-3 md:table-cell">Hisob kitob</th>
                 <th scope="col" class="hidden px-4 py-3 md:table-cell">To'lov holati</th>
               </tr>
             </thead>
@@ -246,8 +273,8 @@
 import SelectIcon from '../../assets/icons/SelectIcon.vue'
 import FunnelIcon from '../../assets/icons/FunnelIcon.vue'
 import TimesIcon from '../../assets/icons/TimesIcon.vue'
-import ArrowRightIcon from '../../assets/icons/ArrowRightIcon.vue'
 import UserBoldIcon from '../../assets/icons/UserBoldIcon.vue'
+import ArrowRightIcon from '../../assets/icons/ArrowRightIcon.vue'
 import SpinIcon from '../../assets/icons/SpinIcon.vue'
 import ModalCloseIcon from '../../assets/icons/ModalCloseIcon.vue'
 import { computed, onMounted, ref, reactive, watch } from 'vue'
@@ -264,8 +291,8 @@ import { Field, Form } from 'vee-validate'
 
 const store = useStore()
 
-const target = ref('.payments-wrapper')
 const distance = ref(200)
+const target = ref('.payments-wrapper')
 const URL = ref(import.meta.env.VITE_BASE_URL)
 
 const search = ref('')
@@ -287,7 +314,9 @@ const filterData = reactive({
 })
 
 const submitFilterData = () => {
-  refresher()
+  if (filterData.memberId || filterData.filterDateFrom || filterData.filterDateTo || filterData.paymentStatus || filterData.serviceId || filterData.trainerServicesId) {
+    refresher()
+  }
   openFilter.value = false
 }
 
@@ -314,10 +343,23 @@ const closePaymentInfoModal = () => {
 
 const clearFields = () => {
   selectedMember.value = ''
-  serviceMembersData.createdAt = ''
   serviceMembersData.memberId = ''
+  serviceMembersData.createdAt = ''
   serviceMembersData.serviceId = ''
   serviceMembersData.trainerServiceId = ''
+}
+
+const clearFilterDate = () => {
+  if (filterData.memberId || filterData.filterDateFrom || filterData.filterDateTo || filterData.paymentStatus || filterData.serviceId || filterData.trainerServicesId) {
+    filterData.memberId = null
+    filterData.serviceId = null
+    filterData.filterDateTo = null
+    filterData.paymentStatus = null
+    filterData.filterDateFrom = null
+    filterData.trainerServicesId = null
+    refresher()
+  }
+  openFilter.value = false
 }
 
 const members = computed(() => {
@@ -532,10 +574,3 @@ const createPayment = () => {
 
 onMounted(() => getMembers(), addSettingInStore(), getServices(), getTrainerServices())
 </script>
-  
-<style scoped>
-.payment-table-h {
-  max-height: 75vh;
-}
-</style>
-  
