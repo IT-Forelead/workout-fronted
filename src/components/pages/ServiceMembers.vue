@@ -70,7 +70,7 @@
         </div>
         <div class="mb-4">
           <label for="createdAt" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">
-            Ro'yxatlangan vaqti
+            Ro'yxatga olingan vaqti
           </label>
           <input v-model.lazy="serviceMembersData.createdAt" name="end" type="datetime-local"
             class="w-full text-sm text-left text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" />
@@ -217,7 +217,7 @@
         <div v-if="isLoading" class="flex items-start justify-center w-full h-10">
           <SpinIcon class="h-7 w-7" />
         </div>
-        <h1 v-if="isPaymentEmpty" class="text-xl text-center text-red-500">Ma'lumotlar bazasidan to'sssslovlar hisoboti
+        <h1 v-if="isPaymentEmpty" class="text-xl text-center text-red-500">Ma'lumotlar bazasidan to'lovlar hisoboti
           topilmadi!</h1>
       </div>
     </div>

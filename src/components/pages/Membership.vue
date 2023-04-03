@@ -27,38 +27,42 @@
             </div>
           </button>
           <div v-if="openFilter" ref="filterDropdown"
-            class="absolute mt-2 z-50 bg-white border rounded-lg top-16 right-[7rem] dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
-            <div class="p-3">
-              <label for="first_name" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Ism</label>
-              <input type="text" id="first_name" name="firstname" v-model="filterData.firstname"
-                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                placeholder="Ismingizni kiriting" required />
+            class="absolute p-3 space-y-4 z-50 bg-white border rounded-lg top-20 right-[10rem] dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 w-96">
+            <div>
+              <label class="mb-1 block" id="">Ismni tanlang</label>
+              <input type="text" v-model="filterData.firstname"
+                class="w-full rounded-lg border border-gray-600 bg-transparent p-2.5 dark:text-white text-sm text-gray-900"
+                placeholder="Ismini kiriting">
             </div>
-            <div class="p-3">
-              <label for="last_name" class="mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Familiya</label>
-              <input type="text" id="last_name" name="lastname" v-model="filterData.lastname"
-                class="w-full rounded-lg border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                placeholder="Familiya kiriting" required />
+            <div>
+              <label class="mb-1 block">Familyani kiriting</label>
+              <input type="text" v-model="filterData.lastname"
+                class="w-full rounded-lg border border-gray-700 bg-transparent p-2.5 dark:text-white text-sm text-gray-900"
+                placeholder="Familyani kiriting">
             </div>
-            <div class="px-3 mt-3">
-              <label for="last_name" class="font-medium text-gray-900 text-md dark:text-gray-300">Telefon
-                raqam</label>
-              <Field v-model="filterData.phone" v-mask="'+998(##) ###-##-##'" name="phone" type="phone"
-                class="w-full p-2.5 text-gray-500 bg-gray-100 border border-gray-200 outline-none text-md rounded-xl focus:bg-gray-200 focus:outline-none dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400 dark:border-gray-600"
-                placeholder="+998(99) 777-77-77" />
+            <div>
+              <label class="mb-1 block">Telefon raqamni tanlang</label>
+              <select v-model="filterData.phone"
+                class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                required>
+                <option value="null" selected disabled>Telefon raqamni tanlang</option>
+                <option v-for="member in members" :value="member.id">{{ phoneStyle(member.phone) }}</option>
+              </select>
             </div>
-            <div class="p-3">
-              <label for="" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Jins</label>
+            <div>
+              <label class="mb-1 block">Jinsni tanlang</label>
               <select v-model="filterData.gender"
                 class="border-1 w-full rounded-lg border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
-                <option value="null" selected>Jinsni tanlang</option>
+                <option value="null" disabled selected>Jinsi tanlang</option>
                 <option value="male">Erkak</option>
                 <option value="female">Ayol</option>
               </select>
             </div>
-            <div class="px-3 mb-3 w-96">
+            <div class="flex justify-between gap-x-3">
               <button @click="submitFilterData()"
-                class="w-full p-2 mt-4 font-bold text-white bg-blue-700 rounded">Filtr</button>
+                class="p-2 font-bold w-1/2 text-white bg-blue-700 rounded">Filtr</button>
+              <button @click="clearFilterDate()"
+                class="p-2 font-bold w-1/2 text-white bg-blue-700 rounded">Tozalash</button>
             </div>
           </div>
           <button @click="openAddMemberModal()"
@@ -339,6 +343,8 @@ import 'v3-infinite-loading/lib/style.css'
 import SingleMemberData from './Membership/SingleMemberData.vue'
 import authHeader from '../../services/auth-header.js'
 import TimesIcon from '../../assets/icons/TimesIcon.vue'
+import { phoneStyle } from "../../utils/utils.js";
+import { filter } from 'lodash'
 
 const store = useStore()
 
@@ -599,13 +605,26 @@ const total = ref(0)
 
 const filterData = reactive({
   phone: null,
+  gender: null,
   lastname: null,
   firstname: null,
-  gender: null,
 })
 
 const submitFilterData = () => {
   refresher()
+  openFilter.value = false
+}
+
+const clearFilterDate = () => {
+  if (filterData.memberId || filterData.filterDateFrom || filterData.filterDateTo || filterData.paymentStatus || filterData.serviceId || filterData.trainerServicesId) {
+    filterData.memberId = null
+    filterData.serviceId = null
+    filterData.filterDateTo = null
+    filterData.paymentStatus = null
+    filterData.filterDateFrom = null
+    filterData.trainerServicesId = null
+    refresher()
+  }
   openFilter.value = false
 }
 
