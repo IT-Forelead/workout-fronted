@@ -31,23 +31,21 @@
             <div>
               <label class="block mb-1" id="">Ismni tanlang</label>
               <input type="text" v-model="filterData.firstname"
-                class="w-full rounded-lg border border-gray-600 bg-transparent p-2.5 dark:text-white text-sm text-gray-900"
+                class="w-full rounded-lg border border-gray-300 bg-transparent p-2.5 dark:text-white text-sm text-gray-900"
                 placeholder="Ismini kiriting">
             </div>
             <div>
               <label class="block mb-1">Familyani kiriting</label>
               <input type="text" v-model="filterData.lastname"
-                class="w-full rounded-lg border border-gray-700 bg-transparent p-2.5 dark:text-white text-sm text-gray-900"
+                class="w-full rounded-lg border border-gray-300 bg-transparent p-2.5 dark:text-white text-sm text-gray-900"
                 placeholder="Familyani kiriting">
             </div>
             <div>
-              <label class="block mb-1">Telefon raqamni tanlang</label>
-              <select v-model="filterData.phone"
-                class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                required>
-                <option value="null" selected disabled>Telefon raqamni tanlang</option>
-                <option v-for="member in members" :value="member.id">{{ phoneStyle(member.phone) }}</option>
-              </select>
+              <label for="phone" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Telefon
+                raqamni kiriting</label>
+              <input v-model="filterData.phone" name="phone" v-mask="'+998(##) ###-##-##'" id="phone"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                placeholder="+998(90) 123-45-67" />
             </div>
             <div>
               <label class="block mb-1">Jinsni tanlang</label>
@@ -316,6 +314,7 @@
         </div>
       </div>
     </div>
+
     <div v-show="isLoading" class="flex items-start justify-center w-full h-10">
       <SpinIcon class="w-7 h-7" />
     </div>
@@ -348,9 +347,10 @@ import { filter } from 'lodash'
 
 const store = useStore()
 
-const isAddMemberModalOpen = ref(false)
-const showContent = ref(false)
 const isClear = ref(false)
+const lastMessage = ref('')
+const showContent = ref(false)
+const isAddMemberModalOpen = ref(false)
 
 const registerMemberProcess = reactive({
   registerMode: false,
@@ -358,44 +358,42 @@ const registerMemberProcess = reactive({
   congratulationMode: false,
 })
 
-const lastMessage = ref('')
-
 const registerStatus = reactive({
-  inProgress: true,
   done: false,
+  inProgress: true,
 })
 
 const checkingStatus = reactive({
+  done: false,
   default: true,
   inProgress: false,
-  done: false,
 })
 
 const congratulationStatus = reactive({
+  done: false,
   default: true,
   inProgress: false,
-  done: false,
 })
 
 const member = reactive({
-  image: null,
-  firstname: '',
-  lastname: '',
-  birthday: '',
   phone: '',
   gender: '',
+  image: null,
+  lastname: '',
+  birthday: '',
+  firstname: '',
   smsConfirmation: true,
 })
 
 function clearFields() {
-  member.image = null
-  member.firstname = ''
-  member.lastname = ''
-  member.birthday = ''
   member.phone = ''
   member.gender = ''
-  member.smsConfirmation = true
+  member.image = null
+  member.lastname = ''
+  member.birthday = ''
+  member.firstname = ''
   confirmCode.value = ''
+  member.smsConfirmation = true
 }
 
 const confirmCode = ref('')
@@ -584,10 +582,10 @@ const createMember = () => {
 }
 
 // Filter By
-const openFilter = ref(false)
-const filterDropdown = ref(null)
-const currentFilter = ref('')
 const isLoading = ref(false)
+const openFilter = ref(false)
+const currentFilter = ref('')
+const filterDropdown = ref(null)
 
 onClickOutside(filterDropdown, () => {
   if (openFilter.value) openFilter.value = false
@@ -599,8 +597,8 @@ const defaultView = () => {
   loadLastAddedMember()
 }
 // Load members when scrolling
-const members = ref([])
 const total = ref(0)
+const members = ref([])
 
 const filterData = reactive({
   phone: null,
@@ -622,7 +620,6 @@ const clearFilterDate = () => {
     filterData.phone = null
     refresher()
   }
-  openFilter.value = false
 }
 
 const API_URL = import.meta.env.VITE_BASE_URL;
@@ -634,8 +631,8 @@ const loadMember = async ($state) => {
       const response = await fetch(API_URL + '/member/' + page, {
         method: 'POST',
         body: JSON.stringify({
-          firstname: filterData.firstname ? `%${filterData.firstname}%`: null,
-          lastname: filterData.lastname ? `%${filterData.lastname}%`: null,
+          firstname: filterData.firstname ? `%${filterData.firstname}%` : null,
+          lastname: filterData.lastname ? `%${filterData.lastname}%` : null,
           gender: filterData.gender,
           phone: filterData.phone
         }),
@@ -659,11 +656,11 @@ const loadLastAddedMember = async () => {
     const response = await fetch(API_URL + '/member/' + page, {
       method: 'POST',
       body: JSON.stringify({
-          firstname: filterData.firstname ? `%${filterData.firstname}%`: null,
-          lastname: filterData.lastname ? `%${filterData.lastname}%`: null,
-          gender: filterData.gender,
-          phone: filterData.phone
-        }),
+        firstname: filterData.firstname ? `%${filterData.firstname}%` : null,
+        lastname: filterData.lastname ? `%${filterData.lastname}%` : null,
+        gender: filterData.gender,
+        phone: filterData.phone
+      }),
       headers: authHeader(),
     })
     const json = await response.json()
@@ -685,8 +682,8 @@ const loadFiltered = async () => {
       const response = await fetch(API_URL + '/member/' + page, {
         method: 'POST',
         body: JSON.stringify({
-          firstname: filterData.firstname ? `%${filterData.firstname}%`: null,
-          lastname: filterData.lastname ? `%${filterData.lastname}%`: null,
+          firstname: filterData.firstname ? `%${filterData.firstname}%` : null,
+          lastname: filterData.lastname ? `%${filterData.lastname}%` : null,
           gender: filterData.gender,
           phone: filterData.phone
         }),

@@ -1,6 +1,6 @@
 <template>
   <div class="h-full px-5">
-    <div v-if="isModal" class="fixed top-0 bottom-0 left-0 right-0 z-10 backdrop-brightness-50 backdrop-blur-sm"></div>
+    <Overview v-if="isModal" />
     <div v-if="isModal"
       class="fixed z-10 p-3 px-5 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg w-96 top-1/2 left-1/2 dark:bg-gray-800 dark:text-gray-300">
       <div class="flex justify-between">
@@ -13,13 +13,13 @@
       <hr class="mb-6 border border-gray-200 bottom-1 dark:border-gray-600" />
       <form @submit.prevent="createPayment()">
         <div class="mb-4">
-          <label for="service" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">Tarif</label>
-          <select v-model="paymentData.serviceId" id="service"
+          <label for="service" class="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-300">To'lovchi</label>
+          <select v-model="paymentData.serviceMembersId" id="service"
             class="w-full text-sm text-left text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
-            <option value="" selected>Tarif tanlash</option>
-            <option value="" selected>Tarif tanlash</option>
-            <option value="" selected>Tarif tanlash</option>
-            <!-- <option v-for="(service, idx) in services" :key="idx" :value="service.id">{{ service.name }}</option> -->
+            <option value="" selected disabled>To'lovchini tanlang</option>
+            <option :value="serviceMember.serviceMembers.id" v-for="serviceMember in serviceMembers">{{
+              `${serviceMember.member.firstname}
+                          ${serviceMember.member.lastname} ${serviceMember.service.name}` }}</option>
           </select>
         </div>
         <div class="mb-4">
@@ -59,7 +59,9 @@
                     class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                     required>
                     <option value="null" selected disabled>Xizmat turini tanlang</option>
-                    <option v-for="service in services" :value="service.id">{{ service.name }}</option>
+                    <option v-for="payment in payments" :value="payment.serviceMembers.serviceMembers.id">{{
+                      payment.serviceMembers.service.name }}
+                    </option>
                   </select>
                 </div>
                 <div class="flex items-center p-3">
@@ -173,6 +175,7 @@
 </template>
 
 <script setup>
+import Overview from '../Overview.vue'
 import PaymentItem from './Payments/PaymentItem.vue'
 import SpinIcon from '../../assets/icons/SpinIcon.vue'
 import TimesIcon from '../../assets/icons/TimesIcon.vue'
@@ -191,24 +194,22 @@ import { cleanObjectEmptyFields } from '../../utils/utils.js'
 
 const store = useStore()
 
-const target = ref('.payments-wrapper')
 const distance = ref(200)
-const URL = ref(import.meta.env.VITE_BASE_URL)
-
-const search = ref('')
 const isModal = ref(false)
 const selectedMember = ref('')
+const target = ref('.payments-wrapper')
+const URL = ref(import.meta.env.VITE_BASE_URL)
 
 const moneyConf = {
+  precision: 0,
   thousands: ' ',
   suffix: ' UZS',
-  precision: 0,
 }
 
 // Filter By
 const openFilter = ref(false)
-const filterDropdown = ref(null)
 const currentFilter = ref('')
+const filterDropdown = ref(null)
 
 onClickOutside(filterDropdown, () => {
   if (openFilter.value) openFilter.value = false
@@ -221,8 +222,6 @@ const defaultView = () => {
   loadLastAddedPayment()
 }
 
-const saveMemberId = (member) => (selectedMember.value = member)
-
 const selectedPayment = computed(() => {
   return store.state.selectedPayment
 })
@@ -232,29 +231,10 @@ const closePaymentInfoModal = () => {
 }
 
 const clearFields = () => {
-  paymentData.memberId = ''
-  paymentData.paymentType = 'monthly'
-  paymentData.serviceId = ''
-  paymentData.trainerServiceId = ''
   paymentData.cost = 0
   selectedMember.value = ''
+  paymentData.serviceMembersId = ''
 }
-
-const members = computed(() => {
-  return store.state.members.filter((member) => member.firstname.toLowerCase().includes(search.value.toLowerCase()))
-})
-
-const trainers = computed(() => {
-  return store.state.trainers
-})
-
-const services = computed(() => {
-  return store.state.services
-})
-
-const trainerServices = computed(() => {
-  return store.state.trainerServices
-})
 
 const serviceMembers = computed(() => {
   return store.state.serviceMembers
@@ -284,10 +264,26 @@ const filterData = reactive({
   serviceMembersId: null
 })
 
-const payments = ref([])
+const submitFilterData = () => {
+  if (filterData.serviceMembersId || filterData.filterDateFrom || filterData.filterDateTo) {
+    refresher()
+  }
+  openFilter.value = false
+}
+
+const clearFilterDate = () => {
+  if (filterData.serviceMembersId || filterData.filterDateFrom || filterData.filterDateTo) {
+    filterData.filterDateTo = null
+    filterData.filterDateFrom = null
+    filterData.serviceMembersId = null
+    refresher()
+  }
+}
+
 const total = ref(0)
-const isPaymentEmpty = ref(false)
+const payments = ref([])
 const isLoading = ref(true)
+const isPaymentEmpty = ref(false)
 const API_URL = import.meta.env.VITE_BASE_URL;
 
 let page = 0
@@ -357,26 +353,8 @@ const refresher = () => {
 }
 
 watch(
-  () => filterData.typeBy,
-  () => refresher(),
-  { deep: true }
-)
-
-watch(
   () => selectedMember.value,
-  () => paymentData.memberId = selectedMember.value.id,
-  { deep: true }
-)
-
-watch(
-  () => filterData.filterDateFrom,
-  () => refresher(),
-  { deep: true }
-)
-
-watch(
-  () => filterData.filterDateTo,
-  () => refresher(),
+  () => paymentData.serviceMembersId = selectedMember.value.id,
   { deep: true }
 )
 
@@ -438,22 +416,14 @@ const addSettingInStore = () => {
 }
 
 const paymentData = reactive({
-  memberId: '',
-  paymentType: 'monthly',
   cost: 0,
-  serviceId: '',
-  trainerServiceId: '',
+  serviceMembersId: '',
 })
 
 const createPayment = () => {
-  if (!paymentData.memberId) {
+  if (!paymentData.serviceMembersId) {
     notify.warning({
       message: "Iltimos, to'lovchini tanlang!",
-      position: 'bottomLeft',
-    })
-  } else if (!paymentData.serviceId) {
-    notify.warning({
-      message: "Iltimos, tarifni tanlang!",
       position: 'bottomLeft',
     })
   } else if (paymentData.cost == 0) {
