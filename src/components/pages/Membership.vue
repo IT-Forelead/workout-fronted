@@ -29,19 +29,19 @@
           <div v-if="openFilter" ref="filterDropdown"
             class="absolute p-3 space-y-4 z-50 bg-white border rounded-lg top-20 right-[10rem] dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 w-96">
             <div>
-              <label class="mb-1 block" id="">Ismni tanlang</label>
+              <label class="block mb-1" id="">Ismni tanlang</label>
               <input type="text" v-model="filterData.firstname"
                 class="w-full rounded-lg border border-gray-600 bg-transparent p-2.5 dark:text-white text-sm text-gray-900"
                 placeholder="Ismini kiriting">
             </div>
             <div>
-              <label class="mb-1 block">Familyani kiriting</label>
+              <label class="block mb-1">Familyani kiriting</label>
               <input type="text" v-model="filterData.lastname"
                 class="w-full rounded-lg border border-gray-700 bg-transparent p-2.5 dark:text-white text-sm text-gray-900"
                 placeholder="Familyani kiriting">
             </div>
             <div>
-              <label class="mb-1 block">Telefon raqamni tanlang</label>
+              <label class="block mb-1">Telefon raqamni tanlang</label>
               <select v-model="filterData.phone"
                 class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                 required>
@@ -50,7 +50,7 @@
               </select>
             </div>
             <div>
-              <label class="mb-1 block">Jinsni tanlang</label>
+              <label class="block mb-1">Jinsni tanlang</label>
               <select v-model="filterData.gender"
                 class="border-1 w-full rounded-lg border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
                 <option value="null" disabled selected>Jinsi tanlang</option>
@@ -60,9 +60,9 @@
             </div>
             <div class="flex justify-between gap-x-3">
               <button @click="submitFilterData()"
-                class="p-2 font-bold w-1/2 text-white bg-blue-700 rounded">Filtr</button>
+                class="w-1/2 p-2 font-bold text-white bg-blue-700 rounded">Filtr</button>
               <button @click="clearFilterDate()"
-                class="p-2 font-bold w-1/2 text-white bg-blue-700 rounded">Tozalash</button>
+                class="w-1/2 p-2 font-bold text-white bg-blue-700 rounded">Tozalash</button>
             </div>
           </div>
           <button @click="openAddMemberModal()"
@@ -595,7 +595,6 @@ onClickOutside(filterDropdown, () => {
 
 const defaultView = () => {
   currentFilter.value = ''
-  filterData.typeBy = null
   page = 1
   loadLastAddedMember()
 }
@@ -616,13 +615,11 @@ const submitFilterData = () => {
 }
 
 const clearFilterDate = () => {
-  if (filterData.memberId || filterData.filterDateFrom || filterData.filterDateTo || filterData.paymentStatus || filterData.serviceId || filterData.trainerServicesId) {
-    filterData.memberId = null
-    filterData.serviceId = null
-    filterData.filterDateTo = null
-    filterData.paymentStatus = null
-    filterData.filterDateFrom = null
-    filterData.trainerServicesId = null
+  if (filterData.firstname || filterData.lastname || filterData.gender || filterData.phone) {
+    filterData.firstname = null
+    filterData.lastname = null
+    filterData.gender = null
+    filterData.phone = null
     refresher()
   }
   openFilter.value = false
