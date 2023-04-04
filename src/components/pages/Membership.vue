@@ -633,7 +633,12 @@ const loadMember = async ($state) => {
     try {
       const response = await fetch(API_URL + '/member/' + page, {
         method: 'POST',
-        body: JSON.stringify(filterData),
+        body: JSON.stringify({
+          firstname: filterData.firstname ? `%${filterData.firstname}%`: null,
+          lastname: filterData.lastname ? `%${filterData.lastname}%`: null,
+          gender: filterData.gender,
+          phone: filterData.phone
+        }),
         headers: authHeader(),
       })
       const json = await response.json()
@@ -653,7 +658,12 @@ const loadLastAddedMember = async () => {
   try {
     const response = await fetch(API_URL + '/member/' + page, {
       method: 'POST',
-      body: JSON.stringify(filterData),
+      body: JSON.stringify({
+          firstname: filterData.firstname ? `%${filterData.firstname}%`: null,
+          lastname: filterData.lastname ? `%${filterData.lastname}%`: null,
+          gender: filterData.gender,
+          phone: filterData.phone
+        }),
       headers: authHeader(),
     })
     const json = await response.json()
@@ -674,7 +684,12 @@ const loadFiltered = async () => {
     try {
       const response = await fetch(API_URL + '/member/' + page, {
         method: 'POST',
-        body: JSON.stringify(filterData),
+        body: JSON.stringify({
+          firstname: filterData.firstname ? `%${filterData.firstname}%`: null,
+          lastname: filterData.lastname ? `%${filterData.lastname}%`: null,
+          gender: filterData.gender,
+          phone: filterData.phone
+        }),
         headers: authHeader(),
       })
       const json = await response.json()
