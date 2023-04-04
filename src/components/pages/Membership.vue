@@ -80,11 +80,11 @@
     <div v-if="isAddMemberModalOpen" class="fixed inset-0 z-50 overflow-x-hidden overflow-y-auto backdrop-brightness-50">
       <div class="relative w-full max-w-5xl mt-16 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 md:mt-0"
         :class="{ 'mt-0': registerMemberProcess.checkingMode || registerMemberProcess.congratulationMode }">
-        <div class="relative bg-white shadow-lg dark:bg-gray-800">
+        <div class="relative bg-white rounded-lg shadow-lg dark:bg-gray-800">
           <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
             <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Yangi a'zo qo'shish</h3>
             <button type="button" @click="closeAddMemberModal()"
-              class="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
+              class="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 my-2 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
               data-modal-toggle="defaultModal">
               <ModalCloseIcon />
             </button>

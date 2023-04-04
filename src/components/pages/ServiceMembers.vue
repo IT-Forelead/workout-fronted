@@ -6,7 +6,7 @@
       <div class="flex justify-between">
         <h3 class="mb-3 text-2xl font-extrabold">To'lov qo'shish</h3>
         <div @click="isAddModal = false"
-          class="flex items-center justify-center w-8 h-8 duration-300 rounded-full cursor-pointer hover:bg-red-500 hover:text-white">
+        class="ml-auto inline-flex my-2 items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white">
           <ModalCloseIcon />
         </div>
       </div>
@@ -120,7 +120,7 @@
               <div v-if="openFilter" ref="filterDropdown"
                 class="absolute p-3 space-y-4 z-50 bg-white border rounded-lg top-16 right-[8rem] dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
                 <div>
-                  <label for="" class="mb-1 block">Foydalanuvchini tanlang</label>
+                  <label for="" class="block mb-1">Foydalanuvchini tanlang</label>
                   <select v-model="filterData.memberId"
                     class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                     required>
@@ -131,7 +131,7 @@
                   </select>
                 </div>
                 <div>
-                  <label for="" class="mb-1 block">Xizmat turini tanlang</label>
+                  <label for="" class="block mb-1">Xizmat turini tanlang</label>
                   <select v-model="filterData.serviceId"
                     class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                     required>
@@ -140,7 +140,7 @@
                   </select>
                 </div>
                 <div>
-                  <label for="" class="mb-1 block">Murabbiy xizmatini tanlang</label>
+                  <label for="" class="block mb-1">Murabbiy xizmatini tanlang</label>
                   <select v-model="filterData.trainerServicesId"
                     class="w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                     required>
@@ -150,7 +150,7 @@
                   </select>
                 </div>
                 <div>
-                  <label for="" class="mb-1 block">To'lov holatini tanlang</label>
+                  <label for="" class="block mb-1">To'lov holatini tanlang</label>
                   <select v-model="filterData.paymentStatus"
                     class="border-1 w-full rounded-lg border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
                     <option value="null" disabled selected>To'lov holatini tanlang</option>
@@ -160,7 +160,7 @@
                     <option value="canceled">Bekor qilingan</option>
                   </select>
                 </div>
-                <div class="flex mt-2 items-center">
+                <div class="flex items-center mt-2">
                   <div class="relative">
                     <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                       <span class="text-sm text-gray-600 dark:text-gray-300"> dan </span>
@@ -181,9 +181,9 @@
                 </div>
                 <div class="flex justify-between gap-x-3">
                   <button @click="submitFilterData()"
-                    class="p-2 font-bold w-1/2 text-white bg-blue-700 rounded">Filtr</button>
+                    class="w-1/2 p-2 font-bold text-white bg-blue-700 rounded">Filtr</button>
                   <button @click="clearFilterDate()"
-                    class="p-2 font-bold w-1/2 text-white bg-blue-700 rounded">Tozalash</button>
+                    class="w-1/2 p-2 font-bold text-white bg-blue-700 rounded">Tozalash</button>
                 </div>
               </div>
               <button

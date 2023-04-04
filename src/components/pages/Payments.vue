@@ -6,7 +6,7 @@
       <div class="flex justify-between">
         <h3 class="mb-3 text-2xl font-extrabold">To'lov qo'shish</h3>
         <div @click="isModal = false"
-          class="flex items-center justify-center w-8 h-8 duration-300 rounded-full cursor-pointer hover:bg-red-500 hover:text-white">
+          class="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 my-2 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white">
           <ModalCloseIcon />
         </div>
       </div>
@@ -40,7 +40,7 @@
         <div class="flex items-center justify-between p-1 mb-5">
           <h3 class="mb-3 ml-2 text-2xl font-extrabold dark:text-gray-300">To'lovlar</h3>
           <div class="relative hidden lg:flex lg:items-center lg:justify-between">
-            <div class="flex items-center mr-3 relative">
+            <div class="relative flex items-center mr-3">
               <button @click="openFilter = !openFilter"
                 class="ml-5 flex flex-nowrap justify-center rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-center text-gray-900 hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:border-0 dark:bg-blue-600 dark:text-gray-300 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto lg:inline-block">
                 <div class="flex items-center">
@@ -62,7 +62,7 @@
                     <option v-for="service in services" :value="service.id">{{ service.name }}</option>
                   </select>
                 </div>
-                <div class="flex p-3 items-center">
+                <div class="flex items-center p-3">
                   <div class="relative">
                     <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                       <span class="text-sm text-gray-600 dark:text-gray-300"> dan </span>
@@ -81,11 +81,11 @@
                       placeholder="Select date start" />
                   </div>
                 </div>
-                <div class="px-3 my-3 flex gap-x-3">
+                <div class="flex px-3 my-3 gap-x-3">
                   <button @click="submitFilterData()"
-                    class="p-2 font-bold w-1/2 text-white bg-blue-700 rounded">Filtr</button>
+                    class="w-1/2 p-2 font-bold text-white bg-blue-700 rounded">Filtr</button>
                   <button @click="clearFilterDate()"
-                    class="p-2 font-bold w-1/2 text-white bg-blue-700 rounded">Tozalash</button>
+                    class="w-1/2 p-2 font-bold text-white bg-blue-700 rounded">Tozalash</button>
                 </div>
               </div>
               <button
