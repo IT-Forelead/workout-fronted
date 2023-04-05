@@ -99,8 +99,7 @@
           </div>
         </div>
         <div v-show="payments.length > 0"
-          :class="{ 'overflow-hidden': total / 10 <= 1 || Object.keys(selectedPayment).length !== 0 }"
-          class="grid grid-cols-1 overflow-x-auto border rounded-lg shadow-lg payments-wrapper payment-table-h border-slate-200 dark:border-gray-600">
+          class="grid grid-cols-1 overflow-auto border rounded-lg shadow-lg payments-wrapper max-h-[75vh] border-slate-200 dark:border-gray-600">
           <table class="w-full divide-y divide-gray-300 dark:divide-gray-600">
             <thead class="z-0 shadow sticky-top bg-slate-50 dark:shadow-gray-600">
               <tr class="font-semibold tracking-wide text-left text-gray-900 text-md dark:bg-gray-800 dark:text-gray-300">
@@ -438,6 +437,8 @@ const createPayment = () => {
           message: "To'lov muvaffaqiyatli qayd etildi!",
           position: 'bottomLeft',
         })
+        isModal.value = false
+        refresher
         clearFields()
         page = 1
         loadLastAddedPayment()
@@ -498,9 +499,5 @@ input[type='radio'].toggle:checked+label>span {
 
 input[type='radio'].toggle:checked+label:after {
   left: 0;
-}
-
-.payment-table-h {
-  max-height: 75vh;
 }
 </style>

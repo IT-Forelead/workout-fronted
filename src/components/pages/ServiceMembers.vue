@@ -147,9 +147,7 @@
             </div>
           </div>
         </div>
-        <div v-show="payments.length > 0"
-          :class="{ 'overflow-hidden': total / 10 <= 1 || Object.keys(selectedPayment).length !== 0 }"
-          class="grid grid-cols-1 overflow-x-auto border rounded-lg shadow-lg payments-wrapper border-slate-200 dark:border-gray-600">
+        <div v-show="payments.length > 0" class="grid grid-cols-1 overflow-auto max-h-[75vh] border rounded-lg shadow-lg payments-wrapper border-slate-200 dark:border-gray-600">
           <table class="w-full divide-y divide-gray-300 dark:divide-gray-600">
             <thead class="z-0 shadow sticky-top bg-slate-50 dark:shadow-gray-600">
               <tr class="font-semibold tracking-wide text-left text-gray-900 text-md dark:bg-gray-800 dark:text-gray-300">
@@ -509,6 +507,8 @@ const createPayment = () => {
           message: "Mijoz muvaffaqiyatli ro'yhatga olindi",
           position: 'bottomLeft',
         })
+        isAddModal.value = false
+        refresher()
         clearFields()
         page = 1
         loadLastAddedPayment()

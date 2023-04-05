@@ -40,13 +40,13 @@
                 class="w-full rounded-lg border border-gray-300 bg-transparent p-2.5 dark:text-white text-sm text-gray-900"
                 placeholder="Familyani kiriting">
             </div>
-            <div>
-              <label for="phone" class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Telefon
+            <!-- <div>
+              <label class="block mb-2 font-medium text-gray-900 text-md dark:text-gray-300">Telefon
                 raqamni kiriting</label>
-              <input v-model="filterData.phone" name="phone" v-mask="'+998(##) ###-##-##'" id="phone"
+              <input v-model="filterData.phone" v-mask="'+998(##) ###-##-##'"
                 class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                 placeholder="+998(90) 123-45-67" />
-            </div>
+            </div> -->
             <div>
               <label class="block mb-1">Jinsni tanlang</label>
               <select v-model="filterData.gender"
@@ -634,7 +634,7 @@ const loadMember = async ($state) => {
           firstname: filterData.firstname ? `%${filterData.firstname}%` : null,
           lastname: filterData.lastname ? `%${filterData.lastname}%` : null,
           gender: filterData.gender,
-          phone: filterData.phone
+          // phone: filterData.phone.replaceAll(/[^\w\s]/g, '').replaceAll(/\s+/g, '')
         }),
         headers: authHeader(),
       })
@@ -659,7 +659,7 @@ const loadLastAddedMember = async () => {
         firstname: filterData.firstname ? `%${filterData.firstname}%` : null,
         lastname: filterData.lastname ? `%${filterData.lastname}%` : null,
         gender: filterData.gender,
-        phone: filterData.phone
+        // phone: filterData.phone.replaceAll(/[^\w\s]/g, '').replaceAll(/\s+/g, '')
       }),
       headers: authHeader(),
     })
@@ -685,7 +685,7 @@ const loadFiltered = async () => {
           firstname: filterData.firstname ? `%${filterData.firstname}%` : null,
           lastname: filterData.lastname ? `%${filterData.lastname}%` : null,
           gender: filterData.gender,
-          phone: filterData.phone
+          // phone: filterData.phone.replaceAll(/[^\w\s]/g, '').replaceAll(/\s+/g, '')
         }),
         headers: authHeader(),
       })
